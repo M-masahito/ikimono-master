@@ -5,7 +5,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "畑や公園でよく見られる白いチョウ。",
-    "image": "./images/001.webp"
+    "image": "./images/001.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 2,
@@ -13,7 +16,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "黄色いはねが目立つ身近なチョウ。",
-    "image": "./images/002.webp"
+    "image": "./images/002.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 3,
@@ -21,7 +27,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "大きなはねと美しい模様をもつチョウ。",
-    "image": "./images/003.webp"
+    "image": "./images/003.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 4,
@@ -29,7 +38,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 3,
     "description": "黒いはねが特徴の大型のチョウ。",
-    "image": "./images/004.webp"
+    "image": "./images/004.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 5,
@@ -37,7 +49,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 5,
     "description": "日本を代表する大型の美しいチョウ。",
-    "image": "./images/005.webp"
+    "image": "./images/005.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 6,
@@ -45,7 +60,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "細長い体をした草むらのバッタ。",
-    "image": "./images/006.webp"
+    "image": "./images/006.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 7,
@@ -53,7 +71,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "力強く飛ぶ大型のバッタ。",
-    "image": "./images/007.webp"
+    "image": "./images/007.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 8,
@@ -61,7 +82,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "小さな個体が大きな個体の背に乗ることがある。",
-    "image": "./images/008.webp"
+    "image": "./images/008.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 9,
@@ -69,7 +93,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "秋に美しい声で鳴く昆虫。",
-    "image": "./images/009.webp"
+    "image": "./images/009.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 10,
@@ -77,7 +104,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "草むらで暮らし大きな声で鳴く。",
-    "image": "./images/010.webp"
+    "image": "./images/010.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 11,
@@ -85,7 +115,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "鎌のような前脚で獲物を捕らえる。",
-    "image": "./images/011.webp"
+    "image": "./images/011.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 12,
@@ -93,7 +126,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 3,
     "description": "腹が幅広く木の上にも多いカマキリ。",
-    "image": "./images/012.webp"
+    "image": "./images/012.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 13,
@@ -101,7 +137,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "枝そっくりの姿で身を隠す昆虫。",
-    "image": "./images/013.webp"
+    "image": "./images/013.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 14,
@@ -109,7 +148,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "茶色いはねをもつ夏の代表的なセミ。",
-    "image": "./images/014.webp"
+    "image": "./images/014.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 15,
@@ -117,7 +159,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "透明なはねと大きな鳴き声が特徴。",
-    "image": "./images/015.webp"
+    "image": "./images/015.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 16,
@@ -125,7 +170,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "ミーンミンミンと鳴くセミ。",
-    "image": "./images/016.webp"
+    "image": "./images/016.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 17,
@@ -133,7 +181,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "夏の終わりごろによく鳴くセミ。",
-    "image": "./images/017.webp"
+    "image": "./images/017.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 18,
@@ -141,7 +192,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 3,
     "description": "夕方にカナカナと美しく鳴く。",
-    "image": "./images/018.webp"
+    "image": "./images/018.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 19,
@@ -149,7 +203,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "赤い体に黒い点がある身近な昆虫。",
-    "image": "./images/019.webp"
+    "image": "./images/019.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 20,
@@ -157,7 +214,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "樹液に集まる緑色や銅色の甲虫。",
-    "image": "./images/020.webp"
+    "image": "./images/020.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 21,
@@ -165,7 +225,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "花に集まり花粉や蜜を食べる甲虫。",
-    "image": "./images/021.webp"
+    "image": "./images/021.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 22,
@@ -173,7 +236,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "光沢のある体をもつ甲虫の仲間。",
-    "image": "./images/022.webp"
+    "image": "./images/022.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 23,
@@ -181,7 +247,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 3,
     "description": "大きな角をもつ夏の人気者。",
-    "image": "./images/023.webp"
+    "image": "./images/023.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 24,
@@ -189,7 +258,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 2,
     "description": "小型で身近なクワガタ。",
-    "image": "./images/024.webp"
+    "image": "./images/024.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 25,
@@ -197,7 +269,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 3,
     "description": "大あごがのこぎり状に曲がるクワガタ。",
-    "image": "./images/025.webp"
+    "image": "./images/025.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 26,
@@ -205,7 +280,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "平たい体と力強い大あごをもつ。",
-    "image": "./images/026.webp"
+    "image": "./images/026.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 27,
@@ -213,7 +291,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "頭の後ろの張り出しが特徴。",
-    "image": "./images/027.webp"
+    "image": "./images/027.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 28,
@@ -221,7 +302,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 5,
     "description": "大型で希少なクワガタ。",
-    "image": "./images/028.webp"
+    "image": "./images/028.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 29,
@@ -229,7 +313,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "虹色に輝く美しい甲虫。",
-    "image": "./images/029.webp"
+    "image": "./images/029.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 30,
@@ -237,7 +324,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 5,
     "description": "青い体に黒い斑点をもつ美しいカミキリムシ。",
-    "image": "./images/030.webp"
+    "image": "./images/030.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 31,
@@ -245,7 +335,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 1,
     "description": "水面をすべるように移動する昆虫。",
-    "image": "./images/031.webp"
+    "image": "./images/031.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 32,
@@ -253,7 +346,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "細長い体で水中の小動物を捕らえる。",
-    "image": "./images/032.webp"
+    "image": "./images/032.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 33,
@@ -261,7 +357,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "水中で暮らす平たい体の昆虫。",
-    "image": "./images/033.webp"
+    "image": "./images/033.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 34,
@@ -269,7 +368,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 5,
     "description": "水中を力強く泳ぐ大型の甲虫。",
-    "image": "./images/034.webp"
+    "image": "./images/034.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 35,
@@ -277,7 +379,10 @@ window.IKIMONO_CATALOG = [
     "category": "昆虫",
     "rarity": 4,
     "description": "夜に光を放つことで知られる昆虫。",
-    "image": "./images/035.webp"
+    "image": "./images/035.webp",
+    "season": "春〜秋",
+    "habitat": "公園・草むら・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 36,
@@ -285,7 +390,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 1,
     "description": "小川や池に暮らす小さな魚。",
-    "image": "./images/036.webp"
+    "image": "./images/036.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 37,
@@ -293,7 +401,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "泥の中にもぐる細長い魚。",
-    "image": "./images/037.webp"
+    "image": "./images/037.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 38,
@@ -301,7 +412,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "池や川に広く暮らす淡水魚。",
-    "image": "./images/038.webp"
+    "image": "./images/038.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 39,
@@ -309,7 +423,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 1,
     "description": "池や川でよく見られる大型の魚。",
-    "image": "./images/039.webp"
+    "image": "./images/039.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 40,
@@ -317,7 +434,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 3,
     "description": "口元のひげが特徴の夜行性の魚。",
-    "image": "./images/040.webp"
+    "image": "./images/040.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 41,
@@ -325,7 +445,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 3,
     "description": "きれいな川に暮らし香魚とも呼ばれる。",
-    "image": "./images/041.webp"
+    "image": "./images/041.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 42,
@@ -333,7 +456,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "池や湖に暮らす外来魚。",
-    "image": "./images/042.webp"
+    "image": "./images/042.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 43,
@@ -341,7 +467,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "川の流れがある場所に多い魚。",
-    "image": "./images/043.webp"
+    "image": "./images/043.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 44,
@@ -349,7 +478,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "繁殖期の雄は鮮やかな色になる。",
-    "image": "./images/044.webp"
+    "image": "./images/044.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 45,
@@ -357,7 +489,10 @@ window.IKIMONO_CATALOG = [
     "category": "魚",
     "rarity": 2,
     "description": "平たい体をした外来魚。",
-    "image": "./images/045.webp"
+    "image": "./images/045.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 46,
@@ -365,7 +500,10 @@ window.IKIMONO_CATALOG = [
     "category": "両生類",
     "rarity": 1,
     "description": "緑色の体で木や草に登る小さなカエル。",
-    "image": "./images/046.webp"
+    "image": "./images/046.webp",
+    "season": "春〜夏",
+    "habitat": "田んぼ・池・水辺",
+    "size": "種類によって異なります"
   },
   {
     "no": 47,
@@ -373,7 +511,10 @@ window.IKIMONO_CATALOG = [
     "category": "両生類",
     "rarity": 2,
     "description": "田んぼや池の周りに暮らすカエル。",
-    "image": "./images/047.webp"
+    "image": "./images/047.webp",
+    "season": "春〜夏",
+    "habitat": "田んぼ・池・水辺",
+    "size": "種類によって異なります"
   },
   {
     "no": 48,
@@ -381,7 +522,10 @@ window.IKIMONO_CATALOG = [
     "category": "両生類",
     "rarity": 2,
     "description": "大きな声で鳴く大型の外来カエル。",
-    "image": "./images/048.webp"
+    "image": "./images/048.webp",
+    "season": "春〜夏",
+    "habitat": "田んぼ・池・水辺",
+    "size": "種類によって異なります"
   },
   {
     "no": 49,
@@ -389,7 +533,10 @@ window.IKIMONO_CATALOG = [
     "category": "両生類",
     "rarity": 3,
     "description": "腹側の赤い模様が特徴の両生類。",
-    "image": "./images/049.webp"
+    "image": "./images/049.webp",
+    "season": "春〜夏",
+    "habitat": "田んぼ・池・水辺",
+    "size": "種類によって異なります"
   },
   {
     "no": 50,
@@ -397,7 +544,10 @@ window.IKIMONO_CATALOG = [
     "category": "両生類",
     "rarity": 5,
     "description": "きれいな水辺に暮らす希少な両生類。",
-    "image": "./images/050.webp"
+    "image": "./images/050.webp",
+    "season": "春〜夏",
+    "habitat": "田んぼ・池・水辺",
+    "size": "種類によって異なります"
   },
   {
     "no": 51,
@@ -405,7 +555,10 @@ window.IKIMONO_CATALOG = [
     "category": "爬虫類",
     "rarity": 3,
     "description": "幼体は青い尾をもつことがある。",
-    "image": "./images/051.webp"
+    "image": "./images/051.webp",
+    "season": "春〜秋",
+    "habitat": "草むら・水辺・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 52,
@@ -413,7 +566,10 @@ window.IKIMONO_CATALOG = [
     "category": "爬虫類",
     "rarity": 1,
     "description": "草地や庭でよく見られる細身のトカゲ。",
-    "image": "./images/052.webp"
+    "image": "./images/052.webp",
+    "season": "春〜秋",
+    "habitat": "草むら・水辺・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 53,
@@ -421,7 +577,10 @@ window.IKIMONO_CATALOG = [
     "category": "爬虫類",
     "rarity": 2,
     "description": "家の壁などで虫を食べる夜行性の爬虫類。",
-    "image": "./images/053.webp"
+    "image": "./images/053.webp",
+    "season": "春〜秋",
+    "habitat": "草むら・水辺・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 54,
@@ -429,7 +588,10 @@ window.IKIMONO_CATALOG = [
     "category": "爬虫類",
     "rarity": 1,
     "description": "目の後ろの赤い模様が特徴のカメ。",
-    "image": "./images/054.webp"
+    "image": "./images/054.webp",
+    "season": "春〜秋",
+    "habitat": "草むら・水辺・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 55,
@@ -437,7 +599,10 @@ window.IKIMONO_CATALOG = [
     "category": "爬虫類",
     "rarity": 2,
     "description": "池や川に暮らす日本で身近なカメ。",
-    "image": "./images/055.webp"
+    "image": "./images/055.webp",
+    "season": "春〜秋",
+    "habitat": "草むら・水辺・林",
+    "size": "種類によって異なります"
   },
   {
     "no": 56,
@@ -445,7 +610,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 1,
     "description": "町や公園でよく見られる小鳥。",
-    "image": "./images/056.webp"
+    "image": "./images/056.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 57,
@@ -453,7 +621,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 1,
     "description": "町中や公園に多い身近な鳥。",
-    "image": "./images/057.webp"
+    "image": "./images/057.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 58,
@@ -461,7 +632,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 2,
     "description": "春に渡ってきて建物に巣を作る。",
-    "image": "./images/058.webp"
+    "image": "./images/058.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 59,
@@ -469,7 +643,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 3,
     "description": "目の周りの白い輪が特徴。",
-    "image": "./images/059.webp"
+    "image": "./images/059.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 60,
@@ -477,7 +654,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 2,
     "description": "胸の黒い線が特徴の小鳥。",
-    "image": "./images/060.webp"
+    "image": "./images/060.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 61,
@@ -485,7 +665,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 4,
     "description": "青く輝く羽で水辺の宝石と呼ばれる。",
-    "image": "./images/061.webp"
+    "image": "./images/061.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 62,
@@ -493,7 +676,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 1,
     "description": "知能が高く町や山に暮らす鳥。",
-    "image": "./images/062.webp"
+    "image": "./images/062.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 63,
@@ -501,7 +687,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 1,
     "description": "大きな声で鳴く灰色の鳥。",
-    "image": "./images/063.webp"
+    "image": "./images/063.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 64,
@@ -509,7 +698,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 1,
     "description": "群れで行動することが多い鳥。",
-    "image": "./images/064.webp"
+    "image": "./images/064.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 65,
@@ -517,7 +709,10 @@ window.IKIMONO_CATALOG = [
     "category": "鳥",
     "rarity": 2,
     "description": "尾を上下に振りながら地面を歩く。",
-    "image": "./images/065.webp"
+    "image": "./images/065.webp",
+    "season": "一年中",
+    "habitat": "身近な自然",
+    "size": "種類によって異なります"
   },
   {
     "no": 66,
@@ -525,7 +720,10 @@ window.IKIMONO_CATALOG = [
     "category": "植物",
     "rarity": 1,
     "description": "春に黄色い花を咲かせる身近な植物。",
-    "image": "./images/066.webp"
+    "image": "./images/066.webp",
+    "season": "春〜秋",
+    "habitat": "公園・野山",
+    "size": "種類によって異なります"
   },
   {
     "no": 67,
@@ -533,7 +731,10 @@ window.IKIMONO_CATALOG = [
     "category": "植物",
     "rarity": 1,
     "description": "白い花を咲かせるクローバーの仲間。",
-    "image": "./images/067.webp"
+    "image": "./images/067.webp",
+    "season": "春〜秋",
+    "habitat": "公園・野山",
+    "size": "種類によって異なります"
   },
   {
     "no": 68,
@@ -541,7 +742,10 @@ window.IKIMONO_CATALOG = [
     "category": "植物",
     "rarity": 5,
     "description": "葉が四枚ある珍しいシロツメクサ。",
-    "image": "./images/068.webp"
+    "image": "./images/068.webp",
+    "season": "春〜秋",
+    "habitat": "公園・野山",
+    "size": "種類によって異なります"
   },
   {
     "no": 69,
@@ -549,7 +753,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/069.webp"
+    "image": "./images/069.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 70,
@@ -557,7 +764,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/070.webp"
+    "image": "./images/070.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 71,
@@ -565,7 +775,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/071.webp"
+    "image": "./images/071.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 72,
@@ -573,7 +786,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/072.webp"
+    "image": "./images/072.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 73,
@@ -581,7 +797,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/073.webp"
+    "image": "./images/073.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 74,
@@ -589,7 +808,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/074.webp"
+    "image": "./images/074.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 75,
@@ -597,7 +819,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/075.webp"
+    "image": "./images/075.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 76,
@@ -605,7 +830,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/076.webp"
+    "image": "./images/076.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 77,
@@ -613,7 +841,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/077.webp"
+    "image": "./images/077.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 78,
@@ -621,7 +852,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/078.webp"
+    "image": "./images/078.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 79,
@@ -629,7 +863,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/079.webp"
+    "image": "./images/079.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 80,
@@ -637,7 +874,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/080.webp"
+    "image": "./images/080.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 81,
@@ -645,7 +885,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/081.webp"
+    "image": "./images/081.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 82,
@@ -653,7 +896,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/082.webp"
+    "image": "./images/082.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 83,
@@ -661,7 +907,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/083.webp"
+    "image": "./images/083.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 84,
@@ -669,7 +918,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/084.webp"
+    "image": "./images/084.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 85,
@@ -677,7 +929,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/085.webp"
+    "image": "./images/085.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 86,
@@ -685,7 +940,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/086.webp"
+    "image": "./images/086.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 87,
@@ -693,7 +951,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/087.webp"
+    "image": "./images/087.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 88,
@@ -701,7 +962,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/088.webp"
+    "image": "./images/088.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 89,
@@ -709,7 +973,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/089.webp"
+    "image": "./images/089.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 90,
@@ -717,7 +984,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/090.webp"
+    "image": "./images/090.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 91,
@@ -725,7 +995,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/091.webp"
+    "image": "./images/091.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 92,
@@ -733,7 +1006,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/092.webp"
+    "image": "./images/092.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 93,
@@ -741,7 +1017,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/093.webp"
+    "image": "./images/093.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 94,
@@ -749,7 +1028,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/094.webp"
+    "image": "./images/094.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 95,
@@ -757,7 +1039,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/095.webp"
+    "image": "./images/095.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 96,
@@ -765,7 +1050,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/096.webp"
+    "image": "./images/096.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 97,
@@ -773,7 +1061,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/097.webp"
+    "image": "./images/097.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 98,
@@ -781,7 +1072,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/098.webp"
+    "image": "./images/098.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 99,
@@ -789,7 +1083,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/099.webp"
+    "image": "./images/099.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 100,
@@ -797,7 +1094,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/100.webp"
+    "image": "./images/100.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 101,
@@ -805,7 +1105,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/101.webp"
+    "image": "./images/101.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 102,
@@ -813,7 +1116,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/102.webp"
+    "image": "./images/102.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 103,
@@ -821,7 +1127,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/103.webp"
+    "image": "./images/103.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 104,
@@ -829,7 +1138,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/104.webp"
+    "image": "./images/104.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 105,
@@ -837,7 +1149,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/105.webp"
+    "image": "./images/105.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 106,
@@ -845,7 +1160,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/106.webp"
+    "image": "./images/106.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 107,
@@ -853,7 +1171,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/107.webp"
+    "image": "./images/107.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 108,
@@ -861,7 +1182,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/108.webp"
+    "image": "./images/108.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 109,
@@ -869,7 +1193,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/109.webp"
+    "image": "./images/109.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 110,
@@ -877,7 +1204,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/110.webp"
+    "image": "./images/110.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 111,
@@ -885,7 +1215,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/111.webp"
+    "image": "./images/111.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 112,
@@ -893,7 +1226,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/112.webp"
+    "image": "./images/112.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 113,
@@ -901,7 +1237,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/113.webp"
+    "image": "./images/113.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 114,
@@ -909,7 +1248,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/114.webp"
+    "image": "./images/114.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 115,
@@ -917,7 +1259,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/115.webp"
+    "image": "./images/115.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 116,
@@ -925,7 +1270,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/116.webp"
+    "image": "./images/116.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 117,
@@ -933,7 +1281,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/117.webp"
+    "image": "./images/117.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 118,
@@ -941,7 +1292,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/118.webp"
+    "image": "./images/118.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 119,
@@ -949,7 +1303,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/119.webp"
+    "image": "./images/119.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 120,
@@ -957,7 +1314,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/120.webp"
+    "image": "./images/120.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 121,
@@ -965,7 +1325,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/121.webp"
+    "image": "./images/121.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 122,
@@ -973,7 +1336,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/122.webp"
+    "image": "./images/122.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 123,
@@ -981,7 +1347,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/123.webp"
+    "image": "./images/123.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 124,
@@ -989,7 +1358,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/124.webp"
+    "image": "./images/124.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 125,
@@ -997,7 +1369,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/125.webp"
+    "image": "./images/125.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 126,
@@ -1005,7 +1380,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/126.webp"
+    "image": "./images/126.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 127,
@@ -1013,7 +1391,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/127.webp"
+    "image": "./images/127.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 128,
@@ -1021,7 +1402,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/128.webp"
+    "image": "./images/128.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 129,
@@ -1029,7 +1413,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/129.webp"
+    "image": "./images/129.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 130,
@@ -1037,7 +1424,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/130.webp"
+    "image": "./images/130.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 131,
@@ -1045,7 +1435,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/131.webp"
+    "image": "./images/131.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 132,
@@ -1053,7 +1446,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/132.webp"
+    "image": "./images/132.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 133,
@@ -1061,7 +1457,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/133.webp"
+    "image": "./images/133.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 134,
@@ -1069,7 +1468,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/134.webp"
+    "image": "./images/134.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 135,
@@ -1077,7 +1479,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/135.webp"
+    "image": "./images/135.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 136,
@@ -1085,7 +1490,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/136.webp"
+    "image": "./images/136.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 137,
@@ -1093,7 +1501,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/137.webp"
+    "image": "./images/137.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 138,
@@ -1101,7 +1512,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/138.webp"
+    "image": "./images/138.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 139,
@@ -1109,7 +1523,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/139.webp"
+    "image": "./images/139.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 140,
@@ -1117,7 +1534,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/140.webp"
+    "image": "./images/140.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 141,
@@ -1125,7 +1545,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/141.webp"
+    "image": "./images/141.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 142,
@@ -1133,7 +1556,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/142.webp"
+    "image": "./images/142.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 143,
@@ -1141,7 +1567,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/143.webp"
+    "image": "./images/143.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 144,
@@ -1149,7 +1578,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/144.webp"
+    "image": "./images/144.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 145,
@@ -1157,7 +1589,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/145.webp"
+    "image": "./images/145.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 146,
@@ -1165,7 +1600,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/146.webp"
+    "image": "./images/146.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 147,
@@ -1173,7 +1611,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/147.webp"
+    "image": "./images/147.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 148,
@@ -1181,7 +1622,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/148.webp"
+    "image": "./images/148.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 149,
@@ -1189,7 +1633,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/149.webp"
+    "image": "./images/149.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 150,
@@ -1197,7 +1644,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/150.webp"
+    "image": "./images/150.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 151,
@@ -1205,7 +1655,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/151.webp"
+    "image": "./images/151.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 152,
@@ -1213,7 +1666,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/152.webp"
+    "image": "./images/152.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 153,
@@ -1221,7 +1677,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/153.webp"
+    "image": "./images/153.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 154,
@@ -1229,7 +1688,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/154.webp"
+    "image": "./images/154.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 155,
@@ -1237,7 +1699,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/155.webp"
+    "image": "./images/155.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 156,
@@ -1245,7 +1710,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/156.webp"
+    "image": "./images/156.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 157,
@@ -1253,7 +1721,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/157.webp"
+    "image": "./images/157.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 158,
@@ -1261,7 +1732,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/158.webp"
+    "image": "./images/158.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 159,
@@ -1269,7 +1743,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/159.webp"
+    "image": "./images/159.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 160,
@@ -1277,7 +1754,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/160.webp"
+    "image": "./images/160.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 161,
@@ -1285,7 +1765,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/161.webp"
+    "image": "./images/161.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 162,
@@ -1293,7 +1776,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/162.webp"
+    "image": "./images/162.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 163,
@@ -1301,7 +1787,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/163.webp"
+    "image": "./images/163.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 164,
@@ -1309,7 +1798,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/164.webp"
+    "image": "./images/164.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 165,
@@ -1317,7 +1809,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/165.webp"
+    "image": "./images/165.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 166,
@@ -1325,7 +1820,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/166.webp"
+    "image": "./images/166.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 167,
@@ -1333,7 +1831,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/167.webp"
+    "image": "./images/167.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 168,
@@ -1341,7 +1842,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/168.webp"
+    "image": "./images/168.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 169,
@@ -1349,7 +1853,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/169.webp"
+    "image": "./images/169.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 170,
@@ -1357,7 +1864,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/170.webp"
+    "image": "./images/170.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 171,
@@ -1365,7 +1875,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/171.webp"
+    "image": "./images/171.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 172,
@@ -1373,7 +1886,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/172.webp"
+    "image": "./images/172.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 173,
@@ -1381,7 +1897,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/173.webp"
+    "image": "./images/173.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 174,
@@ -1389,7 +1908,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/174.webp"
+    "image": "./images/174.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 175,
@@ -1397,7 +1919,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/175.webp"
+    "image": "./images/175.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 176,
@@ -1405,7 +1930,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/176.webp"
+    "image": "./images/176.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 177,
@@ -1413,7 +1941,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/177.webp"
+    "image": "./images/177.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 178,
@@ -1421,7 +1952,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/178.webp"
+    "image": "./images/178.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 179,
@@ -1429,7 +1963,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/179.webp"
+    "image": "./images/179.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 180,
@@ -1437,7 +1974,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/180.webp"
+    "image": "./images/180.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 181,
@@ -1445,7 +1985,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/181.webp"
+    "image": "./images/181.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 182,
@@ -1453,7 +1996,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/182.webp"
+    "image": "./images/182.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 183,
@@ -1461,7 +2007,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/183.webp"
+    "image": "./images/183.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 184,
@@ -1469,7 +2018,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/184.webp"
+    "image": "./images/184.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 185,
@@ -1477,7 +2029,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/185.webp"
+    "image": "./images/185.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 186,
@@ -1485,7 +2040,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/186.webp"
+    "image": "./images/186.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 187,
@@ -1493,7 +2051,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/187.webp"
+    "image": "./images/187.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 188,
@@ -1501,7 +2062,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/188.webp"
+    "image": "./images/188.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 189,
@@ -1509,7 +2073,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/189.webp"
+    "image": "./images/189.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 190,
@@ -1517,7 +2084,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/190.webp"
+    "image": "./images/190.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 191,
@@ -1525,7 +2095,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/191.webp"
+    "image": "./images/191.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 192,
@@ -1533,7 +2106,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/192.webp"
+    "image": "./images/192.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 193,
@@ -1541,7 +2117,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/193.webp"
+    "image": "./images/193.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 194,
@@ -1549,7 +2128,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/194.webp"
+    "image": "./images/194.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 195,
@@ -1557,7 +2139,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/195.webp"
+    "image": "./images/195.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 196,
@@ -1565,7 +2150,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/196.webp"
+    "image": "./images/196.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 197,
@@ -1573,7 +2161,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/197.webp"
+    "image": "./images/197.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 198,
@@ -1581,7 +2172,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/198.webp"
+    "image": "./images/198.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 199,
@@ -1589,7 +2183,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/199.webp"
+    "image": "./images/199.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 200,
@@ -1597,7 +2194,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/200.webp"
+    "image": "./images/200.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 201,
@@ -1605,7 +2205,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/201.webp"
+    "image": "./images/201.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 202,
@@ -1613,7 +2216,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/202.webp"
+    "image": "./images/202.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 203,
@@ -1621,7 +2227,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/203.webp"
+    "image": "./images/203.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 204,
@@ -1629,7 +2238,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/204.webp"
+    "image": "./images/204.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 205,
@@ -1637,7 +2249,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/205.webp"
+    "image": "./images/205.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 206,
@@ -1645,7 +2260,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/206.webp"
+    "image": "./images/206.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 207,
@@ -1653,7 +2271,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/207.webp"
+    "image": "./images/207.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 208,
@@ -1661,7 +2282,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/208.webp"
+    "image": "./images/208.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 209,
@@ -1669,7 +2293,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/209.webp"
+    "image": "./images/209.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 210,
@@ -1677,7 +2304,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/210.webp"
+    "image": "./images/210.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 211,
@@ -1685,7 +2315,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/211.webp"
+    "image": "./images/211.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 212,
@@ -1693,7 +2326,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/212.webp"
+    "image": "./images/212.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 213,
@@ -1701,7 +2337,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/213.webp"
+    "image": "./images/213.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 214,
@@ -1709,7 +2348,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/214.webp"
+    "image": "./images/214.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 215,
@@ -1717,7 +2359,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/215.webp"
+    "image": "./images/215.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 216,
@@ -1725,7 +2370,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/216.webp"
+    "image": "./images/216.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 217,
@@ -1733,7 +2381,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/217.webp"
+    "image": "./images/217.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 218,
@@ -1741,7 +2392,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/218.webp"
+    "image": "./images/218.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 219,
@@ -1749,7 +2403,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/219.webp"
+    "image": "./images/219.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 220,
@@ -1757,7 +2414,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/220.webp"
+    "image": "./images/220.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 221,
@@ -1765,7 +2425,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/221.webp"
+    "image": "./images/221.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 222,
@@ -1773,7 +2436,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/222.webp"
+    "image": "./images/222.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 223,
@@ -1781,7 +2447,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/223.webp"
+    "image": "./images/223.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 224,
@@ -1789,7 +2458,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/224.webp"
+    "image": "./images/224.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 225,
@@ -1797,7 +2469,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/225.webp"
+    "image": "./images/225.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 226,
@@ -1805,7 +2480,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/226.webp"
+    "image": "./images/226.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 227,
@@ -1813,7 +2491,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/227.webp"
+    "image": "./images/227.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 228,
@@ -1821,7 +2502,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/228.webp"
+    "image": "./images/228.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 229,
@@ -1829,7 +2513,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/229.webp"
+    "image": "./images/229.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 230,
@@ -1837,7 +2524,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/230.webp"
+    "image": "./images/230.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 231,
@@ -1845,7 +2535,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/231.webp"
+    "image": "./images/231.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 232,
@@ -1853,7 +2546,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/232.webp"
+    "image": "./images/232.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 233,
@@ -1861,7 +2557,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/233.webp"
+    "image": "./images/233.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 234,
@@ -1869,7 +2568,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/234.webp"
+    "image": "./images/234.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 235,
@@ -1877,7 +2579,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/235.webp"
+    "image": "./images/235.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 236,
@@ -1885,7 +2590,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/236.webp"
+    "image": "./images/236.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 237,
@@ -1893,7 +2601,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/237.webp"
+    "image": "./images/237.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 238,
@@ -1901,7 +2612,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/238.webp"
+    "image": "./images/238.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 239,
@@ -1909,7 +2623,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/239.webp"
+    "image": "./images/239.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 240,
@@ -1917,7 +2634,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/240.webp"
+    "image": "./images/240.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 241,
@@ -1925,7 +2645,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/241.webp"
+    "image": "./images/241.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 242,
@@ -1933,7 +2656,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/242.webp"
+    "image": "./images/242.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 243,
@@ -1941,7 +2667,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/243.webp"
+    "image": "./images/243.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 244,
@@ -1949,7 +2678,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/244.webp"
+    "image": "./images/244.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 245,
@@ -1957,7 +2689,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/245.webp"
+    "image": "./images/245.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 246,
@@ -1965,7 +2700,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/246.webp"
+    "image": "./images/246.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 247,
@@ -1973,7 +2711,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/247.webp"
+    "image": "./images/247.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 248,
@@ -1981,7 +2722,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/248.webp"
+    "image": "./images/248.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 249,
@@ -1989,7 +2733,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/249.webp"
+    "image": "./images/249.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 250,
@@ -1997,7 +2744,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/250.webp"
+    "image": "./images/250.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 251,
@@ -2005,7 +2755,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/251.webp"
+    "image": "./images/251.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 252,
@@ -2013,7 +2766,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/252.webp"
+    "image": "./images/252.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 253,
@@ -2021,7 +2777,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/253.webp"
+    "image": "./images/253.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 254,
@@ -2029,7 +2788,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/254.webp"
+    "image": "./images/254.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 255,
@@ -2037,7 +2799,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/255.webp"
+    "image": "./images/255.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 256,
@@ -2045,7 +2810,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/256.webp"
+    "image": "./images/256.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 257,
@@ -2053,7 +2821,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/257.webp"
+    "image": "./images/257.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 258,
@@ -2061,7 +2832,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/258.webp"
+    "image": "./images/258.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 259,
@@ -2069,7 +2843,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/259.webp"
+    "image": "./images/259.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 260,
@@ -2077,7 +2854,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/260.webp"
+    "image": "./images/260.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 261,
@@ -2085,7 +2865,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/261.webp"
+    "image": "./images/261.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 262,
@@ -2093,7 +2876,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/262.webp"
+    "image": "./images/262.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 263,
@@ -2101,7 +2887,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/263.webp"
+    "image": "./images/263.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 264,
@@ -2109,7 +2898,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/264.webp"
+    "image": "./images/264.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 265,
@@ -2117,7 +2909,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/265.webp"
+    "image": "./images/265.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 266,
@@ -2125,7 +2920,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/266.webp"
+    "image": "./images/266.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 267,
@@ -2133,7 +2931,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/267.webp"
+    "image": "./images/267.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 268,
@@ -2141,7 +2942,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/268.webp"
+    "image": "./images/268.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 269,
@@ -2149,7 +2953,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/269.webp"
+    "image": "./images/269.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 270,
@@ -2157,7 +2964,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/270.webp"
+    "image": "./images/270.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 271,
@@ -2165,7 +2975,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/271.webp"
+    "image": "./images/271.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 272,
@@ -2173,7 +2986,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/272.webp"
+    "image": "./images/272.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 273,
@@ -2181,7 +2997,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/273.webp"
+    "image": "./images/273.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 274,
@@ -2189,7 +3008,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/274.webp"
+    "image": "./images/274.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 275,
@@ -2197,7 +3019,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/275.webp"
+    "image": "./images/275.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 276,
@@ -2205,7 +3030,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/276.webp"
+    "image": "./images/276.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 277,
@@ -2213,7 +3041,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/277.webp"
+    "image": "./images/277.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 278,
@@ -2221,7 +3052,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/278.webp"
+    "image": "./images/278.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 279,
@@ -2229,7 +3063,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/279.webp"
+    "image": "./images/279.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 280,
@@ -2237,7 +3074,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/280.webp"
+    "image": "./images/280.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 281,
@@ -2245,7 +3085,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/281.webp"
+    "image": "./images/281.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 282,
@@ -2253,7 +3096,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/282.webp"
+    "image": "./images/282.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 283,
@@ -2261,7 +3107,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/283.webp"
+    "image": "./images/283.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 284,
@@ -2269,7 +3118,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/284.webp"
+    "image": "./images/284.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 285,
@@ -2277,7 +3129,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/285.webp"
+    "image": "./images/285.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 286,
@@ -2285,7 +3140,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/286.webp"
+    "image": "./images/286.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 287,
@@ -2293,7 +3151,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/287.webp"
+    "image": "./images/287.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 288,
@@ -2301,7 +3162,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/288.webp"
+    "image": "./images/288.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 289,
@@ -2309,7 +3173,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/289.webp"
+    "image": "./images/289.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 290,
@@ -2317,7 +3184,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/290.webp"
+    "image": "./images/290.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 291,
@@ -2325,7 +3195,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/291.webp"
+    "image": "./images/291.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 292,
@@ -2333,7 +3206,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/292.webp"
+    "image": "./images/292.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 293,
@@ -2341,7 +3217,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/293.webp"
+    "image": "./images/293.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 294,
@@ -2349,7 +3228,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/294.webp"
+    "image": "./images/294.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 295,
@@ -2357,7 +3239,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/295.webp"
+    "image": "./images/295.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 296,
@@ -2365,7 +3250,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/296.webp"
+    "image": "./images/296.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 297,
@@ -2373,7 +3261,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/297.webp"
+    "image": "./images/297.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 298,
@@ -2381,7 +3272,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/298.webp"
+    "image": "./images/298.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 299,
@@ -2389,7 +3283,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/299.webp"
+    "image": "./images/299.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 300,
@@ -2397,7 +3294,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/300.webp"
+    "image": "./images/300.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 301,
@@ -2405,7 +3305,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/301.webp"
+    "image": "./images/301.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 302,
@@ -2413,7 +3316,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/302.webp"
+    "image": "./images/302.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 303,
@@ -2421,7 +3327,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/303.webp"
+    "image": "./images/303.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 304,
@@ -2429,7 +3338,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/304.webp"
+    "image": "./images/304.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 305,
@@ -2437,7 +3349,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/305.webp"
+    "image": "./images/305.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 306,
@@ -2445,7 +3360,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/306.webp"
+    "image": "./images/306.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 307,
@@ -2453,7 +3371,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/307.webp"
+    "image": "./images/307.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 308,
@@ -2461,7 +3382,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/308.webp"
+    "image": "./images/308.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 309,
@@ -2469,7 +3393,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/309.webp"
+    "image": "./images/309.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 310,
@@ -2477,7 +3404,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/310.webp"
+    "image": "./images/310.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 311,
@@ -2485,7 +3415,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/311.webp"
+    "image": "./images/311.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 312,
@@ -2493,7 +3426,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/312.webp"
+    "image": "./images/312.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 313,
@@ -2501,7 +3437,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/313.webp"
+    "image": "./images/313.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 314,
@@ -2509,7 +3448,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/314.webp"
+    "image": "./images/314.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 315,
@@ -2517,7 +3459,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/315.webp"
+    "image": "./images/315.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 316,
@@ -2525,7 +3470,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/316.webp"
+    "image": "./images/316.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 317,
@@ -2533,7 +3481,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/317.webp"
+    "image": "./images/317.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 318,
@@ -2541,7 +3492,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/318.webp"
+    "image": "./images/318.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 319,
@@ -2549,7 +3503,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/319.webp"
+    "image": "./images/319.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 320,
@@ -2557,7 +3514,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/320.webp"
+    "image": "./images/320.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 321,
@@ -2565,7 +3525,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/321.webp"
+    "image": "./images/321.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 322,
@@ -2573,7 +3536,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/322.webp"
+    "image": "./images/322.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 323,
@@ -2581,7 +3547,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/323.webp"
+    "image": "./images/323.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 324,
@@ -2589,7 +3558,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/324.webp"
+    "image": "./images/324.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 325,
@@ -2597,7 +3569,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/325.webp"
+    "image": "./images/325.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 326,
@@ -2605,7 +3580,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/326.webp"
+    "image": "./images/326.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 327,
@@ -2613,7 +3591,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/327.webp"
+    "image": "./images/327.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 328,
@@ -2621,7 +3602,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/328.webp"
+    "image": "./images/328.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 329,
@@ -2629,7 +3613,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/329.webp"
+    "image": "./images/329.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 330,
@@ -2637,7 +3624,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/330.webp"
+    "image": "./images/330.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 331,
@@ -2645,7 +3635,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/331.webp"
+    "image": "./images/331.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 332,
@@ -2653,7 +3646,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/332.webp"
+    "image": "./images/332.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 333,
@@ -2661,7 +3657,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/333.webp"
+    "image": "./images/333.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 334,
@@ -2669,7 +3668,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/334.webp"
+    "image": "./images/334.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 335,
@@ -2677,7 +3679,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/335.webp"
+    "image": "./images/335.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 336,
@@ -2685,7 +3690,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/336.webp"
+    "image": "./images/336.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 337,
@@ -2693,7 +3701,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/337.webp"
+    "image": "./images/337.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 338,
@@ -2701,7 +3712,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/338.webp"
+    "image": "./images/338.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 339,
@@ -2709,7 +3723,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/339.webp"
+    "image": "./images/339.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 340,
@@ -2717,7 +3734,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/340.webp"
+    "image": "./images/340.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 341,
@@ -2725,7 +3745,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/341.webp"
+    "image": "./images/341.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 342,
@@ -2733,7 +3756,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/342.webp"
+    "image": "./images/342.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 343,
@@ -2741,7 +3767,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/343.webp"
+    "image": "./images/343.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 344,
@@ -2749,7 +3778,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/344.webp"
+    "image": "./images/344.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 345,
@@ -2757,7 +3789,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/345.webp"
+    "image": "./images/345.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 346,
@@ -2765,7 +3800,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/346.webp"
+    "image": "./images/346.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 347,
@@ -2773,7 +3811,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/347.webp"
+    "image": "./images/347.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 348,
@@ -2781,7 +3822,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/348.webp"
+    "image": "./images/348.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 349,
@@ -2789,7 +3833,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/349.webp"
+    "image": "./images/349.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 350,
@@ -2797,7 +3844,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/350.webp"
+    "image": "./images/350.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 351,
@@ -2805,7 +3855,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/351.webp"
+    "image": "./images/351.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 352,
@@ -2813,7 +3866,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/352.webp"
+    "image": "./images/352.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 353,
@@ -2821,7 +3877,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/353.webp"
+    "image": "./images/353.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 354,
@@ -2829,7 +3888,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/354.webp"
+    "image": "./images/354.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 355,
@@ -2837,7 +3899,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/355.webp"
+    "image": "./images/355.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 356,
@@ -2845,7 +3910,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/356.webp"
+    "image": "./images/356.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 357,
@@ -2853,7 +3921,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/357.webp"
+    "image": "./images/357.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 358,
@@ -2861,7 +3932,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/358.webp"
+    "image": "./images/358.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 359,
@@ -2869,7 +3943,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/359.webp"
+    "image": "./images/359.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 360,
@@ -2877,7 +3954,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/360.webp"
+    "image": "./images/360.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 361,
@@ -2885,7 +3965,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/361.webp"
+    "image": "./images/361.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 362,
@@ -2893,7 +3976,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/362.webp"
+    "image": "./images/362.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 363,
@@ -2901,7 +3987,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/363.webp"
+    "image": "./images/363.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 364,
@@ -2909,7 +3998,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/364.webp"
+    "image": "./images/364.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 365,
@@ -2917,7 +4009,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/365.webp"
+    "image": "./images/365.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 366,
@@ -2925,7 +4020,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/366.webp"
+    "image": "./images/366.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 367,
@@ -2933,7 +4031,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/367.webp"
+    "image": "./images/367.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 368,
@@ -2941,7 +4042,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/368.webp"
+    "image": "./images/368.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 369,
@@ -2949,7 +4053,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/369.webp"
+    "image": "./images/369.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 370,
@@ -2957,7 +4064,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/370.webp"
+    "image": "./images/370.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 371,
@@ -2965,7 +4075,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/371.webp"
+    "image": "./images/371.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 372,
@@ -2973,7 +4086,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/372.webp"
+    "image": "./images/372.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 373,
@@ -2981,7 +4097,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/373.webp"
+    "image": "./images/373.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 374,
@@ -2989,7 +4108,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/374.webp"
+    "image": "./images/374.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 375,
@@ -2997,7 +4119,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/375.webp"
+    "image": "./images/375.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 376,
@@ -3005,7 +4130,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/376.webp"
+    "image": "./images/376.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 377,
@@ -3013,7 +4141,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/377.webp"
+    "image": "./images/377.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 378,
@@ -3021,7 +4152,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/378.webp"
+    "image": "./images/378.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 379,
@@ -3029,7 +4163,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/379.webp"
+    "image": "./images/379.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 380,
@@ -3037,7 +4174,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/380.webp"
+    "image": "./images/380.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 381,
@@ -3045,7 +4185,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/381.webp"
+    "image": "./images/381.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 382,
@@ -3053,7 +4196,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/382.webp"
+    "image": "./images/382.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 383,
@@ -3061,7 +4207,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/383.webp"
+    "image": "./images/383.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 384,
@@ -3069,7 +4218,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/384.webp"
+    "image": "./images/384.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 385,
@@ -3077,7 +4229,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/385.webp"
+    "image": "./images/385.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 386,
@@ -3085,7 +4240,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/386.webp"
+    "image": "./images/386.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 387,
@@ -3093,7 +4251,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/387.webp"
+    "image": "./images/387.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 388,
@@ -3101,7 +4262,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/388.webp"
+    "image": "./images/388.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 389,
@@ -3109,7 +4273,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/389.webp"
+    "image": "./images/389.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 390,
@@ -3117,7 +4284,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/390.webp"
+    "image": "./images/390.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 391,
@@ -3125,7 +4295,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/391.webp"
+    "image": "./images/391.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 392,
@@ -3133,7 +4306,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/392.webp"
+    "image": "./images/392.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 393,
@@ -3141,7 +4317,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/393.webp"
+    "image": "./images/393.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 394,
@@ -3149,7 +4328,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/394.webp"
+    "image": "./images/394.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 395,
@@ -3157,7 +4339,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/395.webp"
+    "image": "./images/395.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 396,
@@ -3165,7 +4350,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/396.webp"
+    "image": "./images/396.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 397,
@@ -3173,7 +4361,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/397.webp"
+    "image": "./images/397.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 398,
@@ -3181,7 +4372,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/398.webp"
+    "image": "./images/398.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 399,
@@ -3189,7 +4383,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/399.webp"
+    "image": "./images/399.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 400,
@@ -3197,7 +4394,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/400.webp"
+    "image": "./images/400.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 401,
@@ -3205,7 +4405,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/401.webp"
+    "image": "./images/401.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 402,
@@ -3213,7 +4416,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/402.webp"
+    "image": "./images/402.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 403,
@@ -3221,7 +4427,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/403.webp"
+    "image": "./images/403.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 404,
@@ -3229,7 +4438,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/404.webp"
+    "image": "./images/404.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 405,
@@ -3237,7 +4449,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/405.webp"
+    "image": "./images/405.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 406,
@@ -3245,7 +4460,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/406.webp"
+    "image": "./images/406.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 407,
@@ -3253,7 +4471,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/407.webp"
+    "image": "./images/407.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 408,
@@ -3261,7 +4482,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/408.webp"
+    "image": "./images/408.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 409,
@@ -3269,7 +4493,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/409.webp"
+    "image": "./images/409.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 410,
@@ -3277,7 +4504,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/410.webp"
+    "image": "./images/410.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 411,
@@ -3285,7 +4515,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/411.webp"
+    "image": "./images/411.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 412,
@@ -3293,7 +4526,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/412.webp"
+    "image": "./images/412.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 413,
@@ -3301,7 +4537,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/413.webp"
+    "image": "./images/413.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 414,
@@ -3309,7 +4548,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/414.webp"
+    "image": "./images/414.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 415,
@@ -3317,7 +4559,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/415.webp"
+    "image": "./images/415.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 416,
@@ -3325,7 +4570,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/416.webp"
+    "image": "./images/416.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 417,
@@ -3333,7 +4581,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/417.webp"
+    "image": "./images/417.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 418,
@@ -3341,7 +4592,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/418.webp"
+    "image": "./images/418.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 419,
@@ -3349,7 +4603,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/419.webp"
+    "image": "./images/419.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 420,
@@ -3357,7 +4614,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/420.webp"
+    "image": "./images/420.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 421,
@@ -3365,7 +4625,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/421.webp"
+    "image": "./images/421.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 422,
@@ -3373,7 +4636,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/422.webp"
+    "image": "./images/422.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 423,
@@ -3381,7 +4647,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/423.webp"
+    "image": "./images/423.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 424,
@@ -3389,7 +4658,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/424.webp"
+    "image": "./images/424.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 425,
@@ -3397,7 +4669,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/425.webp"
+    "image": "./images/425.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 426,
@@ -3405,7 +4680,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/426.webp"
+    "image": "./images/426.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 427,
@@ -3413,7 +4691,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/427.webp"
+    "image": "./images/427.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 428,
@@ -3421,7 +4702,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/428.webp"
+    "image": "./images/428.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 429,
@@ -3429,7 +4713,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/429.webp"
+    "image": "./images/429.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 430,
@@ -3437,7 +4724,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/430.webp"
+    "image": "./images/430.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 431,
@@ -3445,7 +4735,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/431.webp"
+    "image": "./images/431.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 432,
@@ -3453,7 +4746,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/432.webp"
+    "image": "./images/432.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 433,
@@ -3461,7 +4757,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/433.webp"
+    "image": "./images/433.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 434,
@@ -3469,7 +4768,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/434.webp"
+    "image": "./images/434.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 435,
@@ -3477,7 +4779,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/435.webp"
+    "image": "./images/435.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 436,
@@ -3485,7 +4790,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/436.webp"
+    "image": "./images/436.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 437,
@@ -3493,7 +4801,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/437.webp"
+    "image": "./images/437.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 438,
@@ -3501,7 +4812,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/438.webp"
+    "image": "./images/438.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 439,
@@ -3509,7 +4823,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/439.webp"
+    "image": "./images/439.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 440,
@@ -3517,7 +4834,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/440.webp"
+    "image": "./images/440.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 441,
@@ -3525,7 +4845,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/441.webp"
+    "image": "./images/441.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 442,
@@ -3533,7 +4856,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/442.webp"
+    "image": "./images/442.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 443,
@@ -3541,7 +4867,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/443.webp"
+    "image": "./images/443.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 444,
@@ -3549,7 +4878,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/444.webp"
+    "image": "./images/444.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 445,
@@ -3557,7 +4889,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/445.webp"
+    "image": "./images/445.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 446,
@@ -3565,7 +4900,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/446.webp"
+    "image": "./images/446.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 447,
@@ -3573,7 +4911,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/447.webp"
+    "image": "./images/447.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 448,
@@ -3581,7 +4922,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/448.webp"
+    "image": "./images/448.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 449,
@@ -3589,7 +4933,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/449.webp"
+    "image": "./images/449.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 450,
@@ -3597,7 +4944,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/450.webp"
+    "image": "./images/450.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 451,
@@ -3605,7 +4955,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/451.webp"
+    "image": "./images/451.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 452,
@@ -3613,7 +4966,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/452.webp"
+    "image": "./images/452.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 453,
@@ -3621,7 +4977,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/453.webp"
+    "image": "./images/453.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 454,
@@ -3629,7 +4988,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/454.webp"
+    "image": "./images/454.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 455,
@@ -3637,7 +4999,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/455.webp"
+    "image": "./images/455.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 456,
@@ -3645,7 +5010,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/456.webp"
+    "image": "./images/456.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 457,
@@ -3653,7 +5021,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/457.webp"
+    "image": "./images/457.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 458,
@@ -3661,7 +5032,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/458.webp"
+    "image": "./images/458.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 459,
@@ -3669,7 +5043,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/459.webp"
+    "image": "./images/459.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 460,
@@ -3677,7 +5054,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/460.webp"
+    "image": "./images/460.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 461,
@@ -3685,7 +5065,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/461.webp"
+    "image": "./images/461.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 462,
@@ -3693,7 +5076,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/462.webp"
+    "image": "./images/462.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 463,
@@ -3701,7 +5087,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/463.webp"
+    "image": "./images/463.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 464,
@@ -3709,7 +5098,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/464.webp"
+    "image": "./images/464.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 465,
@@ -3717,7 +5109,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/465.webp"
+    "image": "./images/465.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 466,
@@ -3725,7 +5120,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/466.webp"
+    "image": "./images/466.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 467,
@@ -3733,7 +5131,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/467.webp"
+    "image": "./images/467.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 468,
@@ -3741,7 +5142,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/468.webp"
+    "image": "./images/468.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 469,
@@ -3749,7 +5153,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/469.webp"
+    "image": "./images/469.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 470,
@@ -3757,7 +5164,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/470.webp"
+    "image": "./images/470.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 471,
@@ -3765,7 +5175,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/471.webp"
+    "image": "./images/471.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 472,
@@ -3773,7 +5186,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/472.webp"
+    "image": "./images/472.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 473,
@@ -3781,7 +5197,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/473.webp"
+    "image": "./images/473.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 474,
@@ -3789,7 +5208,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/474.webp"
+    "image": "./images/474.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 475,
@@ -3797,7 +5219,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/475.webp"
+    "image": "./images/475.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 476,
@@ -3805,7 +5230,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/476.webp"
+    "image": "./images/476.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 477,
@@ -3813,7 +5241,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/477.webp"
+    "image": "./images/477.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 478,
@@ -3821,7 +5252,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/478.webp"
+    "image": "./images/478.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 479,
@@ -3829,7 +5263,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/479.webp"
+    "image": "./images/479.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 480,
@@ -3837,7 +5274,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/480.webp"
+    "image": "./images/480.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 481,
@@ -3845,7 +5285,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/481.webp"
+    "image": "./images/481.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 482,
@@ -3853,7 +5296,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/482.webp"
+    "image": "./images/482.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 483,
@@ -3861,7 +5307,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/483.webp"
+    "image": "./images/483.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 484,
@@ -3869,7 +5318,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/484.webp"
+    "image": "./images/484.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 485,
@@ -3877,7 +5329,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/485.webp"
+    "image": "./images/485.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 486,
@@ -3885,7 +5340,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/486.webp"
+    "image": "./images/486.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 487,
@@ -3893,7 +5351,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/487.webp"
+    "image": "./images/487.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 488,
@@ -3901,7 +5362,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/488.webp"
+    "image": "./images/488.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 489,
@@ -3909,7 +5373,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/489.webp"
+    "image": "./images/489.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 490,
@@ -3917,7 +5384,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/490.webp"
+    "image": "./images/490.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 491,
@@ -3925,7 +5395,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/491.webp"
+    "image": "./images/491.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 492,
@@ -3933,7 +5406,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/492.webp"
+    "image": "./images/492.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 493,
@@ -3941,7 +5417,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/493.webp"
+    "image": "./images/493.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 494,
@@ -3949,7 +5428,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/494.webp"
+    "image": "./images/494.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 495,
@@ -3957,7 +5439,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/495.webp"
+    "image": "./images/495.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 496,
@@ -3965,7 +5450,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/496.webp"
+    "image": "./images/496.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 497,
@@ -3973,7 +5461,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/497.webp"
+    "image": "./images/497.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 498,
@@ -3981,7 +5472,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/498.webp"
+    "image": "./images/498.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 499,
@@ -3989,7 +5483,10 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/499.webp"
+    "image": "./images/499.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   },
   {
     "no": 500,
@@ -3997,6 +5494,9 @@ window.IKIMONO_CATALOG = [
     "category": "未設定",
     "rarity": 1,
     "description": "正式な生きものデータを登録するための固定枠です。",
-    "image": "./images/500.webp"
+    "image": "./images/500.webp",
+    "season": "準備中",
+    "habitat": "準備中",
+    "size": "種類によって異なります"
   }
 ];
