@@ -1,9 +1,8 @@
 {
-  "name":"いきものマスター",
-  "short_name":"いきもの",
-  "start_url":"./",
-  "display":"standalone",
-  "background_color":"#07120d",
-  "theme_color":"#10251b",
-  "icons":[]
+  "name": "いきものマスター",
+  "short_name": "いきものマスター",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07120d",
+  "theme_color": "#10251b"
 }
