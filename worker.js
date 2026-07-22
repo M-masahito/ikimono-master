@@ -1,2 +1,67 @@
-const CORS={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET,POST,OPTIONS","Access-Control-Allow-Headers":"Content-Type"};
-export default{async fetch(request,env){if(request.method==="OPTIONS")return new Response(null,{headers:CORS});if(request.method==="GET")return json({success:true,message:"いきものマスターAIは動作中",hasApiKey:!!env.GEMINI_API_KEY});if(!env.GEMINI_API_KEY)return json({success:false,error:"GEMINI_API_KEY がありません"},500);try{const body=await request.json();const image=(body.imageBase64||body.image||"").replace(/^data:.*;base64,/,"");if(!image)return json({success:false,error:"画像がありません"},400);const prompt=`画像の生きものを判定してください。可能性が高い候補を最大3件、日本語で返してください。植物も対象です。JSON以外は返さないでください。形式:{"candidates":[{"name":"","category":"昆虫|魚|鳥|両生類|爬虫類|植物|その他","confidence":0.0,"rarity":1,"description":"短い説明"}]}`;const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},body:JSON.stringify({contents:[{parts:[{inline_data:{mime_type:"image/jpeg",data:image}},{text:prompt}]}],generationConfig:{responseMimeType:"application/json"}})});return new Response(await r.text(),{status:r.status,headers:{...CORS,"Content-Type":"application/json"}})}catch(e){return json({success:false,error:"判定処理に失敗しました"},500)}}};function json(data,status=200){return new Response(JSON.stringify(data),{status,headers:{...CORS,"Content-Type":"application/json"}})}
+// ikimono-master AI Worker (starter)
+
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export default {
+  async fetch(request, env) {
+
+    if (request.method === "OPTIONS") {
+      return new Response(null,{headers:CORS});
+    }
+
+    if(request.method==="GET"){
+      return new Response(JSON.stringify({
+        success:true,
+        message:"いきものマスターAIは動作中",
+        hasApiKey:!!env.GEMINI_API_KEY
+      }),{
+        headers:{...CORS,"Content-Type":"application/json"}
+      });
+    }
+
+    if(!env.GEMINI_API_KEY){
+      return new Response(JSON.stringify({
+        success:false,
+        error:"GEMINI_API_KEY がありません"
+      }),{
+        status:500,
+        headers:{...CORS,"Content-Type":"application/json"}
+      });
+    }
+
+    const body = await request.json();
+
+    const image=(body.imageBase64||body.image||"").replace(/^data:.*;base64,/,"");
+
+    const prompt=`画像を見て一番可能性が高い生き物を日本語で判定してください。
+JSONだけ返してください。
+{"name":"","category":"","confidence":0,"description":""}`;
+
+    const r=await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-goog-api-key":env.GEMINI_API_KEY
+        },
+        body:JSON.stringify({
+          contents:[{
+            parts:[
+              {inline_data:{mime_type:"image/jpeg",data:image}},
+              {text:prompt}
+            ]
+          }]
+        })
+      }
+    );
+
+    return new Response(await r.text(),{
+      headers:{...CORS,"Content-Type":"application/json"}
+    });
+  }
+};
