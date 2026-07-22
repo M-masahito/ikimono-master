@@ -1,4 +1,5 @@
-// Cloudflare Worker「ikimono-ai」の公開URL
+// Cloudflare Worker のURLを入れてください。
+// 例: https://ikimono-ai.xxxxx.workers.dev
 window.IKIMONO_CONFIG = {
-  aiWorkerUrl: "https://ikimono-ai.masahito-mizote.workers.dev"
+  AI_WORKER_URL: ""
 };

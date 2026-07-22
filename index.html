@@ -1,103 +1,115 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b6b3a">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
-  <title>いきものマスター Ver2.3</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10251b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>いきものマスター Ver3.0</title>
+<style>
+:root{--bg:#07120d;--panel:#123522;--panel2:#1c4b31;--line:#3d7651;--ink:#f7fff8;--sub:#b7d2be;--gold:#f1cc4b;--green:#76dc75;--danger:#df7474}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:radial-gradient(circle at 50% -8%,#347451 0,transparent 35%),linear-gradient(#10271c,#07120d 64%);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{padding:calc(15px + env(safe-area-inset-top)) 15px 9px;text-align:center}header h1{margin:0;font-size:27px}header p{margin:4px 0;color:var(--sub);font-size:12px}.version{display:inline-block;margin-top:5px;padding:3px 9px;border-radius:999px;background:#314a22;color:#ffe782;font-weight:900;font-size:11px}
+main{max-width:920px;margin:auto;padding:0 12px calc(98px + env(safe-area-inset-bottom))}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:15px;margin-bottom:13px;box-shadow:0 13px 32px rgba(0,0,0,.28)}
+.hero{position:relative;text-align:center;overflow:hidden;padding:18px}.hero:before{content:"";position:absolute;inset:-60px;background:radial-gradient(circle,rgba(242,204,75,.18),transparent 55%);pointer-events:none}.spirit-art{position:relative;width:180px;height:180px;margin:0 auto 5px;display:grid;place-items:center;font-size:105px;filter:drop-shadow(0 15px 22px rgba(0,0,0,.32));transition:.35s}.spirit-art.glow{animation:pulse 1.5s infinite}.spirit-art.crack:after{content:"⚡";position:absolute;font-size:52px;color:#fff8ad;transform:rotate(18deg)}@keyframes pulse{50%{transform:scale(1.06);filter:drop-shadow(0 0 26px #f1cc4b)}}
+.hero h2{position:relative;margin:4px 0;font-size:22px}.hero p{position:relative;margin:5px 0;color:var(--sub)}.progress{height:13px;background:#0b2217;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:11px 0 5px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.35s}.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btn{border:0;border-radius:14px;padding:13px 12px;font-weight:950}.primary{background:var(--gold);color:#182014}.secondary{background:#27583b;color:white;border:1px solid #4a7a59}.ghost{background:#102b1d;color:white;border:1px solid var(--line)}.danger{background:#442323;color:#ffc3c3;border:1px solid #784747}.full{width:100%}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.menu{min-height:105px;border:1px solid var(--line);border-radius:19px;background:linear-gradient(145deg,#1f5035,#102f20);color:#fff;padding:14px;text-align:left}.menu b{display:block;font-size:17px;margin-top:7px}.menu span{font-size:12px;color:var(--sub)}.menu .ico{font-size:31px}
+.bottomnav{position:fixed;z-index:15;left:0;right:0;bottom:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:5px;background:rgba(5,16,11,.94);backdrop-filter:blur(12px);border-top:1px solid #315a40}.bottomnav button{border:0;background:transparent;color:#a9c6b1;font-size:10px;font-weight:900;padding:7px 2px}.bottomnav button i{display:block;font-style:normal;font-size:23px;margin-bottom:2px}.bottomnav button.active{color:var(--gold)}
+.panel{display:none}.panel.active{display:block}h2{margin:0 0 12px}.photoBox{height:260px;border:2px dashed #72a784;border-radius:19px;background:#0b2518;display:grid;place-items:center;overflow:hidden;color:var(--sub)}.photoBox img{width:100%;height:100%;object-fit:cover}.capture-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.filebtn{position:relative;overflow:hidden}.filebtn input{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+label{display:block;margin:11px 0 6px;font-weight:850}input,select,textarea{width:100%;padding:12px;border-radius:13px;border:1px solid #567c62;background:#0b2418;color:#fff}textarea{min-height:76px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.airesult{display:none;margin-top:11px;padding:12px;border:1px solid #8b782c;border-radius:15px;background:#393116}.airesult.show{display:block}.stars{color:var(--gold);letter-spacing:2px;font-size:20px}
+.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.entry{border-radius:18px;overflow:hidden;background:#153825;border:1px solid var(--line)}.entry img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.entry-body{padding:9px}.entry h3{margin:0 0 4px;font-size:15px}.meta{font-size:11px;color:var(--sub)}.count{display:inline-block;margin-top:6px;border-radius:999px;background:#3e3517;color:#ffe880;padding:5px 8px;font-weight:900;font-size:12px}.fav{float:right;border:0;background:transparent;font-size:23px}
+.spirit-head{text-align:center}.spirit-name{font-size:25px;font-weight:1000}.title-list{display:grid;gap:8px}.title-item{display:grid;grid-template-columns:60px 1fr auto;align-items:center;gap:10px;padding:10px;border-radius:16px;background:#102d1e;border:1px solid var(--line);opacity:.45}.title-item.unlocked{opacity:1}.title-item.selected{outline:2px solid var(--gold);background:#33421d}.title-item .form{font-size:42px;text-align:center}.title-item button{padding:8px 10px;border-radius:11px;border:0;background:var(--gold);font-weight:900}.locked{color:var(--sub);font-size:11px}
+.card-preview{max-width:340px;margin:auto;border-radius:22px;padding:10px;background:linear-gradient(145deg,#af9327,#5e4f1a);box-shadow:0 16px 40px rgba(0,0,0,.35)}.card-inner{min-height:450px;border:2px solid #f8e69a;border-radius:16px;padding:11px;background:radial-gradient(circle at 50% 35%,#d7c259,#7e6b24);display:flex;flex-direction:column}.card-stars{text-align:left;font-size:21px;color:#fff3a7}.card-image{flex:1;display:grid;place-items:center;overflow:hidden;margin:7px 0;border-radius:12px;background:rgba(255,255,255,.16)}.card-image img{width:100%;height:100%;object-fit:cover}.card-name{font-size:27px;font-weight:1000;text-shadow:0 2px #5a4917}.discoverer{text-align:right;font-size:11px;margin-top:6px}.empty{text-align:center;color:var(--sub);padding:22px}
+.friend{display:grid;grid-template-columns:68px 1fr;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:16px;background:#102d1e;margin-bottom:8px}.friend-avatar{width:68px;height:68px;display:grid;place-items:center;font-size:42px;border-radius:50%;background:#284c34}.small{font-size:12px;color:var(--sub)}
+.modal{display:none;position:fixed;inset:0;z-index:30;background:rgba(2,9,6,.92);padding:20px;place-items:center}.modal.show{display:grid}.modal-card{width:min(430px,100%);background:linear-gradient(#285239,#102b1f);border:2px solid var(--gold);border-radius:25px;padding:19px;text-align:center}.toast{display:none;position:fixed;left:50%;bottom:100px;z-index:50;transform:translateX(-50%);padding:11px 16px;background:var(--gold);color:#172014;border-radius:999px;font-weight:900;white-space:nowrap}
+@media(min-width:700px){.home-grid{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(4,1fr)}.photoBox{height:390px}}
+</style>
 </head>
 <body>
-  <header>
-    <div><small>SPIRIT NATURE ADVENTURE</small><h1>いきものマスター</h1></div>
-    <b><span id="ownedCount">0</span>/<span id="totalCount">0</span></b>
-  </header>
+<header><h1>🌿 いきものマスター</h1><p>見つけた生きものが、精霊を育てる</p><span class="version">Ver3.0 精霊の誕生</span></header>
+<main>
+<section id="home" class="panel active">
+ <div class="card hero">
+  <div id="homeSpirit" class="spirit-art">🥚</div>
+  <h2 id="homeSpiritName">不思議な卵</h2>
+  <p id="homeTitle">生きものを3種類見つけると羽化するよ</p>
+  <div class="progress"><i id="hatchBar"></i></div><p id="hatchText" class="small">あと3種類</p>
+  <div class="hero-actions"><button class="btn primary" onclick="goDiscover('camera')">📷 カメラ</button><button class="btn secondary" onclick="goDiscover('library')">🖼️ 写真</button></div>
+ </div>
+ <div class="home-grid">
+  <button class="menu" onclick="showPanel('book')"><span class="ico">📖</span><b>図鑑</b><span>種類と保有枚数</span></button>
+  <button class="menu" onclick="showPanel('spirit')"><span class="ico">✨</span><b>精霊</b><span>称号・姿を変更</span></button>
+  <button class="menu" onclick="showPanel('favorite')"><span class="ico">⭐</span><b>お気に入り</b><span>自慢のカード</span></button>
+  <button class="menu" onclick="showPanel('friends')"><span class="ico">👥</span><b>フレンド</b><span>最大10人</span></button>
+ </div>
+</section>
 
-  <main>
-    <section id="home" class="screen active">
-      <div class="spirit-hero" data-go="spirit">
-        <small>あなたの精霊</small>
-        <div class="spirit-orb" id="homeSpiritEmoji">✨</div>
-        <h2 id="homeSpiritName">スピリット</h2>
-        <p class="title-badge" id="homeSpiritTitle">属性なし・最初の姿</p>
-        <p id="nextEvolutionText">新しい生き物を見つけると成長します</p>
-        <div class="progress-track"><div id="evolutionBar"></div></div>
-      </div>
+<section id="discover" class="panel"><div class="card"><h2>📷 新しい発見</h2><div id="previewBox" class="photoBox">写真を選んでね</div><div class="capture-grid"><label class="btn primary filebtn">📷 カメラ<input id="cameraInput" type="file" accept="image/*" capture="environment"></label><label class="btn secondary filebtn">🖼️ 写真<input id="libraryInput" type="file" accept="image/*"></label></div><button id="aiButton" class="btn ghost full" style="margin-top:8px" onclick="judgeAI()">🤖 AIで判定する</button><div id="aiResult" class="airesult"></div><label>生きものの名前</label><input id="nameInput" placeholder="例：カブトムシ"><div class="row"><div><label>なかま</label><select id="categoryInput"><option>昆虫</option><option>魚</option><option>鳥</option><option>両生類</option><option>爬虫類</option><option>植物</option><option>その他</option></select></div><div><label>レア度</label><select id="rarityInput"><option value="1">★</option><option value="2">★★</option><option value="3" selected>★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></div></div><label>発見者</label><input id="discovererInput" placeholder="名前"><label>見つけた場所</label><input id="placeInput" placeholder="公園・川・山など"><label>観察メモ</label><textarea id="memoInput"></textarea><button class="btn primary full" style="margin-top:12px" onclick="saveDiscovery()">カードをゲットする</button></div></section>
 
-      <div class="hero">
-        <div>🔍</div><h2>きょうは何を見つける？</h2>
-        <p>新しい生き物との出会いが、精霊を進化させる。</p>
-        <button data-go="scan">📷 生き物を発見する</button>
-      </div>
+<section id="book" class="panel"><div class="toolbar"><input id="searchInput" placeholder="名前で検索" oninput="renderBook()"><select id="filterInput" onchange="renderBook()"><option value="">全部</option><option>昆虫</option><option>魚</option><option>鳥</option><option>両生類</option><option>爬虫類</option><option>植物</option><option>その他</option></select></div><div class="card"><h2>📖 生きもの図鑑</h2><div id="bookGrid" class="grid"></div></div></section>
 
-      <div class="collection-strip">
-        <div><small>図鑑完成率</small><b id="homeRate">0%</b></div>
-        <div><small>現在の属性</small><b id="homeAttribute">無属性</b></div>
-        <div><small>次の進化まで</small><b id="homeRemaining">あと10種類</b></div>
-      </div>
+<section id="spirit" class="panel"><div class="card spirit-head"><div id="spiritBig" class="spirit-art">🥚</div><div id="spiritName" class="spirit-name">不思議な卵</div><div id="spiritCurrentTitle" class="small">まだ羽化していません</div></div><div class="card"><h2>🏅 称号と姿</h2><p class="small">獲得済みの称号を選ぶと、その姿に変更できます。</p><div id="titleList" class="title-list"></div></div></section>
 
-      <div class="menu">
-        <button data-go="book">📖<b>図鑑</b></button>
-        <button data-go="spirit">✨<b>精霊</b></button>
-        <button data-go="divine">🐉<b>神獣図鑑</b></button>
-        <button data-go="settings">⚙️<b>設定</b></button>
-      </div>
-    </section>
-
-    <section id="scan" class="screen">
-      <h2>← いきものを発見</h2>
-      <div class="panel">
-        <input id="photo" type="file" accept="image/*" capture="environment">
-        <div id="preview">📷</div>
-        <div id="aiStatus" class="ai-status">写真を選ぶとAIで判定できます。</div>
-        <button id="identify" disabled>🤖 AIで判定する</button>
-        <details class="manual-box"><summary>AIが使えないときは手動で選ぶ</summary><select id="pick"></select><button id="manualRegister">選んだ生き物を登録</button></details>
-      </div>
-    </section>
-
-    <section id="book" class="screen">
-      <h2>← カード図鑑</h2>
-      <div class="collection-summary"><b>発見率 <span id="collectionRate">0%</span></b><div class="progress-track"><div id="collectionBar"></div></div></div>
-      <div class="tools"><input id="search" placeholder="名前・番号で検索"><select id="filter"><option value="all">すべて</option><option value="owned">発見済み</option><option value="locked">未発見</option><option value="rare">レアのみ</option></select></div>
-      <div id="grid"></div>
-    </section>
-
-    <section id="detail" class="screen"><h2>← カード詳細</h2><div id="detailBody"></div></section>
-
-    <section id="spirit" class="screen">
-      <h2>← 精霊</h2>
-      <div class="panel center spirit-panel">
-        <div class="spirit-orb large" id="spiritEmoji">✨</div>
-        <input id="spiritNameInput" class="spirit-name-input" maxlength="12" aria-label="精霊の名前">
-        <button id="saveSpiritName" class="small-button">名前を保存</button>
-        <h3 id="spiritTitle">スピリット</h3>
-        <p id="spiritAttribute">属性なし</p>
-        <p id="spiritMessage">生き物を発見すると進化します。</p>
-        <div class="progress-track"><div id="spiritBar"></div></div>
-      </div>
-      <h3>進化の称号</h3>
-      <div id="titleRoad" class="title-road"></div>
-      <details class="guide-box"><summary>精霊の進化図鑑を見る</summary><img src="spirit-evolution-guide.png" alt="7属性の精霊進化図鑑"></details>
-    </section>
-
-    <section id="divine" class="screen">
-      <h2>← 神獣図鑑</h2>
-      <div class="panel center"><div class="giant">🐉</div><h3>七属性の神獣</h3><p>各属性の生き物を集め、神獣の姿を目覚めさせよう。</p></div>
-      <div id="divineGrid" class="divine-grid"></div>
-    </section>
-
-    <section id="settings" class="screen">
-      <h2>← 設定</h2>
-      <div class="panel"><p>発見データ・精霊名・進化状況をこの端末内に保存しています。</p><button id="reset">発見データを初期化</button></div>
-    </section>
-  </main>
-
-  <div id="overlay" class="hidden"><div id="getScene"><div id="rareBurst"></div><h2 id="getTitle">CARD GET!!</h2><p id="getReward"></p><div id="getCard"></div><button id="closeGet">図鑑を見る</button></div></div>
-  <div id="evolutionOverlay" class="hidden"><div class="evolution-scene"><div class="evolution-light">✨</div><div id="evolutionEmoji">🌱</div><h2>精霊が進化した！</h2><h3 id="evolutionTitle"></h3><p id="evolutionAttribute"></p><button id="closeEvolution">新しい姿を見る</button></div></div>
-  <div id="toast" class="toast hidden" aria-live="polite"></div>
-
-  <nav><button data-go="home">🏠<span>ホーム</span></button><button data-go="scan">📷<span>さがす</span></button><button data-go="book">📖<span>図鑑</span></button><button data-go="spirit">✨<span>精霊</span></button></nav>
-  <script src="config.js"></script><script src="data.js"></script><script src="app.js"></script>
-</body>
-</html>
+<section id="favorite" class="panel"><div class="card"><h2>⭐ お気に入りカード</h2><div id="favoriteArea"></div></div></section>
+<section id="friends" class="panel"><div class="card"><h2>👥 フレンド</h2><p class="small">今は見せ合う機能の準備版。交換機能をあとから追加できる保存形式にしています。</p><div id="friendList"></div><button class="btn secondary full" onclick="addDemoFriend()">＋ フレンドを追加（テスト）</button></div></section>
+<section id="settings" class="panel"><div class="card"><h2>⚙️ 基本設定</h2><label>プレイヤー名</label><input id="playerNameInput"><button class="btn primary full" style="margin-top:10px" onclick="saveSettings()">保存する</button><button class="btn secondary full" style="margin-top:8px" onclick="exportData()">バックアップを保存</button><label>バックアップを戻す</label><input id="importInput" type="file" accept="application/json"><button class="btn secondary full" style="margin-top:8px" onclick="importData()">読み込む</button><button class="btn danger full" style="margin-top:18px" onclick="clearAll()">データを全部消す</button></div></section>
+</main>
+<nav class="bottomnav"><button data-panel="home" class="active" onclick="showPanel('home')"><i>🏠</i>ホーム</button><button data-panel="discover" onclick="showPanel('discover')"><i>📷</i>発見</button><button data-panel="book" onclick="showPanel('book')"><i>📖</i>図鑑</button><button data-panel="spirit" onclick="showPanel('spirit')"><i>✨</i>精霊</button><button data-panel="settings" onclick="showPanel('settings')"><i>⚙️</i>設定</button></nav>
+<div id="hatchModal" class="modal"><div class="modal-card"><div class="spirit-art glow">✨🐾✨</div><h2>精霊が羽化した！</h2><p>名前をつけてあげよう</p><input id="newSpiritName" placeholder="精霊の名前"><button class="btn primary full" style="margin-top:10px" onclick="completeHatch()">この名前にする</button></div></div>
+<div id="cardModal" class="modal"><div class="modal-card"><h2>カードをゲット！</h2><div id="earnedCard"></div><button class="btn primary full" style="margin-top:12px" onclick="closeCardModal()">図鑑を見る</button></div></div><div id="toast" class="toast"></div>
+<script src="./config.js"></script>
+<script>
+const KEY='ikimono_master_v3';
+const defaultState={playerName:'雅',discoveries:[],spirit:{hatched:false,name:'',selectedStage:'base'},friends:[]};
+let state=loadState(),currentImage='';
+const stages=[
+ {id:'base',need:3,label:'スピリット',form:'🐾'},
+ {id:'ko',need:10,label:'のこ',form:'🌱'},
+ {id:'nushi',need:30,label:'ぬし',form:'🌳'},
+ {id:'spirit',need:60,label:'精霊',form:'🧚'},
+ {id:'king',need:100,label:'精霊王',form:'👑'},
+ {id:'beast',need:150,label:'神獣',form:'🐉'}
+];
+function loadState(){try{return {...structuredClone(defaultState),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{return structuredClone(defaultState)}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(state))}
+function norm(s){return String(s||'').replace(/\s/g,'').toLowerCase()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function starText(n){return '★'.repeat(Number(n))+'☆'.repeat(5-Number(n))}
+function uniqueMap(){const m=new Map();state.discoveries.forEach(d=>{const k=norm(d.name);if(!m.has(k))m.set(k,{...d,count:0});m.get(k).count++});return m}
+function uniqueCount(){return uniqueMap().size}
+function currentStage(){const count=uniqueCount();const unlocked=stages.filter(s=>count>=s.need);if(!unlocked.length)return null;return stages.find(s=>s.id===state.spirit.selectedStage&&count>=s.need)||unlocked.at(-1)}
+function attribute(){const counts={昆虫:0,魚:0,鳥:0,両生類:0,爬虫類:0,植物:0,その他:0};[...uniqueMap().values()].forEach(d=>counts[d.category]=(counts[d.category]||0)+1);const top=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];return top&&top[1]>0?({昆虫:'虫',魚:'水',鳥:'空',両生類:'水',爬虫類:'大地',植物:'森',その他:'岩'}[top[0]]||'森'):'？？？'}
+function stageTitle(s){return s.id==='base'?'スピリット':`${attribute()}の${s.label}`}
+function showPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('active',b.dataset.panel===id));if(id==='book')renderBook();if(id==='spirit')renderSpirit();if(id==='favorite')renderFavorite();if(id==='friends')renderFriends();scrollTo({top:0,behavior:'smooth'})}
+function goDiscover(type){showPanel('discover');setTimeout(()=>document.getElementById(type==='camera'?'cameraInput':'libraryInput').click(),120)}
+function bindFile(id){document.getElementById(id).addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');let w=img.width,h=img.height,max=1200;if(Math.max(w,h)>max){const s=max/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s)}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);currentImage=c.toDataURL('image/jpeg',.78);previewBox.innerHTML=`<img src="${currentImage}">`;aiResult.classList.remove('show')};img.src=ev.target.result};r.readAsDataURL(f)} )}
+bindFile('cameraInput');bindFile('libraryInput');
+async function judgeAI(){if(!currentImage)return alert('先に写真を選んでね');const url=window.IKIMONO_CONFIG?.AI_WORKER_URL;if(!url){aiResult.className='airesult show';aiResult.innerHTML='AIの接続先がまだ設定されていません。<br>config.js にWorkerのURLを入れると使えます。';return}aiButton.disabled=true;aiButton.textContent='判定中…';try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({imageBase64:currentImage})});const raw=await r.json();let data=raw;if(raw.candidates){const text=raw.candidates?.[0]?.content?.parts?.[0]?.text||'';data=JSON.parse(text.replace(/```json|```/g,'').trim())}nameInput.value=data.name||'';categoryInput.value=data.category||'その他';aiResult.className='airesult show';aiResult.innerHTML=`<b>AI判定：${esc(data.name||'不明')}</b><br>${esc(data.description||'')}`;}catch(e){aiResult.className='airesult show';aiResult.textContent='判定できませんでした。手入力で登録できます。'}finally{aiButton.disabled=false;aiButton.textContent='🤖 AIで判定する'}}
+function saveDiscovery(){const name=nameInput.value.trim();if(!currentImage)return alert('写真を選んでね');if(!name)return alert('名前を入れてね');const before=uniqueCount();const d={id:Date.now(),name,image:currentImage,category:categoryInput.value,rarity:Number(rarityInput.value),discoverer:discovererInput.value.trim()||state.playerName,place:placeInput.value.trim(),memo:memoInput.value.trim(),date:new Date().toISOString().slice(0,10)};state.discoveries.push(d);persist();const after=uniqueCount();showEarnedCard(d);resetDiscovery();renderAll();if(!state.spirit.hatched&&before<3&&after>=3)setTimeout(()=>hatchModal.classList.add('show'),700)}
+function resetDiscovery(){currentImage='';previewBox.textContent='写真を選んでね';cameraInput.value='';libraryInput.value='';nameInput.value='';placeInput.value='';memoInput.value='';aiResult.classList.remove('show')}
+function cardHtml(d){return `<div class="card-preview"><div class="card-inner"><div class="card-stars">${'★'.repeat(d.rarity)}</div><div class="card-image"><img src="${d.image}"></div><div class="card-name">${esc(d.name)}</div><div class="discoverer">発見者：${esc(d.discoverer)}</div></div></div>`}
+function showEarnedCard(d){earnedCard.innerHTML=cardHtml(d);cardModal.classList.add('show')}
+function closeCardModal(){cardModal.classList.remove('show');showPanel('book')}
+function completeHatch(){const n=newSpiritName.value.trim();if(!n)return alert('名前を入れてね');state.spirit.hatched=true;state.spirit.name=n;state.spirit.selectedStage='base';persist();hatchModal.classList.remove('show');renderAll();showPanel('spirit');toastMsg('精霊が誕生した！')}
+function renderHome(){const count=uniqueCount(),left=Math.max(0,3-count),stage=currentStage();if(!state.spirit.hatched){homeSpirit.textContent='🥚';homeSpirit.className='spirit-art '+(count===1?'glow':count===2?'crack':'');homeSpiritName.textContent='不思議な卵';homeTitle.textContent='生きものを3種類見つけると羽化するよ';hatchBar.style.width=`${Math.min(100,count/3*100)}%`;hatchText.textContent=left?`あと${left}種類`:'羽化できるよ！'}else{homeSpirit.textContent=stage?.form||'🐾';homeSpirit.className='spirit-art';homeSpiritName.textContent=state.spirit.name;homeTitle.textContent=stageTitle(stage);const next=stages.find(s=>count<s.need);hatchBar.style.width=next?`${Math.min(100,count/next.need*100)}%`:'100%';hatchText.textContent=next?`次の姿まであと${next.need-count}種類`:'すべての称号を獲得！'}}
+function renderBook(){const q=norm(searchInput.value),f=filterInput.value;const entries=[...uniqueMap().values()].filter(d=>(!q||norm(d.name).includes(q))&&(!f||d.category===f));bookGrid.innerHTML=entries.length?entries.map(d=>`<article class="entry"><button class="fav" onclick="toggleFavorite('${d.id}')">${d.favorite?'⭐':'☆'}</button><img src="${d.image}" onclick="showCardById('${d.id}')"><div class="entry-body"><h3>${esc(d.name)}</h3><div class="stars">${starText(d.rarity)}</div><span class="count">保有枚数 ×${d.count}</span><div class="meta">${esc(d.category)}・初発見 ${esc(d.date)}</div>${d.place?`<div class="meta">📍 ${esc(d.place)}</div>`:''}</div></article>`).join(''):'<div class="empty">まだ図鑑に登録されていません。</div>'}
+function findRepresentative(id){return state.discoveries.find(d=>String(d.id)===String(id))}
+function showCardById(id){const d=findRepresentative(id);if(d){earnedCard.innerHTML=cardHtml(d);cardModal.classList.add('show')}}
+function toggleFavorite(id){const key=norm(findRepresentative(id)?.name);const target=state.discoveries.find(d=>norm(d.name)===key);const next=!target.favorite;state.discoveries.filter(d=>norm(d.name)===key).forEach(d=>d.favorite=next);persist();renderBook();renderFavorite()}
+function renderSpirit(){const count=uniqueCount(),stage=currentStage();spiritBig.textContent=state.spirit.hatched?(stage?.form||'🐾'):'🥚';spiritName.textContent=state.spirit.hatched?state.spirit.name:'不思議な卵';spiritCurrentTitle.textContent=state.spirit.hatched?`${stageTitle(stage)}／${attribute()}属性`:'3種類発見すると羽化します';titleList.innerHTML=stages.map(s=>{const unlocked=count>=s.need;const selected=stage?.id===s.id;return `<div class="title-item ${unlocked?'unlocked':''} ${selected?'selected':''}"><div class="form">${unlocked?s.form:'🔒'}</div><div><b>${s.id==='base'?'スピリット':`○○の${s.label}`}</b><div class="locked">${unlocked?`獲得済み（${s.need}種類）`:`${s.need}種類で解放`}</div></div>${unlocked?`<button onclick="selectStage('${s.id}')">選ぶ</button>`:''}</div>`}).join('')}
+function selectStage(id){if(uniqueCount()<stages.find(s=>s.id===id).need)return;state.spirit.selectedStage=id;persist();renderAll();toastMsg('姿を変更したよ')}
+function renderFavorite(){const d=state.discoveries.find(x=>x.favorite);favoriteArea.innerHTML=d?cardHtml(d):'<div class="empty">図鑑の☆を押して、お気に入りカードを選んでね。</div>'}
+function renderFriends(){friendList.innerHTML=state.friends.length?state.friends.map(f=>`<div class="friend"><div class="friend-avatar">${esc(f.form||'🐾')}</div><div><b>${esc(f.name)}</b><div class="small">図鑑 ${f.count}種類</div><div class="small">称号：${esc(f.title)}</div><div class="small">お気に入り：${esc(f.favorite||'なし')}</div></div></div>`).join(''):'<div class="empty">まだフレンドはいません。</div>'}
+function addDemoFriend(){if(state.friends.length>=10)return alert('フレンドは最大10人です');const no=state.friends.length+1;state.friends.push({name:`フレンド${no}`,count:12+no,title:'森ののこ',form:'🌱',favorite:'カブトムシ'});persist();renderFriends()}
+function saveSettings(){state.playerName=playerNameInput.value.trim()||'プレイヤー';discovererInput.value=state.playerName;persist();toastMsg('保存したよ')}
+function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='ikimono_master_v3_backup.json';a.click()}
+function importData(){const f=importInput.files?.[0];if(!f)return alert('ファイルを選んでね');const r=new FileReader();r.onload=()=>{try{state={...structuredClone(defaultState),...JSON.parse(r.result)};persist();renderAll();toastMsg('読み込んだよ')}catch{alert('読み込めませんでした')}};r.readAsText(f)}
+function clearAll(){if(confirm('本当に全部消しますか？')){state=structuredClone(defaultState);persist();renderAll();toastMsg('全部消しました')}}
+function toastMsg(t){toast.textContent=t;toast.style.display='block';setTimeout(()=>toast.style.display='none',1800)}
+function renderAll(){playerNameInput.value=state.playerName;discovererInput.value=state.playerName;renderHome();renderBook();renderSpirit();renderFavorite();renderFriends()}
+renderAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
