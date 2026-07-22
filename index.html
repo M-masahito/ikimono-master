@@ -1,1 +1,103 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b6b3a"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><title>いきものマスター</title></head><body><header><div><small>NATURE CARD ADVENTURE</small><h1>いきものマスター</h1></div><b><span id="ownedCount">0</span>/500</b></header><main><section id="home" class="screen active"><div class="hero"><div>🍀</div><h2>きょうは何を見つける？</h2><p>写真を撮って、生き物カードを集めよう。</p><button data-go="scan">📷 さがす</button></div><div class="menu"><button data-go="book">📖<b>図鑑</b></button><button data-go="spirit">🐉<b>スピリット</b></button><button data-go="mission">🎯<b>ミッション</b></button><button data-go="settings">⚙️<b>設定</b></button></div></section><section id="scan" class="screen"><h2>← いきものを発見</h2><div class="panel"><input id="photo" type="file" accept="image/*" capture="environment"><div id="preview">📷</div><select id="pick"></select><button id="identify">この生き物で判定</button></div></section><section id="book" class="screen"><h2>← カード図鑑</h2><div class="tools"><input id="search" placeholder="名前・番号で検索"><select id="filter"><option value="all">すべて</option><option value="owned">発見済み</option><option value="locked">未発見</option></select></div><div id="grid"></div></section><section id="detail" class="screen"><h2>← カード詳細</h2><div id="detailBody"></div></section><section id="spirit" class="screen"><h2>← スピリット</h2><div class="panel center"><div class="giant">🐉</div><h3>木霊スピリット</h3><p>発見したカードの属性で成長します。</p></div></section><section id="mission" class="screen"><h2>← ミッション</h2><div class="panel">今日の発見：生き物を1種類見つけよう</div></section><section id="settings" class="screen"><h2>← 設定</h2><button id="reset">発見データを初期化</button></section></main><div id="overlay" class="hidden"><div><h2>CARD GET!!</h2><div id="getCard"></div><button id="closeGet">図鑑を見る</button></div></div><nav><button data-go="home">🏠<span>ホーム</span></button><button data-go="scan">📷<span>さがす</span></button><button data-go="book">📖<span>図鑑</span></button><button data-go="spirit">🐉<span>育成</span></button></nav><script src="data.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b6b3a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>いきものマスター Ver2.3</title>
+</head>
+<body>
+  <header>
+    <div><small>SPIRIT NATURE ADVENTURE</small><h1>いきものマスター</h1></div>
+    <b><span id="ownedCount">0</span>/<span id="totalCount">0</span></b>
+  </header>
+
+  <main>
+    <section id="home" class="screen active">
+      <div class="spirit-hero" data-go="spirit">
+        <small>あなたの精霊</small>
+        <div class="spirit-orb" id="homeSpiritEmoji">✨</div>
+        <h2 id="homeSpiritName">スピリット</h2>
+        <p class="title-badge" id="homeSpiritTitle">属性なし・最初の姿</p>
+        <p id="nextEvolutionText">新しい生き物を見つけると成長します</p>
+        <div class="progress-track"><div id="evolutionBar"></div></div>
+      </div>
+
+      <div class="hero">
+        <div>🔍</div><h2>きょうは何を見つける？</h2>
+        <p>新しい生き物との出会いが、精霊を進化させる。</p>
+        <button data-go="scan">📷 生き物を発見する</button>
+      </div>
+
+      <div class="collection-strip">
+        <div><small>図鑑完成率</small><b id="homeRate">0%</b></div>
+        <div><small>現在の属性</small><b id="homeAttribute">無属性</b></div>
+        <div><small>次の進化まで</small><b id="homeRemaining">あと10種類</b></div>
+      </div>
+
+      <div class="menu">
+        <button data-go="book">📖<b>図鑑</b></button>
+        <button data-go="spirit">✨<b>精霊</b></button>
+        <button data-go="divine">🐉<b>神獣図鑑</b></button>
+        <button data-go="settings">⚙️<b>設定</b></button>
+      </div>
+    </section>
+
+    <section id="scan" class="screen">
+      <h2>← いきものを発見</h2>
+      <div class="panel">
+        <input id="photo" type="file" accept="image/*" capture="environment">
+        <div id="preview">📷</div>
+        <div id="aiStatus" class="ai-status">写真を選ぶとAIで判定できます。</div>
+        <button id="identify" disabled>🤖 AIで判定する</button>
+        <details class="manual-box"><summary>AIが使えないときは手動で選ぶ</summary><select id="pick"></select><button id="manualRegister">選んだ生き物を登録</button></details>
+      </div>
+    </section>
+
+    <section id="book" class="screen">
+      <h2>← カード図鑑</h2>
+      <div class="collection-summary"><b>発見率 <span id="collectionRate">0%</span></b><div class="progress-track"><div id="collectionBar"></div></div></div>
+      <div class="tools"><input id="search" placeholder="名前・番号で検索"><select id="filter"><option value="all">すべて</option><option value="owned">発見済み</option><option value="locked">未発見</option><option value="rare">レアのみ</option></select></div>
+      <div id="grid"></div>
+    </section>
+
+    <section id="detail" class="screen"><h2>← カード詳細</h2><div id="detailBody"></div></section>
+
+    <section id="spirit" class="screen">
+      <h2>← 精霊</h2>
+      <div class="panel center spirit-panel">
+        <div class="spirit-orb large" id="spiritEmoji">✨</div>
+        <input id="spiritNameInput" class="spirit-name-input" maxlength="12" aria-label="精霊の名前">
+        <button id="saveSpiritName" class="small-button">名前を保存</button>
+        <h3 id="spiritTitle">スピリット</h3>
+        <p id="spiritAttribute">属性なし</p>
+        <p id="spiritMessage">生き物を発見すると進化します。</p>
+        <div class="progress-track"><div id="spiritBar"></div></div>
+      </div>
+      <h3>進化の称号</h3>
+      <div id="titleRoad" class="title-road"></div>
+      <details class="guide-box"><summary>精霊の進化図鑑を見る</summary><img src="spirit-evolution-guide.png" alt="7属性の精霊進化図鑑"></details>
+    </section>
+
+    <section id="divine" class="screen">
+      <h2>← 神獣図鑑</h2>
+      <div class="panel center"><div class="giant">🐉</div><h3>七属性の神獣</h3><p>各属性の生き物を集め、神獣の姿を目覚めさせよう。</p></div>
+      <div id="divineGrid" class="divine-grid"></div>
+    </section>
+
+    <section id="settings" class="screen">
+      <h2>← 設定</h2>
+      <div class="panel"><p>発見データ・精霊名・進化状況をこの端末内に保存しています。</p><button id="reset">発見データを初期化</button></div>
+    </section>
+  </main>
+
+  <div id="overlay" class="hidden"><div id="getScene"><div id="rareBurst"></div><h2 id="getTitle">CARD GET!!</h2><p id="getReward"></p><div id="getCard"></div><button id="closeGet">図鑑を見る</button></div></div>
+  <div id="evolutionOverlay" class="hidden"><div class="evolution-scene"><div class="evolution-light">✨</div><div id="evolutionEmoji">🌱</div><h2>精霊が進化した！</h2><h3 id="evolutionTitle"></h3><p id="evolutionAttribute"></p><button id="closeEvolution">新しい姿を見る</button></div></div>
+  <div id="toast" class="toast hidden" aria-live="polite"></div>
+
+  <nav><button data-go="home">🏠<span>ホーム</span></button><button data-go="scan">📷<span>さがす</span></button><button data-go="book">📖<span>図鑑</span></button><button data-go="spirit">✨<span>精霊</span></button></nav>
+  <script src="config.js"></script><script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>
