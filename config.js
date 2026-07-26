@@ -1,1 +1,8 @@
-window.IKIMONO_CONFIG={AI_WORKER_URL:"https://ikimono-ai.masahito-mizote.workers.dev"};
+/* ==========================================
+   OpenAI設定
+========================================== */
+
+const CONFIG = {
+    GEMINI_API_KEY: "",
+    MODEL: "gemini-2.5-flash"
+};

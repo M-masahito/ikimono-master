@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>いきものマスター Ver9</title>
+
+<meta name="theme-color" content="#16331f">
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<!-- ===================================================
+HOME
+=================================================== -->
+
+<section id="home" class="screen active">
+
+<div class="panel home-card">
+
+<div id="homeSpiritImage" class="spirit-image">
+🥚
+</div>
+
+<h1 id="homeSpiritName">
+？？？
+</h1>
+
+<p id="homeSpiritTitle">
+たまご
+</p>
+
+<div class="progress">
+
+<div id="collectionBar"></div>
+
+</div>
+
+<div class="status-row">
+
+<span>
+
+発見数
+
+<b id="homeOwnedCount">
+0
+</b>
+
+/
+
+<b id="homeTotalCount">
+500
+</b>
+
+</span>
+
+<span id="homeRate">
+
+0%
+
+</span>
+
+</div>
+
+<div class="status-row">
+
+<span id="homeRemaining">
+
+あと500種類
+
+</span>
+
+<span id="homeAttribute">
+
+無属性
+
+</span>
+
+</div>
+
+</div>
+
+<!-- AI -->
+
+<div class="panel">
+
+<h2>
+📸 AI判定
+</h2>
+
+<p>
+
+写真から生き物を判定して図鑑へ登録します。
+
+</p>
+
+<button
+class="btn btn-primary"
+data-go="camera">
+
+AI判定する
+
+</button>
+
+</div>
+
+<!-- CARD -->
+
+<div class="panel">
+
+<h2>
+
+🎴 カードホルダー
+
+</h2>
+
+<p>
+
+集めたカードを見る
+
+</p>
+
+<button
+class="btn btn-secondary"
+data-go="book">
+
+カードを見る
+
+</button>
+
+</div>
+
+<!-- SPIRIT -->
+
+<div class="panel">
+
+<h2>
+
+👑 精霊
+
+</h2>
+
+<p>
+
+精霊を育てる
+
+</p>
+
+<button
+class="btn btn-secondary"
+data-go="spirit">
+
+精霊を見る
+
+</button>
+
+</div>
+
+</section>
+
+<!-- ===================================================
+AI
+=================================================== -->
+
+<section id="camera" class="screen">
+
+<h1 class="page-title">
+
+AI判定
+
+</h1>
+
+<div class="panel">
+
+<div
+id="preview"
+class="ai-preview">
+
+写真を選択してください
+
+</div>
+
+<input
+type="file"
+id="photo"
+accept="image/*">
+
+<p id="aiStatus">
+
+写真を選んでください
+
+</p>
+
+<button
+id="identify"
+class="btn btn-primary"
+disabled>
+
+AI判定
+
+</button>
+
+</div>
+
+<button
+class="btn btn-secondary"
+data-go="home">
+
+ホームへ戻る
+
+</button>
+
+</section>
+<!-- ===================================================
+BOOK
+=================================================== -->
+
+<section id="book" class="screen">
+
+<h1 class="page-title">
+カードホルダー
+</h1>
+
+<div class="book-header">
+
+<div class="book-title">
+いきもの図鑑
+</div>
+
+<div class="book-count">
+
+<span id="bookOwnedCount">0</span>
+/
+
+<span id="bookTotalCount">500</span>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<input
+id="search"
+type="search"
+placeholder="名前・Noで検索">
+
+<select id="filter">
+
+<option value="all">すべて</option>
+
+<option value="owned">発見済み</option>
+
+<option value="locked">未発見</option>
+
+<option value="rare">Sレアのみ</option>
+
+</select>
+
+</div>
+
+<div
+id="grid"
+class="card-grid">
+
+</div>
+
+<button
+class="btn btn-secondary"
+data-go="home">
+
+ホームへ戻る
+
+</button>
+
+</section>
+
+<!-- ===================================================
+DETAIL
+=================================================== -->
+
+<section
+id="detail"
+class="screen">
+
+<h1 class="page-title">
+
+図鑑詳細
+
+</h1>
+
+<div class="panel detail-card">
+
+<div class="detail-header">
+
+<div id="detailNo">
+No.001
+</div>
+
+<h2 id="detailName">
+？？？？？
+</h2>
+
+</div>
+
+<img
+id="detailImage"
+class="detail-image"
+src=""
+alt="">
+
+<div class="detail-info">
+
+<p>
+<strong>カテゴリ</strong><br>
+<span id="detailCategory"></span>
+</p>
+
+<p>
+<strong>タイプ</strong><br>
+<span id="detailType"></span>
+</p>
+
+<p>
+<strong>レア度</strong><br>
+<span id="detailRarity"></span>
+</p>
+
+<p>
+<strong>発見者</strong><br>
+<span id="detailFinder">---</span>
+</p>
+
+<p>
+<strong>保有枚数</strong><br>
+<span id="detailCount">0</span>
+</p>
+
+<p>
+<strong>初回発見日</strong><br>
+<span id="detailDate">---</span>
+</p>
+
+<p>
+<strong>発見場所</strong><br>
+<span id="detailPlace">---</span>
+</p>
+
+</div>
+
+<div class="detail-description">
+
+<h3>説明</h3>
+
+<p id="detailDescription">
+
+まだ発見していません
+
+</p>
+
+</div>
+
+</div>
+
+<button
+class="btn btn-secondary"
+data-go="book">
+
+カード一覧へ戻る
+
+</button>
+
+</section>
+<!-- ===================================================
+SPIRIT
+=================================================== -->
+
+<section id="spirit" class="screen">
+
+<h1 class="page-title">
+精霊
+</h1>
+
+<div class="panel spirit-panel">
+
+<div id="spiritImage" class="spirit-image">
+🥚
+</div>
+
+<h2 id="spiritName">
+？？？
+</h2>
+
+<p id="spiritTitle">
+たまご
+</p>
+
+<div class="progress">
+<div id="spiritProgress"></div>
+</div>
+
+<p id="spiritMessage">
+あと3種類で羽化します
+</p>
+
+</div>
+
+<div class="panel">
+
+<h3>精霊の情報</h3>
+
+<p>
+称号：
+<span id="spiritRank">
+たまご
+</span>
+</p>
+
+<p>
+属性：
+<span id="spiritAttribute">
+無属性
+</span>
+</p>
+
+<p>
+発見種類数：
+<span id="spiritCount">
+0
+</span>
+/
+500
+</p>
+
+</div>
+
+<button
+class="btn btn-secondary"
+data-go="home">
+
+ホームへ戻る
+
+</button>
+
+</section>
+
+<!-- ===================================================
+HATCH EVENT
+=================================================== -->
+
+<div id="hatchOverlay" class="overlay hidden">
+
+<div class="panel">
+
+<div class="spirit-image">
+🥚
+</div>
+
+<h2>
+🎉 羽化しました！
+</h2>
+
+<p>
+
+あなたの精霊に名前を付けましょう
+
+</p>
+
+<input
+id="hatchName"
+type="text"
+placeholder="精霊の名前">
+
+<button
+id="saveSpiritName"
+class="btn btn-primary">
+
+決定
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================================
+DIVINE BEAST
+=================================================== -->
+
+<section id="divine" class="screen">
+
+<h1 class="page-title">
+
+神獣図鑑
+
+</h1>
+
+<div class="panel">
+
+<p>
+
+150種類以上発見すると
+神獣へ進化します。
+
+</p>
+
+<div id="divineGrid">
+
+</div>
+
+</div>
+
+<button
+class="btn btn-secondary"
+data-go="home">
+
+ホームへ戻る
+
+</button>
+
+</section>
+
+<!-- ===================================================
+NEW CARD GET
+=================================================== -->
+
+<div id="overlay" class="overlay hidden">
+
+<div class="panel get-panel">
+
+<h2>
+NEW CARD GET!!
+</h2>
+
+<div id="getCard">
+
+</div>
+
+<p id="getReward">
+
+</p>
+
+<button
+id="closeGet"
+class="btn btn-primary">
+
+OK
+
+</button>
+
+</div>
+
+</div>
+<!-- ===================================================
+TOAST
+=================================================== -->
+
+<div id="toast" class="toast hidden">
+
+保存しました
+
+</div>
+
+<!-- ===================================================
+LOADING
+=================================================== -->
+
+<div id="loading" class="overlay hidden">
+
+<div class="panel">
+
+<h2>🔍 AI判定中...</h2>
+
+<p>
+
+生き物を調べています
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ===================================================
+MANUAL REGISTER
+=================================================== -->
+
+<select
+id="pick"
+style="display:none">
+
+</select>
+
+<button
+id="manualRegister"
+style="display:none">
+
+登録
+
+</button>
+
+<!-- ===================================================
+SCRIPT
+=================================================== -->
+
+<script src="catalog.js"></script>
+<script src="data.js"></script>
+<script src="spirit.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

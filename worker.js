@@ -60,7 +60,20 @@ JSONだけ返してください。
       }
     );
 
-    return new Response(await r.text(),{
+    const text = await r.text();
+    if (!r.ok) {
+      return new Response(JSON.stringify({
+        success:false,
+        status:r.status,
+        statusText:r.statusText,
+        body:text
+      }),{
+        status:500,
+        headers:{...CORS,"Content-Type":"application/json"}
+      });
+    }
+
+    return new Response(text,{
       headers:{...CORS,"Content-Type":"application/json"}
     });
   }

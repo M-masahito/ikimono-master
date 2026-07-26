@@ -5500,3 +5500,165 @@ window.IKIMONO_CATALOG = [
     "size": "種類によって異なります"
   }
 ];
+
+(function () {
+  const catalogData = Array.isArray(window.IKIMONO_CATALOG) ? window.IKIMONO_CATALOG : [];
+  const catalogEntries = catalogData.slice(0, 100).sort((a, b) => Number(a.no) - Number(b.no));
+  window.IKIMONO_CATALOG = catalogEntries;
+
+  function getDiscoveries() {
+    try {
+      const saved = JSON.parse(localStorage.getItem("ikimono_master_v4") || "{}");
+      return Array.isArray(saved?.discoveries) ? saved.discoveries : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function isDiscovered(item) {
+    const no = Number(item.no);
+    const discoveries = getDiscoveries();
+    return discoveries.some(entry => Number(entry.no) === no || (entry.name && String(entry.name).trim().toLowerCase() === String(item.name).trim().toLowerCase()));
+  }
+
+  function rarityLabel(item) {
+    const rarity = Number(item.rarity || 1);
+    if (rarity >= 5) return "S";
+    if (rarity >= 3) return "A";
+    if (rarity >= 2) return "B";
+    return "C";
+  }
+
+  function rarityBorderClass(item) {
+    const label = rarityLabel(item);
+    return {
+      S: "card-rarity--s",
+      A: "card-rarity--a",
+      B: "card-rarity--b",
+      C: "card-rarity--c"
+    }[label] || "card-rarity--c";
+  }
+
+  function emblemMarkup(item) {
+    const map = {
+      昆虫: "虫",
+      魚類: "魚",
+      鳥類: "鳥",
+      両生類: "蛙",
+      爬虫類: "爬",
+      哺乳類: "獣",
+      植物: "葉",
+      "きのこ・木の実": "木"
+    };
+    const symbol = map[String(item.category || "")] || "★";
+    return `<span class="card-emblem">${symbol}</span>`;
+  }
+
+  function placeholderDataUrl(item) {
+    const category = String(item.category || "");
+    const presets = {
+      昆虫: { bg1: "#ff8ab0", bg2: "#6c2db7", icon: "🪲", label: "昆虫" },
+      魚類: { bg1: "#4ddcff", bg2: "#0f5ca3", icon: "🐠", label: "魚類" },
+      鳥類: { bg1: "#ffb36b", bg2: "#6b4cff", icon: "🐦", label: "鳥類" },
+      植物: { bg1: "#8cffa4", bg2: "#1e7f4b", icon: "🌿", label: "植物" },
+      両生類: { bg1: "#7dc7ff", bg2: "#2d6b4d", icon: "🐸", label: "両生類" },
+      爬虫類: { bg1: "#7fe48f", bg2: "#42761f", icon: "🦎", label: "爬虫類" },
+      哺乳類: { bg1: "#ffb7b2", bg2: "#8b4fd4", icon: "🦊", label: "哺乳類" },
+      "きのこ・木の実": { bg1: "#ffc76b", bg2: "#7b4d07", icon: "🍄", label: "きのこ・木の実" }
+    };
+    const preset = presets[category] || { bg1: "#6ec8ff", bg2: "#214463", icon: "🌱", label: "いきもの" };
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="920" viewBox="0 0 720 920">
+      <rect width="720" height="920" rx="48" fill="${preset.bg1}"/>
+      <rect x="28" y="28" width="664" height="864" rx="36" fill="url(#g)"/>
+      <circle cx="578" cy="196" r="152" fill="rgba(255,255,255,0.22)"/>
+      <circle cx="214" cy="748" r="180" fill="rgba(0,0,0,0.15)"/>
+      <path d="M160 638c72-116 214-176 350-116" stroke="rgba(255,255,255,0.34)" stroke-width="14" fill="none" stroke-linecap="round"/>
+      <text x="360" y="450" font-size="220" text-anchor="middle" dominant-baseline="middle">${preset.icon}</text>
+      <text x="360" y="722" font-size="44" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-weight="700">${preset.label}</text>
+      <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${preset.bg1}"/><stop offset="100%" stop-color="${preset.bg2}"/></linearGradient></defs>
+    </svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+  }
+
+  function imageMarkupForItem(item, discovered) {
+    const fallback = placeholderDataUrl(item);
+    const safeAlt = String(item.name || "いきもの").replace(/"/g, "&quot;");
+    const className = discovered ? "card-image" : "card-image card-image--silhouette";
+    const src = item.image ? item.image : fallback;
+    return `<img class="${className}" src="${src}" alt="${safeAlt}" loading="lazy" onerror="this.onerror=null; this.src='${fallback}'; this.classList.remove('card-image--silhouette');">`;
+  }
+
+  function toCardMarkup(item) {
+    const discovered = isDiscovered(item);
+    const noText = `No.${String(item.no).padStart(3, "0")}`;
+    const name = discovered ? (item.name || "？？？") : "？？？？？";
+    const discoverer = discovered ? (getDiscoveries().find(entry => Number(entry.no) === Number(item.no) || (entry.name && String(entry.name).trim().toLowerCase() === String(item.name).trim().toLowerCase()))?.discoverer || "-") : "------";
+    const rarity = rarityLabel(item);
+    const imageMarkup = imageMarkupForItem(item, discovered);
+    const artMarkup = discovered
+      ? `<div class="card-art">${imageMarkup}</div>`
+      : `<div class="card-art"><div class="card-art-silhouette">${imageMarkup}</div></div>`;
+
+    return `
+      <div class="card ${discovered ? "" : "card--locked"} ${rarityBorderClass(item)}" data-rarity="${rarity}">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-top-left">
+              <span class="card-rarity ${rarityBorderClass(item)}">${rarity}</span>
+              <span class="card-emblem-wrap">${emblemMarkup(item)}</span>
+            </div>
+            <span class="card-no">${noText}</span>
+          </div>
+          ${artMarkup}
+          <div class="card-footer">
+            <div class="card-name">${name}</div>
+            <div class="card-discoverer">👤 ${discovered ? discoverer : "------"}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function installCatalogView() {
+    const bookGrid = document.getElementById("bookGrid");
+    const searchInput = document.getElementById("searchInput");
+    const filterInput = document.getElementById("filterInput");
+    const foundStat = document.getElementById("foundStat");
+    const cardStat = document.getElementById("cardStat");
+    const rateStat = document.getElementById("rateStat");
+    const bookBar = document.getElementById("bookBar");
+
+    if (!bookGrid) {
+      window.setTimeout(installCatalogView, 50);
+      return;
+    }
+
+    window.renderBook = function () {
+      const query = String(searchInput?.value || "").trim().toLowerCase();
+      const filter = String(filterInput?.value || "").trim();
+      const entries = window.IKIMONO_CATALOG.filter(item => {
+        const matchesQuery = !query || String(item.name).toLowerCase().includes(query) || String(item.category).toLowerCase().includes(query) || String(item.no).includes(query);
+        if (!matchesQuery) return false;
+        if (!filter || filter === "all") return true;
+        if (filter === "owned") return isDiscovered(item);
+        if (filter === "locked") return !isDiscovered(item);
+        if (filter === "rare") return Number(item.rarity || 1) >= 3;
+        return String(item.category) === filter;
+      });
+
+      bookGrid.innerHTML = entries.map(toCardMarkup).join("");
+
+      const discoveredCount = entries.filter(item => isDiscovered(item)).length;
+      if (foundStat) foundStat.textContent = `発見済み ${discoveredCount}/100`;
+      if (cardStat) cardStat.textContent = `カードホルダー ${entries.length}枚`;
+      if (rateStat) rateStat.textContent = `完成率 ${Math.round((discoveredCount / Math.max(1, entries.length)) * 100)}%`;
+      if (bookBar) bookBar.style.width = `${Math.round((discoveredCount / Math.max(1, entries.length)) * 100)}%`;
+    };
+
+    if (searchInput) searchInput.oninput = window.renderBook;
+    if (filterInput) filterInput.onchange = window.renderBook;
+    window.renderBook();
+  }
+
+  window.setTimeout(installCatalogView, 50);
+})();
