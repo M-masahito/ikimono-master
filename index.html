@@ -2,108 +2,65 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <title>いきものマスター</title>
 
-  <link rel="stylesheet" href="styles.css">
-    <!-- HEIC対応 -->
-    <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
+    <meta name="theme-color" content="#1f7a3d">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icon/icon-192.png">
+
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="header">
-    <h1>いきものマスター</h1>
-</header>
+<div id="app">
 
-<nav class="menu">
-    <button onclick="showScreen('home')">🏠 ホーム</button>
-    <button onclick="showScreen('camera')">📸 AI判定</button>
-    <button onclick="showScreen('catalog')">📖 図鑑</button>
-    <button onclick="showScreen('spirit')">👤 精霊</button>
-</nav>
+    <!-- 上部 -->
+    <header id="topBar">
+        <h1>いきものマスター</h1>
 
-<main>
-
-    <!-- ホーム -->
-    <section id="home" class="screen">
-
-        <div class="spirit-card">
-
-            <img id="homeSpiritImage"
-                 src="assets/icons/egg.png"
-                 alt="精霊">
-
-            <h2 id="homeSpiritName">？？？</h2>
-
-            <p id="homeSpiritTitle">たまご</p>
-
+        <div id="playerInfo">
+            <span id="discoverCount">発見 0</span>
+            <span id="cardCount">カード 0</span>
         </div>
+    </header>
 
-        <div class="progress">
-            発見数
-            <span id="discoveryCount">0</span>
-            / 500
-        </div>
+    <!-- メイン画面 -->
+    <main id="screen"></main>
 
-    </section>
+    <!-- 下メニュー -->
+    <nav id="bottomNav">
 
-    <!-- AI判定 -->
-    <section id="camera" class="screen" style="display:none;">
-
-        <input
-            type="file"
-            id="photo"
-            accept="image/*,.heic,.HEIC">
-
-        <div id="preview">
-            写真を選択してください
-        </div>
-
-        <button id="identify">
-            AI判定する
+        <button data-screen="home">
+            🏠<br>ホーム
         </button>
 
-        <p id="aiStatus">
-            写真を選択してください
-        </p>
+        <button data-screen="camera">
+            📷<br>AI判定
+        </button>
 
-    </section>
+        <button data-screen="catalog">
+            📖<br>図鑑
+        </button>
 
-    <!-- 図鑑 -->
-    <section id="catalog" class="screen" style="display:none;">
+        <button data-screen="cards">
+            🃏<br>カード
+        </button>
 
-        <div id="catalogGrid">
+        <button data-screen="spirit">
+            ✨<br>精霊
+        </button>
 
-        </div>
+    </nav>
 
-    </section>
+</div>
 
-    <!-- 精霊 -->
-    <section id="spirit" class="screen" style="display:none;">
+<!-- 共通 -->
+<script type="module" src="app.js"></script>
 
-        <div id="spiritInfo">
-
-        </div>
-
-    </section>
-
-</main>
-
-<script src="config.js"></script>
-
-<script src="insects.js"></script>
-<script src="fish.js"></script>
-<script src="birds.js"></script>
-<script src="reptiles.js"></script>
-<script src="mammals.js"></script>
-<script src="plants.js"></script>
-<script src="mushrooms.js"></script>
-<script src="special.js"></script>
-
-<script src="data.js"></script>
-<script src="spirit.js"></script>
-<script src="catalog.js"></script>
-<script src="ai.js"></script>
-<script src="app.js"></script>
 </body>
 </html>
