@@ -1,75 +1,116 @@
 /* =====================================
-   いきものマスター Ver2
+   いきものマスター Ver3
    styles.css
 ===================================== */
 
-*{
+:root{
+    --primary:#2e7d32;
+    --primary-light:#43a047;
+    --bg:#edf5ea;
+    --card:#ffffff;
+    --text:#222;
+    --shadow:0 8px 20px rgba(0,0,0,.12);
+    --radius:20px;
+
+    --bottom-nav-height:72px;
+}
+
+*,
+*::before,
+*::after{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html,
-body{
+html{
     width:100%;
     height:100%;
-    overflow:hidden;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:#edf5ea;
-    color:#222;
+    -webkit-text-size-adjust:100%;
 }
 
 body{
+    width:100%;
+    min-height:100dvh;
+
     display:flex;
     justify-content:center;
+
+    overflow:hidden;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+
+    padding-bottom:
+        calc(
+            var(--bottom-nav-height)
+            + env(safe-area-inset-bottom)
+        );
 }
 
 #app{
     width:100%;
     max-width:700px;
-    height:100vh;
+
+    min-height:100dvh;
+    height:100dvh;
+
     display:flex;
     flex-direction:column;
+
     background:#f7faf5;
+
+    overflow:hidden;
 }
 
 /* =====================
-   Top
+   Top Bar
 ===================== */
 
 #topBar{
 
-    background:linear-gradient(90deg,#2e7d32,#43a047);
-
-    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
     padding:14px 18px;
 
-    display:flex;
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary-light)
+        );
 
-    justify-content:space-between;
+    color:#fff;
 
-    align-items:center;
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.15);
 
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
-
+    z-index:10;
 }
 
 #topBar h1{
 
     font-size:24px;
-
-    font-weight:bold;
+    font-weight:900;
+    letter-spacing:1px;
 
 }
 
 #playerInfo{
 
     display:flex;
-
     gap:12px;
 
     font-size:13px;
+    font-weight:700;
 
 }
 
@@ -82,8 +123,18 @@ body{
     flex:1;
 
     overflow-y:auto;
+    overflow-x:hidden;
 
     padding:18px;
+
+    padding-bottom:
+        calc(
+            var(--bottom-nav-height)
+            + 24px
+            + env(safe-area-inset-bottom)
+        );
+
+    -webkit-overflow-scrolling:touch;
 
 }
 
@@ -93,15 +144,15 @@ body{
 
 .card{
 
-    background:white;
+    background:var(--card);
 
-    border-radius:18px;
+    border-radius:var(--radius);
 
     padding:18px;
 
     margin-bottom:18px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.12);
+    box-shadow:var(--shadow);
 
     animation:fadeIn .25s;
 
@@ -109,9 +160,8 @@ body{
 
 .card h2{
 
+    color:var(--primary);
     margin-bottom:12px;
-
-    color:#2e7d32;
 
 }
 
@@ -124,16 +174,7 @@ body{
 .card img{
 
     width:100%;
-
     border-radius:14px;
-
-}
-
-.card progress{
-
-    width:100%;
-
-    height:18px;
 
 }
 
@@ -147,27 +188,32 @@ body{
 
     border:none;
 
-    border-radius:14px;
+    border-radius:16px;
 
     padding:14px;
 
     margin-top:12px;
 
-    background:#43a047;
+    background:
+        linear-gradient(
+            135deg,
+            #43a047,
+            #2e7d32
+        );
 
-    color:white;
+    color:#fff;
 
     font-size:18px;
+    font-weight:700;
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:
+        transform .15s,
+        box-shadow .15s;
 
-}
-
-.mainButton:hover{
-
-    background:#388e3c;
+    box-shadow:
+        0 6px 14px rgba(0,0,0,.15);
 
 }
 
@@ -176,64 +222,906 @@ body{
     transform:scale(.97);
 
 }
+/* =====================================
+   ホーム（庭）
+===================================== */
 
-/* =====================
-   Bottom Menu
-===================== */
+.garden-home{
+    width:100%;
+    min-height:100%;
+    padding:14px;
+    padding-bottom:110px;
+}
 
-#bottomNav{
+.garden-sky{
 
-    display:grid;
+    position:relative;
 
-    grid-template-columns:repeat(5,1fr);
+    min-height:460px;
 
-    background:white;
+    overflow:hidden;
 
-    border-top:1px solid #ddd;
+    border-radius:28px;
 
-    height:74px;
+    background:
+        linear-gradient(
+            to bottom,
+            #7fd4ff 0%,
+            #bfeaff 45%,
+            #7ddc72 46%,
+            #4caf50 100%
+        );
+
+    box-shadow:
+        0 12px 26px rgba(35,100,50,.20);
 
 }
 
-#bottomNav button{
+/* タイトル */
+
+.garden-title{
+
+    position:relative;
+    z-index:5;
+
+    padding:22px 18px 0;
+
+    text-align:center;
+
+    color:#165328;
+
+}
+
+.garden-title h1{
+
+    font-size:clamp(30px,8vw,44px);
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-shadow:
+        0 2px 0 #fff,
+        0 5px 10px rgba(0,0,0,.12);
+
+}
+
+.garden-title p{
+
+    margin-top:6px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+}
+
+/* 雲 */
+
+.garden-cloud{
+
+    position:absolute;
+
+    z-index:1;
+
+    animation:
+        cloudMove
+        12s
+        ease-in-out
+        infinite
+        alternate;
+
+}
+
+.cloud-one{
+
+    top:90px;
+    left:6%;
+    font-size:54px;
+
+}
+
+.cloud-two{
+
+    top:145px;
+    right:8%;
+    font-size:46px;
+
+    animation-delay:-5s;
+
+}
+
+/* 精霊 */
+
+.spirit-area{
+
+    position:relative;
+
+    z-index:6;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    margin-top:50px;
+
+}
+
+.spirit-button{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
 
     border:none;
 
-    background:white;
+    background:none;
 
     cursor:pointer;
 
+}
+
+.spirit-character{
+
+    width:140px;
+    height:140px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    font-size:86px;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.95),
+            rgba(255,255,255,.45) 40%,
+            rgba(190,255,220,.35) 70%
+        );
+
+    box-shadow:
+
+        0 0 0 8px rgba(255,255,255,.30),
+
+        0 15px 28px rgba(0,0,0,.20);
+
+    animation:
+        spiritFloat
+        2.6s
+        ease-in-out
+        infinite;
+
+}
+
+.spirit-name{
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.92);
+
+    color:#155c31;
+
+    font-size:17px;
+
+    font-weight:900;
+
+}
+
+.spirit-speech{
+
+    margin-top:18px;
+
+    max-width:88%;
+
+    padding:14px 18px;
+
+    border-radius:20px;
+
+    background:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.15);
+
+}
+
+/* 地面 */
+
+.garden-ground{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    right:0;
+
+    height:110px;
+
+}
+
+.garden-tree{
+
+    position:absolute;
+
+    right:5%;
+
+    bottom:6px;
+
+    font-size:92px;
+
+}
+
+.garden-plant{
+
+    position:absolute;
+
+    bottom:8px;
+
+    font-size:40px;
+
+}
+
+.plant-one{left:6%;}
+.plant-two{left:22%;font-size:46px;}
+.plant-three{left:40%;}
+.plant-four{right:28%;}
+
+/* 図鑑進捗 */
+
+.home-status-card{
+
+    margin-top:16px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:white;
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.12);
+
+}
+
+.status-label{
+
+    font-weight:900;
+
+    color:#1f6d3b;
+
+}
+
+.encyclopedia-progress{
+
+    margin-top:12px;
+
+    height:16px;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    background:#dfeee0;
+
+}
+
+.encyclopedia-progress-bar{
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #62d259,
+            #2ba64d,
+            #ffd54f
+        );
+
+    transition:.5s;
+
+}
+
+/* メインボタン */
+
+.home-main-actions{
+
+    display:grid;
+
+    gap:12px;
+
+    margin-top:16px;
+
+}
+
+.home-action-button{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    min-height:78px;
+
+    padding:14px 18px;
+
+    border:none;
+
+    border-radius:22px;
+
+    color:white;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 0 rgba(0,0,0,.15),
+        0 14px 20px rgba(0,0,0,.15);
+
+    transition:.15s;
+
+}
+
+.home-action-button:active{
+
+    transform:translateY(5px);
+
+}
+
+.camera-action{
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9f38,
+            #ef6c2c
+        );
+
+}
+
+.book-action{
+
+    background:
+        linear-gradient(
+            135deg,
+            #39b56b,
+            #197b48
+        );
+
+}
+
+.action-icon{
+
+    width:54px;
+    height:54px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.20);
+
+    font-size:32px;
+
+}
+
+.home-action-button strong{
+
+    display:block;
+
+    font-size:18px;
+
+}
+
+.home-action-button small{
+
+    opacity:.92;
+
     font-size:13px;
 
-    transition:.2s;
+}
+/* =====================================
+   AI判定画面
+===================================== */
+
+.camera-page{
+    width:100%;
+    padding:14px;
+    padding-bottom:110px;
+}
+
+.camera-header{
+    margin-bottom:16px;
+    padding:20px;
+    border-radius:24px;
+    background:#fff;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.camera-header h2{
+    margin-bottom:8px;
+    font-size:26px;
+    color:#1b5e20;
+}
+
+.camera-header p{
+    color:#666;
+    line-height:1.6;
+}
+
+.camera-card{
+    padding:18px;
+    border-radius:24px;
+    background:#fff;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.photo-input{
+    display:none;
+}
+
+.photo-select-button{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    width:100%;
+    min-height:60px;
+
+    border:none;
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4caf50,
+            #1b5e20
+        );
+
+    color:#fff;
+
+    font-size:18px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 6px 16px rgba(0,0,0,.15);
 
 }
 
-#bottomNav button:hover{
+.photo-select-button:active{
+    transform:scale(.98);
+}
 
-    background:#f3f3f3;
+.preview-area{
+
+    display:grid;
+    place-items:center;
+
+    min-height:240px;
+
+    margin:18px 0;
+
+    border:3px dashed #9ccc65;
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef8ef,
+            #ffffff
+        );
 
 }
 
-#bottomNav button.active{
+.preview-area p{
 
-    background:#dcedc8;
+    color:#777;
+    font-weight:bold;
+
+}
+
+.cameraPreview{
+
+    width:100%;
+    max-height:380px;
+
+    object-fit:contain;
+
+    border-radius:18px;
+
+    background:#111;
+
+}
+
+.analysis-box{
+
+    margin-top:16px;
+
+    padding:24px;
+
+    border-radius:22px;
+
+    background:#fff;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+.analysis-spirit{
+
+    font-size:72px;
+
+    animation:
+        spiritJudgeFloat
+        2s
+        ease-in-out
+        infinite;
+
+}
+
+.analysis-loader{
+
+    width:48px;
+    height:48px;
+
+    margin:18px auto;
+
+    border-radius:50%;
+
+    border:6px solid #d8ead8;
+    border-top-color:#2e7d32;
+
+    animation:
+        spinLoader
+        .9s
+        linear
+        infinite;
+
+}
+
+/* 候補一覧 */
+
+.candidate-area{
+
+    margin-top:18px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    background:#fff;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+.candidate-area h3{
+
+    margin-bottom:16px;
+
+    text-align:center;
 
     color:#2e7d32;
+
+}
+
+.candidate-list{
+
+    display:grid;
+
+    gap:12px;
+
+}
+
+.candidate-button{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#f6fbf6;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.candidate-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.candidate-button:active{
+
+    transform:scale(.98);
+
+}
+
+.candidate-rank{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:#2e7d32;
+
+    color:white;
 
     font-weight:bold;
 
 }
 
-/* =====================
-   Catalog
-===================== */
+.candidate-main{
+
+    flex:1;
+
+}
+
+.candidate-main strong{
+
+    display:block;
+
+    font-size:17px;
+
+}
+
+.candidate-main small{
+
+    color:#777;
+
+}
+
+.candidate-confidence{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#ef6c00;
+
+}
+
+/* 発見演出 */
+
+.discovery-result{
+
+    margin-top:18px;
+
+}
+
+.discovery-card{
+
+    padding:20px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff8d0,
+            #ffd54f
+        );
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.18);
+
+}
+
+.discovery-image{
+
+    font-size:90px;
+
+    margin:12px 0;
+
+    animation:
+        spiritFloat
+        2s
+        ease-in-out
+        infinite;
+
+}
+
+.discovery-card h2{
+
+    color:#6d4c00;
+
+    margin-bottom:12px;
+
+}
+
+.discovery-details{
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.6);
+
+}
+
+.resultButtons{
+
+    display:grid;
+
+    gap:12px;
+
+    margin-top:18px;
+
+}
+
+.subButton{
+
+    width:100%;
+
+    min-height:52px;
+
+    border:2px solid #c8e6c9;
+
+    border-radius:16px;
+
+    background:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.error-box{
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:#ffebee;
+
+    color:#c62828;
+
+    text-align:center;
+
+}
+/* =====================================
+   図鑑
+===================================== */
+
+.encyclopedia-page{
+    padding:16px;
+    padding-bottom:110px;
+}
+
+.encyclopedia-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+    padding:18px;
+
+    background:#fff;
+
+    border-radius:24px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+.encyclopedia-title h2{
+
+    font-size:28px;
+
+    color:#1b5e20;
+
+}
+
+.encyclopedia-title p{
+
+    color:#666;
+
+    margin-top:4px;
+
+}
+
+.encyclopedia-count{
+
+    font-size:32px;
+
+    font-weight:900;
+
+    color:#2e7d32;
+
+}
+
+.encyclopedia-search-area{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.encyclopedia-search,
+.encyclopedia-filter{
+
+    padding:13px;
+
+    border:2px solid #d9ead9;
+
+    border-radius:16px;
+
+    background:white;
+
+    font-size:15px;
+
+}
+
+.encyclopedia-search{
+
+    flex:1;
+
+}
+
+/* 一覧 */
 
 .catalog-grid{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(150px,1fr)
+        );
 
     gap:16px;
 
@@ -241,73 +1129,100 @@ body{
 
 .catalog-card{
 
+    overflow:hidden;
+
+    border-radius:22px;
+
     background:white;
-
-    border-radius:16px;
-
-    padding:12px;
-
-    box-shadow:0 4px 10px rgba(0,0,0,.12);
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:.18s;
 
-    text-align:center;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.12);
 
 }
 
 .catalog-card:hover{
 
-    transform:translateY(-4px);
+    transform:
+        translateY(-5px);
 
 }
 
-.catalog-card img{
+.catalog-image{
 
-    width:100%;
+    position:relative;
 
     aspect-ratio:1;
 
+    overflow:hidden;
+
+    background:#edf7ee;
+
+}
+
+.catalog-image img{
+
+    width:100%;
+    height:100%;
+
     object-fit:cover;
 
-    border-radius:12px;
+}
 
-    margin-bottom:10px;
+.catalog-card.unknown img{
+
+    filter:
+        brightness(.15)
+        grayscale(100%);
 
 }
 
-.catalog-card.unknown{
+.catalog-lock{
 
-    filter:grayscale(100%) brightness(.45);
+    position:absolute;
 
-}
+    inset:0;
 
-.catalog-no{
+    display:grid;
 
-    font-size:12px;
+    place-items:center;
 
-    color:#666;
+    font-size:44px;
+
+    color:white;
+
+    font-weight:bold;
+
+    text-shadow:
+        0 3px 10px black;
 
 }
 
 .catalog-name{
 
-    font-weight:bold;
+    padding:10px 10px 4px;
 
-    margin:8px 0;
+    font-size:16px;
 
-}
-
-.catalog-rarity{
-
-    font-size:14px;
-
-    color:#f57c00;
+    font-weight:900;
 
 }
 
-.catalog-category{
+.catalog-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:
+        0
+        10px
+        12px;
 
     font-size:12px;
 
@@ -315,9 +1230,37 @@ body{
 
 }
 
-/* =====================
-   Detail
-===================== */
+/* レア度 */
+
+.rarity-s{
+
+    color:#ff9800;
+    font-weight:bold;
+
+}
+
+.rarity-a{
+
+    color:#f44336;
+    font-weight:bold;
+
+}
+
+.rarity-b{
+
+    color:#2196f3;
+    font-weight:bold;
+
+}
+
+.rarity-c{
+
+    color:#4caf50;
+    font-weight:bold;
+
+}
+
+/* 詳細 */
 
 .catalog-detail-overlay{
 
@@ -325,60 +1268,522 @@ body{
 
     inset:0;
 
-    background:rgba(0,0,0,.65);
-
     display:flex;
 
     justify-content:center;
-
     align-items:center;
 
-    z-index:999;
+    background:
+        rgba(0,0,0,.65);
+
+    z-index:9999;
 
 }
 
 .catalog-detail{
 
-    width:min(520px,90%);
+    position:relative;
+
+    width:min(520px,92%);
 
     max-height:90vh;
 
     overflow:auto;
 
+    padding:22px;
+
+    border-radius:24px;
+
     background:white;
 
-    border-radius:20px;
+    box-shadow:
+        0 12px 26px rgba(0,0,0,.25);
 
-    padding:24px;
-
-}
-
-.catalog-detail img{
-
-    width:100%;
-
-    border-radius:16px;
-
-    margin:15px 0;
+    animation:
+        fadeIn
+        .25s;
 
 }
 
 .catalog-close{
 
-    float:right;
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    width:42px;
+    height:42px;
 
     border:none;
 
-    background:none;
+    border-radius:50%;
 
-    font-size:26px;
+    background:#f2f2f2;
 
     cursor:pointer;
+
+    font-size:22px;
+
+}
+
+.catalog-detail-image{
+
+    width:100%;
+
+    border-radius:18px;
+
+    margin:16px 0;
+
+}
+
+.detail-number{
+
+    color:#888;
+
+    font-weight:bold;
+
+}
+
+.detail-name{
+
+    font-size:28px;
+
+    font-weight:900;
+
+    color:#2e7d32;
+
+    margin-bottom:10px;
+
+}
+
+.detail-table{
+
+    display:grid;
+
+    gap:10px;
+
+    margin-top:14px;
+
+}
+
+.detail-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:10px 14px;
+
+    border-radius:14px;
+
+    background:#f7faf7;
+
+}
+
+.detail-label{
+
+    color:#777;
+
+    font-weight:bold;
+
+}
+
+.detail-value{
+
+    font-weight:bold;
+
+}
+/* =====================================
+   精霊画面
+===================================== */
+
+.spirit-page{
+    padding:16px;
+    padding-bottom:110px;
+}
+
+.spirit-header{
+    text-align:center;
+    padding:24px;
+    border-radius:24px;
+    background:linear-gradient(180deg,#8fd8ff,#dff7ff);
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.spirit-header h2{
+    font-size:30px;
+    color:#0d5d7a;
+    margin-bottom:6px;
+}
+
+.spirit-header p{
+    color:#466b76;
+}
+
+.spirit-stage{
+
+    margin-top:18px;
+
+    padding:24px;
+
+    text-align:center;
+
+    border-radius:26px;
+
+    background:white;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+.spirit-avatar{
+
+    width:170px;
+    height:170px;
+
+    margin:auto;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    font-size:110px;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff,
+            #d7ffe3
+        );
+
+    box-shadow:
+        0 0 0 8px rgba(255,255,255,.35),
+        0 12px 24px rgba(0,0,0,.18);
+
+    animation:
+        spiritFloat
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+.spirit-title{
+
+    margin-top:16px;
+
+    font-size:30px;
+
+    font-weight:900;
+
+    color:#2e7d32;
+
+}
+
+.spirit-description{
+
+    margin-top:10px;
+
+    line-height:1.8;
+
+    color:#555;
+
+}
+
+/* 成長ゲージ */
+
+.spirit-progress{
+
+    margin-top:24px;
+
+}
+
+.spirit-progress-label{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+.spirit-progress-bar{
+
+    height:18px;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    background:#dfeee0;
+
+}
+
+.spirit-progress-fill{
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #5dd65b,
+            #1e9f4c,
+            #ffd54f
+        );
+
+    transition:
+        width
+        .5s;
+
+}
+
+/* 進化一覧 */
+
+.evolution-list{
+
+    margin-top:28px;
+
+    display:grid;
+
+    gap:12px;
+
+}
+
+.evolution-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:14px;
+
+    border-radius:18px;
+
+    background:white;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.08);
+
+}
+
+.evolution-icon{
+
+    width:58px;
+    height:58px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:#edf8ef;
+
+    font-size:34px;
+
+}
+
+.evolution-info{
+
+    flex:1;
+
+}
+
+.evolution-info strong{
+
+    display:block;
+
+    font-size:17px;
+
+    color:#1f6d3b;
+
+}
+
+.evolution-info small{
+
+    color:#777;
+
+}
+
+.evolution-count{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    color:#ef6c00;
+
+}
+
+/* 現在ステージ */
+
+.current-stage{
+
+    border:3px solid #4caf50;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ecfff1,
+            #ffffff
+        );
+
+}
+
+/* 未開放 */
+
+.lock-stage{
+
+    opacity:.45;
+
+    filter:grayscale(100%);
+
+}
+
+/* 祝福カード */
+
+.spirit-message{
+
+    margin-top:22px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.10);
+
+}
+
+.spirit-message h3{
+
+    color:#2e7d32;
+
+    margin-bottom:10px;
+
+}
+
+.spirit-message p{
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+/* =====================================
+   下メニュー
+===================================== */
+
+#bottomNav{
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:9999;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    min-height:72px;
+
+    padding:
+        8px
+        8px
+        calc(8px + env(safe-area-inset-bottom));
+
+    background:
+        rgba(24,52,35,.96);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    box-shadow:
+        0 -8px 24px rgba(0,0,0,.22);
+
+}
+
+#bottomNav button{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:4px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:none;
+
+    color:rgba(255,255,255,.7);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.18s;
+
+}
+
+#bottomNav button svg{
+
+    width:24px;
+    height:24px;
+
+    stroke:currentColor;
+
+    fill:none;
+
+    stroke-width:2;
+
+}
+
+#bottomNav button.active{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #41b66a,
+            #1f7b49
+        );
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.2);
+
+}
+
+#bottomNav button:active{
+
+    transform:scale(.95);
 
 }
 
 /* =====================
-   Scroll
+   ScrollBar
 ===================== */
 
 ::-webkit-scrollbar{
@@ -389,9 +1794,15 @@ body{
 
 ::-webkit-scrollbar-thumb{
 
-    background:#81c784;
+    background:#7cc47e;
 
-    border-radius:10px;
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
 
 }
 
@@ -405,7 +1816,8 @@ body{
 
         opacity:0;
 
-        transform:translateY(10px);
+        transform:
+            translateY(12px);
 
     }
 
@@ -413,505 +1825,135 @@ body{
 
         opacity:1;
 
-        transform:translateY(0);
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+@keyframes spiritFloat{
+
+    0%,100%{
+
+        transform:
+            translateY(0)
+            rotate(-2deg);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-14px)
+            rotate(2deg);
+
+    }
+
+}
+
+@keyframes cloudMove{
+
+    from{
+
+        transform:
+            translateX(-10px);
+
+    }
+
+    to{
+
+        transform:
+            translateX(12px);
+
+    }
+
+}
+
+@keyframes spinLoader{
+
+    to{
+
+        transform:
+            rotate(360deg);
 
     }
 
 }
 
 /* =====================
-   Smartphone
+   Responsive
 ===================== */
 
-@media(max-width:600px){
+@media (max-width:600px){
 
-#topBar h1{
+    #topBar h1{
 
-    font-size:20px;
+        font-size:20px;
 
-}
-
-#playerInfo{
-
-    font-size:11px;
-
-}
-
-.catalog-grid{
-
-    grid-template-columns:repeat(2,1fr);
-
-}
-
-#bottomNav{
-
-    height:68px;
-
-}
-
-}
-.cameraPreview{
-
-    width:100%;
-    max-width:350px;
-
-    border-radius:18px;
-
-    margin:20px auto;
-
-    display:block;
-
-    box-shadow:0 6px 20px rgba(0,0,0,.25);
-
-}
-
-.resultCard{
-
-    margin-top:20px;
-
-    padding:20px;
-
-    border-radius:20px;
-
-    background:#fff;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.18);
-
-    text-align:center;
-
-}
-
-.resultTitle{
-
-    font-size:26px;
-
-    font-weight:bold;
-
-    color:#ff9800;
-
-}
-
-.resultName{
-
-    font-size:34px;
-
-    font-weight:bold;
-
-    margin:15px 0;
-
-}
-
-.resultNo{
-
-    color:#777;
-
-    margin-bottom:15px;
-
-}
-
-.resultInfo{
-
-    text-align:left;
-
-}
-
-.resultStatus{
-
-    text-align:left;
-
-    margin-top:15px;
-
-}
-
-.resultButtons{
-
-    margin-top:25px;
-
-}
-/* iPhone Safariで下メニューを画面下に固定 */
-.bottom-nav {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* 本文が下メニューに隠れないようにする */
-#screen {
-    padding-bottom: calc(90px + env(safe-area-inset-bottom));
-}/* =====================================
-   庭ホーム画面
-===================================== */
-
-.garden-home {
-    width: 100%;
-    min-height: 100%;
-    padding: 14px;
-    padding-bottom: 110px;
-}
-
-/* 庭全体 */
-.garden-sky {
-    position: relative;
-    min-height: 430px;
-    overflow: hidden;
-    border-radius: 28px;
-    background:
-        linear-gradient(
-            to bottom,
-            #7fd4ff 0%,
-            #bfeaff 55%,
-            #82d66f 56%,
-            #52b94d 100%
-        );
-    box-shadow: 0 10px 25px rgba(35, 100, 50, 0.2);
-}
-
-/* タイトル */
-.garden-title {
-    position: relative;
-    z-index: 4;
-    padding: 22px 18px 0;
-    text-align: center;
-    color: #164d2a;
-}
-
-.garden-title h1 {
-    margin: 0;
-    font-size: clamp(28px, 8vw, 42px);
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-shadow:
-        0 2px 0 #ffffff,
-        0 4px 8px rgba(0, 0, 0, 0.12);
-}
-
-.garden-title p {
-    margin-top: 6px;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-/* 雲 */
-.garden-cloud {
-    position: absolute;
-    z-index: 1;
-    opacity: 0.9;
-    filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
-    animation: cloudMove 12s ease-in-out infinite alternate;
-}
-
-.cloud-one {
-    top: 105px;
-    left: 7%;
-    font-size: 50px;
-}
-
-.cloud-two {
-    top: 145px;
-    right: 8%;
-    font-size: 42px;
-    animation-delay: -5s;
-}
-
-/* 精霊エリア */
-.spirit-area {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 48px;
-}
-
-.spirit-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.spirit-character {
-    display: grid;
-    place-items: center;
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    font-size: 82px;
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            rgba(255, 255, 255, 0.95),
-            rgba(255, 255, 255, 0.45) 40%,
-            rgba(190, 255, 220, 0.35) 70%
-        );
-    box-shadow:
-        0 0 0 7px rgba(255, 255, 255, 0.3),
-        0 14px 24px rgba(28, 98, 57, 0.25);
-    animation: spiritFloat 2.6s ease-in-out infinite;
-}
-
-.spirit-name {
-    padding: 7px 16px;
-    border-radius: 999px;
-    color: #155c31;
-    background: rgba(255, 255, 255, 0.88);
-    font-size: 16px;
-    font-weight: 900;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-/* 吹き出し */
-.spirit-speech {
-    position: relative;
-    max-width: 88%;
-    margin-top: 17px;
-    padding: 12px 17px;
-    border: 3px solid #ffffff;
-    border-radius: 20px;
-    color: #24462f;
-    background: rgba(255, 255, 255, 0.94);
-    font-size: 15px;
-    font-weight: 700;
-    text-align: center;
-    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
-}
-
-.spirit-speech::before {
-    content: "";
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    background: #ffffff;
-    transform: translateX(-50%) rotate(45deg);
-}
-
-/* 地面の飾り */
-.garden-ground {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 105px;
-    z-index: 3;
-}
-
-.garden-tree {
-    position: absolute;
-    right: 5%;
-    bottom: 5px;
-    font-size: 88px;
-    filter: drop-shadow(0 7px 5px rgba(0, 0, 0, 0.18));
-}
-
-.garden-plant {
-    position: absolute;
-    bottom: 10px;
-    font-size: 38px;
-    filter: drop-shadow(0 5px 4px rgba(0, 0, 0, 0.15));
-}
-
-.plant-one {
-    left: 6%;
-}
-
-.plant-two {
-    left: 22%;
-    bottom: 4px;
-    font-size: 45px;
-}
-
-.plant-three {
-    left: 38%;
-}
-
-.plant-four {
-    right: 28%;
-    bottom: 3px;
-}
-
-/* 図鑑進捗 */
-.home-status-card {
-    margin-top: 15px;
-    padding: 16px;
-    border: 3px solid #ffffff;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 8px 18px rgba(37, 91, 49, 0.16);
-}
-
-.home-status-card > div:first-child {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.status-label {
-    color: #24673a;
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.home-status-card strong {
-    color: #174d2a;
-    font-size: 22px;
-}
-
-.encyclopedia-progress {
-    height: 15px;
-    margin-top: 10px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: #dce9dc;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
-}
-
-.encyclopedia-progress-bar {
-    height: 100%;
-    min-width: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-        90deg,
-        #65c95b,
-        #25a84c,
-        #f1d84d
-    );
-    transition: width 0.5s ease;
-}
-
-/* メインボタン */
-.home-main-actions {
-    display: grid;
-    gap: 12px;
-    margin-top: 14px;
-}
-
-.home-action-button {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    min-height: 76px;
-    padding: 12px 16px;
-    border: none;
-    border-radius: 22px;
-    color: #ffffff;
-    text-align: left;
-    cursor: pointer;
-    box-shadow:
-        0 8px 0 rgba(0, 0, 0, 0.16),
-        0 12px 20px rgba(0, 0, 0, 0.15);
-    transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.home-action-button:active {
-    transform: translateY(5px);
-    box-shadow:
-        0 3px 0 rgba(0, 0, 0, 0.16),
-        0 6px 12px rgba(0, 0, 0, 0.12);
-}
-
-.camera-action {
-    background: linear-gradient(135deg, #ff9b32, #f16532);
-}
-
-.book-action {
-    background: linear-gradient(135deg, #38af68, #16784a);
-}
-
-.action-icon {
-    display: grid;
-    place-items: center;
-    flex: 0 0 52px;
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.2);
-    font-size: 31px;
-}
-
-.home-action-button span:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.home-action-button strong {
-    font-size: 17px;
-}
-
-.home-action-button small {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 700;
-}
-
-/* アニメーション */
-@keyframes spiritFloat {
-    0%,
-    100% {
-        transform: translateY(0) rotate(-2deg);
     }
 
-    50% {
-        transform: translateY(-13px) rotate(2deg);
+    #playerInfo{
+
+        font-size:11px;
+
     }
+
+    .catalog-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
 }
 
-@keyframes cloudMove {
-    from {
-        transform: translateX(-8px);
+@media (max-width:390px){
+
+    :root{
+
+        --bottom-nav-height:68px;
+
     }
 
-    to {
-        transform: translateX(10px);
-    }
-}
+    #screen{
 
-/* 小さいiPhone用 */
-@media screen and (max-width: 390px) {
+        padding:10px;
 
-    .garden-home {
-        padding: 10px;
-        padding-bottom: 105px;
-    }
+        padding-bottom:
+            calc(
+                var(--bottom-nav-height)
+                + 20px
+                + env(safe-area-inset-bottom)
+            );
 
-    .garden-sky {
-        min-height: 405px;
-        border-radius: 22px;
     }
 
-    .garden-title h1 {
-        font-size: 31px;
+    .garden-sky{
+
+        min-height:400px;
+
     }
 
-    .garden-title p {
-        font-size: 13px;
+    .spirit-avatar{
+
+        width:140px;
+        height:140px;
+
+        font-size:90px;
+
     }
 
-    .spirit-area {
-        margin-top: 40px;
+    .catalog-grid{
+
+        gap:12px;
+
     }
 
-    .spirit-character {
-        width: 112px;
-        height: 112px;
-        font-size: 70px;
+    .camera-header h2{
+
+        font-size:22px;
+
     }
 
-    .garden-tree {
-        font-size: 76px;
-    }
 }

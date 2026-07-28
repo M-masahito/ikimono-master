@@ -1,5 +1,6 @@
 // =====================================
 // screens/catalog.js
+// 500種類の図鑑画面
 // =====================================
 
 import { getSave } from "../system/storage.js";
@@ -8,94 +9,182 @@ export function showCatalog(screen) {
 
     const save = getSave();
 
+    const discovered = Array.isArray(save.discovered)
+        ? save.discovered
+        : [];
+
+    const catalog = Array.isArray(window.IKIMONO_CATALOG)
+        ? window.IKIMONO_CATALOG
+        : [];
+
     screen.innerHTML = `
-        <div class="card">
+        <section class="encyclopedia-page">
 
-            <h2>📖 図鑑</h2>
+            <div class="encyclopedia-header">
 
-            <p>発見した生き物</p>
+                <div>
+                    <h2>📖 いきもの図鑑</h2>
+                    <p>まだ見つけていない生き物も探してみよう！</p>
+                </div>
 
-            <h3 id="discoverCount">${save.discovered.length} / 500</h3>
+                <div class="encyclopedia-count">
+                    <strong>${discovered.length}</strong>
+                    <span>/ 500</span>
+                </div>
 
-            <input
-                id="searchBox"
-                type="text"
-                placeholder="名前で検索">
+            </div>
 
-            <br><br>
+            <div class="encyclopedia-search-area">
 
-            <div id="catalogList" class="catalog-grid"></div>
+                <input
+                    id="searchBox"
+                    class="encyclopedia-search"
+                    type="search"
+                    placeholder="生き物の名前で検索"
+                    autocomplete="off"
+                >
 
-        </div>
+                <select
+                    id="categoryFilter"
+                    class="encyclopedia-filter"
+                >
+                    <option value="">すべて</option>
+                    <option value="昆虫">昆虫</option>
+                    <option value="魚">魚</option>
+                    <option value="鳥">鳥</option>
+                    <option value="哺乳類">哺乳類</option>
+                    <option value="爬虫類">爬虫類</option>
+                    <option value="両生類">両生類</option>
+                    <option value="植物">植物</option>
+                    <option value="キノコ">キノコ</option>
+                    <option value="その他">その他</option>
+                </select>
+
+            </div>
+
+            <div
+                id="catalogList"
+                class="catalog-grid"
+            ></div>
+
+        </section>
     `;
 
     const list = screen.querySelector("#catalogList");
     const searchBox = screen.querySelector("#searchBox");
+    const categoryFilter = screen.querySelector("#categoryFilter");
 
-    function draw(keyword = "") {
+    function draw() {
 
-        const word = keyword.trim().toLowerCase();
+        const keyword =
+            searchBox.value.trim().toLowerCase();
+
+        const category =
+            categoryFilter.value;
 
         list.innerHTML = "";
 
-        const data = window.IKIMONO_DATA || [];
+        const filtered = catalog.filter(item => {
 
-        data
-            .filter(item =>
-                item.name.toLowerCase().includes(word)
-            )
-            .forEach(item => {
+            const itemName =
+                String(item.name ?? "").toLowerCase();
 
-                const found =
-                    save.discovered.includes(item.no);
+            const matchesName =
+                !keyword || itemName.includes(keyword);
 
-                const card = document.createElement("div");
+            const matchesCategory =
+                !category || item.category === category;
 
-                card.className =
-                    "catalog-card " +
-                    (found ? "found" : "unknown");
+            return matchesName && matchesCategory;
 
-                card.innerHTML = `
-                    <div class="catalog-no">
-                        No.${String(item.no).padStart(3, "0")}
-                    </div>
+        });
 
-                    <div class="catalog-image">
+        filtered.forEach(item => {
 
+            const found =
+                discovered.includes(item.no);
+
+            const hasName =
+                Boolean(item.name?.trim());
+
+            const displayName =
+                found && hasName
+                    ? item.name
+                    : "？？？";
+
+            const card = document.createElement("button");
+
+            card.type = "button";
+
+            card.className = `
+                catalog-card
+                ${found ? "found" : "unknown"}
+            `;
+
+            card.innerHTML = `
+
+                <div class="catalog-no">
+                    No.${String(item.no).padStart(3, "0")}
+                </div>
+
+                <div class="catalog-image">
+
+                    <img
+                        src="${item.image}"
+                        alt="${found ? item.name : "未発見の生き物"}"
+                        onerror="
+                            this.onerror=null;
+                            this.src='./icon-192.png';
+                        "
+                    >
+
+                    ${
+                        found
+                            ? ""
+                            : `<div class="catalog-lock">?</div>`
+                    }
+
+                </div>
+
+                <div class="catalog-name">
+                    ${displayName}
+                </div>
+
+                <div class="catalog-bottom">
+
+                    <span class="catalog-category">
+                        ${found ? item.category : "未発見"}
+                    </span>
+
+                    <span class="catalog-rarity">
                         ${
                             found
-                                ? `<img src="images/${String(item.no).padStart(3,"0")}.png"
-                                       onerror="this.src='images/unknown.png'">`
-                                : `<img src="images/unknown.png">`
+                                ? rarityText(item.rarity)
+                                : "?"
                         }
+                    </span>
 
-                    </div>
+                </div>
+            `;
 
-                    <div class="catalog-name">
-                        ${found ? item.name : "？？？？？"}
-                    </div>
+            card.addEventListener("click", () => {
 
-                    <div class="catalog-rarity">
-                        ${found ? item.rarity : "?"}
-                    </div>
+                if (!found) {
 
-                    <div class="catalog-category">
-                        ${found ? item.category : ""}
-                    </div>
-                `;
-                                card.addEventListener("click", () => {
+                    showUnknownDetail(item);
+                    return;
 
-                    if (!found) return;
+                }
 
-                    showDetail(item);
-
-                });
-
-                list.appendChild(card);
+                showDetail(item);
 
             });
 
-        if (list.innerHTML === "") {
+            list.appendChild(card);
+
+        });
+
+        if (filtered.length === 0) {
 
             list.innerHTML = `
                 <div class="catalog-empty">
@@ -107,52 +196,182 @@ export function showCatalog(screen) {
 
     }
 
-    function showDetail(item) {
+    function showUnknownDetail(item) {
 
-        const overlay = document.createElement("div");
-
-        overlay.className = "catalog-detail-overlay";
+        const overlay = createOverlay();
 
         overlay.innerHTML = `
-            <div class="catalog-detail">
+            <div class="catalog-detail unknown-detail">
 
-                <button class="catalog-close">✕</button>
+                <button
+                    class="catalog-close"
+                    type="button"
+                    aria-label="閉じる"
+                >
+                    ✕
+                </button>
 
-                <h2>
-                    No.${String(item.no).padStart(3,"0")}
-                    ${item.name}
-                </h2>
+                <div class="detail-number">
+                    No.${String(item.no).padStart(3, "0")}
+                </div>
 
-                <img
-                    src="images/${String(item.no).padStart(3,"0")}.png"
-                    onerror="this.src='images/unknown.png'">
+                <div class="detail-unknown-image">
 
-                <p><b>レア度</b>：${item.rarity}</p>
-                <p><b>カテゴリ</b>：${item.category}</p>
-                <p><b>タイプ</b>：${item.attribute}</p>
-                <p><b>生息地</b>：${item.habitat}</p>
-                <p><b>季節</b>：${item.season}</p>
-                <p><b>大きさ</b>：${item.size}</p>
-                <p><b>食べ物</b>：${item.food}</p>
+                    <img
+                        src="${item.image}"
+                        alt="未発見の生き物"
+                        onerror="
+                            this.onerror=null;
+                            this.src='./icon-192.png';
+                        "
+                    >
 
-                <hr>
+                    <span>?</span>
 
-                <p>${item.description}</p>
+                </div>
+
+                <h2>？？？</h2>
+
+                <p class="unknown-message">
+                    まだ発見していない生き物です。
+                </p>
+
+                <p class="unknown-hint">
+                    写真を撮って、精霊に調べてもらおう！
+                </p>
 
             </div>
         `;
 
+        setupOverlay(overlay);
+
+    }
+
+    function showDetail(item) {
+
+        const overlay = createOverlay();
+
+        const card =
+            save.cards?.find(card => card.no === item.no);
+
+        overlay.innerHTML = `
+            <div class="catalog-detail">
+
+                <button
+                    class="catalog-close"
+                    type="button"
+                    aria-label="閉じる"
+                >
+                    ✕
+                </button>
+
+                <div class="detail-number">
+                    No.${String(item.no).padStart(3, "0")}
+                </div>
+
+                <img
+                    class="catalog-detail-image"
+                    src="${item.image}"
+                    alt="${item.name}"
+                    onerror="
+                        this.onerror=null;
+                        this.src='./icon-192.png';
+                    "
+                >
+
+                <h2>${item.name}</h2>
+
+                <div class="catalog-detail-tags">
+
+                    <span>${item.category}</span>
+
+                    <span>
+                        レア度 ${rarityText(item.rarity)}
+                    </span>
+
+                </div>
+
+                <div class="catalog-detail-info">
+
+                    <p>
+                        <strong>季節</strong>
+                        <span>${item.season ?? "不明"}</span>
+                    </p>
+
+                    <p>
+                        <strong>生息地</strong>
+                        <span>${item.habitat ?? "不明"}</span>
+                    </p>
+
+                    <p>
+                        <strong>大きさ</strong>
+                        <span>${item.size ?? "不明"}</span>
+                    </p>
+
+                    <p>
+                        <strong>保有カード</strong>
+                        <span>${card?.count ?? 1}枚</span>
+                    </p>
+
+                </div>
+
+                <div class="catalog-description">
+                    ${item.description ?? "説明は準備中です。"}
+                </div>
+
+                <button
+                    id="showCardButton"
+                    class="mainButton"
+                    type="button"
+                >
+                    🃏 カードを見る
+                </button>
+
+            </div>
+        `;
+
+        setupOverlay(overlay);
+
+        overlay
+            .querySelector("#showCardButton")
+            ?.addEventListener("click", () => {
+
+                overlay.remove();
+
+                window.location.hash =
+                    `#cards?no=${item.no}`;
+
+            });
+
+    }
+
+    function createOverlay() {
+
+        const overlay =
+            document.createElement("div");
+
+        overlay.className =
+            "catalog-detail-overlay";
+
+        document.body.appendChild(overlay);
+
+        return overlay;
+
+    }
+
+    function setupOverlay(overlay) {
+
         overlay
             .querySelector(".catalog-close")
-            .addEventListener("click", () => {
+            ?.addEventListener("click", () => {
 
                 overlay.remove();
 
             });
 
-        overlay.addEventListener("click", e => {
+        overlay.addEventListener("click", event => {
 
-            if (e.target === overlay) {
+            if (event.target === overlay) {
 
                 overlay.remove();
 
@@ -160,16 +379,25 @@ export function showCatalog(screen) {
 
         });
 
-        document.body.appendChild(overlay);
-
     }
 
-    searchBox.addEventListener("input", e => {
-
-        draw(e.target.value);
-
-    });
+    searchBox.addEventListener("input", draw);
+    categoryFilter.addEventListener("change", draw);
 
     draw();
+
+}
+
+function rarityText(rarity) {
+
+    const map = {
+        1: "C",
+        2: "C",
+        3: "B",
+        4: "A",
+        5: "S"
+    };
+
+    return map[rarity] ?? "?";
 
 }

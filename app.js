@@ -8,7 +8,7 @@ import { getSave } from "./system/storage.js";
 import { showHome } from "./screens/home.js";
 import { showCamera } from "./screens/camera.js";
 import { showCatalog } from "./screens/catalog.js";
-import { showCards } from "./screens/cards.js";
+
 import { showSpirit } from "./screens/spirit.js";
 
 const screen = document.getElementById("screen");
@@ -17,7 +17,7 @@ const screens = {
     home: showHome,
     camera: showCamera,
     catalog: showCatalog,
-    cards: showCards,
+
     spirit: showSpirit
 };
 
