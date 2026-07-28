@@ -1,0 +1,1904 @@
+/* =====================================
+   camera.css Ver4
+   仲間をさがす画面
+   PART1
+===================================== */
+
+/* =====================================
+   画面全体
+===================================== */
+
+.camera-page {
+    width: 100%;
+    max-width: 760px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 18px 14px 130px;
+    box-sizing: border-box;
+}
+
+.camera-page *,
+.camera-page *::before,
+.camera-page *::after {
+    box-sizing: border-box;
+}
+
+/* =====================================
+   上部タイトル
+===================================== */
+
+.camera-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff, #eef9e7);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.camera-header-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: linear-gradient(145deg,#dff6ce,#b9e69a);
+    font-size: 30px;
+}
+
+.camera-header h2 {
+    margin: 0;
+    color: #24552c;
+    font-size: 22px;
+}
+
+.camera-header p {
+    margin: 4px 0 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =====================================
+   メインカード
+===================================== */
+
+.camera-card {
+    padding: 18px;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+/* =====================================
+   精霊メッセージ
+===================================== */
+
+.camera-select-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.camera-select-spirit {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #ffeaa7;
+    font-size: 28px;
+}
+
+.camera-select-title strong {
+    display: block;
+    font-size: 17px;
+}
+
+.camera-select-title small {
+    color: #777;
+}
+
+/* =====================================
+   写真ボタン
+===================================== */
+
+.photo-source-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.photo-source-button {
+    border: none;
+    border-radius: 18px;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: .2s;
+}
+
+.photo-source-button:hover {
+    transform: translateY(-2px);
+}
+
+.take-photo-button {
+    background: #3cb371;
+    color: white;
+}
+
+.choose-photo-button {
+    background: #eef9e7;
+    color: #2f5e38;
+}
+
+.photo-source-icon {
+    font-size: 28px;
+}
+
+/* =====================================
+   写真プレビュー
+===================================== */
+
+.preview-area {
+    margin-top: 15px;
+    min-height: 260px;
+    border: 2px dashed #9ed49f;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafdf8;
+    overflow: hidden;
+}
+
+.preview-placeholder {
+    text-align: center;
+    color: #777;
+}
+
+.preview-placeholder-icon {
+    display: block;
+    font-size: 54px;
+    margin-bottom: 10px;
+}
+
+.cameraPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =====================================
+   写真情報
+===================================== */
+
+.photo-info {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #e9ffe7;
+    color: #2b6c37;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =====================================
+   ボタン
+===================================== */
+
+.mainButton,
+.subButton {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.mainButton {
+    background: #38b24a;
+    color: white;
+}
+
+.mainButton:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.subButton {
+    background: #ececec;
+}
+
+/* =====================================
+   精霊メッセージ
+===================================== */
+
+.judge-result {
+    margin-top: 20px;
+}
+
+.spirit-judge-message {
+    padding: 15px;
+    border-radius: 16px;
+    background: #fff9db;
+    text-align: center;
+    font-size: 16px;
+}
+/* =====================================
+   camera.css Ver4
+   PART2
+   写真プレビュー・ローディング
+===================================== */
+
+/* =====================================
+   プレビュー画像
+===================================== */
+
+.preview-image-area {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-image-area img {
+    display: block;
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    background: #f4f4f4;
+}
+
+.preview-area:not(.preview-empty) {
+    border-style: solid;
+    border-color: rgba(65, 143, 78, 0.35);
+    background: #ffffff;
+}
+
+/* =====================================
+   仲間をさがすボタン
+===================================== */
+
+.search-friend-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 54px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #55c96b,
+            #2f9f48
+        );
+
+    box-shadow:
+        0 8px 18px rgba(47, 159, 72, 0.24);
+
+    font-weight: 700;
+}
+
+.search-friend-button:not(:disabled):active {
+    transform: scale(0.98);
+}
+
+.clear-photo-button {
+    color: #506254;
+    background: #edf1ed;
+}
+
+/* =====================================
+   精霊の調査中画面
+===================================== */
+
+.friend-search-loading {
+    position: relative;
+    overflow: hidden;
+
+    padding: 28px 18px;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #ffffff,
+            #f2fbef
+        );
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 28px rgba(45, 91, 53, 0.12);
+}
+
+.friend-search-loading::before {
+    content: "";
+
+    position: absolute;
+    inset: -40%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            rgba(171, 231, 138, 0.24),
+            transparent,
+            rgba(255, 239, 143, 0.22),
+            transparent
+        );
+
+    animation:
+        searchAuraRotate 5s linear infinite;
+
+    pointer-events: none;
+}
+
+.friend-search-loading > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* =====================================
+   精霊とキラキラ
+===================================== */
+
+.search-magic-area {
+    position: relative;
+
+    width: 150px;
+    height: 130px;
+
+    margin: 0 auto 12px;
+}
+
+.search-spirit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    display: grid;
+    place-items: center;
+
+    width: 78px;
+    height: 78px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fffef4,
+            #f6dd91 70%,
+            #d7b656
+        );
+
+    box-shadow:
+        inset 0 3px 3px rgba(255, 255, 255, 0.8),
+        0 10px 22px rgba(126, 97, 31, 0.2);
+
+    font-size: 45px;
+
+    transform:
+        translate(-50%, -50%);
+
+    animation:
+        searchSpiritFloat 1.7s ease-in-out infinite;
+}
+
+.search-sparkle {
+    position: absolute;
+
+    font-size: 22px;
+
+    animation:
+        searchSparkleBlink 1.3s ease-in-out infinite;
+}
+
+.sparkle-one {
+    top: 6px;
+    left: 20px;
+}
+
+.sparkle-two {
+    top: 18px;
+    right: 18px;
+
+    animation-delay: 0.25s;
+}
+
+.sparkle-three {
+    right: 48px;
+    bottom: 4px;
+
+    animation-delay: 0.55s;
+}
+
+/* =====================================
+   調査中テキスト
+===================================== */
+
+.friend-search-loading h3 {
+    margin: 0 0 8px;
+
+    color: #2d6035;
+
+    font-size: 20px;
+}
+
+.friend-search-loading p {
+    min-height: 24px;
+    margin: 0 0 14px;
+
+    color: #647369;
+
+    font-size: 14px;
+}
+
+.friend-search-loading small {
+    display: block;
+
+    margin-top: 12px;
+
+    color: #849086;
+
+    font-size: 11px;
+}
+
+/* =====================================
+   丸いローダー
+===================================== */
+
+.analysis-loader {
+    width: 34px;
+    height: 34px;
+
+    margin: 12px auto;
+
+    border: 4px solid rgba(55, 150, 73, 0.18);
+    border-top-color: #369b49;
+    border-radius: 50%;
+
+    animation:
+        analysisLoaderRotate 0.8s linear infinite;
+}
+
+/* =====================================
+   進行バー
+===================================== */
+
+.search-progress-track {
+    overflow: hidden;
+
+    width: 100%;
+    height: 12px;
+
+    border-radius: 999px;
+
+    background: #e3eee1;
+
+    box-shadow:
+        inset 0 1px 3px rgba(45, 90, 51, 0.12);
+}
+
+.search-progress-bar {
+    width: 8%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4cb45d,
+            #87dc77,
+            #f4df72
+        );
+
+    transition:
+        width 0.3s ease;
+
+    box-shadow:
+        0 0 10px rgba(99, 204, 97, 0.45);
+}
+
+/* =====================================
+   エラー表示
+===================================== */
+
+.search-error-box {
+    padding: 24px 18px;
+
+    border: 1px solid rgba(192, 105, 76, 0.2);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #fffdfb,
+            #fff2eb
+        );
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 24px rgba(132, 71, 49, 0.1);
+}
+
+.search-error-spirit {
+    margin-bottom: 8px;
+
+    font-size: 54px;
+}
+
+.search-error-box h3 {
+    margin: 0 0 8px;
+
+    color: #8d4635;
+
+    font-size: 20px;
+}
+
+.search-error-box p {
+    margin: 0 0 16px;
+
+    color: #77645e;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =====================================
+   アニメーション
+===================================== */
+
+@keyframes searchSpiritFloat {
+
+    0%,
+    100% {
+        transform:
+            translate(-50%, -50%)
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            translateY(-10px)
+            rotate(2deg);
+    }
+
+}
+
+@keyframes searchSparkleBlink {
+
+    0%,
+    100% {
+        opacity: 0.25;
+        transform: scale(0.75) rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(18deg);
+    }
+
+}
+
+@keyframes analysisLoaderRotate {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+@keyframes searchAuraRotate {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+/* =====================================
+   camera.css Ver4
+   PART3
+   候補カード
+===================================== */
+
+/* =====================================
+   候補全体
+===================================== */
+
+.candidate-result-section{
+
+    margin-top:24px;
+
+}
+
+.candidate-result-header{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    margin-bottom:20px;
+
+}
+
+.candidate-result-spirit{
+
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:34px;
+
+    background:#ffe8a8;
+
+    box-shadow:0 5px 14px rgba(0,0,0,.15);
+
+}
+
+.candidate-result-header h2{
+
+    margin:0;
+
+    color:#285630;
+
+}
+
+.candidate-result-header p{
+
+    margin:4px 0 0;
+
+    color:#666;
+
+}
+
+/* =====================================
+   候補一覧
+===================================== */
+
+.candidate-list{
+
+    display:grid;
+
+    gap:18px;
+
+}
+
+/* =====================================
+   カード
+===================================== */
+
+.candidate-card{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:24px;
+
+    padding:18px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:.25s;
+
+    background:white;
+
+    box-shadow:0 10px 22px rgba(0,0,0,.08);
+
+}
+
+.candidate-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.candidate-card:active{
+
+    transform:scale(.98);
+
+}
+
+/* =====================================
+   レア度色
+===================================== */
+
+.rarity-s{
+
+    border:4px solid gold;
+
+}
+
+.rarity-a{
+
+    border:4px solid #ff5757;
+
+}
+
+.rarity-b{
+
+    border:4px solid #5bbf5b;
+
+}
+
+.rarity-c{
+
+    border:4px solid #8da0b3;
+
+}
+
+/* =====================================
+   上部
+===================================== */
+
+.candidate-card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.candidate-number{
+
+    font-weight:bold;
+
+    color:#555;
+
+}
+
+.candidate-rarity{
+
+    font-weight:bold;
+
+    font-size:14px;
+
+}
+
+/* =====================================
+   イラスト
+===================================== */
+
+.candidate-illustration-area{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:18px 0;
+
+}
+
+.candidate-illustration{
+
+    font-size:90px;
+
+}
+
+/* =====================================
+   名前
+===================================== */
+
+.candidate-name-area{
+
+    text-align:center;
+
+}
+
+.candidate-name-area h3{
+
+    margin:0;
+
+    font-size:24px;
+
+    color:#2d5f37;
+
+}
+
+/* =====================================
+   タグ
+===================================== */
+
+.candidate-tags{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:12px;
+
+}
+
+.candidate-tags span{
+
+    background:#eef9e7;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:13px;
+
+}
+
+/* =====================================
+   一致率
+===================================== */
+
+.candidate-confidence-area{
+
+    margin-top:18px;
+
+}
+
+.candidate-confidence-label{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+.candidate-confidence-track{
+
+    width:100%;
+
+    height:12px;
+
+    background:#e5e5e5;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+.candidate-confidence-bar{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #44b44d,
+        #b8eb5d
+    );
+
+}
+
+/* =====================================
+   ボタン下
+===================================== */
+
+.candidate-select-label{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:18px;
+
+    font-weight:bold;
+
+    color:#2d7d36;
+
+}
+
+/* =====================================
+   選択時
+===================================== */
+
+.candidate-selected{
+
+    animation:cardSelected .5s;
+
+}
+
+.candidate-selected-mark{
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:#2f9c40;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================
+   写真選び直し
+===================================== */
+
+.candidate-help{
+
+    text-align:center;
+
+    margin-top:24px;
+
+}
+
+.candidate-help p{
+
+    color:#777;
+
+}
+
+/* =====================================
+   アニメーション
+===================================== */
+
+@keyframes cardSelected{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    40%{
+
+        transform:scale(1.05);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+/* =====================================
+   camera.css Ver4
+   PART4
+   GET!!演出
+===================================== */
+
+/* =====================================
+   GET画面
+===================================== */
+
+.card-get-scene{
+    position:relative;
+    overflow:hidden;
+
+    margin-top:24px;
+    padding:30px 20px;
+
+    border-radius:28px;
+
+    background:
+        radial-gradient(circle at top,#fffbe7,#eefbe7);
+
+    text-align:center;
+}
+
+/* =====================================
+   背景エフェクト
+===================================== */
+
+.card-get-background-effect{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.get-sparkle{
+    position:absolute;
+    font-size:28px;
+    animation:getSparkle 2s infinite;
+}
+
+.get-sparkle-one{top:10%;left:18%;}
+.get-sparkle-two{top:18%;right:14%;animation-delay:.3s;}
+.get-sparkle-three{bottom:22%;left:20%;animation-delay:.7s;}
+.get-sparkle-four{bottom:18%;right:18%;animation-delay:1s;}
+.get-sparkle-five{top:45%;left:50%;animation-delay:1.3s;}
+
+/* =====================================
+   タイトル
+===================================== */
+
+.card-get-title{
+    position:relative;
+    z-index:2;
+
+    margin-bottom:24px;
+
+    font-size:26px;
+    font-weight:bold;
+    color:#2d7d36;
+}
+
+/* =====================================
+   写真・変身エリア
+===================================== */
+
+.discovery-transform-area{
+    position:relative;
+
+    height:340px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.discovery-photo{
+
+    width:220px;
+    height:220px;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.2);
+
+    transition:.6s;
+}
+
+.discovery-photo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.discovery-photo-glow{
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 35px gold,
+        0 0 70px #ffe86a;
+
+}
+
+.discovery-photo-fade{
+
+    opacity:0;
+
+    transform:scale(.7);
+
+}
+
+/* =====================================
+   キラキラ
+===================================== */
+
+.discovery-magic{
+
+    position:absolute;
+
+    display:flex;
+    gap:16px;
+
+    font-size:36px;
+
+    animation:getMagic 1s infinite;
+
+}
+
+/* =====================================
+   イラスト
+===================================== */
+
+.discovery-illustration{
+
+    position:absolute;
+
+    font-size:120px;
+
+}
+
+.discovery-illustration-appear{
+
+    animation:illustrationAppear .8s;
+
+}
+
+.discovery-illustration-fly{
+
+    animation:illustrationFly .8s forwards;
+
+}
+
+/* =====================================
+   カード
+===================================== */
+
+.discovery-card{
+
+    position:absolute;
+
+    width:230px;
+
+    border-radius:24px;
+
+    background:white;
+
+    box-shadow:0 18px 35px rgba(0,0,0,.25);
+
+    overflow:hidden;
+
+}
+
+.discovery-card-spin{
+
+    animation:cardSpin 1s;
+
+}
+
+.discovery-card-finish{
+
+    animation:cardFinish .6s;
+
+}
+
+/* =====================================
+   メッセージ
+===================================== */
+
+.card-get-message{
+
+    margin-top:24px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#2d6b38;
+
+}
+
+/* =====================================
+   GET!!
+===================================== */
+
+.card-get-result{
+
+    text-align:center;
+
+    margin-top:28px;
+
+}
+
+.card-get-burst{
+
+    font-size:70px;
+
+    animation:getBurst .8s infinite alternate;
+
+}
+
+.card-get-text{
+
+    font-size:48px;
+
+    font-weight:900;
+
+    color:#ff9800;
+
+    text-shadow:
+        0 0 12px gold;
+
+    margin-bottom:18px;
+
+}
+
+.card-get-result-card{
+
+    width:240px;
+
+    margin:0 auto;
+
+}
+
+/* =====================================
+   アニメーション
+===================================== */
+
+@keyframes getSparkle{
+
+    0%,100%{
+
+        opacity:.2;
+        transform:scale(.8);
+
+    }
+
+    50%{
+
+        opacity:1;
+        transform:scale(1.4) rotate(25deg);
+
+    }
+
+}
+
+@keyframes getMagic{
+
+    50%{
+
+        transform:scale(1.3);
+
+    }
+
+}
+
+@keyframes illustrationAppear{
+
+    from{
+
+        transform:scale(.2);
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+        opacity:1;
+
+    }
+
+}
+
+@keyframes illustrationFly{
+
+    to{
+
+        transform:
+            translateY(-120px)
+            scale(.3);
+
+        opacity:0;
+
+    }
+
+}
+
+@keyframes cardSpin{
+
+    from{
+
+        transform:
+            rotateY(0deg);
+
+    }
+
+    to{
+
+        transform:
+            rotateY(720deg);
+
+    }
+
+}
+
+@keyframes cardFinish{
+
+    50%{
+
+        transform:scale(1.12);
+
+    }
+
+}
+
+@keyframes getBurst{
+
+    from{
+
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        transform:scale(1.15);
+
+    }
+
+}
+/* =====================================
+   camera.css Ver4
+   PART5
+   登録完了・スマホ調整・最終仕上げ
+===================================== */
+
+/* =====================================
+   GETカードの中身
+===================================== */
+
+.get-card-inner {
+    padding: 14px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            160deg,
+            #ffffff,
+            #f7fbf5
+        );
+}
+
+.get-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.get-card-number {
+    color: #5f6b61;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.get-card-rarity {
+    display: grid;
+    place-items: center;
+
+    min-width: 32px;
+    height: 32px;
+    padding: 0 9px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    color: #514621;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.get-card-category-icon {
+    margin-top: 10px;
+
+    text-align: right;
+    font-size: 23px;
+}
+
+.get-card-illustration {
+    display: grid;
+    place-items: center;
+
+    min-height: 145px;
+
+    font-size: 92px;
+    line-height: 1;
+}
+
+.get-card-name {
+    margin: 8px 0 12px;
+
+    color: #284e30;
+
+    font-size: 22px;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.get-card-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.get-card-tags span {
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(232, 246, 225, 0.94);
+
+    color: #47604b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =====================================
+   レア度のカード背景
+===================================== */
+
+.card-get-result-card.rarity-s,
+.registered-card.rarity-s,
+.discovery-card.rarity-s {
+    border: 4px solid #f0c83b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff6a9,
+            #ffffff,
+            #c9f1ff,
+            #ffd2ee,
+            #fff6a9
+        );
+
+    box-shadow:
+        0 0 22px rgba(240, 200, 59, 0.55),
+        0 18px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card-get-result-card.rarity-a,
+.registered-card.rarity-a,
+.discovery-card.rarity-a {
+    border: 4px solid #e0b33b;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff8d4,
+            #f4cf60
+        );
+
+    box-shadow:
+        0 0 18px rgba(224, 179, 59, 0.35),
+        0 18px 35px rgba(0, 0, 0, 0.18);
+}
+
+.card-get-result-card.rarity-b,
+.registered-card.rarity-b,
+.discovery-card.rarity-b {
+    border: 4px solid #aab3bd;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #dce3e9
+        );
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, 0.16);
+}
+
+.card-get-result-card.rarity-c,
+.registered-card.rarity-c,
+.discovery-card.rarity-c {
+    border: 4px solid #b57b4d;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5d5ad,
+            #c88d5c
+        );
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =====================================
+   GET完了画面
+===================================== */
+
+.card-get-creature-name {
+    margin: 18px 0 7px;
+
+    color: #285c33;
+    font-size: 27px;
+}
+
+.card-get-description {
+    margin: 0 0 18px;
+
+    color: #68716a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.register-card-button {
+    max-width: 360px;
+    margin-right: auto;
+    margin-left: auto;
+
+    font-weight: 800;
+}
+
+
+/* =====================================
+   図鑑登録完了画面
+===================================== */
+
+.register-complete-screen,
+.register-error-screen,
+.temporary-catalog-message {
+    margin-top: 22px;
+    padding: 26px 18px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            160deg,
+            #ffffff,
+            #f1faed
+        );
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(37, 81, 44, 0.13);
+}
+
+.register-complete-effects {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    margin-bottom: 4px;
+
+    font-size: 27px;
+
+    animation:
+        completeEffectsFloat 1.3s ease-in-out infinite;
+}
+
+.register-complete-spirit,
+.register-error-spirit,
+.temporary-catalog-icon {
+    margin-bottom: 8px;
+
+    font-size: 58px;
+}
+
+.register-complete-screen h2,
+.register-error-screen h2,
+.temporary-catalog-message h2 {
+    margin: 0 0 9px;
+
+    color: #2d6036;
+    font-size: 25px;
+}
+
+.register-complete-message,
+.register-error-screen p,
+.temporary-catalog-message p {
+    margin: 0 0 18px;
+
+    color: #68736a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.registered-card {
+    width: min(100%, 250px);
+    margin: 18px auto;
+
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+.owned-card-count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    max-width: 330px;
+    margin: 17px auto 8px;
+    padding: 12px 15px;
+
+    border-radius: 16px;
+
+    background: #edf7e9;
+
+    color: #446049;
+}
+
+.owned-card-count strong {
+    color: #287138;
+    font-size: 19px;
+}
+
+.owned-card-message {
+    margin: 0 0 18px;
+
+    color: #66736a;
+    font-size: 13px;
+}
+
+.register-complete-buttons {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+
+/* =====================================
+   登録エラー
+===================================== */
+
+.register-error-screen {
+    background:
+        linear-gradient(
+            160deg,
+            #ffffff,
+            #fff0e9
+        );
+}
+
+.register-error-screen h2 {
+    color: #954b38;
+}
+
+
+/* =====================================
+   一時図鑑画面
+===================================== */
+
+.temporary-catalog-message {
+    margin-top: 40px;
+}
+
+
+/* =====================================
+   ボタン共通仕上げ
+===================================== */
+
+.mainButton,
+.subButton,
+.candidate-card,
+.photo-source-button {
+    font-family: inherit;
+}
+
+.mainButton {
+    transition:
+        transform 0.16s ease,
+        filter 0.16s ease,
+        box-shadow 0.16s ease;
+}
+
+.mainButton:not(:disabled):active,
+.subButton:active {
+    transform: scale(0.98);
+}
+
+.mainButton:not(:disabled):hover {
+    filter: brightness(1.03);
+}
+
+.subButton {
+    color: #536057;
+
+    transition:
+        transform 0.16s ease,
+        filter 0.16s ease;
+}
+
+
+/* =====================================
+   hidden属性を確実に効かせる
+===================================== */
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================
+   スマホ表示
+===================================== */
+
+@media (max-width: 540px) {
+
+    .camera-page {
+        padding:
+            12px
+            10px
+            calc(105px + env(safe-area-inset-bottom));
+    }
+
+    .camera-header {
+        padding: 13px;
+        border-radius: 19px;
+    }
+
+    .camera-header-icon {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+
+        font-size: 25px;
+    }
+
+    .camera-header h2 {
+        font-size: 19px;
+    }
+
+    .camera-card {
+        padding: 14px;
+        border-radius: 21px;
+    }
+
+    .photo-source-buttons {
+        gap: 8px;
+    }
+
+    .photo-source-button {
+        min-height: 70px;
+        padding: 9px 5px;
+    }
+
+    .photo-source-button strong {
+        font-size: 14px;
+    }
+
+    .photo-source-button small {
+        font-size: 10px;
+    }
+
+    .photo-source-icon {
+        font-size: 24px;
+    }
+
+    .preview-area,
+    .preview-image-area {
+        min-height: 220px;
+    }
+
+    .candidate-card {
+        padding: 14px;
+        border-radius: 20px;
+    }
+
+    .candidate-illustration {
+        font-size: 76px;
+    }
+
+    .candidate-name-area h3 {
+        font-size: 21px;
+    }
+
+    .card-get-scene {
+        padding: 24px 12px;
+    }
+
+    .card-get-title {
+        font-size: 22px;
+    }
+
+    .discovery-transform-area {
+        height: 310px;
+    }
+
+    .discovery-photo {
+        width: 190px;
+        height: 190px;
+    }
+
+    .discovery-card {
+        width: 205px;
+    }
+
+    .discovery-illustration {
+        font-size: 100px;
+    }
+
+    .card-get-text {
+        font-size: 42px;
+    }
+
+    .card-get-result-card {
+        width: min(100%, 225px);
+    }
+
+    .get-card-illustration {
+        min-height: 125px;
+        font-size: 78px;
+    }
+
+}
+
+
+/* =====================================
+   小さいスマホ
+===================================== */
+
+@media (max-width: 370px) {
+
+    .photo-source-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-source-button {
+        min-height: 62px;
+    }
+
+    .camera-select-title {
+        align-items: flex-start;
+    }
+
+    .candidate-tags,
+    .get-card-tags {
+        gap: 5px;
+    }
+
+}
+
+
+/* =====================================
+   動きを減らす設定
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .camera-page *,
+    .camera-page *::before,
+    .camera-page *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}
+
+
+/* =====================================
+   最終アニメーション
+===================================== */
+
+@keyframes completeEffectsFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
