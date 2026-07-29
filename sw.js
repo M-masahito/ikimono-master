@@ -1,34 +1,32 @@
-const CACHE = 'ikimono-master-v6-1-1';
+const CACHE_NAME = "ikimono-master-v7";
 
-const FILES = [
-    './',
-    './index.html',
-    './app.js',
-    './styles.css',
-    './config.js',
-    './catalog.js',
-    './manifest.webmanifest',
-    './icon-192.png',
-    './icon-512.png'
+const APP_SHELL = [
+    "./",
+    "./index.html",
+    "./manifest.webmanifest",
+    "./icon-192.png",
+    "./icon-512.png"
 ];
 
-self.addEventListener('install', event => {
+// 新しいService Workerをすぐ待機解除
+self.addEventListener("install", event => {
     event.waitUntil(
         caches
-            .open(CACHE)
-            .then(cache => cache.addAll(FILES))
+            .open(CACHE_NAME)
+            .then(cache => cache.addAll(APP_SHELL))
             .then(() => self.skipWaiting())
     );
 });
 
-self.addEventListener('activate', event => {
+// 古いキャッシュを全部削除
+self.addEventListener("activate", event => {
     event.waitUntil(
         caches
             .keys()
             .then(keys =>
                 Promise.all(
                     keys
-                        .filter(key => key !== CACHE)
+                        .filter(key => key !== CACHE_NAME)
                         .map(key => caches.delete(key))
                 )
             )
@@ -36,19 +34,30 @@ self.addEventListener('activate', event => {
     );
 });
 
-self.addEventListener('fetch', event => {
-    if (event.request.method !== 'GET') {
+// オンラインなら必ず最新版を取得
+self.addEventListener("fetch", event => {
+    if (event.request.method !== "GET") {
         return;
     }
 
     event.respondWith(
-        fetch(event.request, { cache: 'no-store' })
+        fetch(event.request, {
+            cache: "no-store"
+        })
             .then(response => {
-                const copy = response.clone();
+                const requestUrl = new URL(event.request.url);
 
-                caches
-                    .open(CACHE)
-                    .then(cache => cache.put(event.request, copy));
+                // 自分のアプリ内ファイルだけ保存
+                if (
+                    response.ok &&
+                    requestUrl.origin === self.location.origin
+                ) {
+                    const copy = response.clone();
+
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, copy);
+                    });
+                }
 
                 return response;
             })
