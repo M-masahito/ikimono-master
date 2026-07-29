@@ -1,4 +1,4 @@
-window.IKIMONO_CATALOG = [
+window.IKIMONO_DATA = [
   {
     "no": 1,
     "name": "モンシロチョウ",
@@ -5502,9 +5502,9 @@ window.IKIMONO_CATALOG = [
 ];
 
 (function () {
-  const catalogData = Array.isArray(window.IKIMONO_CATALOG) ? window.IKIMONO_CATALOG : [];
+  const catalogData = Array.isArray(window.IKIMONO_DATA) ? window.IIKIMONO_DATA : [];
   const catalogEntries = catalogData.slice(0, 100).sort((a, b) => Number(a.no) - Number(b.no));
-  window.IKIMONO_CATALOG = catalogEntries;
+  window.IKIMONO_DATA = catalogEntries;
 
   function getDiscoveries() {
     try {
@@ -5636,7 +5636,7 @@ window.IKIMONO_CATALOG = [
     window.renderBook = function () {
       const query = String(searchInput?.value || "").trim().toLowerCase();
       const filter = String(filterInput?.value || "").trim();
-      const entries = window.IKIMONO_CATALOG.filter(item => {
+      const entries = window.IKIMONO_DATA.filter(item => {
         const matchesQuery = !query || String(item.name).toLowerCase().includes(query) || String(item.category).toLowerCase().includes(query) || String(item.no).includes(query);
         if (!matchesQuery) return false;
         if (!filter || filter === "all") return true;

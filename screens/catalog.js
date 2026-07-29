@@ -14,8 +14,8 @@ export function showCatalog(screen) {
         ? save.discovered
         : [];
 
- const catalog = Array.isArray(window.IKIMONO_CATALOG)
-    ? window.IKIMONO_CATALOG
+ const catalog = Array.isArray(window.IKIMONO_DATA)
+    ? window.IKIMONO_DATA
     : [];
     
     screen.innerHTML = `

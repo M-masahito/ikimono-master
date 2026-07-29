@@ -1,5 +1,5 @@
 "use strict";
-const creatures = window.IKIMONO_CATALOG || [];
+const creatures = window.IKIMONO_DATA || [];
 const config = window.IKIMONO_CONFIG || {};
 const STORAGE_KEY = "ikimonoMasterV1";
 
