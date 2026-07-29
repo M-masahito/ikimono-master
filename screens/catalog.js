@@ -1,6 +1,7 @@
 // =====================================
 // screens/catalog.js
-// 500種類の図鑑画面
+// いきものマスター Ver.2
+// カード図鑑システム
 // =====================================
 
 import { getSave } from "../system/storage.js";
@@ -24,12 +25,12 @@ export function showCatalog(screen) {
 
                 <div>
                     <h2>📖 いきもの図鑑</h2>
-                    <p>まだ見つけていない生き物も探してみよう！</p>
+                    <p>見つけたカードを集めよう！</p>
                 </div>
 
                 <div class="encyclopedia-count">
                     <strong>${discovered.length}</strong>
-                    <span>/ 500</span>
+                    <span>/ ${catalog.length}</span>
                 </div>
 
             </div>
@@ -40,8 +41,7 @@ export function showCatalog(screen) {
                     id="searchBox"
                     class="encyclopedia-search"
                     type="search"
-                    placeholder="生き物の名前で検索"
-                    autocomplete="off"
+                    placeholder="名前で検索"
                 >
 
                 <select
@@ -74,10 +74,13 @@ export function showCatalog(screen) {
     const searchBox = screen.querySelector("#searchBox");
     const categoryFilter = screen.querySelector("#categoryFilter");
 
-    function draw() {
+    draw();
+        function draw() {
 
         const keyword =
-            searchBox.value.trim().toLowerCase();
+            searchBox.value
+                .trim()
+                .toLowerCase();
 
         const category =
             categoryFilter.value;
@@ -86,16 +89,24 @@ export function showCatalog(screen) {
 
         const filtered = catalog.filter(item => {
 
-            const itemName =
-                String(item.name ?? "").toLowerCase();
+            const found =
+                discovered.includes(item.no);
+
+            const name =
+                found
+                    ? String(item.name).toLowerCase()
+                    : "";
 
             const matchesName =
-                !keyword || itemName.includes(keyword);
+                !keyword ||
+                name.includes(keyword);
 
             const matchesCategory =
-                !category || item.category === category;
+                !category ||
+                item.category === category;
 
-            return matchesName && matchesCategory;
+            return matchesName &&
+                   matchesCategory;
 
         });
 
@@ -104,300 +115,385 @@ export function showCatalog(screen) {
             const found =
                 discovered.includes(item.no);
 
-            const hasName =
-                Boolean(item.name?.trim());
-
-            const displayName =
-                found && hasName
-                    ? item.name
-                    : "？？？";
-
-            const card = document.createElement("button");
+            const card =
+                document.createElement("button");
 
             card.type = "button";
 
-            card.className = `
-                catalog-card
-                ${found ? "found" : "unknown"}
-            `;
+            card.className =
+                `catalog-card ${
+                    found
+                        ? "found"
+                        : "unknown"
+                }`;
 
             card.innerHTML = `
 
                 <div class="catalog-no">
-                    No.${String(item.no).padStart(3, "0")}
+                    No.${String(item.no).padStart(3,"0")}
                 </div>
 
-                <div class="catalog-image">
-
-                    <img
-                        src="${item.image}"
-                        alt="${found ? item.name : "未発見の生き物"}"
-                        onerror="
-                            this.onerror=null;
-                            this.src='./icon-192.png';
-                        "
-                    >
+                <div class="catalog-card-image">
 
                     ${
                         found
-                            ? ""
-                            : `<div class="catalog-lock">?</div>`
+
+                        ? `
+
+                        <img
+                            src="${item.cardImage ?? item.image}"
+                            alt="${item.name}"
+                        >
+
+                        `
+
+                        : `
+
+                        <div class="card-back">
+                            <span>？</span>
+                        </div>
+
+                        `
                     }
 
                 </div>
 
                 <div class="catalog-name">
-                    ${displayName}
-                </div>
 
-                <div class="catalog-bottom">
-
-                    <span class="catalog-category">
-                        ${found ? item.category : "未発見"}
-                    </span>
-
-                    <span class="catalog-rarity">
-                        ${
-                            found
-                                ? rarityText(item.rarity)
-                                : "?"
-                        }
-                    </span>
+                    ${
+                        found
+                            ? item.name
+                            : "？？？"
+                    }
 
                 </div>
+
             `;
 
-            card.addEventListener("click", () => {
+            card.addEventListener(
+                "click",
+                () => {
 
-                if (!found) {
+                    if(found){
 
-                    showUnknownDetail(item);
-                    return;
+                        showDetail(item);
+
+                    }else{
+
+                        showUnknownDetail(item);
+
+                    }
 
                 }
-
-                showDetail(item);
-
-            });
+            );
 
             list.appendChild(card);
 
         });
 
-        if (filtered.length === 0) {
-
-            list.innerHTML = `
-                <div class="catalog-empty">
-                    該当する生き物がありません
-                </div>
-            `;
-
-        }
-
     }
 
-    function showUnknownDetail(item) {
+    searchBox.addEventListener(
+        "input",
+        draw
+    );
 
-        const overlay = createOverlay();
+    categoryFilter.addEventListener(
+        "change",
+        draw
+    );
 
-        overlay.innerHTML = `
-            <div class="catalog-detail unknown-detail">
+}
+// =====================================
+// 未発見カードの詳細
+// =====================================
 
-                <button
-                    class="catalog-close"
-                    type="button"
-                    aria-label="閉じる"
-                >
-                    ✕
-                </button>
+function showUnknownDetail(item) {
 
-                <div class="detail-number">
-                    No.${String(item.no).padStart(3, "0")}
+    const overlay =
+        document.createElement("div");
+
+    overlay.className =
+        "catalog-detail-overlay";
+
+    overlay.innerHTML = `
+        <div class="catalog-detail unknown-detail">
+
+            <button
+                class="catalog-close"
+                type="button"
+                aria-label="閉じる"
+            >
+                ✕
+            </button>
+
+            <div class="detail-number">
+                No.${String(item.no).padStart(3, "0")}
+            </div>
+
+            <div class="detail-card-back">
+
+                <div class="detail-card-question">
+                    ？
                 </div>
 
-                <div class="detail-unknown-image">
-
-                    <img
-                        src="${item.image}"
-                        alt="未発見の生き物"
-                        onerror="
-                            this.onerror=null;
-                            this.src='./icon-192.png';
-                        "
-                    >
-
-                    <span>?</span>
-
+                <div class="detail-card-unknown">
+                    未発見
                 </div>
-
-                <h2>？？？</h2>
-
-                <p class="unknown-message">
-                    まだ発見していない生き物です。
-                </p>
-
-                <p class="unknown-hint">
-                    写真を撮って、精霊に調べてもらおう！
-                </p>
 
             </div>
-        `;
 
-        setupOverlay(overlay);
+            <h2>？？？</h2>
 
-    }
+            <p class="unknown-message">
+                まだ発見していない生き物です。
+            </p>
 
-    function showDetail(item) {
+            <p class="unknown-hint">
+                仲間をさがしてカードを手に入れよう！
+            </p>
 
-        const overlay = createOverlay();
+        </div>
+    `;
 
-        const card =
-            save.cards?.find(card => card.no === item.no);
+    document.body.appendChild(overlay);
 
-        overlay.innerHTML = `
-            <div class="catalog-detail">
+    setupOverlay(overlay);
 
-                <button
-                    class="catalog-close"
-                    type="button"
-                    aria-label="閉じる"
-                >
-                    ✕
-                </button>
+}
 
-                <div class="detail-number">
-                    No.${String(item.no).padStart(3, "0")}
-                </div>
+
+// =====================================
+// 発見済みカードの詳細
+// =====================================
+
+function showDetail(item) {
+
+    const cardImage =
+        item.cardImage ??
+        item.illustration ??
+        item.image ??
+        "./icon-192.png";
+
+    const realImage =
+        item.realImage ??
+        item.photo ??
+        item.image ??
+        "./icon-192.png";
+
+    const overlay =
+        document.createElement("div");
+
+    overlay.className =
+        "catalog-detail-overlay";
+
+    overlay.innerHTML = `
+        <div class="catalog-detail">
+
+            <button
+                class="catalog-close"
+                type="button"
+                aria-label="閉じる"
+            >
+                ✕
+            </button>
+
+            <div class="detail-number">
+                No.${String(item.no).padStart(3, "0")}
+            </div>
+
+            <div class="detail-main-card">
 
                 <img
-                    class="catalog-detail-image"
-                    src="${item.image}"
-                    alt="${item.name}"
+                    src="${cardImage}"
+                    alt="${item.name}のカード"
                     onerror="
-                        this.onerror=null;
-                        this.src='./icon-192.png';
+                        this.onerror = null;
+                        this.src = './icon-192.png';
                     "
                 >
 
-                <h2>${item.name}</h2>
+            </div>
 
-                <div class="catalog-detail-tags">
+            <h2>
+                ${item.name}
+            </h2>
 
-                    <span>${item.category}</span>
+            <div class="catalog-detail-tags">
 
-                    <span>
-                        レア度 ${rarityText(item.rarity)}
-                    </span>
+                <span>
+                    ${item.category ?? "その他"}
+                </span>
 
-                </div>
+                ${
+                    item.type
+                        ? `
+                            <span>
+                                ${item.type}
+                            </span>
+                        `
+                        : ""
+                }
 
-                <div class="catalog-detail-info">
-
-                    <p>
-                        <strong>季節</strong>
-                        <span>${item.season ?? "不明"}</span>
-                    </p>
-
-                    <p>
-                        <strong>生息地</strong>
-                        <span>${item.habitat ?? "不明"}</span>
-                    </p>
-
-                    <p>
-                        <strong>大きさ</strong>
-                        <span>${item.size ?? "不明"}</span>
-                    </p>
-
-                    <p>
-                        <strong>保有カード</strong>
-                        <span>${card?.count ?? 1}枚</span>
-                    </p>
-
-                </div>
-
-                <div class="catalog-description">
-                    ${item.description ?? "説明は準備中です。"}
-                </div>
-
-                <button
-                    id="showCardButton"
-                    class="mainButton"
-                    type="button"
-                >
-                    🃏 カードを見る
-                </button>
+                <span>
+                    レア度 ${rarityText(item.rarity)}
+                </span>
 
             </div>
-        `;
 
-        setupOverlay(overlay);
+            <div class="catalog-real-photo">
 
-        overlay
-            .querySelector("#showCardButton")
-            ?.addEventListener("click", () => {
+                <h3>
+                    📷 リアル写真
+                </h3>
 
-                overlay.remove();
+                <img
+                    class="catalog-detail-image"
+                    src="${realImage}"
+                    alt="${item.name}の写真"
+                    onerror="
+                        this.onerror = null;
+                        this.src = './icon-192.png';
+                    "
+                >
 
-                window.location.hash =
-                    `#cards?no=${item.no}`;
+            </div>
 
-            });
+            <div class="catalog-description">
 
-    }
+                ${
+                    item.description ??
+                    "説明は準備中です。"
+                }
 
-    function createOverlay() {
+            </div>
 
-        const overlay =
-            document.createElement("div");
+            <div class="catalog-detail-info">
 
-        overlay.className =
-            "catalog-detail-overlay";
+                <p>
+                    <strong>季節</strong>
+                    <span>
+                        ${item.season ?? "不明"}
+                    </span>
+                </p>
 
-        document.body.appendChild(overlay);
+                <p>
+                    <strong>生息地</strong>
+                    <span>
+                        ${item.habitat ?? "不明"}
+                    </span>
+                </p>
 
-        return overlay;
+                <p>
+                    <strong>大きさ</strong>
+                    <span>
+                        ${item.size ?? "不明"}
+                    </span>
+                </p>
 
-    }
+                <p>
+                    <strong>発見場所</strong>
+                    <span>
+                        ${item.foundPlace ?? "未登録"}
+                    </span>
+                </p>
 
-    function setupOverlay(overlay) {
+                <p>
+                    <strong>発見日</strong>
+                    <span>
+                        ${item.foundDate ?? "未登録"}
+                    </span>
+                </p>
 
-        overlay
-            .querySelector(".catalog-close")
-            ?.addEventListener("click", () => {
+                <p>
+                    <strong>発見者</strong>
+                    <span>
+                        ${item.finder ?? "未登録"}
+                    </span>
+                </p>
 
-                overlay.remove();
+                <p>
+                    <strong>保有数</strong>
+                    <span>
+                        ${item.count ?? 1}枚
+                    </span>
+                </p>
 
-            });
+            </div>
 
-        overlay.addEventListener("click", event => {
+        </div>
+    `;
 
-            if (event.target === overlay) {
+    document.body.appendChild(overlay);
+
+    setupOverlay(overlay);
+
+}
+
+
+// =====================================
+// 詳細画面を閉じる処理
+// =====================================
+
+function setupOverlay(overlay) {
+
+    const closeButton =
+        overlay.querySelector(".catalog-close");
+
+    closeButton.addEventListener(
+        "click",
+        () => {
+
+            overlay.remove();
+
+        }
+    );
+
+    overlay.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target === overlay
+            ) {
 
                 overlay.remove();
 
             }
 
-        });
-
-    }
-
-    searchBox.addEventListener("input", draw);
-    categoryFilter.addEventListener("change", draw);
-
-    draw();
+        }
+    );
 
 }
 
+
+// =====================================
+// レア度表示
+// =====================================
+
 function rarityText(rarity) {
 
-    const map = {
+    if (
+        rarity === "S" ||
+        rarity === "A" ||
+        rarity === "B" ||
+        rarity === "C"
+    ) {
+
+        return rarity;
+
+    }
+
+    const rarityMap = {
+
         1: "C",
         2: "C",
         3: "B",
         4: "A",
         5: "S"
+
     };
 
-    return map[rarity] ?? "?";
+    return rarityMap[rarity] ?? "?";
 
 }
