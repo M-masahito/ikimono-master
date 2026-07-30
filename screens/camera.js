@@ -1773,13 +1773,9 @@ async function registerDiscoveredCard({
                 displayOwnedCount:
                     1,
 
-                photo:
-                    selectedImageUrl,
+                photo: "",
 
-                photos:
-                    selectedImageUrl
-                        ? [selectedImageUrl]
-                        : []
+photos: []
 
             };
 
@@ -1864,14 +1860,9 @@ async function registerDiscoveredCard({
                         MAX_CARD_COUNT
                     ),
 
-                photo:
-                    selectedImageUrl ||
-                    existingCard.photo ||
-                    "",
+                photo: "",
 
-                photos:
-                    existingPhotos
-
+photos: []
             };
 
         }
