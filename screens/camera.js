@@ -4,8 +4,11 @@
 // PART1
 // =====================================
 
-import { getSave, update } from "../system/storage.js";
-
+import {
+    getSave,
+    update,
+    syncDiscoveredNumbers
+} from "../system/storage.js";
 // 図鑑に保存できるカードの最大表示枚数
 const MAX_CARD_COUNT = 10;
 
@@ -1936,6 +1939,7 @@ async function registerDiscoveredCard({
             }
 
         });
+        syncDiscoveredNumbers();
 
         await wait(500);
 
