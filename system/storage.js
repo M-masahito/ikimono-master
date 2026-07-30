@@ -1,105 +1,217 @@
 // =======================================
 // system/storage.js
-// セーブデータ管理
+// セーブデータ管理 Ver2
 // =======================================
 
 const SAVE_KEY = "ikimonoSave";
 
 const DEFAULT_SAVE = {
     discovered: [],
+    discoveredCards: [],
     cards: [],
+    discoveryHistory: [],
+    lastDiscovery: null,
+
     spirit: {
         level: 1,
         exp: 0,
         form: 0,
         title: "たまご"
     },
+
     emblems: [],
     spiria: [],
+
     settings: {
         sound: true,
         vibration: true
     }
 };
 
+// =======================================
+// 初期データを複製
+// =======================================
+
+function createDefaultSave() {
+    return structuredClone(DEFAULT_SAVE);
+}
+
+// =======================================
 // セーブデータ取得
+// =======================================
+
 export function getSave() {
 
     const json = localStorage.getItem(SAVE_KEY);
 
     if (!json) {
 
+        const initialSave = createDefaultSave();
+
         localStorage.setItem(
             SAVE_KEY,
-            JSON.stringify(DEFAULT_SAVE)
+            JSON.stringify(initialSave)
         );
 
-        return structuredClone(DEFAULT_SAVE);
+        return initialSave;
     }
 
     try {
 
-        const save = JSON.parse(json);
+        const storedSave = JSON.parse(json);
 
-        // 新しい項目が追加されても壊れないよう補完
-        return {
-            ...structuredClone(DEFAULT_SAVE),
-            ...save,
+        const normalizedSave = {
+            ...createDefaultSave(),
+            ...storedSave,
+
+            discovered: Array.isArray(storedSave.discovered)
+                ? storedSave.discovered
+                : [],
+
+            discoveredCards: Array.isArray(storedSave.discoveredCards)
+                ? storedSave.discoveredCards
+                : [],
+
+            cards: Array.isArray(storedSave.cards)
+                ? storedSave.cards
+                : [],
+
+            discoveryHistory: Array.isArray(storedSave.discoveryHistory)
+                ? storedSave.discoveryHistory
+                : [],
+
             spirit: {
-                ...structuredClone(DEFAULT_SAVE.spirit),
-                ...(save.spirit || {})
+                ...createDefaultSave().spirit,
+                ...(storedSave.spirit || {})
             },
+
             settings: {
-                ...structuredClone(DEFAULT_SAVE.settings),
-                ...(save.settings || {})
+                ...createDefaultSave().settings,
+                ...(storedSave.settings || {})
             }
         };
 
-    } catch (e) {
+        return normalizedSave;
 
-        console.error("セーブデータ破損", e);
+    } catch (error) {
+
+        console.error(
+            "セーブデータが壊れていたため初期化しました。",
+            error
+        );
+
+        const initialSave = createDefaultSave();
 
         localStorage.setItem(
             SAVE_KEY,
-            JSON.stringify(DEFAULT_SAVE)
+            JSON.stringify(initialSave)
         );
 
-        return structuredClone(DEFAULT_SAVE);
-
+        return initialSave;
     }
-
 }
 
+// =======================================
 // セーブ
+// =======================================
+
 export function save(data) {
 
+    const safeData = {
+        ...createDefaultSave(),
+        ...(data || {})
+    };
+
     localStorage.setItem(
         SAVE_KEY,
-        JSON.stringify(data)
+        JSON.stringify(safeData)
     );
 
+    return safeData;
 }
 
+// =======================================
+// 更新
+// オブジェクトと関数の両方に対応
+// =======================================
+
+export function update(updater) {
+
+    const currentSave = getSave();
+
+    let updatedSave;
+
+    if (typeof updater === "function") {
+
+        const workingSave = structuredClone(currentSave);
+
+        const result = updater(workingSave);
+
+        updatedSave =
+            result && typeof result === "object"
+                ? result
+                : workingSave;
+
+    } else if (
+        updater &&
+        typeof updater === "object"
+    ) {
+
+        updatedSave = {
+            ...currentSave,
+            ...updater
+        };
+
+    } else {
+
+        console.warn(
+            "update() に正しい更新内容が渡されませんでした。"
+        );
+
+        return currentSave;
+    }
+
+    localStorage.setItem(
+        SAVE_KEY,
+        JSON.stringify(updatedSave)
+    );
+
+    return updatedSave;
+}
+
+// =======================================
+// 発見番号も同期
+// =======================================
+
+export function syncDiscoveredNumbers() {
+
+    const currentSave = getSave();
+
+    const numbers = currentSave.discoveredCards
+        .map(card => Number(card.no))
+        .filter(number => Number.isFinite(number));
+
+    const uniqueNumbers = [
+        ...new Set(numbers)
+    ];
+
+    return update({
+        discovered: uniqueNumbers
+    });
+}
+
+// =======================================
 // 初期化
+// =======================================
+
 export function resetSave() {
 
-    localStorage.setItem(
-        SAVE_KEY,
-        JSON.stringify(DEFAULT_SAVE)
-    );
-
-}
-
-// 更新
-export function update(callback) {
-
-    const save = getSave();
-
-    callback(save);
+    const initialSave = createDefaultSave();
 
     localStorage.setItem(
         SAVE_KEY,
-        JSON.stringify(save)
+        JSON.stringify(initialSave)
     );
 
+    return initialSave;
 }

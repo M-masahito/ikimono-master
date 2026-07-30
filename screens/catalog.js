@@ -1,214 +1,603 @@
 // =====================================
 // screens/catalog.js
-// いきものマスター Ver.2
-// カード図鑑システム
+// いきものマスター Ver8
+// 図鑑画面
+// PART1
 // =====================================
 
 import { getSave } from "../system/storage.js";
+
+const DEFAULT_IMAGE = "./icon-192.png";
+
+// =====================================
+// 図鑑画面を表示
+// =====================================
 
 export function showCatalog(screen) {
 
     const save = getSave();
 
-    const discovered = Array.isArray(save.discovered)
-        ? save.discovered
-        : [];
+    const catalog =
+        Array.isArray(window.IKIMONO_DATA)
+            ? window.IKIMONO_DATA
+            : [];
 
- const catalog = Array.isArray(window.IKIMONO_DATA)
-    ? window.IKIMONO_DATA
-    : [];
-    
+    const discoveredNumbers =
+        getDiscoveredNumbers(save);
+
     screen.innerHTML = `
+
         <section class="encyclopedia-page">
 
-            <div class="encyclopedia-header">
+            <header class="encyclopedia-header">
 
-                <div>
-                    <h2>📖 いきもの図鑑</h2>
-                    <p>見つけたカードを集めよう！</p>
+                <div class="encyclopedia-title-area">
+
+                    <div class="encyclopedia-title-icon">
+                        📖
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            いきもの図鑑
+                        </h2>
+
+                        <p>
+                            見つけた仲間を集めよう！
+                        </p>
+
+                    </div>
+
                 </div>
 
                 <div class="encyclopedia-count">
-                    <strong>${discovered.length}</strong>
-                    <span>/ ${catalog.length}</span>
+
+                    <strong id="discoveredCount">
+                        ${discoveredNumbers.length}
+                    </strong>
+
+                    <span>
+                        / ${catalog.length}
+                    </span>
+
+                </div>
+
+            </header>
+
+            <div class="encyclopedia-progress-area">
+
+                <div class="encyclopedia-progress-info">
+
+                    <span>
+                        図鑑完成度
+                    </span>
+
+                    <strong id="catalogProgressText">
+                        ${getProgressPercent(
+                            discoveredNumbers.length,
+                            catalog.length
+                        )}%
+                    </strong>
+
+                </div>
+
+                <div class="encyclopedia-progress-track">
+
+                    <div
+                        id="catalogProgressBar"
+                        class="encyclopedia-progress-bar"
+                        style="
+                            width:
+                            ${getProgressPercent(
+                                discoveredNumbers.length,
+                                catalog.length
+                            )}%;
+                        "
+                    ></div>
+
                 </div>
 
             </div>
 
             <div class="encyclopedia-search-area">
 
-                <input
-                    id="searchBox"
-                    class="encyclopedia-search"
-                    type="search"
-                    placeholder="名前で検索"
-                >
+                <label class="encyclopedia-search-box">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        id="catalogSearchBox"
+                        class="encyclopedia-search"
+                        type="search"
+                        placeholder="生き物の名前を検索"
+                        autocomplete="off"
+                    >
+
+                </label>
 
                 <select
-                    id="categoryFilter"
+                    id="catalogCategoryFilter"
                     class="encyclopedia-filter"
+                    aria-label="カテゴリーで絞り込む"
                 >
-                    <option value="">すべて</option>
-                    <option value="昆虫">昆虫</option>
-                    <option value="魚">魚</option>
-                    <option value="鳥">鳥</option>
-                    <option value="哺乳類">哺乳類</option>
-                    <option value="爬虫類">爬虫類</option>
-                    <option value="両生類">両生類</option>
-                    <option value="植物">植物</option>
-                    <option value="キノコ">キノコ</option>
-                    <option value="その他">その他</option>
+                    <option value="">
+                        すべてのカテゴリー
+                    </option>
+                </select>
+
+                <select
+                    id="catalogStatusFilter"
+                    class="encyclopedia-filter"
+                    aria-label="発見状態で絞り込む"
+                >
+                    <option value="">
+                        すべてのカード
+                    </option>
+
+                    <option value="found">
+                        発見済み
+                    </option>
+
+                    <option value="unknown">
+                        未発見
+                    </option>
                 </select>
 
             </div>
+
+            <div
+                id="catalogResultInfo"
+                class="catalog-result-info"
+            ></div>
 
             <div
                 id="catalogList"
                 class="catalog-grid"
             ></div>
 
+            <div
+                id="catalogEmpty"
+                class="catalog-empty"
+                hidden
+            >
+
+                <div class="catalog-empty-icon">
+                    🥚
+                </div>
+
+                <h3>
+                    仲間が見つかりません
+                </h3>
+
+                <p>
+                    検索する名前や絞り込みを変えてみてね。
+                </p>
+
+            </div>
+
         </section>
+
     `;
 
-    const list = screen.querySelector("#catalogList");
-    const searchBox = screen.querySelector("#searchBox");
-    const categoryFilter = screen.querySelector("#categoryFilter");
+    const searchBox =
+        screen.querySelector("#catalogSearchBox");
 
-    draw();
-        function draw() {
+    const categoryFilter =
+        screen.querySelector("#catalogCategoryFilter");
 
-        const keyword =
-            searchBox.value
-                .trim()
-                .toLowerCase();
+    const statusFilter =
+        screen.querySelector("#catalogStatusFilter");
 
-        const category =
-            categoryFilter.value;
+    const catalogList =
+        screen.querySelector("#catalogList");
 
-        list.innerHTML = "";
+    const resultInfo =
+        screen.querySelector("#catalogResultInfo");
 
-        const filtered = catalog.filter(item => {
+    const emptyArea =
+        screen.querySelector("#catalogEmpty");
+
+    setCategoryOptions({
+        select: categoryFilter,
+        catalog
+    });
+
+    drawCatalog({
+        catalog,
+        save,
+        discoveredNumbers,
+        searchBox,
+        categoryFilter,
+        statusFilter,
+        catalogList,
+        resultInfo,
+        emptyArea
+    });
+
+    searchBox?.addEventListener(
+        "input",
+        () => {
+
+            drawCatalog({
+                catalog,
+                save,
+                discoveredNumbers,
+                searchBox,
+                categoryFilter,
+                statusFilter,
+                catalogList,
+                resultInfo,
+                emptyArea
+            });
+
+        }
+    );
+
+    categoryFilter?.addEventListener(
+        "change",
+        () => {
+
+            drawCatalog({
+                catalog,
+                save,
+                discoveredNumbers,
+                searchBox,
+                categoryFilter,
+                statusFilter,
+                catalogList,
+                resultInfo,
+                emptyArea
+            });
+
+        }
+    );
+
+    statusFilter?.addEventListener(
+        "change",
+        () => {
+
+            drawCatalog({
+                catalog,
+                save,
+                discoveredNumbers,
+                searchBox,
+                categoryFilter,
+                statusFilter,
+                catalogList,
+                resultInfo,
+                emptyArea
+            });
+
+        }
+    );
+
+}
+
+// =====================================
+// 図鑑カード一覧を描画
+// =====================================
+
+function drawCatalog({
+
+    catalog,
+    save,
+    discoveredNumbers,
+    searchBox,
+    categoryFilter,
+    statusFilter,
+    catalogList,
+    resultInfo,
+    emptyArea
+
+}) {
+
+    if (!catalogList) {
+        return;
+    }
+
+    const keyword =
+        String(searchBox?.value ?? "")
+            .trim()
+            .toLowerCase();
+
+    const selectedCategory =
+        String(categoryFilter?.value ?? "");
+
+    const selectedStatus =
+        String(statusFilter?.value ?? "");
+
+    const filteredCatalog =
+        catalog.filter(item => {
+
+            const number =
+                Number(item?.no);
 
             const found =
-                discovered.includes(item.no);
+                discoveredNumbers.includes(number);
 
-            const name =
+            const itemName =
                 found
-                    ? String(item.name).toLowerCase()
+                    ? String(item?.name ?? "")
+                        .toLowerCase()
                     : "";
 
             const matchesName =
                 !keyword ||
-                name.includes(keyword);
+                itemName.includes(keyword);
 
             const matchesCategory =
-                !category ||
-                item.category === category;
+                !selectedCategory ||
+                String(item?.category ?? "その他") ===
+                selectedCategory;
 
-            return matchesName &&
-                   matchesCategory;
-
-        });
-
-        filtered.forEach(item => {
-
-            const found =
-                discovered.includes(item.no);
-
-            const card =
-                document.createElement("button");
-
-            card.type = "button";
-
-            card.className =
-                `catalog-card ${
+            const matchesStatus =
+                !selectedStatus ||
+                (
+                    selectedStatus === "found" &&
                     found
-                        ? "found"
-                        : "unknown"
-                }`;
+                ) ||
+                (
+                    selectedStatus === "unknown" &&
+                    !found
+                );
 
-            card.innerHTML = `
-
-                <div class="catalog-no">
-                    No.${String(item.no).padStart(3,"0")}
-                </div>
-
-                <div class="catalog-card-image">
-
-                    ${
-                        found
-
-                        ? `
-
-                        <img
-                            src="${item.cardImage ?? item.image}"
-                            alt="${item.name}"
-                        >
-
-                        `
-
-                        : `
-
-                        <div class="card-back">
-                            <span>？</span>
-                        </div>
-
-                        `
-                    }
-
-                </div>
-
-                <div class="catalog-name">
-
-                    ${
-                        found
-                            ? item.name
-                            : "？？？"
-                    }
-
-                </div>
-
-            `;
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    if(found){
-
-                        showDetail(item);
-
-                    }else{
-
-                        showUnknownDetail(item);
-
-                    }
-
-                }
+            return (
+                matchesName &&
+                matchesCategory &&
+                matchesStatus
             );
 
-            list.appendChild(card);
-
         });
+
+    catalogList.innerHTML = "";
+
+    if (resultInfo) {
+
+        resultInfo.textContent =
+            `${filteredCatalog.length}種類を表示中`;
 
     }
 
-    searchBox.addEventListener(
-        "input",
-        draw
-    );
+    if (emptyArea) {
 
-    categoryFilter.addEventListener(
-        "change",
-        draw
+        emptyArea.hidden =
+            filteredCatalog.length !== 0;
+
+    }
+
+    catalogList.hidden =
+        filteredCatalog.length === 0;
+
+    filteredCatalog.forEach(item => {
+
+        const number =
+            Number(item?.no);
+
+        const found =
+            discoveredNumbers.includes(number);
+
+        const card =
+            createCatalogCard({
+                item,
+                found,
+                save
+            });
+
+        catalogList.appendChild(card);
+
+    });
+
+}
+// =====================================
+// PART2
+// カテゴリー・発見判定・カード作成
+// =====================================
+
+function setCategoryOptions({
+
+    select,
+    catalog
+
+}){
+
+    if(!select){
+        return;
+    }
+
+    const categories = [
+        ...new Set(
+            catalog.map(item =>
+                item.category ?? "その他"
+            )
+        )
+    ].sort();
+
+    categories.forEach(category=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value = category;
+        option.textContent = category;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+// =====================================
+// 発見済みNo取得
+// =====================================
+
+function getDiscoveredNumbers(save){
+
+    if(
+        !Array.isArray(save?.discovered)
+    ){
+        return [];
+    }
+
+    return save.discovered
+        .map(Number)
+        .filter(Number.isFinite);
+
+}
+
+// =====================================
+// 図鑑完成率
+// =====================================
+
+function getProgressPercent(
+
+    discovered,
+    total
+
+){
+
+    if(total===0){
+        return 0;
+    }
+
+    return Math.round(
+        discovered/total*100
     );
 
 }
+
+// =====================================
+// 図鑑カード
+// =====================================
+
+function createCatalogCard({
+
+    item,
+    found,
+    save
+
+}){
+
+    const card =
+        document.createElement("button");
+
+    card.type="button";
+
+    card.className =
+        `catalog-card ${
+            found
+                ? "found"
+                : "unknown"
+        }`;
+
+    const image =
+
+        item.cardImage ??
+        item.illustration ??
+        item.image ??
+        DEFAULT_IMAGE;
+
+    card.innerHTML=`
+
+        <div class="catalog-number">
+
+            No.${String(item.no)
+                .padStart(3,"0")}
+
+        </div>
+
+        <div class="catalog-image">
+
+            ${
+                found
+
+                ?`
+
+                    <img
+                        src="${image}"
+                        alt="${item.name}"
+                        loading="lazy"
+                        onerror="
+                            this.onerror=null;
+                            this.src='${DEFAULT_IMAGE}';
+                        "
+                    >
+
+                `
+
+                :`
+
+                    <div class="catalog-card-back">
+
+                        <span>
+                            ？
+                        </span>
+
+                    </div>
+
+                `
+
+            }
+
+        </div>
+
+        <div class="catalog-name">
+
+            ${
+                found
+                    ? item.name
+                    : "？？？"
+            }
+
+        </div>
+
+        <div class="catalog-rarity">
+
+            ${
+                found
+                    ? "★ "+rarityText(item.rarity)
+                    : "？？？"
+            }
+
+        </div>
+
+    `;
+
+    card.addEventListener(
+
+        "click",
+
+        ()=>{
+
+            if(found){
+
+                showDetail(item);
+
+            }else{
+
+                showUnknownDetail(item);
+
+            }
+
+        }
+
+    );
+
+    return card;
+
+}
+// =====================================
+// PART3
+// 未発見詳細・発見済み詳細
+// =====================================
+
 // =====================================
 // 未発見カードの詳細
 // =====================================
 
-function showUnknownDetail(item) {
+function showUnknownDetail(item){
 
     const overlay =
         document.createElement("div");
@@ -217,248 +606,83 @@ function showUnknownDetail(item) {
         "catalog-detail-overlay";
 
     overlay.innerHTML = `
-        <div class="catalog-detail unknown-detail">
+
+        <div class="catalog-detail-panel">
 
             <button
-                class="catalog-close"
                 type="button"
+                class="catalog-detail-close"
                 aria-label="閉じる"
             >
-                ✕
+                ×
             </button>
 
-            <div class="detail-number">
-                No.${String(item.no).padStart(3, "0")}
-            </div>
+            <div class="unknown-detail-content">
 
-            <div class="detail-card-back">
+                <div class="unknown-detail-number">
 
-                <div class="detail-card-question">
-                    ？
+                    No.${String(item?.no ?? "")
+                        .padStart(3,"0")}
+
                 </div>
 
-                <div class="detail-card-unknown">
-                    未発見
+                <div class="unknown-detail-egg">
+
+                    🥚
+
                 </div>
 
-            </div>
+                <h2>
 
-            <h2>？？？</h2>
+                    まだ見つけていない生き物
 
-            <p class="unknown-message">
-                まだ発見していない生き物です。
-            </p>
-
-            <p class="unknown-hint">
-                仲間をさがしてカードを手に入れよう！
-            </p>
-
-        </div>
-    `;
-
-    document.body.appendChild(overlay);
-
-    setupOverlay(overlay);
-
-}
-
-
-// =====================================
-// 発見済みカードの詳細
-// =====================================
-
-function showDetail(item) {
-
-    const cardImage =
-        item.cardImage ??
-        item.illustration ??
-        item.image ??
-        "./icon-192.png";
-
-    const realImage =
-        item.realImage ??
-        item.photo ??
-        item.image ??
-        "./icon-192.png";
-
-    const overlay =
-        document.createElement("div");
-
-    overlay.className =
-        "catalog-detail-overlay";
-
-    overlay.innerHTML = `
-        <div class="catalog-detail">
-
-            <button
-                class="catalog-close"
-                type="button"
-                aria-label="閉じる"
-            >
-                ✕
-            </button>
-
-            <div class="detail-number">
-                No.${String(item.no).padStart(3, "0")}
-            </div>
-
-            <div class="detail-main-card">
-
-                <img
-                    src="${cardImage}"
-                    alt="${item.name}のカード"
-                    onerror="
-                        this.onerror = null;
-                        this.src = './icon-192.png';
-                    "
-                >
-
-            </div>
-
-            <h2>
-                ${item.name}
-            </h2>
-
-            <div class="catalog-detail-tags">
-
-                <span>
-                    ${item.category ?? "その他"}
-                </span>
-
-                ${
-                    item.type
-                        ? `
-                            <span>
-                                ${item.type}
-                            </span>
-                        `
-                        : ""
-                }
-
-                <span>
-                    レア度 ${rarityText(item.rarity)}
-                </span>
-
-            </div>
-
-            <div class="catalog-real-photo">
-
-                <h3>
-                    📷 リアル写真
-                </h3>
-
-                <img
-                    class="catalog-detail-image"
-                    src="${realImage}"
-                    alt="${item.name}の写真"
-                    onerror="
-                        this.onerror = null;
-                        this.src = './icon-192.png';
-                    "
-                >
-
-            </div>
-
-            <div class="catalog-description">
-
-                ${
-                    item.description ??
-                    "説明は準備中です。"
-                }
-
-            </div>
-
-            <div class="catalog-detail-info">
+                </h2>
 
                 <p>
-                    <strong>季節</strong>
-                    <span>
-                        ${item.season ?? "不明"}
-                    </span>
+
+                    カメラで生き物を見つけると、
+                    この図鑑に登録されるよ！
+
                 </p>
 
-                <p>
-                    <strong>生息地</strong>
-                    <span>
-                        ${item.habitat ?? "不明"}
-                    </span>
-                </p>
+                <div class="unknown-detail-hint">
 
-                <p>
-                    <strong>大きさ</strong>
                     <span>
-                        ${item.size ?? "不明"}
+                        ヒント
                     </span>
-                </p>
 
-                <p>
-                    <strong>発見場所</strong>
-                    <span>
-                        ${item.foundPlace ?? "未登録"}
-                    </span>
-                </p>
+                    <strong>
+                        ${item?.category ?? "生き物"}
+                    </strong>
 
-                <p>
-                    <strong>発見日</strong>
-                    <span>
-                        ${item.foundDate ?? "未登録"}
-                    </span>
-                </p>
-
-                <p>
-                    <strong>発見者</strong>
-                    <span>
-                        ${item.finder ?? "未登録"}
-                    </span>
-                </p>
-
-                <p>
-                    <strong>保有数</strong>
-                    <span>
-                        ${item.count ?? 1}枚
-                    </span>
-                </p>
+                </div>
 
             </div>
 
         </div>
+
     `;
 
     document.body.appendChild(overlay);
-
-    setupOverlay(overlay);
-
-}
-
-
-// =====================================
-// 詳細画面を閉じる処理
-// =====================================
-
-function setupOverlay(overlay) {
 
     const closeButton =
-        overlay.querySelector(".catalog-close");
+        overlay.querySelector(
+            ".catalog-detail-close"
+        );
 
-    closeButton.addEventListener(
+    closeButton?.addEventListener(
         "click",
-        () => {
-
+        ()=>{
             overlay.remove();
-
         }
     );
 
     overlay.addEventListener(
         "click",
-        event => {
+        event=>{
 
-            if (
-                event.target === overlay
-            ) {
-
+            if(event.target===overlay){
                 overlay.remove();
-
             }
 
         }
@@ -466,151 +690,983 @@ function setupOverlay(overlay) {
 
 }
 
+// =====================================
+// 発見済みカードの詳細
+// =====================================
+
+function showDetail(item){
+
+    const overlay =
+        document.createElement("div");
+
+    overlay.className =
+        "catalog-detail-overlay";
+
+    const realImage =
+
+        item?.photo ??
+        item?.realImage ??
+        item?.image ??
+        DEFAULT_IMAGE;
+
+    const illustrationImage =
+
+        item?.cardImage ??
+        item?.illustration ??
+        item?.image ??
+        DEFAULT_IMAGE;
+
+    overlay.innerHTML = `
+
+        <div class="catalog-detail-panel">
+
+            <button
+                type="button"
+                class="catalog-detail-close"
+                aria-label="閉じる"
+            >
+                ×
+            </button>
+
+            <div class="catalog-detail-header">
+
+                <div class="catalog-detail-number">
+
+                    No.${String(item?.no ?? "")
+                        .padStart(3,"0")}
+
+                </div>
+
+                <div
+                    class="
+                        catalog-detail-rarity
+                        rarity-${String(
+                            item?.rarity ?? "C"
+                        ).toLowerCase()}
+                    "
+                >
+
+                    ${rarityText(item?.rarity)}
+
+                </div>
+
+            </div>
+
+            <h2 class="catalog-detail-name">
+
+                ${escapeHtml(
+                    item?.name ?? "名前なし"
+                )}
+
+            </h2>
+
+            <div class="catalog-detail-images">
+
+                <div class="catalog-detail-image-box">
+
+                    <span class="catalog-detail-image-label">
+
+                        ほんもの
+
+                    </span>
+
+                    <img
+                        src="${escapeAttribute(realImage)}"
+                        alt="${escapeAttribute(
+                            item?.name ?? "生き物"
+                        )}の写真"
+                        onerror="
+                            this.onerror=null;
+                            this.src='${DEFAULT_IMAGE}';
+                        "
+                    >
+
+                </div>
+
+                <div class="catalog-detail-image-box">
+
+                    <span class="catalog-detail-image-label">
+
+                        カード
+
+                    </span>
+
+                    <img
+                        src="${escapeAttribute(
+                            illustrationImage
+                        )}"
+                        alt="${escapeAttribute(
+                            item?.name ?? "生き物"
+                        )}のイラスト"
+                        onerror="
+                            this.onerror=null;
+                            this.src='${DEFAULT_IMAGE}';
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="catalog-detail-tags">
+
+                <span class="catalog-detail-tag">
+
+                    ${escapeHtml(
+                        item?.category ?? "その他"
+                    )}
+
+                </span>
+
+                ${
+                    item?.type
+
+                    ?`
+
+                        <span class="catalog-detail-tag">
+
+                            ${escapeHtml(item.type)}
+
+                        </span>
+
+                    `
+
+                    :""
+                }
+
+            </div>
+
+            <div class="catalog-detail-description">
+
+                <h3>
+                    どんないきもの？
+                </h3>
+
+                <p>
+
+                    ${escapeHtml(
+                        item?.description ??
+                        item?.text ??
+                        "まだ説明は登録されていません。"
+                    )}
+
+                </p>
+
+            </div>
+
+            ${createDetailInformation(item)}
+
+        </div>
+
+    `;
+
+    document.body.appendChild(overlay);
+
+    const closeButton =
+        overlay.querySelector(
+            ".catalog-detail-close"
+        );
+
+    closeButton?.addEventListener(
+        "click",
+        ()=>{
+            overlay.remove();
+        }
+    );
+
+    overlay.addEventListener(
+        "click",
+        event=>{
+
+            if(event.target===overlay){
+                overlay.remove();
+            }
+
+        }
+    );
+
+}
+// =====================================
+// PART4
+// 詳細情報・共通関数
+// =====================================
+
+// =====================================
+// 詳細情報テーブル
+// =====================================
+
+function createDetailInformation(item){
+
+    return `
+
+        <div class="catalog-detail-info">
+
+            ${detailRow("No", item?.no)}
+
+            ${detailRow(
+                "カテゴリー",
+                item?.category ?? "-"
+            )}
+
+            ${detailRow(
+                "タイプ",
+                item?.type ?? "-"
+            )}
+
+            ${detailRow(
+                "レア度",
+                rarityText(item?.rarity)
+            )}
+
+        </div>
+
+    `;
+
+}
+
+// =====================================
+// 1行
+// =====================================
+
+function detailRow(title,value){
+
+    return `
+
+        <div class="catalog-detail-row">
+
+            <span>
+
+                ${escapeHtml(title)}
+
+            </span>
+
+            <strong>
+
+                ${escapeHtml(
+                    String(value ?? "-")
+                )}
+
+            </strong>
+
+        </div>
+
+    `;
+
+}
 
 // =====================================
 // レア度表示
 // =====================================
 
-function rarityText(rarity) {
+function rarityText(rarity){
 
-    if (
-        rarity === "S" ||
-        rarity === "A" ||
-        rarity === "B" ||
-        rarity === "C"
-    ) {
+    switch(String(rarity ?? "").toUpperCase()){
 
-        return rarity;
+        case "S":
+            return "S";
+
+        case "A":
+            return "A";
+
+        case "B":
+            return "B";
+
+        default:
+            return "C";
 
     }
 
-    const rarityMap = {
-
-        1: "C",
-        2: "C",
-        3: "B",
-        4: "A",
-        5: "S"
-
-    };
-
-    return rarityMap[rarity] ?? "?";
-
-}window.IKIMONO_DATA=[{"no": 1, "name": "カブトムシ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "カブトムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 2, "name": "ノコギリクワガタ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ノコギリクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 3, "name": "ミヤマクワガタ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ミヤマクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 4, "name": "コクワガタ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "コクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 5, "name": "ヒラタクワガタ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ヒラタクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 6, "name": "オオクワガタ", "rarity": "SS", "category": "昆虫", "attribute": "大地", "description": "オオクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 7, "name": "ニジイロクワガタ", "rarity": "S", "category": "昆虫", "attribute": "大地", "description": "ニジイロクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 8, "name": "ギラファノコギリクワガタ", "rarity": "S", "category": "昆虫", "attribute": "大地", "description": "ギラファノコギリクワガタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 9, "name": "ヘラクレスオオカブト", "rarity": "SS", "category": "昆虫", "attribute": "大地", "description": "ヘラクレスオオカブトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 10, "name": "コーカサスオオカブト", "rarity": "S", "category": "昆虫", "attribute": "大地", "description": "コーカサスオオカブトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 11, "name": "アトラスオオカブト", "rarity": "S", "category": "昆虫", "attribute": "大地", "description": "アトラスオオカブトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 12, "name": "ゾウカブト", "rarity": "S", "category": "昆虫", "attribute": "大地", "description": "ゾウカブトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 13, "name": "オオセンチコガネ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "オオセンチコガネの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 14, "name": "センチコガネ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "センチコガネの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 15, "name": "コガネムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "コガネムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 16, "name": "カナブン", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "カナブンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 17, "name": "ハナムグリ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ハナムグリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 18, "name": "タマムシ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "タマムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 19, "name": "ジョウカイボン", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ジョウカイボンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 20, "name": "ホタル", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ホタルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 21, "name": "テントウムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "テントウムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 22, "name": "ナナホシテントウ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ナナホシテントウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 23, "name": "ナミテントウ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ナミテントウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 24, "name": "アオムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アオムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 25, "name": "モンシロチョウ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "モンシロチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 26, "name": "アゲハチョウ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "アゲハチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 27, "name": "クロアゲハ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "クロアゲハの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 28, "name": "キアゲハ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "キアゲハの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 29, "name": "オオムラサキ", "rarity": "SS", "category": "昆虫", "attribute": "大地", "description": "オオムラサキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 30, "name": "モンキチョウ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "モンキチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 31, "name": "ツマグロヒョウモン", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ツマグロヒョウモンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 32, "name": "ルリタテハ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ルリタテハの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 33, "name": "ゴマダラチョウ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ゴマダラチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 34, "name": "オニヤンマ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "オニヤンマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 35, "name": "ギンヤンマ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ギンヤンマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 36, "name": "シオカラトンボ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "シオカラトンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 37, "name": "アキアカネ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アキアカネの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 38, "name": "イトトンボ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "イトトンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 39, "name": "ハグロトンボ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ハグロトンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 40, "name": "ミンミンゼミ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ミンミンゼミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 41, "name": "アブラゼミ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アブラゼミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 42, "name": "クマゼミ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "クマゼミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 43, "name": "ヒグラシ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ヒグラシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 44, "name": "ツクツクボウシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ツクツクボウシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 45, "name": "ショウリョウバッタ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ショウリョウバッタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 46, "name": "トノサマバッタ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "トノサマバッタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 47, "name": "イナゴ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "イナゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 48, "name": "キリギリス", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "キリギリスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 49, "name": "ウマオイ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ウマオイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 50, "name": "スズムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "スズムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 51, "name": "マツムシ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "マツムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 52, "name": "コオロギ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "コオロギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 53, "name": "カマキリ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "カマキリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 54, "name": "オオカマキリ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "オオカマキリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 55, "name": "ハラビロカマキリ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ハラビロカマキリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 56, "name": "コカマキリ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "コカマキリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 57, "name": "ナナフシ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ナナフシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 58, "name": "オケラ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "オケラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 59, "name": "ゲンゴロウ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ゲンゴロウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 60, "name": "タガメ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "タガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 61, "name": "ミズカマキリ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ミズカマキリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 62, "name": "タイコウチ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "タイコウチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 63, "name": "アメンボ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アメンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 64, "name": "マツモムシ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "マツモムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 65, "name": "ガムシ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ガムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 66, "name": "ホソミオツネントンボ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ホソミオツネントンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 67, "name": "アリ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 68, "name": "クロオオアリ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "クロオオアリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 69, "name": "ハチ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ハチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 70, "name": "ミツバチ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ミツバチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 71, "name": "クマバチ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "クマバチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 72, "name": "スズメバチ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "スズメバチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 73, "name": "アシナガバチ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "アシナガバチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 74, "name": "アブ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アブの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 75, "name": "ハエ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ハエの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 76, "name": "カ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "カの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 77, "name": "ガガンボ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ガガンボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 78, "name": "カゲロウ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "カゲロウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 79, "name": "トビケラ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "トビケラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 80, "name": "ウスバカゲロウ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ウスバカゲロウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 81, "name": "カイコガ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "カイコガの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 82, "name": "ヤママユガ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ヤママユガの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 83, "name": "オオミズアオ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "オオミズアオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 84, "name": "ホウジャク", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ホウジャクの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 85, "name": "オオスカシバ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "オオスカシバの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 86, "name": "ハンミョウ", "rarity": "A", "category": "昆虫", "attribute": "大地", "description": "ハンミョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 87, "name": "オサムシ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "オサムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 88, "name": "ゴミムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ゴミムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 89, "name": "クワガタモドキ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "クワガタモドキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 90, "name": "ゾウムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ゾウムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 91, "name": "ハムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ハムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 92, "name": "カメムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "カメムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 93, "name": "ハンミョウモドキ", "rarity": "B", "category": "昆虫", "attribute": "大地", "description": "ハンミョウモドキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 94, "name": "ウンカ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ウンカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 95, "name": "ヨコバイ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ヨコバイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 96, "name": "アワフキムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アワフキムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 97, "name": "ケラ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ケラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 98, "name": "カイガラムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "カイガラムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 99, "name": "アブラムシ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "アブラムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 100, "name": "ニイニイゼミ", "rarity": "C", "category": "昆虫", "attribute": "大地", "description": "ニイニイゼミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 101, "name": "未設定 101", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 101の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 102, "name": "未設定 102", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 102の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 103, "name": "未設定 103", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 103の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 104, "name": "未設定 104", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 104の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 105, "name": "未設定 105", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 105の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 106, "name": "未設定 106", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 106の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 107, "name": "未設定 107", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 107の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 108, "name": "未設定 108", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 108の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 109, "name": "未設定 109", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 109の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 110, "name": "未設定 110", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 110の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 111, "name": "未設定 111", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 111の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 112, "name": "未設定 112", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 112の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 113, "name": "未設定 113", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 113の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 114, "name": "未設定 114", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 114の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 115, "name": "未設定 115", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 115の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 116, "name": "未設定 116", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 116の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 117, "name": "未設定 117", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 117の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 118, "name": "未設定 118", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 118の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 119, "name": "未設定 119", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 119の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 120, "name": "未設定 120", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 120の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 121, "name": "未設定 121", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 121の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 122, "name": "未設定 122", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 122の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 123, "name": "未設定 123", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 123の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 124, "name": "未設定 124", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 124の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 125, "name": "未設定 125", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 125の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 126, "name": "未設定 126", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 126の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 127, "name": "未設定 127", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 127の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 128, "name": "未設定 128", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 128の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 129, "name": "未設定 129", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 129の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 130, "name": "未設定 130", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 130の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 131, "name": "未設定 131", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 131の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 132, "name": "未設定 132", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 132の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 133, "name": "未設定 133", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 133の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 134, "name": "未設定 134", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 134の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 135, "name": "未設定 135", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 135の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 136, "name": "未設定 136", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 136の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 137, "name": "未設定 137", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 137の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 138, "name": "未設定 138", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 138の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 139, "name": "未設定 139", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 139の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 140, "name": "未設定 140", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 140の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 141, "name": "未設定 141", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 141の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 142, "name": "未設定 142", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 142の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 143, "name": "未設定 143", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 143の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 144, "name": "未設定 144", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 144の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 145, "name": "未設定 145", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 145の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 146, "name": "未設定 146", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 146の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 147, "name": "未設定 147", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 147の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 148, "name": "未設定 148", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 148の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 149, "name": "未設定 149", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 149の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 150, "name": "未設定 150", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 150の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 151, "name": "未設定 151", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 151の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 152, "name": "未設定 152", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 152の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 153, "name": "未設定 153", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 153の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 154, "name": "未設定 154", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 154の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 155, "name": "未設定 155", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 155の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 156, "name": "未設定 156", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 156の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 157, "name": "未設定 157", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 157の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 158, "name": "未設定 158", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 158の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 159, "name": "未設定 159", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 159の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 160, "name": "未設定 160", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 160の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 161, "name": "未設定 161", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 161の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 162, "name": "未設定 162", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 162の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 163, "name": "未設定 163", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 163の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 164, "name": "未設定 164", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 164の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 165, "name": "未設定 165", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 165の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 166, "name": "未設定 166", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 166の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 167, "name": "未設定 167", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 167の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 168, "name": "未設定 168", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 168の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 169, "name": "未設定 169", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 169の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 170, "name": "未設定 170", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 170の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 171, "name": "未設定 171", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 171の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 172, "name": "未設定 172", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 172の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 173, "name": "未設定 173", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 173の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 174, "name": "未設定 174", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 174の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 175, "name": "未設定 175", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 175の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 176, "name": "未設定 176", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 176の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 177, "name": "未設定 177", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 177の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 178, "name": "未設定 178", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 178の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 179, "name": "未設定 179", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 179の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 180, "name": "未設定 180", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 180の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 181, "name": "未設定 181", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 181の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 182, "name": "未設定 182", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 182の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 183, "name": "未設定 183", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 183の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 184, "name": "未設定 184", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 184の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 185, "name": "未設定 185", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 185の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 186, "name": "未設定 186", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 186の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 187, "name": "未設定 187", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 187の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 188, "name": "未設定 188", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 188の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 189, "name": "未設定 189", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 189の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 190, "name": "未設定 190", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 190の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 191, "name": "未設定 191", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 191の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 192, "name": "未設定 192", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 192の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 193, "name": "未設定 193", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 193の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 194, "name": "未設定 194", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 194の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 195, "name": "未設定 195", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 195の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 196, "name": "未設定 196", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 196の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 197, "name": "未設定 197", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 197の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 198, "name": "未設定 198", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 198の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 199, "name": "未設定 199", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 199の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 200, "name": "未設定 200", "rarity": "C", "category": "未設定", "attribute": "大地", "description": "未設定 200の特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 201, "name": "メダカ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "メダカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 202, "name": "キンギョ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "キンギョの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 203, "name": "コイ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "コイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 204, "name": "ニシキゴイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ニシキゴイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 205, "name": "フナ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "フナの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 206, "name": "ドジョウ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ドジョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 207, "name": "ナマズ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ナマズの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 208, "name": "ライギョ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ライギョの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 209, "name": "ブラックバス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ブラックバスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 210, "name": "ブルーギル", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "ブルーギルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 211, "name": "ウナギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ウナギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 212, "name": "アユ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "アユの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 213, "name": "ヤマメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ヤマメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 214, "name": "イワナ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イワナの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 215, "name": "ニジマス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ニジマスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 216, "name": "サケ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "サケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 217, "name": "サクラマス", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "サクラマスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 218, "name": "サンマ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "サンマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 219, "name": "アジ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "アジの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 220, "name": "サバ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "サバの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 221, "name": "イワシ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イワシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 222, "name": "タイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "タイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 223, "name": "ブリ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ブリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 224, "name": "カンパチ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "カンパチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 225, "name": "ヒラメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ヒラメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 226, "name": "カレイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "カレイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 227, "name": "フグ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "フグの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 228, "name": "ハゼ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ハゼの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 229, "name": "ボラ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ボラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 230, "name": "スズキ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "スズキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 231, "name": "カサゴ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "カサゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 232, "name": "メバル", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "メバルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 233, "name": "アイナメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "アイナメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 234, "name": "ホッケ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ホッケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 235, "name": "シシャモ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "シシャモの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 236, "name": "タラ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "タラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 237, "name": "マダラ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "マダラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 238, "name": "マグロ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "マグロの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 239, "name": "カツオ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "カツオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 240, "name": "シイラ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "シイラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 241, "name": "マンボウ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "マンボウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 242, "name": "エイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "エイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 243, "name": "ネコザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ネコザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 244, "name": "シュモクザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "シュモクザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 245, "name": "ジンベエザメ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "ジンベエザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 246, "name": "ホオジロザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ホオジロザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 247, "name": "チンアナゴ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "チンアナゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 248, "name": "ウツボ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ウツボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 249, "name": "タツノオトシゴ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "タツノオトシゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 250, "name": "クマノミ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "クマノミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 251, "name": "ナンヨウハギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ナンヨウハギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 252, "name": "チョウチョウウオ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "チョウチョウウオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 253, "name": "ハリセンボン", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ハリセンボンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 254, "name": "ミノカサゴ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ミノカサゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 255, "name": "ハコフグ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ハコフグの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 256, "name": "カワハギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "カワハギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 257, "name": "ウミタナゴ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ウミタナゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 258, "name": "イシダイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イシダイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 259, "name": "イシガキダイ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "イシガキダイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 260, "name": "コバンザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "コバンザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 261, "name": "リュウグウノツカイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "リュウグウノツカイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 262, "name": "デンキウナギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "デンキウナギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 263, "name": "ピラニア", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ピラニアの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 264, "name": "アロワナ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "アロワナの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 265, "name": "プレコ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "プレコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 266, "name": "グッピー", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "グッピーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 267, "name": "ネオンテトラ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ネオンテトラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 268, "name": "ベタ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ベタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 269, "name": "ディスカス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ディスカスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 270, "name": "コリドラス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "コリドラスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 271, "name": "オイカワ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "オイカワの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 272, "name": "ウグイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ウグイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 273, "name": "モロコ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "モロコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 274, "name": "イトウ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イトウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 275, "name": "ハクレン", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ハクレンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 276, "name": "ソウギョ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ソウギョの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 277, "name": "レンギョ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "レンギョの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 278, "name": "カジキ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "カジキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 279, "name": "トビウオ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "トビウオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 280, "name": "ダツ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "ダツの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 281, "name": "サヨリ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "サヨリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 282, "name": "キス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "キスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 283, "name": "イサキ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イサキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 284, "name": "クロダイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "クロダイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 285, "name": "キンメダイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "キンメダイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 286, "name": "ノドグロ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ノドグロの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 287, "name": "アンコウ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "アンコウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 288, "name": "チョウザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "チョウザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 289, "name": "シーラカンス", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "シーラカンスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 290, "name": "ラブカ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ラブカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 291, "name": "ミツクリザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ミツクリザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 292, "name": "ノコギリエイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ノコギリエイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 293, "name": "ノコギリザメ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ノコギリザメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 294, "name": "エンゼルフィッシュ", "rarity": "A", "category": "魚・水辺", "attribute": "水", "description": "エンゼルフィッシュの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 295, "name": "モンガラカワハギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "モンガラカワハギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 296, "name": "ハタタテダイ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ハタタテダイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 297, "name": "カクレクマノミ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "カクレクマノミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 298, "name": "ナンヨウハギ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "ナンヨウハギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 299, "name": "マンタ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "マンタの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 300, "name": "イルカ", "rarity": "C", "category": "魚・水辺", "attribute": "水", "description": "イルカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 301, "name": "ニホンアマガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニホンアマガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 302, "name": "アオガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "アオガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 303, "name": "トノサマガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "トノサマガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 304, "name": "ウシガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ウシガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 305, "name": "ツチガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ツチガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 306, "name": "シュレーゲルアオガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "シュレーゲルアオガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 307, "name": "ニホンヒキガエル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニホンヒキガエルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 308, "name": "イモリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "イモリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 309, "name": "アカハライモリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "アカハライモリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 310, "name": "オオサンショウウオ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オオサンショウウオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 311, "name": "おたまじゃくし", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "おたまじゃくしの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 312, "name": "ニホンヤモリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニホンヤモリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 313, "name": "ニホントカゲ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニホントカゲの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 314, "name": "カナヘビ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カナヘビの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 315, "name": "アオダイショウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "アオダイショウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 316, "name": "シマヘビ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "シマヘビの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 317, "name": "ヤマカガシ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヤマカガシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 318, "name": "マムシ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "マムシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 319, "name": "ウミガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ウミガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 320, "name": "リクガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "リクガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 321, "name": "イシガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "イシガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 322, "name": "クサガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "クサガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 323, "name": "ワニガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ワニガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 324, "name": "ミドリガメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ミドリガメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 325, "name": "ワニ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ワニの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 326, "name": "コモドオオトカゲ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "コモドオオトカゲの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 327, "name": "イグアナ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "イグアナの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 328, "name": "カメレオン", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カメレオンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 329, "name": "ニシキヘビ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニシキヘビの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 330, "name": "キングコブラ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "キングコブラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 331, "name": "スズメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "スズメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 332, "name": "ツバメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ツバメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 333, "name": "カラス", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カラスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 334, "name": "ハト", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ハトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 335, "name": "メジロ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "メジロの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 336, "name": "ウグイス", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ウグイスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 337, "name": "シジュウカラ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "シジュウカラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 338, "name": "ヒヨドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヒヨドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 339, "name": "ムクドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ムクドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 340, "name": "モズ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "モズの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 341, "name": "カワセミ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カワセミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 342, "name": "ヤマセミ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヤマセミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 343, "name": "オシドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オシドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 344, "name": "カルガモ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カルガモの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 345, "name": "マガモ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "マガモの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 346, "name": "コハクチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "コハクチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 347, "name": "ハクチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ハクチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 348, "name": "タンチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "タンチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 349, "name": "ツル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ツルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 350, "name": "サギ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "サギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 351, "name": "アオサギ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "アオサギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 352, "name": "ゴイサギ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ゴイサギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 353, "name": "カワウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カワウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 354, "name": "ウミネコ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ウミネコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 355, "name": "カモメ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "カモメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 356, "name": "トビ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "トビの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 357, "name": "タカ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "タカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 358, "name": "ワシ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ワシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 359, "name": "ハヤブサ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ハヤブサの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 360, "name": "フクロウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "フクロウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 361, "name": "ミミズク", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ミミズクの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 362, "name": "インコ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "インコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 363, "name": "セキセイインコ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "セキセイインコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 364, "name": "オカメインコ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オカメインコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 365, "name": "ブンチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ブンチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 366, "name": "ジュウシマツ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ジュウシマツの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 367, "name": "ニワトリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ニワトリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 368, "name": "チャボ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "チャボの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 369, "name": "クジャク", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "クジャクの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 370, "name": "ダチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ダチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 371, "name": "エミュー", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "エミューの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 372, "name": "ペンギン", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ペンギンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 373, "name": "フラミンゴ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "フラミンゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 374, "name": "ハシビロコウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ハシビロコウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 375, "name": "オウム", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オウムの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 376, "name": "キツツキ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "キツツキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 377, "name": "コゲラ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "コゲラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 378, "name": "ヤマガラ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヤマガラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 379, "name": "ルリビタキ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ルリビタキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 380, "name": "ジョウビタキ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ジョウビタキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 381, "name": "ライチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ライチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 382, "name": "キジ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "キジの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 383, "name": "ヤマドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヤマドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 384, "name": "ホロホロチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ホロホロチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 385, "name": "コウノトリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "コウノトリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 386, "name": "トキ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "トキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 387, "name": "ミサゴ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ミサゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 388, "name": "クロツラヘラサギ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "クロツラヘラサギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 389, "name": "シマエナガ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "シマエナガの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 390, "name": "エナガ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "エナガの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 391, "name": "アヒル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "アヒルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 392, "name": "ガチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ガチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 393, "name": "ヒクイドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ヒクイドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 394, "name": "コンドル", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "コンドルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 395, "name": "オオワシ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オオワシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 396, "name": "シロフクロウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "シロフクロウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 397, "name": "ベニイロフラミンゴ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ベニイロフラミンゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 398, "name": "サイチョウ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "サイチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 399, "name": "オオハシ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "オオハシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 400, "name": "ハチドリ", "rarity": "B", "category": "鳥・両爬", "attribute": "空", "description": "ハチドリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 401, "name": "イヌ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "イヌの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 402, "name": "ネコ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ネコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 403, "name": "ウサギ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ウサギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 404, "name": "ハムスター", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ハムスターの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 405, "name": "モルモット", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "モルモットの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 406, "name": "ハリネズミ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ハリネズミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 407, "name": "フェレット", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "フェレットの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 408, "name": "リス", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "リスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 409, "name": "モモンガ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "モモンガの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 410, "name": "タヌキ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "タヌキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 411, "name": "キツネ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "キツネの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 412, "name": "アライグマ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アライグマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 413, "name": "シカ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "シカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 414, "name": "イノシシ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "イノシシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 415, "name": "サル", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "サルの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 416, "name": "ゴリラ", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "ゴリラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 417, "name": "チンパンジー", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "チンパンジーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 418, "name": "オランウータン", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "オランウータンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 419, "name": "ライオン", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "ライオンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 420, "name": "トラ", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "トラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 421, "name": "ヒョウ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ヒョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 422, "name": "チーター", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "チーターの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 423, "name": "ゾウ", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "ゾウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 424, "name": "キリン", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "キリンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 425, "name": "シマウマ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "シマウマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 426, "name": "カバ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "カバの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 427, "name": "サイ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "サイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 428, "name": "ラクダ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ラクダの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 429, "name": "アルパカ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アルパカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 430, "name": "ラマ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ラマの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 431, "name": "パンダ", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "パンダの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 432, "name": "レッサーパンダ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "レッサーパンダの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 433, "name": "コアラ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "コアラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 434, "name": "ナマケモノ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ナマケモノの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 435, "name": "カンガルー", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "カンガルーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 436, "name": "ウォンバット", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ウォンバットの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 437, "name": "イルカ", "rarity": "S", "category": "哺乳類・植物", "attribute": "木霊", "description": "イルカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 438, "name": "シャチ", "rarity": "S", "category": "哺乳類・植物", "attribute": "木霊", "description": "シャチの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 439, "name": "クジラ", "rarity": "S", "category": "哺乳類・植物", "attribute": "木霊", "description": "クジラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 440, "name": "アザラシ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アザラシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 441, "name": "アシカ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アシカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 442, "name": "ラッコ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ラッコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 443, "name": "サクラ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "サクラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 444, "name": "アサガオ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アサガオの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 445, "name": "ヒマワリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ヒマワリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 446, "name": "チューリップ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "チューリップの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 447, "name": "マリーゴールド", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "マリーゴールドの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 448, "name": "ハイビスカス", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ハイビスカスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 449, "name": "ツツジ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ツツジの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 450, "name": "サツキ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "サツキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 451, "name": "ユリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ユリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 452, "name": "ラベンダー", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ラベンダーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 453, "name": "サボテン", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "サボテンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 454, "name": "アロエ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アロエの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 455, "name": "マツ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "マツの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 456, "name": "タケ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "タケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 457, "name": "シソ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "シソの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 458, "name": "オオバコ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "オオバコの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 459, "name": "カタバミ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "カタバミの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 460, "name": "ワカメ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ワカメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 461, "name": "コンブ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "コンブの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 462, "name": "ノリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ノリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 463, "name": "シイタケ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "シイタケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 464, "name": "エリンギ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "エリンギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 465, "name": "エノキ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "エノキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 466, "name": "ブナシメジ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ブナシメジの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 467, "name": "マツタケ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "マツタケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 468, "name": "ベニテングタケ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ベニテングタケの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 469, "name": "トマト", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "トマトの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 470, "name": "キュウリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "キュウリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 471, "name": "ナス", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ナスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 472, "name": "トウモロコシ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "トウモロコシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 473, "name": "オクラ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "オクラの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 474, "name": "カボチャ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "カボチャの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 475, "name": "イチゴ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "イチゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 476, "name": "リンゴ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "リンゴの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 477, "name": "ミカン", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ミカンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 478, "name": "ブドウ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ブドウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 479, "name": "モモ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "モモの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 480, "name": "ナシ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ナシの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 481, "name": "スイカ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "スイカの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 482, "name": "ビワ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ビワの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 483, "name": "カキ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "カキの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 484, "name": "バナナ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "バナナの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 485, "name": "レモン", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "レモンの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 486, "name": "ユズ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ユズの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 487, "name": "ヨモギ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ヨモギの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 488, "name": "クロマツ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "クロマツの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 489, "name": "ヤマモモ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ヤマモモの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 490, "name": "イチョウ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "イチョウの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 491, "name": "モミジ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "モミジの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 492, "name": "ドングリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ドングリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 493, "name": "シロツメクサ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "シロツメクサの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 494, "name": "クリ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "クリの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 495, "name": "アジサイ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "アジサイの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 496, "name": "コスモス", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "コスモスの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 497, "name": "ウメ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "ウメの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 498, "name": "タンポポ", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "タンポポの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 499, "name": "クローバー", "rarity": "C", "category": "哺乳類・植物", "attribute": "木霊", "description": "クローバーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}, {"no": 500, "name": "四葉のクローバー", "rarity": "SS", "category": "哺乳類・植物", "attribute": "木霊", "description": "四葉のクローバーの特徴や見つかる場所、季節などを表示します。", "habitat": "くわしい場所は今後追加", "season": "通年または種類による", "size": "種類による", "food": "種類による"}];/* =====================================
-   いきものマスター 図鑑データ
-===================================== */
-
-const IKIMONO_DATA = [
-
-{
-    no:1,
-    name:"カブトムシ",
-    scientific:"Allomyrina dichotoma",
-    category:"昆虫",
-    type:"甲虫",
-    rarity:"A",
-    image:"assets/cards/001.png"
-},
-
-{
-    no:2,
-    name:"ノコギリクワガタ",
-    scientific:"Prosopocoilus inclinatus",
-    category:"昆虫",
-    type:"甲虫",
-    rarity:"A",
-    image:"assets/cards/002.png"
-},
-
-{
-    no:3,
-    name:"コクワガタ",
-    scientific:"Dorcus rectus",
-    category:"昆虫",
-    type:"甲虫",
-    rarity:"B",
-    image:"assets/cards/003.png"
-},
-
-{
-    no:4,
-    name:"ミヤマクワガタ",
-    scientific:"Lucanus maculifemoratus",
-    category:"昆虫",
-    type:"甲虫",
-    rarity:"S",
-    image:"assets/cards/004.png"
-},
-
-{
-    no:5,
-    name:"アブラゼミ",
-    scientific:"Graptopsaltria nigrofuscata",
-    category:"昆虫",
-    type:"セミ",
-    rarity:"C",
-    image:"assets/cards/005.png"
-},
-
-{
-    no:6,
-    name:"モンシロチョウ",
-    scientific:"Pieris rapae",
-    category:"昆虫",
-    type:"チョウ",
-    rarity:"C",
-    image:"assets/cards/006.png"
-},
-
-{
-    no:7,
-    name:"オニヤンマ",
-    scientific:"Anotogaster sieboldii",
-    category:"昆虫",
-    type:"トンボ",
-    rarity:"A",
-    image:"assets/cards/007.png"
-},
-
-{
-    no:8,
-    name:"トノサマバッタ",
-    scientific:"Locusta migratoria",
-    category:"昆虫",
-    type:"バッタ",
-    rarity:"B",
-    image:"assets/cards/008.png"
-},
-
-{
-    no:9,
-    name:"ダンゴムシ",
-    scientific:"Armadillidium vulgare",
-    category:"昆虫",
-    type:"甲殻類",
-    rarity:"C",
-    image:"assets/cards/009.png"
-},
-
-{
-    no:10,
-    name:"ナナホシテントウ",
-    scientific:"Coccinella septempunctata",
-    category:"昆虫",
-    type:"テントウムシ",
-    rarity:"B",
-    image:"assets/cards/010.png"
 }
 
-];
-function getCardByName(name){
+// =====================================
+// HTMLエスケープ
+// =====================================
 
-    return IKIMONO_DATA.find(card => card.name === name);
+function escapeHtml(text){
+
+    return String(text ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;");
 
 }
 
-function getCardByNo(no){
+// =====================================
+// 属性エスケープ
+// =====================================
 
-    return IKIMONO_DATA.find(card => card.no === no);
+function escapeAttribute(text){
+
+    return escapeHtml(text);
+
+}
+// =====================================
+// PART5
+// 図鑑画面のデザイン
+// =====================================
+
+addCatalogStyles();
+
+function addCatalogStyles(){
+
+    if(
+        document.getElementById(
+            "catalog-screen-styles"
+        )
+    ){
+        return;
+    }
+
+    const style =
+        document.createElement("style");
+
+    style.id =
+        "catalog-screen-styles";
+
+    style.textContent = `
+
+        .encyclopedia-page{
+            width:100%;
+            max-width:1100px;
+            margin:0 auto;
+            padding:
+                16px
+                14px
+                calc(
+                    110px +
+                    env(safe-area-inset-bottom)
+                );
+            box-sizing:border-box;
+        }
+
+        .encyclopedia-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:16px;
+        }
+
+        .encyclopedia-title-area{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .encyclopedia-title-icon{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:48px;
+            height:48px;
+            flex-shrink:0;
+            border-radius:16px;
+            background:#ffffff;
+            font-size:26px;
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.08);
+        }
+
+        .encyclopedia-title-area h2{
+            margin:0;
+            font-size:22px;
+            line-height:1.2;
+        }
+
+        .encyclopedia-title-area p{
+            margin:4px 0 0;
+            font-size:12px;
+            opacity:0.7;
+        }
+
+        .encyclopedia-count{
+            display:flex;
+            align-items:flex-end;
+            justify-content:center;
+            min-width:82px;
+            padding:10px 12px;
+            border-radius:16px;
+            background:#ffffff;
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.08);
+        }
+
+        .encyclopedia-count strong{
+            font-size:23px;
+            line-height:1;
+        }
+
+        .encyclopedia-count span{
+            margin-left:3px;
+            font-size:12px;
+            opacity:0.7;
+        }
+
+        .encyclopedia-progress-area{
+            margin-bottom:16px;
+            padding:14px;
+            border-radius:18px;
+            background:#ffffff;
+            box-shadow:
+                0 5px 18px
+                rgba(0,0,0,0.07);
+        }
+
+        .encyclopedia-progress-info{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:8px;
+            font-size:13px;
+        }
+
+        .encyclopedia-progress-track{
+            width:100%;
+            height:12px;
+            overflow:hidden;
+            border-radius:999px;
+            background:#e8e8e8;
+        }
+
+        .encyclopedia-progress-bar{
+            height:100%;
+            min-width:0;
+            border-radius:999px;
+            background:
+                linear-gradient(
+                    90deg,
+                    #49c774,
+                    #ffcf3e
+                );
+            transition:width 0.3s ease;
+        }
+
+        .encyclopedia-search-area{
+            display:grid;
+            grid-template-columns:
+                minmax(180px,1fr)
+                auto
+                auto;
+            gap:8px;
+            margin-bottom:12px;
+        }
+
+        .encyclopedia-search-box{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            min-height:44px;
+            padding:0 12px;
+            border:2px solid transparent;
+            border-radius:14px;
+            background:#ffffff;
+            box-shadow:
+                0 4px 14px
+                rgba(0,0,0,0.06);
+        }
+
+        .encyclopedia-search-box:focus-within{
+            border-color:#66c987;
+        }
+
+        .encyclopedia-search{
+            width:100%;
+            min-width:0;
+            border:0;
+            outline:0;
+            background:transparent;
+            color:inherit;
+            font-size:15px;
+        }
+
+        .encyclopedia-filter{
+            min-height:44px;
+            padding:0 12px;
+            border:0;
+            border-radius:14px;
+            outline:0;
+            background:#ffffff;
+            color:inherit;
+            font-size:13px;
+            box-shadow:
+                0 4px 14px
+                rgba(0,0,0,0.06);
+        }
+
+        .catalog-result-info{
+            margin:0 2px 10px;
+            font-size:12px;
+            opacity:0.7;
+        }
+
+        .catalog-grid{
+            display:grid;
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(135px,1fr)
+                );
+            gap:12px;
+        }
+
+        .catalog-card{
+            position:relative;
+            display:flex;
+            flex-direction:column;
+            align-items:stretch;
+            min-width:0;
+            padding:9px;
+            overflow:hidden;
+            border:0;
+            border-radius:18px;
+            background:#ffffff;
+            color:inherit;
+            font:inherit;
+            text-align:left;
+            cursor:pointer;
+            box-shadow:
+                0 5px 16px
+                rgba(0,0,0,0.09);
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .catalog-card:active{
+            transform:scale(0.97);
+        }
+
+        .catalog-card.found:hover{
+            transform:translateY(-2px);
+            box-shadow:
+                0 8px 20px
+                rgba(0,0,0,0.13);
+        }
+
+        .catalog-card.unknown{
+            opacity:0.82;
+        }
+
+        .catalog-number{
+            min-height:18px;
+            margin-bottom:6px;
+            font-size:11px;
+            font-weight:700;
+            opacity:0.72;
+        }
+
+        .catalog-image{
+            position:relative;
+            width:100%;
+            aspect-ratio:1 / 1;
+            overflow:hidden;
+            border-radius:13px;
+            background:#f1f3f2;
+        }
+
+        .catalog-image img{
+            display:block;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .catalog-card-back{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:100%;
+            height:100%;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #f4f4f4,
+                    #dcdcdc
+                );
+        }
+
+        .catalog-card-back span{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:58px;
+            height:58px;
+            border-radius:50%;
+            background:rgba(255,255,255,0.85);
+            font-size:30px;
+            font-weight:900;
+        }
+
+        .catalog-name{
+            margin-top:8px;
+            overflow:hidden;
+            font-size:14px;
+            font-weight:800;
+            line-height:1.35;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+        }
+
+        .catalog-rarity{
+            margin-top:3px;
+            font-size:11px;
+            font-weight:700;
+            opacity:0.72;
+        }
+
+        .catalog-empty{
+            padding:48px 16px;
+            text-align:center;
+        }
+
+        .catalog-empty-icon{
+            font-size:58px;
+        }
+
+        .catalog-empty h3{
+            margin:12px 0 5px;
+        }
+
+        .catalog-empty p{
+            margin:0;
+            font-size:13px;
+            opacity:0.7;
+        }
+
+        .catalog-detail-overlay{
+            position:fixed;
+            inset:0;
+            z-index:20000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:
+                18px
+                14px
+                calc(
+                    18px +
+                    env(safe-area-inset-bottom)
+                );
+            box-sizing:border-box;
+            background:rgba(0,0,0,0.58);
+            backdrop-filter:blur(4px);
+        }
+
+        .catalog-detail-panel{
+            position:relative;
+            width:100%;
+            max-width:620px;
+            max-height:92vh;
+            overflow:auto;
+            padding:22px 16px 24px;
+            box-sizing:border-box;
+            border-radius:24px;
+            background:#ffffff;
+            color:#222222;
+            box-shadow:
+                0 18px 50px
+                rgba(0,0,0,0.28);
+        }
+
+        .catalog-detail-close{
+            position:absolute;
+            top:10px;
+            right:10px;
+            z-index:2;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:38px;
+            height:38px;
+            border:0;
+            border-radius:50%;
+            background:#ededed;
+            color:#222222;
+            font-size:25px;
+            line-height:1;
+            cursor:pointer;
+        }
+
+        .catalog-detail-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            padding-right:42px;
+        }
+
+        .catalog-detail-number{
+            font-size:13px;
+            font-weight:800;
+            opacity:0.72;
+        }
+
+        .catalog-detail-rarity{
+            min-width:34px;
+            padding:5px 10px;
+            border-radius:999px;
+            text-align:center;
+            font-size:13px;
+            font-weight:900;
+        }
+
+        .rarity-s{
+            background:#ffe38a;
+        }
+
+        .rarity-a{
+            background:#f6b3ff;
+        }
+
+        .rarity-b{
+            background:#9fe7ff;
+        }
+
+        .rarity-c{
+            background:#c9f3c4;
+        }
+
+        .catalog-detail-name{
+            margin:13px 0 16px;
+            padding-right:40px;
+            font-size:25px;
+            line-height:1.3;
+        }
+
+        .catalog-detail-images{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+        }
+
+        .catalog-detail-image-box{
+            position:relative;
+            aspect-ratio:1 / 1;
+            overflow:hidden;
+            border-radius:17px;
+            background:#eeeeee;
+        }
+
+        .catalog-detail-image-box img{
+            display:block;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .catalog-detail-image-label{
+            position:absolute;
+            top:7px;
+            left:7px;
+            z-index:1;
+            padding:4px 8px;
+            border-radius:999px;
+            background:rgba(255,255,255,0.88);
+            font-size:10px;
+            font-weight:800;
+        }
+
+        .catalog-detail-tags{
+            display:flex;
+            flex-wrap:wrap;
+            gap:7px;
+            margin-top:14px;
+        }
+
+        .catalog-detail-tag{
+            padding:6px 11px;
+            border-radius:999px;
+            background:#eaf7ed;
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .catalog-detail-description{
+            margin-top:16px;
+            padding:14px;
+            border-radius:17px;
+            background:#f6f7f6;
+        }
+
+        .catalog-detail-description h3{
+            margin:0 0 7px;
+            font-size:15px;
+        }
+
+        .catalog-detail-description p{
+            margin:0;
+            font-size:14px;
+            line-height:1.75;
+            white-space:pre-wrap;
+        }
+
+        .catalog-detail-info{
+            margin-top:14px;
+            overflow:hidden;
+            border:1px solid #e7e7e7;
+            border-radius:17px;
+        }
+
+        .catalog-detail-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:14px;
+            padding:11px 13px;
+            border-bottom:1px solid #ededed;
+            font-size:13px;
+        }
+
+        .catalog-detail-row:last-child{
+            border-bottom:0;
+        }
+
+        .catalog-detail-row span{
+            opacity:0.7;
+        }
+
+        .catalog-detail-row strong{
+            text-align:right;
+        }
+
+        .unknown-detail-content{
+            padding:30px 12px 18px;
+            text-align:center;
+        }
+
+        .unknown-detail-number{
+            margin-bottom:14px;
+            font-size:13px;
+            font-weight:800;
+            opacity:0.7;
+        }
+
+        .unknown-detail-egg{
+            font-size:78px;
+            line-height:1;
+        }
+
+        .unknown-detail-content h2{
+            margin:18px 0 8px;
+            font-size:21px;
+        }
+
+        .unknown-detail-content p{
+            margin:0 auto;
+            max-width:340px;
+            font-size:14px;
+            line-height:1.7;
+            opacity:0.78;
+        }
+
+        .unknown-detail-hint{
+            display:inline-flex;
+            align-items:center;
+            gap:9px;
+            margin-top:18px;
+            padding:9px 14px;
+            border-radius:999px;
+            background:#f2f2f2;
+            font-size:12px;
+        }
+
+        @media(max-width:700px){
+
+            .encyclopedia-search-area{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .encyclopedia-search-box{
+                grid-column:1 / -1;
+            }
+
+        }
+
+        @media(max-width:430px){
+
+            .encyclopedia-page{
+                padding-left:10px;
+                padding-right:10px;
+            }
+
+            .encyclopedia-title-area h2{
+                font-size:19px;
+            }
+
+            .encyclopedia-title-area p{
+                font-size:11px;
+            }
+
+            .encyclopedia-count{
+                min-width:68px;
+                padding:9px;
+            }
+
+            .encyclopedia-count strong{
+                font-size:20px;
+            }
+
+            .catalog-grid{
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
+                gap:9px;
+            }
+
+            .catalog-detail-images{
+                gap:7px;
+            }
+
+        }
+
+        @media(prefers-color-scheme:dark){
+
+            .encyclopedia-title-icon,
+            .encyclopedia-count,
+            .encyclopedia-progress-area,
+            .encyclopedia-search-box,
+            .encyclopedia-filter,
+            .catalog-card{
+                background:#222722;
+            }
+
+            .catalog-detail-panel{
+                background:#252525;
+                color:#f4f4f4;
+            }
+
+            .catalog-detail-close{
+                background:#414141;
+                color:#ffffff;
+            }
+
+            .catalog-detail-description{
+                background:#343434;
+            }
+
+            .catalog-detail-info{
+                border-color:#444444;
+            }
+
+            .catalog-detail-row{
+                border-color:#444444;
+            }
+
+            .catalog-detail-tag{
+                background:#35513c;
+            }
+
+            .unknown-detail-hint{
+                background:#3b3b3b;
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(style);
 
 }
