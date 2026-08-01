@@ -162,7 +162,7 @@ function openCardDetail(screen, card) {
         card.illustration ||
         card.image ||
         card.photo ||
-        "assets/images/card-placeholder.png";
+"./icon-192.png"
 
     content.innerHTML = `
         <article class="large-creature-card rarity-border-${rarity.toLowerCase()}">

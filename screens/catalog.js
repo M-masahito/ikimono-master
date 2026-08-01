@@ -388,12 +388,15 @@ function drawCatalog({
         discoveredNumbers.includes(number);
 
     const displayItem =
-        savedCard
-            ? {
-                ...item,
-                ...savedCard
-            }
-            : item;
+    savedCard
+        ? {
+            ...item,
+            ...savedCard,
+            description:
+                savedCard.description ||
+                `${savedCard.name}の特徴や見つかる場所、季節などを表示します。`
+        }
+        : item;
 
     const card =
         createCatalogCard({
