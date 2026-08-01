@@ -164,6 +164,8 @@ function openCardDetail(screen, card) {
         card.photo ||
 "./icon-192.png"
 
+const photos = card.photos || [];
+
     content.innerHTML = `
         <article class="large-creature-card rarity-border-${rarity.toLowerCase()}">
             <div class="large-card-top">
@@ -175,16 +177,29 @@ function openCardDetail(screen, card) {
             </div>
 
             <div class="large-card-art">
-                <img
-                    src="${image}"
-                    alt="${name}"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                >
 
-                <div class="large-card-placeholder">
-                    ${getCategoryMark(category)}
-                </div>
+    ${photos.length > 0
+        ? photos.map(photo => `
+            <img
+                src="${photo}"
+                class="detail-photo"
+                alt="${name}"
+            >
+        `).join("")
+        : `
+            <img
+                src="${image}"
+                alt="${name}"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+
+            <div class="large-card-placeholder">
+                ${getCategoryMark(category)}
             </div>
+        `
+       }
+
+</div>
 
             <div class="large-card-name">
                 ${name}
@@ -199,7 +214,10 @@ function openCardDetail(screen, card) {
                     ${rarity}
                 </span>
             </div>
-
+<div class="large-card-description">
+    <h3>どんないきもの？</h3>
+    <p>${description}</p>
+</div>
             <div class="large-card-owner">
                 発見者：${owner}
             </div>
