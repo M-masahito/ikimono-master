@@ -371,24 +371,40 @@ function drawCatalog({
     catalogList.hidden =
         filteredCatalog.length === 0;
 
-    filteredCatalog.forEach(item => {
+ filteredCatalog.forEach(item => {
 
-        const number =
-            Number(item?.no);
+    const number =
+        Number(item?.no);
 
-        const found =
-            discoveredNumbers.includes(number);
+    const savedCard =
+        Array.isArray(save?.discoveredCards)
+            ? save.discoveredCards.find(card =>
+                Number(card?.no) === number
+            )
+            : null;
 
-        const card =
-            createCatalogCard({
-                item,
-                found,
-                save
-            });
+    const found =
+        Boolean(savedCard) ||
+        discoveredNumbers.includes(number);
 
-        catalogList.appendChild(card);
+    const displayItem =
+        savedCard
+            ? {
+                ...item,
+                ...savedCard
+            }
+            : item;
 
-    });
+    const card =
+        createCatalogCard({
+            item: displayItem,
+            found,
+            save
+        });
+
+    catalogList.appendChild(card);
+
+});
 
 }
 // =====================================
