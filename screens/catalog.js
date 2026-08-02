@@ -721,19 +721,19 @@ function showDetail(item){
     overlay.className =
         "catalog-detail-overlay";
 
-    const realImage =
+   const realImage =
+    getSafeImage(
+        item?.photo,
+        item?.realImage,
+        item?.image
+    );
 
-        item?.photo ??
-        item?.realImage ??
-        item?.image ??
-        DEFAULT_IMAGE;
-
-    const illustrationImage =
-
-        item?.cardImage ??
-        item?.illustration ??
-        item?.image ??
-        DEFAULT_IMAGE;
+   const illustrationImage =
+    getSafeImage(
+        item?.cardImage,
+        item?.illustration,
+        item?.image
+    );
 
     overlay.innerHTML = `
 
@@ -1017,6 +1017,7 @@ function escapeHtml(text){
 // =====================================
 
 function escapeAttribute(text){
+    
 
     return escapeHtml(text);
 
