@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "insect",
+      "name": "昆虫",
+      "attribute": "mushi"
+    },
+    {
+      "id": "fish",
+      "name": "魚",
+      "attribute": "mizu"
+    },
+    {
+      "id": "bird",
+      "name": "鳥",
+      "attribute": "sora"
+    },
+    {
+      "id": "reptile_amphibian",
+      "name": "爬虫類・両生類",
+      "attribute": "daichi"
+    },
+    {
+      "id": "mammal",
+      "name": "哺乳類",
+      "attribute": "kemono"
+    },
+    {
+      "id": "plant",
+      "name": "植物",
+      "attribute": "mori"
+    },
+    {
+      "id": "kodama",
+      "name": "こだま",
+      "attribute": "kodama"
+    }
+  ]
+}
