@@ -206,17 +206,11 @@ export function showHome(screen) {
 
     ];
 
-    spiritButton?.addEventListener("click", () => {
+   spiritButton?.addEventListener("click", () => {
 
-        const random =
-            Math.floor(
-                Math.random() * messages.length
-            );
+    openScreen("spirit");
 
-        spiritSpeech.textContent =
-            messages[random];
-
-    });
+});
 
     cameraButton?.addEventListener("click", () => {
 

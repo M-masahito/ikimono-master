@@ -12,12 +12,14 @@ const DEFAULT_SAVE = {
     discoveryHistory: [],
     lastDiscovery: null,
 
-    spirit: {
-        level: 1,
-        exp: 0,
-        form: 0,
-        title: "たまご"
-    },
+  spirit: {
+    name: "ふしぎなたまご",
+    level: 1,
+    exp: 0,
+    form: 0,
+    title: "たまご",
+    equippedSpiria: null
+},
 
     emblems: [],
     spiria: [],

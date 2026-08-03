@@ -1,5 +1,5 @@
 // =====================================
-// screens/spirit.js
+// screens/spirit.js Ver10
 // =====================================
 
 import { getSave } from "../system/storage.js";
@@ -8,32 +8,78 @@ export function showSpirit(screen) {
 
     const save = getSave();
 
+    const discovered =
+        save.discovered?.length ?? 0;
+
+    const spiritName =
+        save.spirit?.name ??
+        "ふしぎなたまご";
+
+    const spiritTitle =
+        save.spirit?.title ??
+        "たまご";
+
+    const equippedSpiria =
+        save.spirit?.equippedSpiria ??
+        null;
+
+    const spiria =
+        save.spiria ?? [];
+
     screen.innerHTML = `
 
-        <div class="card">
+    <div class="card">
 
-            <h2>✨ 精霊</h2>
+        <h2>✨ 精霊</h2>
 
-            <h3>${save.spirit.title}</h3>
+        <h3>${spiritName}</h3>
 
-            <p>レベル：${save.spirit.level}</p>
+        <p>
+            称号：
+            ${spiritTitle}
+        </p>
 
-            <progress
-                value="${save.spirit.exp}"
-                max="100">
-            </progress>
+        <p>
+            発見した種類：
+            ${discovered} / 500
+        </p>
 
-            <br><br>
+        <hr>
 
-            <button
-                class="mainButton"
-                id="changeSpirit">
+        <h3>🌟 装備中のスピリア</h3>
 
-                姿を見る
+        <p>
+            ${
+                equippedSpiria ??
+                "まだ装備していません"
+            }
+        </p>
 
-            </button>
+        <hr>
 
-        </div>
+        <h3>📚 持っているスピリア</h3>
+
+        ${
+            spiria.length === 0
+
+            ?
+
+            `<p>
+                まだありません
+            </p>`
+
+            :
+
+            `<ul>
+
+                ${spiria.map(item => `
+                    <li>${item}</li>
+                `).join("")}
+
+            </ul>`
+        }
+
+    </div>
 
     `;
 

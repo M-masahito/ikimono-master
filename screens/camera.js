@@ -1700,9 +1700,7 @@ async function registerDiscoveredCard({
             Array.isArray(
                 saveData.discoveredCards
             )
-                ? [
-                    ...saveData.discoveredCards
-                ]
+                ? [...saveData.discoveredCards]
                 : [];
 
         const candidateNo =
@@ -1711,55 +1709,23 @@ async function registerDiscoveredCard({
         const existingIndex =
             discoveredCards.findIndex(
                 card =>
-                    Number(card.no) ===
+                    Number(card?.no) ===
                     candidateNo
             );
 
-        const now =
-            new Date();
-
         const discoveredAt =
-            now.toISOString();
+            new Date().toISOString();
 
         let isFirstDiscovery = false;
         let ownedCount = 1;
-
-        // -----------------------------
-        // 初めて見つけた生き物
-        // -----------------------------
 
         if (existingIndex === -1) {
 
             isFirstDiscovery = true;
 
-            const newCard = {
+            discoveredCards.push({
 
-                no:
-                    candidateNo,
-
-                name:
-                    candidate.name,
-
-                rarity:
-                    candidate.rarity,
-
-                category:
-                    candidate.category,
-
-                type:
-                    candidate.type,
-
-                categoryIcon:
-                    candidate.categoryIcon,
-
-                typeIcon:
-                    candidate.typeIcon,
-
-                illustration:
-                    candidate.illustration,
-
-                discovered:
-                    true,
+                no: candidateNo,
 
                 firstDiscoveredAt:
                     discoveredAt,
@@ -1767,32 +1733,16 @@ async function registerDiscoveredCard({
                 lastDiscoveredAt:
                     discoveredAt,
 
-                ownedCount:
-                    1,
+                ownedCount: 1
 
-                displayOwnedCount:
-                    1,
-
-                photo: "",
-
-photos: []
-
-            };
-
-            discoveredCards.push(
-                newCard
-            );
+            });
 
         } else {
-
-            // -----------------------------
-            // すでに見つけた生き物
-            // -----------------------------
 
             const existingCard =
                 discoveredCards[
                     existingIndex
-                ];
+                ] ?? {};
 
             const currentOwnedCount =
                 Number(
@@ -1800,24 +1750,10 @@ photos: []
                 ) || 1;
 
             ownedCount =
-                currentOwnedCount + 1;
-
-            const existingPhotos =
-                Array.isArray(
-                    existingCard.photos
-                )
-                    ? [
-                        ...existingCard.photos
-                    ]
-                    : [];
-
-            if (selectedImageUrl) {
-
-                existingPhotos.push(
-                    selectedImageUrl
+                Math.min(
+                    currentOwnedCount + 1,
+                    MAX_CARD_COUNT
                 );
-
-            }
 
             discoveredCards[
                 existingIndex
@@ -1825,88 +1761,39 @@ photos: []
 
                 ...existingCard,
 
-                name:
-                    candidate.name,
-
-                rarity:
-                    candidate.rarity,
-
-                category:
-                    candidate.category,
-
-                type:
-                    candidate.type,
-
-                categoryIcon:
-                    candidate.categoryIcon,
-
-                typeIcon:
-                    candidate.typeIcon,
-
-                illustration:
-                    candidate.illustration,
-
-                discovered:
-                    true,
+                no: candidateNo,
 
                 lastDiscoveredAt:
                     discoveredAt,
 
-                ownedCount,
+                ownedCount
 
-                displayOwnedCount:
-                    Math.min(
-                        ownedCount,
-                        MAX_CARD_COUNT
-                    ),
-
-                photo: "",
-
-photos: []
             };
 
         }
-
-        // -----------------------------
-        // 発見履歴
-        // -----------------------------
 
         const discoveryHistory =
             Array.isArray(
                 saveData.discoveryHistory
             )
-                ? [
-                    ...saveData.discoveryHistory
-                ]
+                ? [...saveData.discoveryHistory]
                 : [];
 
         discoveryHistory.unshift({
 
-            no:
-                candidateNo,
-
-            name:
-                candidate.name,
+            no: candidateNo,
 
             discoveredAt,
-
-            photo:
-                selectedImageUrl,
 
             isFirstDiscovery
 
         });
 
-        // 履歴が増えすぎないようにする
         const limitedHistory =
             discoveryHistory.slice(
                 0,
                 100
             );
-
-        // -----------------------------
-        // 保存
-        // -----------------------------
 
         update({
 
@@ -1917,11 +1804,7 @@ photos: []
 
             lastDiscovery: {
 
-                no:
-                    candidateNo,
-
-                name:
-                    candidate.name,
+                no: candidateNo,
 
                 discoveredAt,
 
@@ -1930,20 +1813,17 @@ photos: []
             }
 
         });
+
         syncDiscoveredNumbers();
 
-        await wait(500);
+        await wait(350);
 
         showRegisterComplete({
 
             candidate,
-
             judgeResult,
-
             screen,
-
             isFirstDiscovery,
-
             ownedCount
 
         });
@@ -1958,9 +1838,7 @@ photos: []
         showRegisterError({
 
             judgeResult,
-
             candidate,
-
             screen
 
         });
