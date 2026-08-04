@@ -6,6 +6,10 @@
 // =====================================
 
 import { getSave } from "../system/storage.js";
+import {
+    getCatalogLevel,
+    getUnlockedMaxNo
+} from "../system/catalogLevel.js";
 
 const DEFAULT_IMAGE = "./icon-192.png";
 
@@ -15,15 +19,38 @@ const DEFAULT_IMAGE = "./icon-192.png";
 
 export function showCatalog(screen) {
 
-    const save = getSave();
+  const save = getSave();
 
-    const catalog =
-        Array.isArray(window.IKIMONO_DATA)
-            ? window.IKIMONO_DATA
-            : [];
+const discoveredNumbers =
+    getDiscoveredNumbers(save);
 
-    const discoveredNumbers =
-        getDiscoveredNumbers(save);
+const catalogLevel =
+    getCatalogLevel(
+        discoveredNumbers.length
+    );
+
+const unlockedMaxNo =
+    getUnlockedMaxNo(
+        catalogLevel
+    );
+
+const allCatalog =
+    Array.isArray(window.MASTER?.encyclopedia)
+        ? window.MASTER.encyclopedia
+        : [];
+
+const catalog =
+    allCatalog.filter(item =>
+        Number(item.no) <= unlockedMaxNo
+    );
+    const discoveredCatalogCount =
+    discoveredNumbers.filter(number =>
+        catalog.some(item =>
+            Number(item?.no) === number
+        )
+    ).length;
+
+
 
     screen.innerHTML = `
 
@@ -54,7 +81,8 @@ export function showCatalog(screen) {
                 <div class="encyclopedia-count">
 
                     <strong id="discoveredCount">
-                        ${discoveredNumbers.length}
+                        ${discoveredCatalogCount}
+                        
                     </strong>
 
                     <span>
@@ -75,7 +103,7 @@ export function showCatalog(screen) {
 
                     <strong id="catalogProgressText">
                         ${getProgressPercent(
-                            discoveredNumbers.length,
+                            discoveredCatalogCount,
                             catalog.length
                         )}%
                     </strong>
@@ -90,7 +118,7 @@ export function showCatalog(screen) {
                         style="
                             width:
                             ${getProgressPercent(
-                                discoveredNumbers.length,
+                                discoveredCatalogCount,
                                 catalog.length
                             )}%;
                         "

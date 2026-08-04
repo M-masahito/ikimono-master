@@ -1,0 +1,56 @@
+{
+  "version": 1,
+
+  "spirits": [
+
+    {
+      "id": "mushi",
+      "attribute": "むし",
+      "name": "グランベル",
+      "title": "神甲虫"
+    },
+
+    {
+      "id": "mizu",
+      "attribute": "みず",
+      "name": "リュウガ",
+      "title": "青龍神"
+    },
+
+    {
+      "id": "sora",
+      "attribute": "そら",
+      "name": "ホムラ",
+      "title": "朱雀神"
+    },
+
+    {
+      "id": "daichi",
+      "attribute": "だいち",
+      "name": "ガイアス",
+      "title": "玄武神"
+    },
+
+    {
+      "id": "kemono",
+      "attribute": "けもの",
+      "name": "ライガ",
+      "title": "白虎神"
+    },
+
+    {
+      "id": "mori",
+      "attribute": "もり",
+      "name": "ユグドラ",
+      "title": "神世界樹"
+    },
+
+    {
+      "id": "kodama",
+      "attribute": "こだま",
+      "name": "フィリア",
+      "title": "響命樹神"
+    }
+
+  ]
+}

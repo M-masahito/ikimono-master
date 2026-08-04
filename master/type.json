@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "types": [
+
+    {
+      "id": "stag_beetle",
+      "name": "クワガタ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "beetle",
+      "name": "カブト・コガネ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "butterfly",
+      "name": "チョウ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "moth",
+      "name": "ガ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "bee",
+      "name": "ハチ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "ant",
+      "name": "アリ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "dragonfly",
+      "name": "トンボ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "cicada",
+      "name": "セミ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "grasshopper",
+      "name": "バッタ・キリギリス",
+      "categoryId": "insect"
+    },
+    {
+      "id": "mantis",
+      "name": "カマキリ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "bug",
+      "name": "カメムシ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "fly",
+      "name": "ハエ・アブ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "mosquito",
+      "name": "カ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "spider",
+      "name": "クモ",
+      "categoryId": "insect"
+    },
+    {
+      "id": "isopod",
+      "name": "ダンゴムシ・ワラジムシ",
+      "categoryId": "insect"
+    },
+
+    {
+      "id": "freshwater",
+      "name": "淡水魚",
+      "categoryId": "fish"
+    },
+    {
+      "id": "saltwater",
+      "name": "海水魚",
+      "categoryId": "fish"
+    },
+    {
+      "id": "shark",
+      "name": "サメ",
+      "categoryId": "fish"
+    },
+    {
+      "id": "ray",
+      "name": "エイ",
+      "categoryId": "fish"
+    },
+
+    {
+      "id": "small_bird",
+      "name": "小鳥",
+      "categoryId": "bird"
+    },
+    {
+      "id": "water_bird",
+      "name": "水鳥",
+      "categoryId": "bird"
+    },
+    {
+      "id": "raptor",
+      "name": "猛禽類",
+      "categoryId": "bird"
+    },
+    {
+      "id": "night_bird",
+      "name": "夜の鳥",
+      "categoryId": "bird"
+    },
+
+    {
+      "id": "snake",
+      "name": "ヘビ",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "lizard",
+      "name": "トカゲ",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "turtle",
+      "name": "カメ",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "crocodile",
+      "name": "ワニ",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "frog",
+      "name": "カエル",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "newt",
+      "name": "イモリ",
+      "categoryId": "reptile_amphibian"
+    },
+    {
+      "id": "salamander",
+      "name": "サンショウウオ",
+      "categoryId": "reptile_amphibian"
+    },
+
+    {
+      "id": "cat_family",
+      "name": "ネコの仲間",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "dog_family",
+      "name": "イヌの仲間",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "bear",
+      "name": "クマ",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "deer",
+      "name": "シカ",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "monkey",
+      "name": "サル",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "rodent",
+      "name": "ネズミ",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "rabbit",
+      "name": "ウサギ",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "bat",
+      "name": "コウモリ",
+      "categoryId": "mammal"
+    },
+    {
+      "id": "sea_mammal",
+      "name": "海のけもの",
+      "categoryId": "mammal"
+    },
+
+    {
+      "id": "flower",
+      "name": "花",
+      "categoryId": "plant"
+    },
+    {
+      "id": "tree",
+      "name": "木",
+      "categoryId": "plant"
+    },
+    {
+      "id": "grass",
+      "name": "草",
+      "categoryId": "plant"
+    },
+    {
+      "id": "fern",
+      "name": "シダ",
+      "categoryId": "plant"
+    },
+    {
+      "id": "moss",
+      "name": "コケ",
+      "categoryId": "plant"
+    },
+    {
+      "id": "succulent",
+      "name": "多肉植物",
+      "categoryId": "plant"
+    },
+    {
+      "id": "water_plant",
+      "name": "水草",
+      "categoryId": "plant"
+    },
+    {
+      "id": "vine",
+      "name": "つる植物",
+      "categoryId": "plant"
+    },
+
+    {
+      "id": "mushroom",
+      "name": "きのこ",
+      "categoryId": "kodama"
+    },
+    {
+      "id": "nut",
+      "name": "木の実",
+      "categoryId": "kodama"
+    },
+    {
+      "id": "fruit",
+      "name": "果実",
+      "categoryId": "kodama"
+    }
+
+  ]
+}

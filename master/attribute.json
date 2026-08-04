@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "attributes": [
+    {
+      "id": "mushi",
+      "name": "むし",
+      "spiritId": "mushi"
+    },
+    {
+      "id": "mizu",
+      "name": "みず",
+      "spiritId": "mizu"
+    },
+    {
+      "id": "sora",
+      "name": "そら",
+      "spiritId": "sora"
+    },
+    {
+      "id": "daichi",
+      "name": "だいち",
+      "spiritId": "daichi"
+    },
+    {
+      "id": "kemono",
+      "name": "けもの",
+      "spiritId": "kemono"
+    },
+    {
+      "id": "mori",
+      "name": "もり",
+      "spiritId": "mori"
+    },
+    {
+      "id": "kodama",
+      "name": "こだま",
+      "spiritId": "kodama"
+    }
+  ]
+}
