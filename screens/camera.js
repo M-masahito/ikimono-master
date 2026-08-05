@@ -694,62 +694,687 @@ function wait(milliseconds) {
 }
 // =====================================
 // PART4
-// 仮AI判定
-// 必ず候補を3件返す
+// 本物のGemini AI判定
+// 図鑑の中から候補を3件返す
+// =====================================
+
+// =====================================
+// PART4
+// Cloudflare Worker経由のAI判定
 // =====================================
 
 async function judgeImage(file) {
 
     if (!file) {
-        throw new Error("写真が選ばれていません。");
+        throw new Error(
+            "写真が選ばれていません。"
+        );
     }
 
-    // 今は仮判定。
-    // 後で本物のAI判定APIへ置き換える。
-    await wait(1800);
+    const imageCheck =
+        validateImageFile(file);
 
-    const mockCandidates = [
+    if (!imageCheck.valid) {
+        throw new Error(
+            imageCheck.message
+        );
+    }
 
-        {
-            no: 1,
-            name: "カブトムシ",
-            rarity: "B",
-            category: "昆虫",
-            type: "甲虫",
-            typeIcon: "🪲",
-            categoryIcon: "🐞",
-            illustration: "🪲",
-            confidence: 87
-        },
+    const catalog =
+        getAiCatalog();
+        console.log(
+    "AIへ送る図鑑",
+    catalog.length,
+    catalog.map(item => item.name)
+);
 
-        {
-            no: 2,
-            name: "コカブト",
-            rarity: "A",
-            category: "昆虫",
-            type: "甲虫",
-            typeIcon: "🪲",
-            categoryIcon: "🐞",
-            illustration: "🪲",
-            confidence: 9
-        },
+    if (catalog.length === 0) {
+        throw new Error(
+            "図鑑データが読み込まれていません。"
+        );
+    }
 
-        {
-            no: 3,
-            name: "ノコギリクワガタ",
-            rarity: "B",
-            category: "昆虫",
-            type: "甲虫",
-            typeIcon: "🪲",
-            categoryIcon: "🐞",
-            illustration: "🪲",
-            confidence: 4
-        }
+    const imageData =
+        await fileToDataUrl(file);
 
-    ];
+    const catalogNames =
+        catalog
+            .map(item =>
+                String(item?.name ?? "")
+                    .trim()
+            )
+            .filter(Boolean);
+
+    const response =
+        await fetch(
+            "https://ikimono-ai.masahito-mizote.workers.dev",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    imageData,
+                    catalogNames
+                })
+            }
+        );
+
+    const responseJson =
+        await response.json();
+
+    if (!response.ok) {
+
+        console.error(
+            "AI Workerエラー",
+            response.status,
+            responseJson
+        );
+
+        throw new Error(
+            responseJson?.error ??
+            `AI通信に失敗しました（${response.status}）`
+        );
+
+    }
+
+    if (
+        !responseJson?.success ||
+        !Array.isArray(
+            responseJson?.candidates
+        )
+    ) {
+
+        console.error(
+            "AI Workerの回答形式が不正",
+            responseJson
+        );
+
+        throw new Error(
+            "AIの判定結果を読み取れませんでした。"
+        );
+
+    }
+
+    const candidates =
+        responseJson.candidates
+            .map(result => {
+
+                const masterItem =
+                    findCatalogItemByName(
+                        catalog,
+                        result?.name
+                    );
+
+                if (!masterItem) {
+                    return null;
+                }
+
+                return createCandidateFromMaster({
+
+                    item:
+                        masterItem,
+
+                    confidence:
+                        result?.confidence
+
+                });
+
+            })
+            .filter(Boolean);
+
+    if (candidates.length === 0) {
+
+        throw new Error(
+            "図鑑と一致する候補がありませんでした。"
+        );
+
+    }
 
     return normalizeCandidates(
-        mockCandidates
+        candidates
+    );
+
+}
+
+
+// =====================================
+// 写真をData URLへ変換
+// =====================================
+
+function fileToDataUrl(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+
+            const result =
+                String(reader.result ?? "");
+
+            if (!result) {
+
+                reject(
+                    new Error(
+                        "写真を変換できませんでした。"
+                    )
+                );
+
+                return;
+
+            }
+
+            const fileName =
+                String(file?.name ?? "")
+                    .toLowerCase();
+
+            let mimeType =
+                String(file?.type ?? "")
+                    .toLowerCase();
+
+            if (
+                !mimeType ||
+                !mimeType.startsWith("image/")
+            ) {
+
+                if (
+                    fileName.endsWith(".jpg") ||
+                    fileName.endsWith(".jpeg")
+                ) {
+                    mimeType = "image/jpeg";
+
+                } else if (
+                    fileName.endsWith(".png")
+                ) {
+                    mimeType = "image/png";
+
+                } else if (
+                    fileName.endsWith(".webp")
+                ) {
+                    mimeType = "image/webp";
+
+                } else if (
+                    fileName.endsWith(".gif")
+                ) {
+                    mimeType = "image/gif";
+
+                } else if (
+                    fileName.endsWith(".heic")
+                ) {
+                    mimeType = "image/heic";
+
+                } else if (
+                    fileName.endsWith(".heif")
+                ) {
+                    mimeType = "image/heif";
+
+                } else {
+                    mimeType = "image/jpeg";
+                }
+
+            }
+
+            const base64 =
+                result.includes(",")
+                    ? result.split(",")[1]
+                    : "";
+
+            if (!base64) {
+
+                reject(
+                    new Error(
+                        "写真データを読み取れませんでした。"
+                    )
+                );
+
+                return;
+
+            }
+
+            resolve(
+                `data:${mimeType};base64,${base64}`
+            );
+
+        };
+
+        reader.onerror = () => {
+
+            reject(
+                new Error(
+                    "写真を読み込めませんでした。"
+                )
+            );
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+// =====================================
+// AI設定を取得
+// =====================================
+
+function getGeminiConfig() {
+
+    const config =
+        typeof CONFIG !== "undefined"
+            ? CONFIG
+            : window.CONFIG;
+
+    const apiKey =
+        String(
+            config?.GEMINI_API_KEY ?? ""
+        ).trim();
+
+    const model =
+        String(
+            config?.MODEL ??
+            "gemini-2.5-flash"
+        ).trim();
+
+    if (!apiKey) {
+
+        throw new Error(
+            "Gemini APIキーが設定されていません。"
+        );
+
+    }
+
+    return {
+        apiKey,
+        model
+    };
+
+}
+
+
+// =====================================
+// MASTERから図鑑データを取得
+// =====================================
+
+function getAiCatalog() {
+
+    const catalog =
+        Array.isArray(
+            window.MASTER?.encyclopedia
+        )
+            ? window.MASTER.encyclopedia
+            : [];
+
+    return catalog
+        .filter(item => {
+
+            return (
+                Number.isFinite(
+                    Number(item?.no)
+                ) &&
+                String(
+                    item?.name ?? ""
+                ).trim()
+            );
+
+        })
+        .sort((a, b) => {
+
+            return (
+                Number(a.no) -
+                Number(b.no)
+            );
+
+        });
+
+}
+
+
+// =====================================
+// 写真をBase64へ変換
+// =====================================
+
+function fileToBase64(file) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const reader =
+                new FileReader();
+
+            reader.onload = () => {
+
+                const result =
+                    String(
+                        reader.result ?? ""
+                    );
+
+                const base64 =
+                    result.includes(",")
+                        ? result.split(",")[1]
+                        : "";
+
+                if (!base64) {
+
+                    reject(
+                        new Error(
+                            "写真を変換できませんでした。"
+                        )
+                    );
+
+                    return;
+
+                }
+
+                resolve(base64);
+
+            };
+
+            reader.onerror = () => {
+
+                reject(
+                    new Error(
+                        "写真を読み込めませんでした。"
+                    )
+                );
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
+
+
+// =====================================
+// AI回答の余分な文字を除去
+// =====================================
+
+function cleanJsonText(text) {
+
+    return String(text ?? "")
+        .trim()
+        .replace(/^```json/i, "")
+        .replace(/^```/i, "")
+        .replace(/```$/i, "")
+        .trim();
+
+}
+
+
+// =====================================
+// 名前で正式図鑑を検索
+// =====================================
+
+function findCatalogItemByName(
+    catalog,
+    name
+) {
+
+    const targetName =
+        normalizeAiName(name);
+
+    if (!targetName) {
+        return null;
+    }
+
+    const exactMatch =
+        catalog.find(item => {
+
+            return (
+                normalizeAiName(
+                    item?.name
+                ) === targetName
+            );
+
+        });
+
+    if (exactMatch) {
+        return exactMatch;
+    }
+
+    return (
+        catalog.find(item => {
+
+            const itemName =
+                normalizeAiName(
+                    item?.name
+                );
+
+            return (
+                itemName.includes(
+                    targetName
+                ) ||
+                targetName.includes(
+                    itemName
+                )
+            );
+
+        }) ?? null
+    );
+
+}
+
+
+// =====================================
+// 名前を比較用に整える
+// =====================================
+
+function normalizeAiName(name) {
+
+    return String(name ?? "")
+        .trim()
+        .replaceAll(" ", "")
+        .replaceAll("　", "")
+        .replace(
+            /[。、，,.！!？?「」『』"'（）()]/g,
+            ""
+        )
+        .toLowerCase();
+
+}
+
+
+// =====================================
+// 正式図鑑データから候補を作る
+// =====================================
+
+function createCandidateFromMaster({
+
+    item,
+    confidence
+
+}) {
+
+    const categoryInfo =
+        getCategoryDisplay(
+            item?.categoryId
+        );
+
+    const typeInfo =
+        getTypeDisplay(
+            item?.typeId
+        );
+
+    return {
+
+        no:
+            Number(item?.no),
+
+        name:
+            String(
+                item?.name ?? ""
+            ),
+
+        rarity:
+            item?.rarity ??
+            "C",
+
+        category:
+            categoryInfo.name,
+
+        type:
+            typeInfo.name,
+
+        typeIcon:
+            typeInfo.icon,
+
+        categoryIcon:
+            categoryInfo.icon,
+
+        illustration:
+            getCreatureIllustration(
+                item
+            ),
+
+        confidence:
+            normalizeConfidence(
+                confidence
+            )
+
+    };
+
+}
+
+
+// =====================================
+// カテゴリ表示
+// =====================================
+
+function getCategoryDisplay(
+    categoryId
+) {
+
+    const categories = {
+
+        insect: {
+            name: "昆虫",
+            icon: "🐞"
+        },
+
+        fish: {
+            name: "魚・水生生物",
+            icon: "🐟"
+        },
+
+        bird: {
+            name: "鳥",
+            icon: "🐦"
+        },
+
+        amphibian: {
+            name: "両生類",
+            icon: "🐸"
+        },
+
+        reptile: {
+            name: "爬虫類",
+            icon: "🦎"
+        },
+
+        mammal: {
+            name: "哺乳類",
+            icon: "🐾"
+        },
+
+        plant: {
+            name: "植物",
+            icon: "🌿"
+        }
+
+    };
+
+    return (
+        categories[categoryId] ?? {
+            name: "その他",
+            icon: "🌿"
+        }
+    );
+
+}
+
+
+// =====================================
+// タイプ表示
+// =====================================
+
+function getTypeDisplay(typeId) {
+
+    const typeMaster =
+        Array.isArray(
+            window.MASTER?.type
+        )
+            ? window.MASTER.type
+            : [];
+
+    const type =
+        typeMaster.find(item => {
+
+            return (
+                String(item?.id) ===
+                String(typeId)
+            );
+
+        });
+
+    return {
+
+        name:
+            type?.name ??
+            String(
+                typeId ??
+                "未分類"
+            ),
+
+        icon:
+            type?.icon ??
+            "🔹"
+
+    };
+
+}
+
+
+// =====================================
+// 仮イラスト
+// =====================================
+
+function getCreatureIllustration(
+    item
+) {
+
+    const categoryId =
+        String(
+            item?.categoryId ?? ""
+        );
+
+    const illustrations = {
+
+        insect: "🪲",
+
+        fish: "🐟",
+
+        bird: "🐦",
+
+        amphibian: "🐸",
+
+        reptile: "🦎",
+
+        mammal: "🐾",
+
+        plant: "🌿"
+
+    };
+
+    return (
+        illustrations[categoryId] ??
+        "❓"
     );
 
 }
@@ -2263,43 +2888,53 @@ function normalizeOwnedCount(value) {
 function validateImageFile(file) {
 
     if (!file) {
-
         return {
             valid: false,
-            message:
-                "写真が選ばれていません。"
+            message: "写真が選ばれていません。"
         };
-
     }
 
-    if (
-        !String(file.type)
-            .startsWith("image/")
-    ) {
+    const mimeType =
+        String(file.type ?? "")
+            .toLowerCase();
 
+    const fileName =
+        String(file.name ?? "")
+            .toLowerCase();
+
+    const imageExtensions = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp",
+        ".gif",
+        ".heic",
+        ".heif"
+    ];
+
+    const isImageMime =
+        mimeType.startsWith("image/");
+
+    const isImageExtension =
+        imageExtensions.some(extension =>
+            fileName.endsWith(extension)
+        );
+
+    if (!isImageMime && !isImageExtension) {
         return {
             valid: false,
-            message:
-                "画像ファイルを選んでね。"
+            message: "画像ファイルを選んでね。"
         };
-
     }
 
-    // 読み込み時の負担を抑えるための目安
     const maximumFileSize =
         20 * 1024 * 1024;
 
-    if (
-        Number(file.size) >
-        maximumFileSize
-    ) {
-
+    if (Number(file.size) > maximumFileSize) {
         return {
             valid: false,
-            message:
-                "写真のサイズが大きすぎるよ。別の写真を選んでね。"
+            message: "写真のサイズが大きすぎるよ。別の写真を選んでね。"
         };
-
     }
 
     return {
