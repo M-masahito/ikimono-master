@@ -25,7 +25,11 @@ export default {
 
         }
 
-        if (!env.GEMINI_API_KEY) {
+        
+        if (url.pathname !== "/api/judge") {
+    return env.ASSETS.fetch(request);
+}
+if (!env.GEMINI_API_KEY) {
 
             return sendJson({
                 success: false,
@@ -33,9 +37,6 @@ export default {
             }, 500);
 
         }
-        if (url.pathname !== "/api/judge") {
-    return env.ASSETS.fetch(request);
-}
 
        
         if (request.method !== "POST") {
