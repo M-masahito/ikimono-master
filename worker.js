@@ -14,6 +14,7 @@ const MAX_CATALOG_COUNT = 700;
 export default {
 
     async fetch(request, env) {
+        const url = new URL(request.url);
 
         if (request.method === "OPTIONS") {
 
@@ -32,36 +33,11 @@ export default {
             }, 500);
 
         }
+        if (url.pathname !== "/api/judge") {
+    return env.ASSETS.fetch(request);
+}
 
-        // 動作確認
-        if (request.method === "GET") {
-
-            const modelResult =
-                await getAvailableModel(
-                    env.GEMINI_API_KEY
-                );
-
-            return sendJson({
-                success:
-                    modelResult.success,
-
-                message:
-                    modelResult.success
-                        ? "いきものマスターAIは動作中"
-                        : "利用可能モデルを取得できません",
-
-                selectedModel:
-                    modelResult.model ?? null,
-
-                availableModels:
-                    modelResult.models ?? [],
-
-                details:
-                    modelResult.details ?? null
-            }, modelResult.success ? 200 : 502);
-
-        }
-
+       
         if (request.method !== "POST") {
 
             return sendJson({

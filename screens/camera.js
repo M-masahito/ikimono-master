@@ -747,7 +747,7 @@ async function judgeImage(file) {
 
     const response =
         await fetch(
-            "https://ikimono-ai.masahito-mizote.workers.dev",
+          "/api/judge",
             {
                 method: "POST",
 
