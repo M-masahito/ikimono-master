@@ -1,6 +1,6 @@
 // =====================================
-// screens/home.js Ver5
-// 図鑑レベル＋精霊の姿変化対応
+// screens/home.js Ver6
+// 森のホーム画面
 // =====================================
 
 import { getSave } from "../system/storage.js";
@@ -14,8 +14,9 @@ import {
 
 const TOTAL_ENCYCLOPEDIA = 700;
 
+
 // =====================================
-// ホーム画面を表示
+// ホーム画面
 // =====================================
 
 export function showHome(screen) {
@@ -28,9 +29,10 @@ export function showHome(screen) {
     const discoveredCount =
         discoveredNumbers.length;
 
-    // -------------------------------
+
+    // =================================
     // 図鑑レベル
-    // -------------------------------
+    // =================================
 
     const catalogLevel =
         getCatalogLevel(discoveredCount);
@@ -41,21 +43,6 @@ export function showHome(screen) {
     const nextLevelCount =
         getNextLevelCount(catalogLevel);
 
-    const remainingCount =
-        nextLevelCount === null
-            ? 0
-            : Math.max(
-                nextLevelCount - discoveredCount,
-                0
-            );
-
-    const levelProgress =
-        getLevelProgress({
-            discoveredCount,
-            catalogLevel,
-            nextLevelCount
-        });
-
     const totalProgress =
         Math.min(
             discoveredCount /
@@ -64,10 +51,10 @@ export function showHome(screen) {
             100
         );
 
-    // -------------------------------
+
+    // =================================
     // 精霊
-    // レベルではなく発見数で姿が変わる
-    // -------------------------------
+    // =================================
 
     const spiritName =
         save?.spirit?.name ??
@@ -78,7 +65,7 @@ export function showHome(screen) {
         {
             min: 150,
             icon: "🐉",
-            message: "大きな力が目覚めているよ！"
+            message: "すごい！ 大きな力が目覚めているよ！"
         },
 
         {
@@ -90,7 +77,7 @@ export function showHome(screen) {
         {
             min: 10,
             icon: "🌱",
-            message: "少しずつ力が目覚めてきたよ！"
+            message: "もっといろんな仲間を探してみよう！"
         },
 
         {
@@ -102,7 +89,7 @@ export function showHome(screen) {
         {
             min: 0,
             icon: "🥚",
-            message: "まだ静かに眠っているよ…"
+            message: "今日はどんな仲間に会えるかな？"
         }
 
     ];
@@ -111,55 +98,131 @@ export function showHome(screen) {
         spiritStages.find(
             stage =>
                 discoveredCount >= stage.min
-        ) ?? spiritStages[
+        ) ??
+        spiritStages[
             spiritStages.length - 1
         ];
 
-    // -------------------------------
+
+    // =================================
+    // 今日の発見
+    // =================================
+
+    const todayCount =
+        getTodayDiscoveryCount(save);
+
+
+    // =================================
     // HTML
-    // -------------------------------
+    // =================================
 
     screen.innerHTML = `
 
-        <section class="garden-home">
+        <section class="forest-home">
 
-            <div class="garden-sky">
+            <!-- タイトル -->
 
-                <div class="garden-title">
+            <div class="forest-title-board">
 
-                    <h1>
-                        いきものマスター
-                    </h1>
+                <span class="title-leaf">
+                    🌿
+                </span>
+
+                <h1>
+                    いきものマスター
+                </h1>
+
+                <span class="title-leaf">
+                    🍃
+                </span>
+
+            </div>
+
+
+            <!-- 上部ステータス -->
+
+            <div class="forest-top-status">
+
+                <button
+                    id="catalogProgressButton"
+                    class="forest-progress-card"
+                    type="button"
+                >
+
+                    <span class="forest-book-icon">
+                        📗
+                    </span>
+
+                    <span class="forest-progress-info">
+
+                        <small>
+                            図鑑の進み具合
+                        </small>
+
+                        <strong>
+                            ${discoveredCount}
+                            <span>
+                                / ${TOTAL_ENCYCLOPEDIA}
+                            </span>
+                        </strong>
+
+                        <span class="forest-progress-bar">
+
+                            <span
+                                style="
+                                    width:${totalProgress}%;
+                                "
+                            ></span>
+
+                        </span>
+
+                    </span>
+
+                </button>
+
+
+                <button
+                    id="settingsButton"
+                    class="forest-settings-button"
+                    type="button"
+                    aria-label="設定"
+                >
+
+                    <span>
+                        ⚙️
+                    </span>
+
+                    <small>
+                        設定
+                    </small>
+
+                </button>
+
+            </div>
+
+
+            <!-- 精霊と大きな木 -->
+
+            <div class="forest-world">
+
+                <div class="forest-sunlight"></div>
+
+                <div class="forest-big-tree">
+
+                    <div class="tree-crown">
+                        🌳
+                    </div>
+
+                    <div class="tree-door">
+                        🚪
+                    </div>
 
                 </div>
 
-                <div class="spirit-area">
 
-                    <button
-                        id="spiritButton"
-                        class="spirit-button"
-                        type="button"
-                        aria-label="精霊画面を開く"
-                    >
+                <div class="forest-spirit-zone">
 
-                        <span class="spirit-character">
-
-                            ${currentSpiritStage.icon}
-
-                        </span>
-
-                        <span class="spirit-name">
-
-                            ${escapeHtml(spiritName)}
-
-                        </span>
-
-                    </button>
-
-                    <div
-                        id="spiritSpeech"
-                        class="spirit-speech"
-                    >
+                    <div class="forest-speech">
 
                         ${escapeHtml(
                             currentSpiritStage.message
@@ -167,198 +230,216 @@ export function showHome(screen) {
 
                     </div>
 
-                </div>
+                    <button
+                        id="spiritButton"
+                        class="forest-spirit"
+                        type="button"
+                    >
 
-                <div class="garden-ground">
+                        <span class="forest-spirit-character">
 
-                    <span class="garden-tree">
-                        🌳
-                    </span>
-
-                    <span class="garden-plant">
-                        🌷
-                    </span>
-
-                    <span class="garden-plant">
-                        🌿
-                    </span>
-
-                    <span class="garden-plant">
-                        🍄
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="home-status-card">
-
-                <div class="home-level-header">
-
-                    <div>
-
-                        <span class="home-level-label">
-
-                            📖 図鑑レベル
+                            ${currentSpiritStage.icon}
 
                         </span>
 
-                        <strong class="home-level-number">
+                        <small>
 
-                            Lv.${catalogLevel}
+                            ${escapeHtml(spiritName)}
 
-                        </strong>
+                        </small>
 
-                    </div>
-
-                    <div class="home-unlocked-range">
-
-                        解放中
-
-                        <br>
-
-                        <strong>
-
-                            No.001〜${String(
-                                unlockedMaxNo
-                            ).padStart(3, "0")}
-
-                        </strong>
-
-                    </div>
+                    </button>
 
                 </div>
 
-                ${
-                    nextLevelCount !== null
 
-                        ? `
+                <div class="forest-message-board">
 
-                            <div class="home-next-level">
+                    <span>
+                        今日も
+                    </span>
 
-                                <div class="home-next-level-info">
+                    <strong>
+                        すてきな出会いが
+                    </strong>
 
-                                    <span>
-                                        次のレベルまで
-                                    </span>
-
-                                    <strong>
-
-                                        あと${remainingCount}種類
-
-                                    </strong>
-
-                                </div>
-
-                                <div class="encyclopedia-progress">
-
-                                    <div
-                                        class="encyclopedia-progress-bar"
-                                        style="
-                                            width:${levelProgress}%;
-                                        "
-                                    ></div>
-
-                                </div>
-
-                                <p>
-
-                                    ${discoveredCount}
-                                    /
-                                    ${nextLevelCount}種類
-
-                                </p>
-
-                            </div>
-
-                        `
-
-                        : `
-
-                            <div class="home-next-level">
-
-                                <strong>
-
-                                    🎉 図鑑マスター！
-
-                                </strong>
-
-                                <p>
-
-                                    すべての図鑑ページが
-                                    解放されています。
-
-                                </p>
-
-                            </div>
-
-                        `
-                }
-
-            </div>
-
-            <div class="home-status-card">
-
-                <h3>
-
-                    🌟 発見した生き物
-
-                </h3>
-
-                <strong>
-
-                    ${discoveredCount}
-                    /
-                    ${TOTAL_ENCYCLOPEDIA}
-
-                </strong>
-
-                <div class="encyclopedia-progress">
-
-                    <div
-                        class="encyclopedia-progress-bar"
-                        style="
-                            width:${totalProgress}%;
-                        "
-                    ></div>
+                    <span>
+                        ありますように！
+                    </span>
 
                 </div>
 
-                <p>
-
-                    ${totalProgress.toFixed(1)}%
-
-                </p>
-
             </div>
 
-            <div class="home-main-actions">
+
+            <!-- メインボタン -->
+
+            <div class="forest-main-actions">
 
                 <button
                     id="cameraButton"
                     class="
-                        home-action-button
-                        camera-action
+                        forest-action-card
+                        forest-camera-card
                     "
                     type="button"
                 >
 
-                    📷 仲間をさがす
+                    <div class="forest-action-picture">
+
+                        <span class="action-butterfly">
+                            🦋
+                        </span>
+
+                        <span class="action-camera">
+                            📷
+                        </span>
+
+                    </div>
+
+                    <strong>
+                        仲間をさがす
+                    </strong>
+
+                    <small>
+                        写真をとって
+                        <br>
+                        いきものを見つけよう！
+                    </small>
 
                 </button>
+
 
                 <button
                     id="bookButton"
                     class="
-                        home-action-button
-                        book-action
+                        forest-action-card
+                        forest-book-card
                     "
                     type="button"
                 >
 
-                    📖 図鑑をひらく
+                    <div class="forest-action-picture">
+
+                        📗
+
+                    </div>
+
+                    <strong>
+                        図鑑
+                    </strong>
+
+                    <small>
+                        見つけた仲間を
+                        <br>
+                        図鑑に集めよう！
+                    </small>
 
                 </button>
+
+            </div>
+
+
+            <!-- 下部ステータス -->
+
+            <div class="forest-bottom-status">
+
+                <div class="forest-today">
+
+                    <span>
+                        🍀
+                    </span>
+
+                    <div>
+
+                        <small>
+                            今日見つけた仲間
+                        </small>
+
+                        <strong>
+                            ${todayCount}
+                            <span>種類</span>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="forest-status-divider"></div>
+
+
+                <div class="forest-total">
+
+                    <span>
+                        👑
+                    </span>
+
+                    <div>
+
+                        <small>
+                            図鑑の達成
+                        </small>
+
+                        <strong>
+                            ${discoveredCount}
+                            <span>
+                                / ${TOTAL_ENCYCLOPEDIA}
+                            </span>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- プレゼント -->
+
+            <button
+                id="presentButton"
+                class="forest-present-button"
+                type="button"
+            >
+
+                <span>
+                    🎁
+                </span>
+
+                <small>
+                    プレゼント
+                </small>
+
+            </button>
+
+
+            <!-- 図鑑レベル情報 -->
+
+            <div class="forest-level-info">
+
+                Lv.${catalogLevel}
+
+                ・
+
+                No.001〜${String(
+                    unlockedMaxNo
+                ).padStart(3, "0")}
+
+                解放中
+
+                ${
+                    nextLevelCount !== null
+                        ? `
+                            ・次の解放まで
+                            ${Math.max(
+                                nextLevelCount -
+                                discoveredCount,
+                                0
+                            )}種類
+                        `
+                        : "・図鑑マスター！"
+                }
 
             </div>
 
@@ -366,56 +447,152 @@ export function showHome(screen) {
 
     `;
 
-    // -------------------------------
+
+    // =================================
     // ボタン
-    // -------------------------------
+    // =================================
 
-    const spiritButton =
-        screen.querySelector(
-            "#spiritButton"
+    screen
+        .querySelector("#cameraButton")
+        ?.addEventListener(
+            "click",
+            () => openScreen("camera")
         );
 
-    const cameraButton =
-        screen.querySelector(
-            "#cameraButton"
+
+    screen
+        .querySelector("#bookButton")
+        ?.addEventListener(
+            "click",
+            () => openScreen("catalog")
         );
 
-    const bookButton =
-        screen.querySelector(
-            "#bookButton"
+
+    screen
+        .querySelector("#catalogProgressButton")
+        ?.addEventListener(
+            "click",
+            () => openScreen("catalog")
         );
 
-    spiritButton?.addEventListener(
-        "click",
-        () => {
 
-            openScreen("spirit");
+    screen
+        .querySelector("#spiritButton")
+        ?.addEventListener(
+            "click",
+            () => openScreen("spirit")
+        );
 
-        }
-    );
 
-    cameraButton?.addEventListener(
-        "click",
-        () => {
+    screen
+        .querySelector("#settingsButton")
+        ?.addEventListener(
+            "click",
+            () => {
 
-            openScreen("camera");
+                if (
+                    typeof openScreen === "function"
+                ) {
 
-        }
-    );
+                    try {
 
-    bookButton?.addEventListener(
-        "click",
-        () => {
+                        openScreen("settings");
 
-            openScreen("catalog");
+                    } catch {
 
-        }
-    );
+                        console.log(
+                            "設定画面は準備中です"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    screen
+        .querySelector("#presentButton")
+        ?.addEventListener(
+            "click",
+            () => {
+
+                alert(
+                    "🎁 プレゼントは準備中だよ！"
+                );
+
+            }
+        );
 
 }
 
+
 // =====================================
-// 発見済みNo.を重複なしで取得
+// 今日の発見数
+// =====================================
+
+function getTodayDiscoveryCount(save) {
+
+    if (
+        !Array.isArray(
+            save?.discoveryHistory
+        )
+    ) {
+
+        return 0;
+
+    }
+
+    const today =
+        new Date();
+
+    return save.discoveryHistory.filter(
+        item => {
+
+            const rawDate =
+                item?.date ??
+                item?.discoveredAt ??
+                item?.createdAt;
+
+            if (!rawDate) {
+
+                return false;
+
+            }
+
+            const date =
+                new Date(rawDate);
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return false;
+
+            }
+
+            return (
+                date.getFullYear() ===
+                    today.getFullYear() &&
+
+                date.getMonth() ===
+                    today.getMonth() &&
+
+                date.getDate() ===
+                    today.getDate()
+            );
+
+        }
+    ).length;
+
+}
+
+
+// =====================================
+// 発見済みNo.
 // =====================================
 
 function getDiscoveredNumbers(save) {
@@ -458,55 +635,6 @@ function getDiscoveredNumbers(save) {
 
 }
 
-// =====================================
-// 現在レベル内の進行率
-// =====================================
-
-function getLevelProgress({
-
-    discoveredCount,
-    catalogLevel,
-    nextLevelCount
-
-}) {
-
-    if (nextLevelCount === null) {
-
-        return 100;
-
-    }
-
-    const previousLevelCount =
-        Math.max(
-            (catalogLevel - 1) * 50,
-            0
-        );
-
-    const requiredCount =
-        nextLevelCount -
-        previousLevelCount;
-
-    const currentCount =
-        discoveredCount -
-        previousLevelCount;
-
-    if (requiredCount <= 0) {
-
-        return 100;
-
-    }
-
-    return Math.min(
-        Math.max(
-            currentCount /
-            requiredCount *
-            100,
-            0
-        ),
-        100
-    );
-
-}
 
 // =====================================
 // HTMLエスケープ
