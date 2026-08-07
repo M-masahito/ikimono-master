@@ -1957,3 +1957,743 @@ body{
     }
 
 }
+/* =====================================
+   いきものマスター
+   森のホーム画面 Ver6
+===================================== */
+
+.forest-home {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 18px 16px 130px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #dff4d4 0%,
+            #f4f4cf 45%,
+            #d9edaf 100%
+        );
+}
+
+
+/* タイトル */
+
+.forest-title-board {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: min(92%, 540px);
+    margin: 0 auto 16px;
+    padding: 13px 18px;
+
+    border: 3px solid #8b6235;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f5d99b,
+            #dcae62
+        );
+
+    box-shadow:
+        0 5px 0 #7b542c,
+        0 10px 18px rgba(45, 70, 25, .18);
+}
+
+.forest-title-board h1 {
+    margin: 0;
+
+    color: #3d2c18;
+
+    font-size: clamp(25px, 6vw, 38px);
+    font-weight: 900;
+    letter-spacing: .05em;
+}
+
+.title-leaf {
+    font-size: 24px;
+}
+
+
+/* 上部 */
+
+.forest-top-status {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+/* 図鑑進捗 */
+
+.forest-progress-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    flex: 1;
+
+    padding: 12px 14px;
+
+    border: 2px solid rgba(102, 75, 40, .25);
+    border-radius: 22px;
+
+    background: rgba(255, 250, 226, .94);
+
+    box-shadow:
+        0 6px 14px rgba(55, 83, 38, .16);
+
+    text-align: left;
+}
+
+.forest-book-icon {
+    font-size: 42px;
+}
+
+.forest-progress-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.forest-progress-info small {
+    color: #57462f;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.forest-progress-info strong {
+    color: #2f6d35;
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+.forest-progress-info strong span {
+    color: #594b38;
+    font-size: 18px;
+}
+
+.forest-progress-bar {
+    width: 100%;
+    height: 9px;
+
+    margin-top: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #d7cfad;
+}
+
+.forest-progress-bar > span {
+    display: block;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4e9e48,
+            #79c957
+        );
+}
+
+
+/* 設定 */
+
+.forest-settings-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 78px;
+    min-width: 78px;
+
+    border: 2px solid rgba(102, 75, 40, .25);
+    border-radius: 50%;
+
+    background: rgba(255, 249, 223, .95);
+
+    box-shadow:
+        0 6px 14px rgba(55, 83, 38, .16);
+}
+
+.forest-settings-button span {
+    font-size: 32px;
+}
+
+.forest-settings-button small {
+    color: #4e3c28;
+    font-weight: 800;
+}
+
+
+/* 森の中央 */
+
+.forest-world {
+    position: relative;
+
+    min-height: 390px;
+    margin: 6px -16px 18px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(255,255,210,.95),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #a9d985 0%,
+            #73b75c 58%,
+            #4f963e 100%
+        );
+}
+
+.forest-world::before {
+    content: "";
+
+    position: absolute;
+    inset: auto 0 0;
+
+    height: 115px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #8bc760,
+            #4c963e
+        );
+}
+
+
+/* 大きな木 */
+
+.forest-big-tree {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+}
+
+.tree-crown {
+    font-size: 235px;
+    line-height: .9;
+
+    filter:
+        drop-shadow(
+            0 10px 12px rgba(30,70,25,.25)
+        );
+}
+
+.tree-door {
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+
+    transform: translateX(-50%);
+
+    font-size: 50px;
+}
+
+
+/* 精霊 */
+
+.forest-spirit-zone {
+    position: absolute;
+    z-index: 4;
+
+    top: 72px;
+    right: 22px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.forest-speech {
+    position: relative;
+
+    max-width: 190px;
+
+    margin-bottom: 8px;
+    padding: 11px 14px;
+
+    border: 2px solid rgba(90, 69, 42, .2);
+    border-radius: 20px;
+
+    background: rgba(255, 251, 231, .96);
+
+    color: #4b3b28;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 12px rgba(40,70,30,.14);
+}
+
+.forest-spirit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 0;
+    background: transparent;
+}
+
+.forest-spirit-character {
+    font-size: 76px;
+
+    filter:
+        drop-shadow(
+            0 7px 5px rgba(30,60,25,.22)
+        );
+}
+
+.forest-spirit small {
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,235,.88);
+
+    color: #3d5830;
+    font-weight: 800;
+}
+
+
+/* 看板 */
+
+.forest-message-board {
+    position: absolute;
+    z-index: 3;
+
+    left: 22px;
+    bottom: 38px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px 15px;
+
+    border: 4px solid #72522d;
+    border-radius: 8px;
+
+    background: #f3dfad;
+
+    color: #4d3923;
+
+    font-size: 14px;
+
+    transform: rotate(-2deg);
+
+    box-shadow:
+        0 5px 8px rgba(50,50,20,.2);
+}
+
+.forest-message-board strong {
+    font-size: 16px;
+}
+/* =====================================
+   メインアクション
+===================================== */
+
+.forest-main-actions {
+    position: relative;
+    z-index: 5;
+
+    display: grid;
+    grid-template-columns: 1.25fr .85fr;
+    gap: 14px;
+
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+.forest-action-card {
+    min-height: 230px;
+    padding: 18px 12px;
+
+    border: 3px solid #4c8c46;
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fffbe8,
+            #f4e9c8
+        );
+
+    box-shadow:
+        0 8px 0 rgba(71, 103, 48, .22),
+        0 12px 20px rgba(46, 70, 32, .16);
+
+    color: #315d34;
+
+    text-align: center;
+}
+
+.forest-action-card:active {
+    transform: translateY(3px);
+    box-shadow:
+        0 4px 0 rgba(71, 103, 48, .22);
+}
+
+.forest-action-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 105px;
+
+    font-size: 75px;
+}
+
+.forest-camera-card .forest-action-picture {
+    position: relative;
+}
+
+.action-camera {
+    font-size: 82px;
+}
+
+.action-butterfly {
+    position: absolute;
+    top: -4px;
+    right: 12%;
+
+    font-size: 38px;
+}
+
+.forest-action-card strong {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.forest-action-card small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #574c36;
+
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+
+/* =====================================
+   下ステータス
+===================================== */
+
+.forest-bottom-status {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+
+    padding: 16px 18px;
+
+    border: 2px solid rgba(113, 83, 45, .28);
+    border-radius: 24px;
+
+    background: rgba(255, 246, 213, .96);
+
+    box-shadow:
+        0 7px 16px rgba(50, 75, 35, .16);
+}
+
+.forest-today,
+.forest-total {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex: 1;
+}
+
+.forest-today > span,
+.forest-total > span {
+    font-size: 35px;
+}
+
+.forest-today div,
+.forest-total div {
+    display: flex;
+    flex-direction: column;
+}
+
+.forest-bottom-status small {
+    color: #594934;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.forest-bottom-status strong {
+    color: #36723a;
+
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.forest-bottom-status strong span {
+    font-size: 13px;
+}
+
+.forest-status-divider {
+    width: 2px;
+    height: 50px;
+
+    margin: 0 13px;
+
+    background: rgba(107, 83, 48, .22);
+}
+
+
+/* =====================================
+   プレゼント
+===================================== */
+
+.forest-present-button {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    width: 150px;
+
+    margin: 14px 0 0 auto;
+    padding: 10px 12px;
+
+    border: 2px solid #9a743b;
+    border-radius: 18px;
+
+    background: #fff1c6;
+
+    color: #5a4025;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 5px 10px rgba(55, 70, 30, .15);
+}
+
+.forest-present-button span {
+    font-size: 27px;
+}
+
+
+/* =====================================
+   レベル表示
+===================================== */
+
+.forest-level-info {
+    position: relative;
+    z-index: 5;
+
+    margin-top: 13px;
+
+    color: #526642;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+/* =====================================
+   iPhone / スマホ
+===================================== */
+
+@media (max-width: 600px) {
+
+    .forest-home {
+        padding:
+            10px
+            10px
+            calc(110px + env(safe-area-inset-bottom));
+    }
+
+    .forest-title-board {
+        margin-bottom: 12px;
+        padding: 10px 12px;
+    }
+
+    .forest-title-board h1 {
+        font-size: 25px;
+    }
+
+    .title-leaf {
+        font-size: 18px;
+    }
+
+    .forest-progress-card {
+        padding: 9px 10px;
+    }
+
+    .forest-book-icon {
+        font-size: 32px;
+    }
+
+    .forest-progress-info strong {
+        font-size: 24px;
+    }
+
+    .forest-settings-button {
+        width: 66px;
+        min-width: 66px;
+    }
+
+    .forest-world {
+        min-height: 340px;
+        margin:
+            5px
+            -10px
+            14px;
+    }
+
+    .tree-crown {
+        font-size: 205px;
+    }
+
+    .forest-spirit-zone {
+        top: 60px;
+        right: 10px;
+    }
+
+    .forest-spirit-character {
+        font-size: 62px;
+    }
+
+    .forest-speech {
+        max-width: 150px;
+        padding: 9px 10px;
+
+        font-size: 11px;
+    }
+
+    .forest-message-board {
+        left: 12px;
+        bottom: 30px;
+
+        padding: 9px 11px;
+
+        font-size: 11px;
+    }
+
+    .forest-message-board strong {
+        font-size: 13px;
+    }
+
+    .forest-main-actions {
+        grid-template-columns: 1.15fr .85fr;
+        gap: 9px;
+    }
+
+    .forest-action-card {
+        min-height: 195px;
+        padding: 13px 7px;
+        border-radius: 20px;
+    }
+
+    .forest-action-picture {
+        min-height: 85px;
+        font-size: 57px;
+    }
+
+    .action-camera {
+        font-size: 64px;
+    }
+
+    .action-butterfly {
+        font-size: 28px;
+    }
+
+    .forest-action-card strong {
+        font-size: 22px;
+    }
+
+    .forest-action-card small {
+        font-size: 12px;
+    }
+
+    .forest-bottom-status {
+        padding: 12px 10px;
+    }
+
+    .forest-today > span,
+    .forest-total > span {
+        font-size: 27px;
+    }
+
+    .forest-bottom-status strong {
+        font-size: 20px;
+    }
+
+}
+/* =====================================
+   森ホーム 背景画像版 Ver7
+===================================== */
+
+.forest-home {
+    background-image: url("./assets/home-forest.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+/* 中央の偽物の森背景を透明にする */
+.forest-world {
+    background: transparent;
+}
+
+/* 緑の地面も消す */
+.forest-world::before {
+    display: none;
+}
+
+/* 絵文字の大木を消す
+   背景画像の大木を使う */
+.forest-big-tree {
+    display: none;
+}
