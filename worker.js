@@ -389,30 +389,38 @@ async function getAvailableModel(apiKey) {
                     )
                 : [];
 
-        const model =
-            models.find(name => {
+       const preferredModels = [
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite"
+];
 
-                const lower =
-                    name.toLowerCase();
+const model =
+    preferredModels.find(
+        preferredModel =>
+            models.includes(preferredModel)
+    ) ??
+    models.find(name => {
 
-                return (
-                    lower.includes("flash") &&
-                    !lower.includes("audio") &&
-                    !lower.includes("image") &&
-                    !lower.includes("tts")
-                );
+        const lower =
+            name.toLowerCase();
 
-            }) ??
-            models.find(name =>
-                name
-                    .toLowerCase()
-                    .includes("gemini")
-            ) ??
-            null;
+        return (
+            lower.includes("flash") &&
+            !lower.includes("2.5") &&
+            !lower.includes("audio") &&
+            !lower.includes("image") &&
+            !lower.includes("tts") &&
+            !lower.includes("live")
+        );
+
+    }) ??
+    null;
 
         return {
             success:
                 Boolean(model),
+                
             model,
             models,
             details: null
