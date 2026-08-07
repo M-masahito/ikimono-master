@@ -1,4 +1,4 @@
-const CACHE_NAME = "ikimono-master-v7";
+const CACHE_NAME = "ikimono-master-v8";
 
 const APP_SHELL = [
     "./",
@@ -8,7 +8,7 @@ const APP_SHELL = [
     "./icon-512.png"
 ];
 
-// 新しいService Workerをすぐ待機解除
+// インストール
 self.addEventListener("install", event => {
     event.waitUntil(
         caches
@@ -18,7 +18,7 @@ self.addEventListener("install", event => {
     );
 });
 
-// 古いキャッシュを全部削除
+// 古いキャッシュを削除
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches
@@ -34,8 +34,10 @@ self.addEventListener("activate", event => {
     );
 });
 
-// オンラインなら必ず最新版を取得
+// 基本はネットから最新版を取得
+// 通信できない時だけキャッシュを使用
 self.addEventListener("fetch", event => {
+
     if (event.request.method !== "GET") {
         return;
     }
@@ -45,22 +47,31 @@ self.addEventListener("fetch", event => {
             cache: "no-store"
         })
             .then(response => {
-                const requestUrl = new URL(event.request.url);
 
-                // 自分のアプリ内ファイルだけ保存
+                const requestUrl =
+                    new URL(event.request.url);
+
+                // 自分のアプリ内ファイルだけキャッシュ
                 if (
                     response.ok &&
                     requestUrl.origin === self.location.origin
                 ) {
                     const copy = response.clone();
 
-                    caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, copy);
-                    });
+                    caches
+                        .open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(
+                                event.request,
+                                copy
+                            );
+                        });
                 }
 
                 return response;
             })
-            .catch(() => caches.match(event.request))
+            .catch(() =>
+                caches.match(event.request)
+            )
     );
 });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
 
@@ -10,12 +11,32 @@
 
     <title>いきものマスター</title>
 
+    <!-- iPhone / PWA -->
     <meta name="theme-color" content="#173f2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+    <meta
+        name="apple-mobile-web-app-title"
+        content="いきものマスター"
+    >
 
     <link rel="manifest" href="./manifest.webmanifest">
-    <link rel="icon" href="./icon-192.png">
-    <link rel="apple-touch-icon" href="./icon-192.png">
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icon-192.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icon-192.png"
+    >
+
+    <!-- CSS -->
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./styles/camera.css">
     <link rel="stylesheet" href="./styles/cards.css">
@@ -23,102 +44,179 @@
 
 <body>
 
-<div id="app">
+    <div id="app">
 
-    <header id="topBar">
+        <!-- 上部 -->
+        <header id="topBar">
 
-        <h1>いきものマスター</h1>
+            <h1>いきものマスター</h1>
 
-        <div id="playerInfo">
-            <span id="discoverCount">発見 0</span>
-        </div>
+            <div id="playerInfo">
+                <span id="discoverCount">
+                    発見 0
+                </span>
+            </div>
 
-    </header>
+        </header>
 
-    <main id="screen"></main>
 
-    <nav id="bottomNav" aria-label="メインメニュー">
+        <!-- 各画面の表示場所 -->
+        <main id="screen"></main>
 
-        <button
-            type="button"
-            data-screen="home"
-            aria-label="ホーム"
+
+        <!-- 下メニュー -->
+        <nav
+            id="bottomNav"
+            aria-label="メインメニュー"
         >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+
+            <!-- ホーム -->
+            <button
+                type="button"
+                data-screen="home"
+                aria-label="ホーム"
             >
-                <path
-                    d="M3 11.5 12 4l9 7.5V21h-6v-6H9v6H3z"
-                />
-            </svg>
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M3 11.5 12 4l9 7.5V21h-6v-6H9v6H3z"
+                    />
+                </svg>
 
-            <span>ホーム</span>
-        </button>
+                <span>ホーム</span>
+            </button>
 
-        <button
-            type="button"
-            data-screen="camera"
-            aria-label="AI判定"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+
+            <!-- 仲間をさがす -->
+            <button
+                type="button"
+                data-screen="camera"
+                aria-label="仲間をさがす"
             >
-                <path
-                    d="M9 5l1.4-2h3.2L15 5h4a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"
-                />
-                <circle cx="12" cy="12.5" r="4" />
-            </svg>
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M9 5l1.4-2h3.2L15 5h4a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"
+                    />
+                    <circle
+                        cx="12"
+                        cy="12.5"
+                        r="4"
+                    />
+                </svg>
 
-           <span>🌿 仲間をさがす</span>
-        </button>
+                <span>仲間をさがす</span>
+            </button>
 
-        <button
-            type="button"
-            data-screen="catalog"
-            aria-label="図鑑"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+
+            <!-- 図鑑 -->
+            <button
+                type="button"
+                data-screen="catalog"
+                aria-label="図鑑"
             >
-                <path
-                    d="M4 4.5A3.5 3.5 0 0 1 7.5 1H11v18H7.5A3.5 3.5 0 0 0 4 22z"
-                />
-                <path
-                    d="M20 4.5A3.5 3.5 0 0 0 16.5 1H13v18h3.5A3.5 3.5 0 0 1 20 22z"
-                />
-            </svg>
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M4 4.5A3.5 3.5 0 0 1 7.5 1H11v18H7.5A3.5 3.5 0 0 0 4 22z"
+                    />
+                    <path
+                        d="M20 4.5A3.5 3.5 0 0 0 16.5 1H13v18h3.5A3.5 3.5 0 0 1 20 22z"
+                    />
+                </svg>
 
-            <span>図鑑</span>
-        </button>
+                <span>図鑑</span>
+            </button>
 
-        <button
-            type="button"
-            data-screen="spirit"
-            aria-label="精霊"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+
+            <!-- 精霊 -->
+            <button
+                type="button"
+                data-screen="spirit"
+                aria-label="精霊"
             >
-                <path
-                    d="M12 2c1.4 3.3 3.2 5.1 6.5 6.5C15.2 9.9 13.4 11.7 12 15c-1.4-3.3-3.2-5.1-6.5-6.5C8.8 7.1 10.6 5.3 12 2z"
-                />
-                <path
-                    d="M18.5 14c.7 1.8 1.7 2.8 3.5 3.5-1.8.7-2.8 1.7-3.5 3.5-.7-1.8-1.7-2.8-3.5-3.5 1.8-.7 2.8-1.7 3.5-3.5z"
-                />
-            </svg>
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M12 2c1.4 3.3 3.2 5.1 6.5 6.5C15.2 9.9 13.4 11.7 12 15c-1.4-3.3-3.2-5.1-6.5-6.5C8.8 7.1 10.6 5.3 12 2z"
+                    />
+                    <path
+                        d="M18.5 14c.7 1.8 1.7 2.8 3.5 3.5-1.8.7-2.8 1.7-3.5 3.5-.7-1.8-1.7-2.8-3.5-3.5 1.8-.7 2.8-1.7 3.5-3.5z"
+                    />
+                </svg>
 
-            <span>精霊</span>
-        </button>
+                <span>精霊</span>
+            </button>
 
-    </nav>
+        </nav>
 
-</div>
+    </div>
 
-<script src="./data.js"></script>
-<script type="module" src="./app.js"></script>
+
+    <!-- データ -->
+    <script src="./data.js"></script>
+
+    <!-- アプリ本体 -->
+    <script
+        type="module"
+        src="./app.js"
+    ></script>
+
+
+    <!--
+        Service Worker
+        ホーム画面版でも起動時に最新版を確認
+    -->
+    <script>
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", async () => {
+
+                try {
+
+                    const registration =
+                        await navigator.serviceWorker.register(
+                            "./sw.js"
+                        );
+
+                    // 起動時に新しいService Workerを確認
+                    await registration.update();
+
+                    // 新版へ切り替わったら1度だけ再読み込み
+                    let reloading = false;
+
+                    navigator.serviceWorker.addEventListener(
+                        "controllerchange",
+                        () => {
+
+                            if (reloading) {
+                                return;
+                            }
+
+                            reloading = true;
+
+                            window.location.reload();
+                        }
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Service Worker登録エラー:",
+                        error
+                    );
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
