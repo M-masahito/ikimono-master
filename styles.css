@@ -2161,7 +2161,7 @@ body{
 .forest-world {
     position: relative;
 
-    flex: 1;
+    flex: 0.55;
     min-height: 315px;
     margin: 0 -12px 8px;
 
