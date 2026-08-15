@@ -610,12 +610,14 @@ async function startFriendSearch({
             "仲間を探している途中でエラーが発生しました。",
             error
         );
-
-        showSearchError({
-            judgeResult,
-            searchFriendButton,
-            clearPhotoButton
-        });
+showSearchError({
+    judgeResult,
+    searchFriendButton,
+    clearPhotoButton,
+    errorMessage: String(
+        error?.message ?? error ?? "不明なエラー"
+    )
+});
 
     }
 
@@ -630,8 +632,8 @@ function showSearchError({
 
     judgeResult,
     searchFriendButton,
-    clearPhotoButton
-
+    clearPhotoButton,
+    errorMessage = ""
 }) {
 
     judgeResult.innerHTML = `
@@ -646,12 +648,16 @@ function showSearchError({
                 うまく見つけられなかったよ
             </h3>
 
-            <p>
-                生き物が大きく写った写真で、
-                もう一度試してみてね。
-            </p>
+           <p>
+    生き物が大きく写った写真で、
+    もう一度試してみてね。
+</p>
 
-            <button
+<p style="font-size:12px; color:#b00020; word-break:break-all;">
+    エラー詳細：${escapeHtml(errorMessage)}
+</p>
+
+<button
                 id="retrySearchButton"
                 class="mainButton"
                 type="button"
