@@ -197,11 +197,52 @@ ${catalogNames.join("、")}
                             ],
 
                             generationConfig: {
-                                temperature: 0.1,
-                                maxOutputTokens: 600,
-                                responseMimeType:
-                                    "application/json"
-                            }
+    temperature: 0.1,
+    maxOutputTokens: 600,
+    responseMimeType: "application/json",
+
+    responseSchema: {
+        type: "object",
+
+        properties: {
+            candidates: {
+                type: "array",
+
+                minItems: 3,
+                maxItems: 3,
+
+                items: {
+                    type: "object",
+
+                    properties: {
+                        name: {
+                            type: "string"
+                        },
+
+                        confidence: {
+                            type: "integer",
+                            minimum: 0,
+                            maximum: 100
+                        }
+                    },
+
+                    required: [
+                        "name",
+                        "confidence"
+                    ],
+
+                    additionalProperties: false
+                }
+            }
+        },
+
+        required: [
+            "candidates"
+        ],
+
+        additionalProperties: false
+    }
+}
 
                         })
                     }
