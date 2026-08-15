@@ -1965,6 +1965,10 @@ body{
 .forest-home {
     position: relative;
     width: 100%;
+
+  display: flex;
+ flex-direction: column;  
+ 
     min-height: calc(100dvh - var(--bottom-nav-height));
     margin: 0 auto;
     padding: 14px 12px 110px;
@@ -2157,6 +2161,7 @@ body{
 .forest-world {
     position: relative;
 
+    flex: 1;
     min-height: 315px;
     margin: 0 -12px 8px;
 
@@ -2564,14 +2569,5 @@ body:has(.forest-home) #topBar {
 
 /* ホーム画面は上まで背景を使う */
 body:has(.forest-home) #screen {
-    padding-top: 0;
-}
-/* ホーム画面では上の緑ヘッダーを隠す */
-#topBar {
-    display: none;
-}
-
-/* 画面を一番上から使う */
-#screen {
     padding-top: 0;
 }
