@@ -780,10 +780,27 @@ async function judgeImage(file) {
             responseJson
         );
 
-        throw new Error(
-            responseJson?.error ??
-            `AI通信に失敗しました（${response.status}）`
-        );
+       const detailText =
+    responseJson?.details
+        ? JSON.stringify(responseJson.details)
+        : "詳細なし";
+
+throw new Error(
+    [
+        responseJson?.error ??
+            `AI通信に失敗しました（${response.status}）`,
+
+        `HTTP ${response.status}`,
+
+        responseJson?.model
+            ? `model: ${responseJson.model}`
+            : "",
+
+        `details: ${detailText}`
+    ]
+        .filter(Boolean)
+        .join(" / ")
+);
 
     }
 
