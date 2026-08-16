@@ -62,6 +62,12 @@ if (!env.GEMINI_API_KEY) {
                 normalizeCatalogNames(
                     body?.catalogNames
                 );
+                console.log("AI判定受信", {
+    imageLength: imageData.length,
+    imagePrefix: imageData.slice(0, 40),
+    catalogCount: catalogNames.length,
+    catalogFirst3: catalogNames.slice(0, 3)
+});
 
             if (!imageData) {
 
@@ -231,7 +237,7 @@ ${catalogNames.join("、")}
                         "confidence"
                     ],
 
-                    additionalProperties: false
+                    
                 }
             }
         },
@@ -240,7 +246,7 @@ ${catalogNames.join("、")}
             "candidates"
         ],
 
-        additionalProperties: false
+        
     }
 }
 
