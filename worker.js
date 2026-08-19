@@ -103,10 +103,16 @@ if (!env.GEMINI_API_KEY) {
 
             }
 
+            console.log("① Geminiモデル確認開始");
+
             const modelResult =
                 await getAvailableModel(
                     env.GEMINI_API_KEY
                 );
+                console.log("② Geminiモデル確認完了", {
+    success: modelResult.success,
+    model: modelResult.model
+});
 
             if (
                 !modelResult.success ||
@@ -165,6 +171,8 @@ ${catalogNames.join("、")}
                     modelResult.model
                 ) +
                 ":generateContent";
+
+                console.log("③ Gemini判定リクエスト開始");
 
             const geminiResponse =
                 await fetch(
@@ -253,6 +261,11 @@ ${catalogNames.join("、")}
                         })
                     }
                 );
+
+               console.log("④ Geminiから応答あり", {
+    status: geminiResponse.status,
+    ok: geminiResponse.ok
+}); 
 
             const responseText =
                 await geminiResponse.text();
