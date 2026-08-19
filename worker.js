@@ -212,7 +212,7 @@ ${catalogNames.join("、")}
 
                             generationConfig: {
     temperature: 0.1,
-    maxOutputTokens: 600,
+    maxOutputTokens: 4096,
     responseMimeType: "application/json",
 
     responseSchema: {
@@ -267,8 +267,15 @@ ${catalogNames.join("、")}
     ok: geminiResponse.ok
 }); 
 
+console.log("④-1 Gemini本文読み取り開始");
+
             const responseText =
                 await geminiResponse.text();
+
+               console.log("④-2 Gemini本文読み取り完了", {
+    responseLength: responseText.length,
+    responsePreview: responseText.slice(0, 300)
+}); 
 
             let geminiData;
 
