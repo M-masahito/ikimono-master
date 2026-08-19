@@ -310,6 +310,11 @@ ${catalogNames.join("、")}
                     ?.[0]
                     ?.text;
 
+                    console.log("⑤ Gemini回答取得", {
+    hasResultText: Boolean(resultText),
+    resultPreview: String(resultText ?? "").slice(0, 300)
+});
+
             if (!resultText) {
 
                 return sendJson({
