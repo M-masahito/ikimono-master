@@ -103,6 +103,8 @@ function createNavigation() {
 
 export function openScreen(name) {
 
+    updateDiscoverCount();
+
     document
         .querySelectorAll(
             "#bottomNav button"
@@ -143,6 +145,48 @@ export function openScreen(name) {
             </p>
         </div>
     `;
+
+}
+
+// =======================================
+// ヘッダーの発見数を更新
+// =======================================
+
+function updateDiscoverCount() {
+
+    const save = getSave();
+
+    const numbers = [];
+
+    if (Array.isArray(save?.discovered)) {
+        numbers.push(...save.discovered);
+    }
+
+    if (Array.isArray(save?.discoveredCards)) {
+        numbers.push(
+            ...save.discoveredCards.map(
+                card => card?.no
+            )
+        );
+    }
+
+    const discoveredCount = [
+        ...new Set(
+            numbers
+                .map(Number)
+                .filter(Number.isFinite)
+        )
+    ].length;
+
+    const discoverCountElement =
+        document.getElementById(
+            "discoverCount"
+        );
+
+    if (discoverCountElement) {
+        discoverCountElement.textContent =
+            `発見 ${discoveredCount}`;
+    }
 
 }
 
