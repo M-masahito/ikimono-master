@@ -542,53 +542,60 @@ function createCatalogCard({
         const creatureNo =
     String(item.no).padStart(3, "0");
 
-const image =
-    `./assets/catalog/creatures/${creatureNo}.png`;
+const image = found
+    ? `./assets/cards/creatures/${creatureNo}.png`
+    : `./assets/catalog/creatures/${creatureNo}.png`;
 
 card.innerHTML = `
 
-    <div class="catalog-number">
+    <div class="catalog-card-shell rarity-card-${String(
+        item?.rarity ?? "C"
+    ).toLowerCase()}">
 
-        No.${creatureNo}
+        <div class="catalog-card-header">
 
-    </div>
+            <span class="catalog-number">
+                No.${creatureNo}
+            </span>
 
-    <div class="catalog-image">
-
-        <img
-            src="${image}"
-            alt="${found ? item.name : '未発見の生き物'}"
-            loading="lazy"
-            class="${
+            ${
                 found
-                    ? 'catalog-real-image-found'
-                    : 'catalog-real-image-unknown'
-            }"
-            onerror="
-                this.onerror=null;
-                this.src='${DEFAULT_IMAGE}';
-            "
-        >
+                    ? `
+                        <span class="catalog-card-rank">
+                            ${rarityText(item.rarity)}
+                        </span>
+                    `
+                    : ""
+            }
 
-    </div>
+        </div>
 
-    <div class="catalog-name">
+        <div class="catalog-image">
 
-        ${
-            found
-                ? item.name
-                : "？？？"
-        }
+            <img
+                src="${image}"
+                alt="${found ? item.name : '未発見の生き物'}"
+                loading="lazy"
+                class="${
+                    found
+                        ? 'catalog-card-creature'
+                        : 'catalog-real-image-unknown'
+                }"
+                onerror="
+                    this.onerror=null;
+                    this.src='${DEFAULT_IMAGE}';
+                "
+            >
 
-    </div>
+        </div>
 
-    <div class="catalog-rarity">
+        <div class="catalog-name">
+            ${found ? item.name : "？？？"}
+        </div>
 
-        ${
-            found
-                ? "★ " + rarityText(item.rarity)
-                : "？？？"
-        }
+        <div class="catalog-rarity">
+            ${found ? rarityText(item.rarity) : "？？？"}
+        </div>
 
     </div>
 
@@ -1661,6 +1668,66 @@ function addCatalogStyles(){
             }
 
         }
+            .catalog-card-shell{
+    position:relative;
+    width:100%;
+    min-height:100%;
+    padding:7px;
+    box-sizing:border-box;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.catalog-card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:6px;
+    margin-bottom:6px;
+}
+
+.catalog-card-header .catalog-number{
+    margin:0;
+    min-height:0;
+}
+
+.catalog-card-rank{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:#222;
+    color:#fff;
+    font-size:13px;
+    font-weight:900;
+    box-shadow:0 2px 5px rgba(0,0,0,0.25);
+}
+
+.catalog-card-creature{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:contain !important;
+}
+
+.rarity-card-s{
+    background:linear-gradient(145deg,#fff3b0,#d79a16);
+}
+
+.rarity-card-a{
+    background:linear-gradient(145deg,#e7f2ff,#6f98cc);
+}
+
+.rarity-card-b{
+    background:linear-gradient(145deg,#e5f4dc,#76a65d);
+}
+
+.rarity-card-c{
+    background:linear-gradient(145deg,#e7e1d8,#877d70);
+}
 
         @media(prefers-color-scheme:dark){
 
