@@ -34,12 +34,7 @@ export function showCards(screen) {
         const owner = card.owner || "あなた";
         const count = card.count || 1;
 
-        const image =
-            card.illustration ||
-            card.image ||
-            card.photo ||
-            "assets/images/card-placeholder.png";
-
+const image = `assets/cards/creatures/${no}.png`;
         return `
             <button
                 class="collection-card"
@@ -157,13 +152,9 @@ function openCardDetail(screen, card) {
     const category = card.category || "未分類";
     const type = card.type || category;
     const owner = card.owner || "あなた";
+    const description = card.description || "";
 
-    const image =
-        card.illustration ||
-        card.image ||
-        card.photo ||
-"./icon-192.png"
-
+const image = `assets/cards/creatures/${no}.png`;
 const photos = card.photos || [];
 
     content.innerHTML = `

@@ -2381,8 +2381,7 @@ async function registerDiscoveredCard({
                 lastDiscoveredAt:
                     discoveredAt,
 
-                ownedCount: 1
-
+ownedCount: 1
             });
 
         } else {
@@ -2415,6 +2414,7 @@ async function registerDiscoveredCard({
                     discoveredAt,
 
                 ownedCount
+
 
             };
 
