@@ -572,7 +572,20 @@ card.innerHTML = `
 
         </div>
 
+
         <div class="catalog-image">
+        ${
+    found
+        ? `
+            <img
+                class="catalog-tribe-emblem"
+                src="./assets/emblems/tribe/mushi_locked.png"
+                alt=""
+                aria-hidden="true"
+            >
+        `
+        : ""
+}
 
             <img
                 src="${image}"
@@ -1306,6 +1319,9 @@ function addCatalogStyles(){
             border-radius:13px;
             background:#f1f3f2;
         }
+         .catalog-card.found .catalog-image{
+    background:transparent;
+}   
 
         .catalog-image img{
             display:block;
@@ -1710,10 +1726,35 @@ function addCatalogStyles(){
 }
 
 .catalog-card-creature{
+    position:relative;
+    z-index:2;
     display:block;
     width:100%;
     height:100%;
     object-fit:contain !important;
+}
+.catalog-tribe-emblem{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:85%;
+    height:85%;
+    object-fit:contain;
+    transform:translate(-50%,-50%);
+    opacity:0.18;
+    pointer-events:none;
+    z-index:1;
+}
+.catalog-image{
+    position:relative;
+    z-index:1;
+}
+
+.catalog-card-header,
+.catalog-name,
+.catalog-rarity{
+    position:relative;
+    z-index:2;
 }
 
 .rarity-card-s{
