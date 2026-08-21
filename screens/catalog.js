@@ -548,9 +548,11 @@ const image = found
 
 card.innerHTML = `
 
-    <div class="catalog-card-shell rarity-card-${String(
-        item?.rarity ?? "C"
-    ).toLowerCase()}">
+    <div class="catalog-card-shell ${
+    found
+        ? `rarity-card-${String(item?.rarity ?? "C").toLowerCase()}`
+        : "catalog-card-locked"
+}">
 
         <div class="catalog-card-header">
 
@@ -1660,6 +1662,7 @@ function addCatalogStyles(){
             .catalog-grid{
                 grid-template-columns:
                     repeat(2,minmax(0,1fr));
+                    
                 gap:9px;
             }
 
@@ -1727,6 +1730,10 @@ function addCatalogStyles(){
 
 .rarity-card-c{
     background:linear-gradient(145deg,#e7e1d8,#877d70);
+}
+
+.catalog-card-locked{
+    background:#8a8a8a;
 }
 
         @media(prefers-color-scheme:dark){
