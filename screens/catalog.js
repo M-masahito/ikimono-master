@@ -579,7 +579,7 @@ card.innerHTML = `
         ? `
             <img
                 class="catalog-tribe-emblem"
-                src="./assets/emblems/tribe/mushi_locked.png"
+                src="./assets/emblems/tribe/${getTribeEmblem(item)}_locked.png"
                 alt=""
                 aria-hidden="true"
             >
@@ -1009,6 +1009,27 @@ function detailRow(title,value){
 // レア度表示
 // =====================================
 
+function getTribeEmblem(item){
+
+    const category =
+        String(item?.category ?? "");
+
+    const map = {
+        "昆虫": "mushi",
+        "魚・水生": "mizu",
+        "魚": "mizu",
+        "鳥": "sora",
+        "爬虫類・両生類": "daichi",
+        "爬虫類": "daichi",
+        "両生類": "daichi",
+        "哺乳類": "kemono",
+        "獣": "kemono",
+        "植物": "mori",
+        "こだま": "kodama"
+    };
+
+    return map[category] || "kodama";
+}
 function rarityText(rarity){
 
     switch(String(rarity ?? "").toUpperCase()){
@@ -1741,7 +1762,8 @@ function addCatalogStyles(){
     height:85%;
     object-fit:contain;
     transform:translate(-50%,-50%);
-    opacity:0.18;
+    opacity:0.40;
+    mix-blend-mode:multiply;
     pointer-events:none;
     z-index:1;
 }
