@@ -609,7 +609,19 @@ card.innerHTML = `
         <div class="catalog-name">
             ${found ? item.name : "？？？"}
         </div>
+${found ? `
+    <div class="catalog-card-info">
+        <div class="catalog-discoverer">
+            <span class="catalog-info-label">発見者</span>
+            <strong>いきものマスター</strong>
+        </div>
 
+        <div class="catalog-type-info">
+            <span class="catalog-info-label">タイプ</span>
+            <strong>${item.type ?? "-"}</strong>
+        </div>
+    </div>
+` : ""}
 
     </div>
 
@@ -1393,6 +1405,37 @@ function addCatalogStyles(){
             white-space:nowrap;
             text-overflow:ellipsis;
         }
+.catalog-card-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    margin-top:10px;
+    padding:8px 6px 2px;
+    border-top:1px solid rgba(0,0,0,0.12);
+}
+
+.catalog-discoverer,
+.catalog-type-info{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:0;
+}
+
+.catalog-info-label{
+    font-size:9px;
+    font-weight:700;
+    opacity:0.65;
+}
+
+.catalog-discoverer strong,
+.catalog-type-info strong{
+    overflow:hidden;
+    font-size:10px;
+    font-weight:800;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
 
         .catalog-rarity{
             margin-top:3px;
@@ -1735,8 +1778,8 @@ function addCatalogStyles(){
 }
 .catalog-card-rank-image{
     position:absolute;
-    top:6px;
-    left:6px;
+    top:2px;
+    left:2px;
     width:46px;
     height:46px;
     object-fit:contain;
