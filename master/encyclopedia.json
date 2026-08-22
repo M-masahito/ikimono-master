@@ -651,7 +651,7 @@
     },
     {
       "no": 73,
-      "name": "ヤモリ",
+      "name": "ニホンヤモリ",
       "categoryId": "reptile",
       "typeId": "gecko",
       "attribute": "daichi",
@@ -705,9 +705,9 @@
     },
     {
       "no": 79,
-      "name": "ニホンヤモリ",
+      "name": "ニホンイシガメ",
       "categoryId": "reptile",
-      "typeId": "gecko",
+      "typeId": "turtle",
       "attribute": "daichi",
       "rarity": "C",
       "discovered": false
