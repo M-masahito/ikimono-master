@@ -1737,8 +1737,8 @@ function addCatalogStyles(){
     position:absolute;
     top:6px;
     left:6px;
-    width:58px;
-    height:58px;
+    width:46px;
+    height:46px;
     object-fit:contain;
     z-index:5;
 }.catalog-card-creature{
