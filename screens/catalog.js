@@ -563,9 +563,11 @@ card.innerHTML = `
             ${
                 found
                     ? `
-                        <span class="catalog-card-rank">
-                            ${rarityText(item.rarity)}
-                        </span>
+                        <img
+    class="catalog-card-rank-image"
+    src="./assets/rarity/rarity_${String(item?.rarity ?? "C").toLowerCase()}.png"
+    alt="${rarityText(item.rarity)}"
+>
                     `
                     : ""
             }
@@ -1725,25 +1727,35 @@ function addCatalogStyles(){
 }
 
 .catalog-card-header .catalog-number{
+    position:absolute;
+    top:12px;
+    left:50%;
+    transform:translateX(-50%);
     margin:0;
     min-height:0;
-}
-
-.catalog-card-rank{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:28px;
-    height:28px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:#222;
-    color:#fff;
-    font-size:13px;
+    z-index:6;
     font-weight:900;
-    box-shadow:0 2px 5px rgba(0,0,0,0.25);
 }
-
+.catalog-card-rank{
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:68px;
+    height:68px;
+    padding:0;
+    background:transparent;
+    border-radius:0;
+    box-shadow:none;
+    z-index:5;
+}.catalog-card-rank-image{
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:68px;
+    height:68px;
+    object-fit:contain;
+    z-index:5;
+}
 .catalog-card-creature{
     position:relative;
     z-index:2;
