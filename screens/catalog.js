@@ -610,9 +610,6 @@ card.innerHTML = `
             ${found ? item.name : "？？？"}
         </div>
 
-        <div class="catalog-rarity">
-            ${found ? rarityText(item.rarity) : "？？？"}
-        </div>
 
     </div>
 
@@ -1728,7 +1725,7 @@ function addCatalogStyles(){
 
 .catalog-card-header .catalog-number{
     position:absolute;
-    top:12px;
+    top:16px;
     left:50%;
     transform:translateX(-50%);
     margin:0;
@@ -1736,27 +1733,15 @@ function addCatalogStyles(){
     z-index:6;
     font-weight:900;
 }
-.catalog-card-rank{
+.catalog-card-rank-image{
     position:absolute;
-    top:10px;
-    left:10px;
-    width:68px;
-    height:68px;
-    padding:0;
-    background:transparent;
-    border-radius:0;
-    box-shadow:none;
-    z-index:5;
-}.catalog-card-rank-image{
-    position:absolute;
-    top:10px;
-    left:10px;
-    width:68px;
-    height:68px;
+    top:6px;
+    left:6px;
+    width:74px;
+    height:74px;
     object-fit:contain;
     z-index:5;
-}
-.catalog-card-creature{
+}.catalog-card-creature{
     position:relative;
     z-index:2;
     display:block;
