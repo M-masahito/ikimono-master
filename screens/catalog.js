@@ -1011,24 +1011,22 @@ function detailRow(title,value){
 
 function getTribeEmblem(item){
 
-    const category =
-        String(item?.category ?? "");
+    const attribute =
+        String(item?.attribute ?? "");
 
-    const map = {
-        "昆虫": "mushi",
-        "魚・水生": "mizu",
-        "魚": "mizu",
-        "鳥": "sora",
-        "爬虫類・両生類": "daichi",
-        "爬虫類": "daichi",
-        "両生類": "daichi",
-        "哺乳類": "kemono",
-        "獣": "kemono",
-        "植物": "mori",
-        "こだま": "kodama"
-    };
+    const validAttributes = [
+        "mushi",
+        "mizu",
+        "sora",
+        "daichi",
+        "kemono",
+        "mori",
+        "kodama"
+    ];
 
-    return map[category] || "kodama";
+    return validAttributes.includes(attribute)
+        ? attribute
+        : "kodama";
 }
 function rarityText(rarity){
 
