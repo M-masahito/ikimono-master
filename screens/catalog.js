@@ -618,7 +618,7 @@ ${found ? `
 
         <div class="catalog-type-info">
             <span class="catalog-info-label">タイプ</span>
-            <strong>${item.type ?? "-"}</strong>
+            <strong>${getTypeName(item)}</strong>
         </div>
     </div>
 ` : ""}
@@ -1019,7 +1019,24 @@ function detailRow(title,value){
 // =====================================
 // レア度表示
 // =====================================
+function getTypeName(item){
 
+    const typeId =
+        String(item?.typeId ?? "");
+
+    const types =
+        Array.isArray(window.MASTER?.types)
+            ? window.MASTER.types
+            : [];
+
+    const type =
+        types.find(
+            entry =>
+                String(entry?.id ?? "") === typeId
+        );
+
+    return type?.name ?? "-";
+}
 function getTribeEmblem(item){
 
     const attribute =
