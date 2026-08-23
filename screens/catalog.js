@@ -1025,9 +1025,9 @@ function getTypeName(item){
         String(item?.typeId ?? "");
 
     const types =
-        Array.isArray(window.MASTER?.types)
-            ? window.MASTER.types
-            : [];
+    Array.isArray(window.MASTER?.type)
+        ? window.MASTER.type
+        : [];
 
     const type =
         types.find(
