@@ -554,19 +554,6 @@ card.innerHTML = `
         : "catalog-card-locked"
 }">
 
-${
-    found && getTribeEmblem(item) === "mushi"
-        ? `
-            <img
-                class="catalog-card-frame"
-                src="./assets/frames/mushi.png"
-                alt=""
-                aria-hidden="true"
-            >
-        `
-        : ""
-}
-
         <div class="catalog-card-top">
 
     ${
@@ -1903,36 +1890,23 @@ function addCatalogStyles(){
     height:46px;
     object-fit:contain;
     z-index:5;
- }   
 .catalog-card-creature{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:120%;
-    height:120%;
-    transform:translate(-50%,-50%);
+    position:relative;
+    z-index:2;
+    display:block;
+    width:100%;
+    height:100%;
     object-fit:contain !important;
-    z-index:3;
 }
- .catalog-card-frame{
-    position:absolute;
-    left:-6%;
-    top:-4%;
-    width:112%;
-    height:108%;
-    object-fit:fill;
-    z-index:10;
-    pointer-events:none;
-}   
 .catalog-tribe-emblem{
     position:absolute;
     left:50%;
     top:50%;
-    width:95%;
-    height:95%;
+    width:105%;
+    height:105%;
     object-fit:contain;
     transform:translate(-50%,-50%);
-    opacity:0.35;
+    opacity:0.22;
     pointer-events:none;
     z-index:1;
 }
