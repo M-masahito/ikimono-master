@@ -555,12 +555,11 @@ card.innerHTML = `
 }">
 
 ${
-    found && getTribeEmblem(item) === "mushi"
+    found
         ? `
             <img
                 class="catalog-card-frame"
-                src="./assets/frames/mushi.png"
-                alt=""
+                src="./assets/frames/${getTribeEmblem(item)}.png"                alt=""
                 aria-hidden="true"
             >
         `
