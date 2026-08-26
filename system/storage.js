@@ -5,6 +5,12 @@
 
 const SAVE_KEY = "ikimonoSave";
 
+const DEBUG_BACKUP_KEY =
+    "ikimonoSaveDebugBackup";
+
+const DEBUG_BACKUP_AT_KEY =
+    "ikimonoSaveDebugBackupAt";
+
 const DEFAULT_SAVE = {
     discovered: [],
     discoveredCards: [],
@@ -216,4 +222,43 @@ export function resetSave() {
     );
 
     return initialSave;
+}
+
+
+// =======================================
+// デバッグテスト前のセーブ退避
+// =======================================
+
+export function createDebugBackup() {
+
+    const existingBackup =
+        localStorage.getItem(
+            DEBUG_BACKUP_KEY
+        );
+
+    if (existingBackup) {
+
+        return localStorage.getItem(
+            DEBUG_BACKUP_AT_KEY
+        );
+
+    }
+
+
+    const currentSave = getSave();
+
+    localStorage.setItem(
+        DEBUG_BACKUP_KEY,
+        JSON.stringify(currentSave)
+    );
+
+    const backupAt =
+        new Date().toISOString();
+
+    localStorage.setItem(
+        DEBUG_BACKUP_AT_KEY,
+        backupAt
+    );
+
+    return backupAt;
 }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "ikimono-master-v9";
+const CACHE_NAME = "ikimono-master-v10";
 
 const APP_SHELL = [
     "./",

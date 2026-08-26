@@ -7,7 +7,8 @@
 import {
     getSave,
     update,
-    syncDiscoveredNumbers
+    syncDiscoveredNumbers,
+    createDebugBackup
 } from "../system/storage.js";
 // 図鑑に保存できるカードの最大表示枚数
 const MAX_CARD_COUNT = 10;
@@ -33,7 +34,7 @@ export function showCamera(screen) {
 
             <header class="camera-header">
 
-                <div class="camera-header-icon">
+                <div id="developerModeTrigger" class="camera-header-icon">
                     🌿
                 </div>
 
@@ -183,6 +184,11 @@ export function showCamera(screen) {
     // -----------------------------
     // 画面内の要素
     // -----------------------------
+    const developerModeTrigger =
+        screen.querySelector(
+            "#developerModeTrigger"
+        );
+
 
     const takePhotoButton =
         screen.querySelector("#takePhotoButton");
@@ -211,6 +217,54 @@ export function showCamera(screen) {
     const judgeResult =
         screen.querySelector("#judgeResult");
 
+     let developerTapCount = 0;
+    let developerTapTimer = null;
+
+    developerModeTrigger?.addEventListener(
+        "click",
+        () => {
+
+            developerTapCount += 1;
+
+            if (developerTapTimer) {
+                window.clearTimeout(
+                    developerTapTimer
+                );
+            }
+
+            developerTapTimer =
+                window.setTimeout(
+                    () => {
+                        developerTapCount = 0;
+                    },
+                    3000
+                );
+
+            if (developerTapCount < 7) {
+                return;
+            }
+
+            developerTapCount = 0;
+
+            const developerCode =
+                window.prompt(
+                    "開発者コードを入力してください"
+                );
+
+            if (developerCode !== "1203") {
+                window.alert(
+                    "開発者コードが違います"
+                );
+                return;
+            }
+
+            openDeveloperTestPanel({
+                screen,
+                judgeResult
+            });
+
+        }
+    );
     // -----------------------------
     // カメラを開く
     // -----------------------------
@@ -1372,36 +1426,54 @@ function getCreatureIllustration(
     item
 ) {
 
-    const categoryId =
-        String(
-            item?.categoryId ?? ""
-        );
+    const creatureNo =
+        Number(item?.no);
 
-    const illustrations = {
-
-        insect: "🪲",
-
-        fish: "🐟",
-
-        bird: "🐦",
-
-        amphibian: "🐸",
-
-        reptile: "🦎",
-
-        mammal: "🐾",
-
-        plant: "🌿"
-
-    };
+    if (!Number.isFinite(creatureNo)) {
+        return "";
+    }
 
     return (
-        illustrations[categoryId] ??
-        "❓"
+        "/assets/cards/creatures/" +
+        String(creatureNo).padStart(
+            3,
+            "0"
+        ) +
+        ".png"
     );
-
 }
 
+
+function createCreatureImageHtml(
+    candidate
+) {
+
+    const imagePath =
+        escapeHtml(
+            candidate?.illustration ?? ""
+        );
+
+    const creatureName =
+        escapeHtml(
+            candidate?.name ?? "生き物"
+        );
+
+    if (!imagePath) {
+        return "❓";
+    }
+
+    return `
+        <img
+            src="${imagePath}"
+            alt="${creatureName}"
+            style="
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            "
+        >
+    `;
+}
 
 // =====================================
 // 候補データを整える
@@ -1658,8 +1730,7 @@ function showCandidates({
                         <div class="candidate-illustration-area">
 
                             <span class="candidate-illustration">
-                                ${escapeHtml(candidate.illustration)}
-                            </span>
+                              ${createCreatureImageHtml(candidate)}                            </span>
 
                         </div>
 
@@ -1915,6 +1986,169 @@ function escapeHtml(value) {
         );
 
 }
+
+// =====================================
+// 開発者専用・疑似発見テスト
+// =====================================
+
+function openDeveloperTestPanel({
+
+    screen,
+    judgeResult
+
+}) {
+
+    let backupAt = "";
+
+    try {
+
+        backupAt =
+            createDebugBackup() ?? "";
+
+    } catch (error) {
+
+        console.error(
+            "テスト前セーブの退避に失敗しました。",
+            error
+        );
+
+        window.alert(
+            "セーブを退避できないため、テストを中止します。"
+        );
+
+        return;
+    }
+
+    const catalog = getAiCatalog();
+
+    const maxNo = Math.max(
+        1,
+        ...catalog.map(
+            item => Number(item.no) || 0
+        )
+    );
+
+    judgeResult.innerHTML = `
+
+        <section class="card-get-result">
+
+            <div class="card-get-text">
+                TEST
+            </div>
+
+            <h2>
+                疑似発見テスト
+            </h2>
+
+            <p>
+                現在のセーブは退避済みです。
+            </p>
+
+            <p>
+                バックアップ日時：
+                ${escapeHtml(backupAt)}
+            </p>
+
+            <label for="developerCreatureNo">
+                発見させる図鑑No.
+            </label>
+
+            <input
+                id="developerCreatureNo"
+                type="number"
+                min="1"
+                max="${maxNo}"
+                value="10"
+                inputmode="numeric"
+            >
+
+            <button
+                id="developerDiscoverButton"
+                class="mainButton"
+                type="button"
+            >
+                この生き物を発見
+            </button>
+
+            <button
+                id="developerCancelButton"
+                class="subButton"
+                type="button"
+            >
+                テストをやめる
+            </button>
+
+        </section>
+    `;
+
+    const numberInput =
+        judgeResult.querySelector(
+            "#developerCreatureNo"
+        );
+
+    judgeResult.querySelector(
+        "#developerDiscoverButton"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            const creatureNo =
+                Number(numberInput?.value);
+
+            const masterItem =
+                catalog.find(
+                    item =>
+                        Number(item.no) ===
+                        creatureNo
+                );
+
+            if (!masterItem) {
+
+                window.alert(
+                    "その図鑑No.は登録されていません。"
+                );
+
+                return;
+            }
+
+            const candidate =
+                createCandidateFromMaster({
+
+                    item: masterItem,
+                    confidence: 100
+
+                });
+
+            selectedImageUrl =
+                `/assets/cards/creatures/${
+                    String(creatureNo).padStart(
+                        3,
+                        "0"
+                    )
+                }.png`;
+
+            startCardGetAnimation({
+
+                candidate,
+                judgeResult,
+                screen
+
+            });
+
+        }
+    );
+
+    judgeResult.querySelector(
+        "#developerCancelButton"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            showCamera(screen);
+
+        }
+    );
+}
 // =====================================
 // PART6
 // 写真 → イラスト → カードGET演出
@@ -1996,10 +2230,7 @@ async function startCardGetAnimation({
                     hidden
                 >
 
-                    ${escapeHtml(
-                        candidate.illustration
-                    )}
-
+${createCreatureImageHtml(candidate)}
                 </div>
 
                 <div
@@ -2163,10 +2394,7 @@ function createGetCardHtml(candidate) {
 
             <div class="get-card-illustration">
 
-                ${escapeHtml(
-                    candidate.illustration
-                )}
-
+${createCreatureImageHtml(candidate)}
             </div>
 
             <h2 class="get-card-name">

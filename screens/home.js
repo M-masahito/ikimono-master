@@ -109,7 +109,7 @@ export function showHome(screen) {
     // =================================
 
     const todayCount =
-        getTodayDiscoveryCount(save);
+       getTodayDiscoveryCount(save);
 
 
     // =================================
@@ -544,50 +544,54 @@ function getTodayDiscoveryCount(save) {
 
     }
 
-    const today =
-        new Date();
+    const today = new Date();
 
-    return save.discoveryHistory.filter(
-        item => {
+    const monthlyNumbers =
+        save.discoveryHistory
+            .filter(item => {
 
-            const rawDate =
-                item?.date ??
-                item?.discoveredAt ??
-                item?.createdAt;
+                const rawDate =
+                    item?.date ??
+                    item?.discoveredAt ??
+                    item?.createdAt;
 
-            if (!rawDate) {
+                if (!rawDate) {
+                    return false;
+                }
 
-                return false;
+                const date =
+                    new Date(rawDate);
 
-            }
+                if (
+                    Number.isNaN(
+                        date.getTime()
+                    )
+                ) {
 
-            const date =
-                new Date(rawDate);
+                    return false;
 
-            if (
-                Number.isNaN(
-                    date.getTime()
-                )
-            ) {
+                }
 
-                return false;
+                return (
+                    date.getFullYear() ===
+                        today.getFullYear() &&
+date.getMonth() ===
+    today.getMonth() &&
+date.getDate() ===
+    today.getDate()                );
 
-            }
-
-            return (
-                date.getFullYear() ===
-                    today.getFullYear() &&
-
-                date.getMonth() ===
-                    today.getMonth() &&
-
-                date.getDate() ===
-                    today.getDate()
+            })
+            .map(
+                item => Number(item?.no)
+            )
+            .filter(
+                number =>
+                    Number.isFinite(number)
             );
 
-        }
-    ).length;
-
+    return new Set(
+        monthlyNumbers
+    ).size;
 }
 
 
