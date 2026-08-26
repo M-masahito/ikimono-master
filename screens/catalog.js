@@ -617,8 +617,12 @@ ${
 
         </div>
 
-        <div class="catalog-card-nameplate">
-            ${found ? item.name : "？？？"}
+<div class="catalog-card-nameplate ${
+    found &&
+    String(item.name ?? "").length >= 10
+        ? "catalog-card-nameplate-long"
+        : ""
+}">            ${found ? item.name : "？？？"}
         </div>
 ${found ? `
     <div class="catalog-card-bottom">
@@ -1932,7 +1936,7 @@ border:none;    border-radius:10px;
   left:10%;
   right:10%;
   top:77%;
-  z-index:6;
+  z-index:40;
 
   text-align:center;
   font-size:16px;
@@ -1943,6 +1947,10 @@ border:none;    border-radius:10px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+}
+
+.catalog-card-nameplate-long{
+    font-size:12px;
 }
 
 .catalog-card-bottom{
