@@ -1950,9 +1950,11 @@ border:none;    border-radius:10px;
 }
 
 .catalog-card-nameplate-long{
+    left:2%;
+    right:2%;
     font-size:12px;
+    letter-spacing:-0.5px;
 }
-
 .catalog-card-bottom{
   position:absolute;
   inset:0;
