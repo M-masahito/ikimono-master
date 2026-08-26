@@ -10,6 +10,8 @@ import {
     syncDiscoveredNumbers,
     createDebugBackup
 } from "../system/storage.js";
+import { createCatalogCard } from "./catalog.js?v=card-test-1";
+
 // 図鑑に保存できるカードの最大表示枚数
 const MAX_CARD_COUNT = 10;
 
@@ -516,6 +518,7 @@ function resetSelectedImage(){
 // =====================================
 
 async function startFriendSearch({
+
 
     screen,
     judgeResult,
@@ -2070,6 +2073,18 @@ function openDeveloperTestPanel({
                 この生き物を発見
             </button>
 
+                        <button
+                id="developerIllustrationListButton"
+                class="subButton"
+                type="button"
+            >
+                全イラストを一覧確認
+            </button>
+
+            <div
+                id="developerIllustrationList"
+                hidden
+            ></div>
             <button
                 id="developerCancelButton"
                 class="subButton"
@@ -2137,6 +2152,83 @@ function openDeveloperTestPanel({
 
         }
     );
+
+        const illustrationList =
+        judgeResult.querySelector(
+            "#developerIllustrationList"
+        );
+
+    const illustrationListButton =
+        judgeResult.querySelector(
+            "#developerIllustrationListButton"
+        );
+
+    illustrationListButton.addEventListener(
+        "click",
+        () => {
+
+            const creatures =
+                catalog
+                    .filter(item => {
+                        const no = Number(item?.no);
+
+                        return (
+                            Number.isFinite(no) &&
+                            no >= 1 &&
+                            no <= 100
+                        );
+                    })
+                    .sort(
+                        (a, b) =>
+                            Number(a.no) -
+                            Number(b.no)
+                    );
+
+            illustrationList.innerHTML = `
+                <h3>
+                    完成カード確認 No.001〜100
+                </h3>
+
+                <div
+                    id="developerCardGrid"
+                    class="catalog-grid"
+                    style="
+                        display:grid;
+                        grid-template-columns:
+                            repeat(2, minmax(0, 1fr));
+                        gap:10px;
+                    "
+                ></div>
+            `;
+
+            const cardGrid =
+                illustrationList.querySelector(
+                    "#developerCardGrid"
+                );
+
+            const testSave = getSave();
+
+            creatures.forEach(item => {
+
+                const card =
+                    createCatalogCard({
+                        item,
+                        found: true,
+                        save: testSave
+                    });
+
+                cardGrid.append(card);
+            });
+            illustrationList.hidden =
+                !illustrationList.hidden;
+
+            illustrationListButton.textContent =
+                illustrationList.hidden
+                    ? "全イラストを一覧確認"
+                    : "一覧を閉じる";
+        }
+    );
+
 
     judgeResult.querySelector(
         "#developerCancelButton"

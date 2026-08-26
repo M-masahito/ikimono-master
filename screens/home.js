@@ -546,7 +546,7 @@ function getTodayDiscoveryCount(save) {
 
     const today = new Date();
 
-    const monthlyNumbers =
+    const todayNumbers =
         save.discoveryHistory
             .filter(item => {
 
@@ -590,7 +590,7 @@ date.getDate() ===
             );
 
     return new Set(
-        monthlyNumbers
+        todayNumbers
     ).size;
 }
 

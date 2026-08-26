@@ -519,8 +519,7 @@ function getProgressPercent(
 // 図鑑カード
 // =====================================
 
-function createCatalogCard({
-
+export function createCatalogCard({
     item,
     found,
     save
