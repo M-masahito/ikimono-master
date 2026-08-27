@@ -2085,7 +2085,7 @@ border:none;    border-radius:10px;
     height:72%;
 } 
     .catalog-card-creature-raised{
-    top:38%;
+    top:35%;
 }
  .catalog-card-frame{
     position:absolute;
