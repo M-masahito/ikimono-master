@@ -519,6 +519,57 @@ function getProgressPercent(
 // 図鑑カード
 // =====================================
 
+function getCreatureSizeClass(creatureNo) {
+
+    const compactNumbers = [
+        "005",
+        "006",
+        "015",
+        "016",
+        "053",
+        "064",
+        "065"
+    ];
+
+    const reducedNumbers = [
+        "014",
+        "017",
+        "018",
+        "019",
+        "020",
+        "021",
+        "022",
+        "023",
+        "024",
+        "025",
+        "026",
+        "027",
+        "028",
+        "029",
+        "063"
+    ];
+
+    if (
+        compactNumbers.includes(
+            creatureNo
+        )
+    ) {
+
+        return "catalog-card-creature-compact";
+    }
+
+    if (
+        reducedNumbers.includes(
+            creatureNo
+        )
+    ) {
+
+        return "catalog-card-creature-reduced";
+    }
+
+    return "";
+}
+
 export function createCatalogCard({
     item,
     found,
@@ -606,7 +657,7 @@ ${
                 loading="lazy"
                 class="${
                     found
-                        ? 'catalog-card-creature'
+                        ? `catalog-card-creature ${getCreatureSizeClass(creatureNo)}`
                         : 'catalog-real-image-unknown'
                 }"
                 onerror="
@@ -1920,6 +1971,15 @@ border:none;    border-radius:10px;
     transform:translate(-50%,-50%);
     object-fit:contain !important;
     z-index:30;
+}
+    .catalog-card-creature-reduced{
+    width:82%;
+    height:82%;
+}
+
+.catalog-card-creature-compact{
+    width:78%;
+    height:78%;
 }
  .catalog-card-frame{
     position:absolute;
