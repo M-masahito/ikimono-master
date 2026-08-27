@@ -118,335 +118,44 @@ export function showHome(screen) {
 
     screen.innerHTML = `
 
-        <section class="forest-home">
+        <section class="forest-home forest-garden-home">
 
-            <!-- タイトル -->
+            <button
+                id="settingsButton"
+                class="forest-settings-button"
+                type="button"
+                aria-label="設定"
+            >
+                <span>⚙️</span>
+            </button>
 
-            <div class="forest-title-board">
-
-                <span class="title-leaf">
-                    🌿
-                </span>
-
-                <h1>
-                    いきものマスター
-                </h1>
-
-                <span class="title-leaf">
-                    🍃
-                </span>
-
-            </div>
-
-
-            <!-- 上部ステータス -->
-
-            <div class="forest-top-status">
-
-                <button
-                    id="catalogProgressButton"
-                    class="forest-progress-card"
-                    type="button"
-                >
-
-                    <span class="forest-book-icon">
-                        📗
-                    </span>
-
-                    <span class="forest-progress-info">
-
-                        <small>
-                            図鑑の進み具合
-                        </small>
-
-                        <strong>
-                            ${discoveredCount}
-                            <span>
-                                / ${TOTAL_ENCYCLOPEDIA}
-                            </span>
-                        </strong>
-
-                        <span class="forest-progress-bar">
-
-                            <span
-                                style="
-                                    width:${totalProgress}%;
-                                "
-                            ></span>
-
-                        </span>
-
-                    </span>
-
-                </button>
-
-
-                <button
-                    id="settingsButton"
-                    class="forest-settings-button"
-                    type="button"
-                    aria-label="設定"
-                >
-
-                    <span>
-                        ⚙️
-                    </span>
-
-                    <small>
-                        設定
-                    </small>
-
-                </button>
-
-            </div>
-
-
-            <!-- 精霊と大きな木 -->
-
-            <div class="forest-world">
+            <div class="forest-world forest-garden-world">
 
                 <div class="forest-sunlight"></div>
 
-                <div class="forest-big-tree">
-
-                    <div class="tree-crown">
-                        🌳
-                    </div>
-
-                    <div class="tree-door">
-                        🚪
-                    </div>
-
-                </div>
-
-
                 <div class="forest-spirit-zone">
-
-                    <div class="forest-speech">
-
-                        ${escapeHtml(
-                            currentSpiritStage.message
-                        )}
-
-                    </div>
 
                     <button
                         id="spiritButton"
                         class="forest-spirit"
                         type="button"
                     >
-
                         <span class="forest-spirit-character">
-
                             ${currentSpiritStage.icon}
-
                         </span>
 
                         <small>
-
                             ${escapeHtml(spiritName)}
-
                         </small>
-
                     </button>
 
                 </div>
-
-
-                <div class="forest-message-board">
-
-                    <span>
-                        今日も
-                    </span>
-
-                    <strong>
-                        すてきな出会いが
-                    </strong>
-
-                    <span>
-                        ありますように！
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- メインボタン -->
-
-            <div class="forest-main-actions">
-
-                <button
-                    id="cameraButton"
-                    class="
-                        forest-action-card
-                        forest-camera-card
-                    "
-                    type="button"
-                >
-
-                    <div class="forest-action-picture">
-
-                        <span class="action-butterfly">
-                            🦋
-                        </span>
-
-                        <span class="action-camera">
-                            📷
-                        </span>
-
-                    </div>
-
-                    <strong>
-                        仲間をさがす
-                    </strong>
-
-                    <small>
-                        写真をとって
-                        <br>
-                        いきものを見つけよう！
-                    </small>
-
-                </button>
-
-
-                <button
-                    id="bookButton"
-                    class="
-                        forest-action-card
-                        forest-book-card
-                    "
-                    type="button"
-                >
-
-                    <div class="forest-action-picture">
-
-                        📗
-
-                    </div>
-
-                    <strong>
-                        図鑑
-                    </strong>
-
-                    <small>
-                        見つけた仲間を
-                        <br>
-                        図鑑に集めよう！
-                    </small>
-
-                </button>
-
-            </div>
-
-
-            <!-- 下部ステータス -->
-
-            <div class="forest-bottom-status">
-
-                <div class="forest-today">
-
-                    <span>
-                        🍀
-                    </span>
-
-                    <div>
-
-                        <small>
-                            今日見つけた仲間
-                        </small>
-
-                        <strong>
-                            ${todayCount}
-                            <span>種類</span>
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="forest-status-divider"></div>
-
-
-                <div class="forest-total">
-
-                    <span>
-                        👑
-                    </span>
-
-                    <div>
-
-                        <small>
-                            図鑑の達成
-                        </small>
-
-                        <strong>
-                            ${discoveredCount}
-                            <span>
-                                / ${TOTAL_ENCYCLOPEDIA}
-                            </span>
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- プレゼント -->
-
-            <button
-                id="presentButton"
-                class="forest-present-button"
-                type="button"
-            >
-
-                <span>
-                    🎁
-                </span>
-
-                <small>
-                    プレゼント
-                </small>
-
-            </button>
-
-
-            <!-- 図鑑レベル情報 -->
-
-            <div class="forest-level-info">
-
-                Lv.${catalogLevel}
-
-                ・
-
-                No.001〜${String(
-                    unlockedMaxNo
-                ).padStart(3, "0")}
-
-                解放中
-
-                ${
-                    nextLevelCount !== null
-                        ? `
-                            ・次の解放まで
-                            ${Math.max(
-                                nextLevelCount -
-                                discoveredCount,
-                                0
-                            )}種類
-                        `
-                        : "・図鑑マスター！"
-                }
 
             </div>
 
         </section>
 
     `;
-
 
     // =================================
     // ボタン

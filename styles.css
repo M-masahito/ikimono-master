@@ -2571,3 +2571,320 @@ body:has(.forest-home) #topBar {
 body:has(.forest-home) #screen {
     padding-top: 0;
 }
+
+/* =====================================
+   精霊との庭ホーム
+===================================== */
+
+.forest-garden-home {
+    min-height:
+        calc(
+            100dvh -
+            var(--bottom-nav-height)
+        );
+
+    padding: 0;
+}
+
+.forest-garden-home .forest-settings-button {
+    position: absolute;
+    z-index: 20;
+
+    top: 14px;
+    right: 14px;
+
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.forest-garden-home .forest-settings-button span {
+    font-size: 25px;
+}
+
+.forest-garden-world {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.forest-garden-world .forest-spirit-zone {
+    top: 50%;
+    left: 50%;
+    right: auto;
+
+    transform:
+        translate(-50%, -50%);
+}
+
+/* =====================================
+   ゲーム風・下メニューアイコン
+===================================== */
+
+#bottomNav {
+    min-height: 90px;
+    padding:
+        6px
+        8px
+        calc(6px + env(safe-area-inset-bottom));
+}
+
+#bottomNav button {
+    gap: 2px;
+    overflow: visible;
+}
+
+#bottomNav .nav-game-icon {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 3px solid rgba(255,255,255,.75);
+    border-radius: 50%;
+
+    font-size: 29px;
+    line-height: 1;
+
+    box-shadow:
+        0 4px 0 rgba(0,0,0,.22),
+        0 6px 12px rgba(0,0,0,.25);
+
+    transition:
+        transform .18s,
+        filter .18s;
+}
+
+#bottomNav .nav-home-icon {
+    background:
+        linear-gradient(
+            145deg,
+            #8ee174,
+            #328e4e
+        );
+}
+
+#bottomNav .nav-camera-icon {
+    background:
+        linear-gradient(
+            145deg,
+            #79ddce,
+            #278b7e
+        );
+}
+
+#bottomNav .nav-catalog-icon {
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #ff957e,
+            #b51f2d 72%
+        );
+
+    border-color: #ffd86a;
+}
+
+#bottomNav .nav-spirit-icon {
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #fff3a1,
+            #c58b35 72%
+        );
+}
+
+#bottomNav button.active {
+    background: transparent;
+    box-shadow: none;
+}
+
+#bottomNav button.active .nav-game-icon {
+    transform:
+        translateY(-5px)
+        scale(1.1);
+
+    filter:
+        drop-shadow(
+            0 0 8px rgba(255,238,130,.9)
+        );
+}
+
+/* =====================================
+   精霊が庭をおさんぽ
+===================================== */
+
+.forest-garden-world .forest-spirit-zone {
+    animation:
+        spiritGardenWalk
+        24s
+        ease-in-out
+        infinite;
+}
+
+@keyframes spiritGardenWalk {
+
+    0%,
+    10% {
+        top: 50%;
+        left: 50%;
+    }
+
+    22%,
+    32% {
+        top: 58%;
+        left: 30%;
+    }
+
+    44%,
+    54% {
+        top: 64%;
+        left: 47%;
+    }
+
+    66%,
+    76% {
+        top: 55%;
+        left: 70%;
+    }
+
+    88%,
+    100% {
+        top: 50%;
+        left: 50%;
+    }
+}
+
+.forest-garden-world .forest-spirit:active {
+    transform:
+        scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .forest-garden-world
+    .forest-spirit-zone {
+        animation: none;
+    }
+
+}
+
+/* =====================================
+   専用ナビ画像を大きく表示
+===================================== */
+
+:root {
+    --bottom-nav-height: 112px;
+}
+
+#bottomNav {
+    min-height: 112px;
+
+    padding:
+        5px
+        8px
+        calc(5px + env(safe-area-inset-bottom));
+}
+
+#bottomNav button {
+    gap: 0;
+
+    font-size: 12px;
+}
+
+#bottomNav .nav-game-icon {
+    width: 76px;
+    height: 76px;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+
+    object-fit: contain;
+
+    box-shadow: none;
+
+    filter:
+        drop-shadow(
+            0 4px 4px rgba(0,0,0,.35)
+        );
+}
+
+#bottomNav button.active .nav-game-icon {
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 0 9px rgba(255,230,100,.95)
+        )
+        drop-shadow(
+            0 4px 4px rgba(0,0,0,.35)
+        );
+}
+
+/* =====================================
+   ホームは庭の上にアイコンだけ表示
+===================================== */
+
+body:has(.forest-home) #bottomNav {
+    background: transparent;
+
+    box-shadow: none;
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body:has(.forest-home)
+#bottomNav button {
+    background: transparent;
+
+    box-shadow: none;
+}
+
+body:has(.forest-home)
+#bottomNav button
+> span:not(.nav-game-icon) {
+    display: none;
+}
+
+body:has(.forest-home)
+.forest-garden-home {
+    min-height: 100dvh;
+
+    padding-bottom:
+        calc(
+            112px +
+            env(safe-area-inset-bottom)
+        );
+}
+
+/* ホームのアイコンをさらに大きく */
+
+body:has(.forest-home)
+#bottomNav {
+    min-height: 126px;
+}
+
+body:has(.forest-home)
+#bottomNav .nav-game-icon {
+    width: 92px;
+    height: 92px;
+
+    font-size: 62px;
+}
+
+body:has(.forest-home)
+.forest-garden-home {
+    padding-bottom:
+        calc(
+            126px +
+            env(safe-area-inset-bottom)
+        );
+}
