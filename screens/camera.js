@@ -2455,77 +2455,32 @@ ${createCreatureImageHtml(candidate)}
 
 function createGetCardHtml(candidate) {
 
-    return `
+    const catalog =
+        Array.isArray(window.MASTER?.encyclopedia)
+            ? window.MASTER.encyclopedia
+            : [];
 
-        <div class="get-card-inner">
+    const masterItem =
+        catalog.find(item =>
+            Number(item?.no) === Number(candidate?.no)
+        ) ?? {};
 
-            <div class="get-card-top">
+    const card =
+        createCatalogCard({
+            item: {
+                ...masterItem,
+                ...candidate
+            },
+            found: true,
+            save: getSave()
+        });
 
-                <span class="get-card-number">
-                    No.${String(candidate.no).padStart(
-                        3,
-                        "0"
-                    )}
-                </span>
+    card.classList.add(
+        "get-card-catalog-card"
+    );
 
-                <span class="get-card-rarity">
-                    ${escapeHtml(
-                        candidate.rarity
-                    )}
-                </span>
-
-            </div>
-
-            <div class="get-card-category-icon">
-
-                ${escapeHtml(
-                    candidate.categoryIcon
-                )}
-
-            </div>
-
-            <div class="get-card-illustration">
-
-${createCreatureImageHtml(candidate)}
-            </div>
-
-            <h2 class="get-card-name">
-
-                ${escapeHtml(
-                    candidate.name
-                )}
-
-            </h2>
-
-            <div class="get-card-tags">
-
-                <span>
-                    ${escapeHtml(
-                        candidate.categoryIcon
-                    )}
-
-                    ${escapeHtml(
-                        candidate.category
-                    )}
-                </span>
-
-                <span>
-                    ${escapeHtml(
-                        candidate.typeIcon
-                    )}
-
-                    ${escapeHtml(
-                        candidate.type
-                    )}
-                </span>
-
-            </div>
-
-        </div>
-    `;
-
+    return card.outerHTML;
 }
-
 
 // =====================================
 // GET完了画面
