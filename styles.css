@@ -2888,3 +2888,69 @@ body:has(.forest-home)
             env(safe-area-inset-bottom)
         );
 }
+
+/* =====================================
+   iPhoneホームの見やすさ調整
+===================================== */
+
+/* 左右の白い余白をなくす */
+body:has(.forest-home) #screen {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* アイコンの後ろだけ庭を少し暗くする */
+body:has(.forest-home) #bottomNav {
+    isolation: isolate;
+}
+
+body:has(.forest-home) #bottomNav::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    left: 0;
+    right: 0;
+    top: -42px;
+    bottom: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(15,45,28,.66) 0%,
+            rgba(15,45,28,.28) 58%,
+            transparent 100%
+        );
+}
+
+/* カラフルさを少し抑えて輪郭をはっきり */
+body:has(.forest-home)
+#bottomNav .nav-game-icon {
+    filter:
+        saturate(.82)
+        contrast(1.08)
+        drop-shadow(
+            0 5px 5px rgba(0,0,0,.48)
+        );
+}
+
+body:has(.forest-home)
+#bottomNav button.active .nav-game-icon {
+    filter:
+        saturate(.9)
+        contrast(1.1)
+        drop-shadow(
+            0 0 9px rgba(255,235,135,.9)
+        )
+        drop-shadow(
+            0 5px 5px rgba(0,0,0,.48)
+        );
+}
+/* ホームの庭を下メニューの後ろまで伸ばす */
+
+body:has(.forest-home) #screen {
+    padding-bottom: 0;
+}
