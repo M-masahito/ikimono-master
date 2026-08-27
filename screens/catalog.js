@@ -613,6 +613,62 @@ function getCreatureSizeClass(creatureNo) {
 
     return "";
 }
+
+function getCreaturePositionClass(creatureNo) {
+
+    const raisedNumbers = [
+        "006",
+        "007",
+        "008",
+        "009",
+        "011",
+        "012",
+        "032",
+        "033",
+        "034",
+        "035",
+        "036",
+        "045",
+        "046",
+        "047",
+        "048",
+        "049",
+        "050",
+        "051",
+        "052",
+        "053",
+        "054",
+        "055",
+        "062",
+        "063",
+        "064",
+        "065",
+        "066",
+        "067",
+        "068",
+        "069",
+        "070",
+        "075",
+        "085",
+        "089",
+        "091",
+        "095",
+        "096",
+        "099"
+    ];
+
+    if (
+        raisedNumbers.includes(
+            creatureNo
+        )
+    ) {
+
+        return "catalog-card-creature-raised";
+    }
+
+    return "";
+}
+
 export function createCatalogCard({
     item,
     found,
@@ -700,7 +756,7 @@ ${
                 loading="lazy"
                 class="${
                     found
-                        ? `catalog-card-creature ${getCreatureSizeClass(creatureNo)}`
+                        ? `catalog-card-creature ${getCreatureSizeClass(creatureNo)} ${getCreaturePositionClass(creatureNo)}`
                         : 'catalog-real-image-unknown'
                 }"
                 onerror="
@@ -2028,6 +2084,9 @@ border:none;    border-radius:10px;
     width:72%;
     height:72%;
 } 
+    .catalog-card-creature-raised{
+    top:38%;
+}
  .catalog-card-frame{
     position:absolute;
     left:0;
