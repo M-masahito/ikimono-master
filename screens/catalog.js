@@ -521,23 +521,31 @@ function getProgressPercent(
 
 function getCreatureSizeClass(creatureNo) {
 
-    const compactNumbers = [
+    const extraCompactNumbers = [
         "005",
         "006",
-        "015",
-        "016",
         "053",
         "064",
         "065"
     ];
 
+    const compactNumbers = [
+        "015",
+        "016",
+        "021",
+        "063"
+    ];
+
     const reducedNumbers = [
+        "007",
+        "008",
+        "011",
+        "012",
         "014",
         "017",
         "018",
         "019",
         "020",
-        "021",
         "022",
         "023",
         "024",
@@ -546,8 +554,44 @@ function getCreatureSizeClass(creatureNo) {
         "027",
         "028",
         "029",
-        "063"
+        "032",
+        "033",
+        "034",
+        "035",
+        "036",
+        "037",
+        "045",
+        "046",
+        "047",
+        "048",
+        "049",
+        "050",
+        "051",
+        "052",
+        "054",
+        "055",
+        "061",
+        "062",
+        "066",
+        "067",
+        "069",
+        "075",
+        "089",
+        "091",
+        "095",
+        "096",
+        "099",
+        "100"
     ];
+
+    if (
+        extraCompactNumbers.includes(
+            creatureNo
+        )
+    ) {
+
+        return "catalog-card-creature-extra-compact";
+    }
 
     if (
         compactNumbers.includes(
@@ -569,7 +613,6 @@ function getCreatureSizeClass(creatureNo) {
 
     return "";
 }
-
 export function createCatalogCard({
     item,
     found,
@@ -1981,6 +2024,10 @@ border:none;    border-radius:10px;
     width:78%;
     height:78%;
 }
+   .catalog-card-creature-extra-compact{
+    width:72%;
+    height:72%;
+} 
  .catalog-card-frame{
     position:absolute;
     left:0;
