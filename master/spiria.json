@@ -1,4 +1,202 @@
 {
-  "version": 1,
-  "spiria": []
+  "version": 2,
+
+  "spiria": [
+    {
+      "id": "base",
+      "name": "ふしぎなスピリア",
+      "attribute": "common",
+      "stages": [
+        {
+          "stage": 0,
+          "title": "たまご",
+          "image": "./assets/spiria/spiria_egg.png"
+        },
+        {
+          "stage": 1,
+          "title": "誕生",
+          "image": "./assets/spiria/spiria_base.png"
+        }
+      ]
+    },
+
+    {
+      "id": "mushi",
+      "name": "むしの精霊",
+      "attribute": "mushi",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_mushi_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_mushi_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_mushi_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "mizu",
+      "name": "みずの精霊",
+      "attribute": "mizu",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_mizu_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_mizu_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_mizu_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "sora",
+      "name": "そらの精霊",
+      "attribute": "sora",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_sora_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_sora_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_sora_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "daichi",
+      "name": "だいちの精霊",
+      "attribute": "daichi",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_daichi_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_daichi_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_daichi_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "kemono",
+      "name": "けものの精霊",
+      "attribute": "kemono",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_kemono_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_kemono_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_kemono_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "mori",
+      "name": "もりの精霊",
+      "attribute": "mori",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_mori_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_mori_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_mori_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "kodama",
+      "name": "こだまの精霊",
+      "attribute": "kodama",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "のこ",
+          "image": "./assets/spiria/spiria_kodama_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "ぬし",
+          "image": "./assets/spiria/spiria_kodama_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "王",
+          "image": "./assets/spiria/spiria_kodama_stage3.png"
+        }
+      ]
+    },
+
+    {
+      "id": "karasu",
+      "name": "カラススピリア",
+      "attribute": "sora",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "幼体",
+          "image": "./assets/spiria/spiria_karasu_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "成長体",
+          "image": "./assets/spiria/spiria_karasu_stage2.png"
+        }
+      ]
+    }
+  ]
 }
