@@ -50,6 +50,8 @@ export async function loadMaster() {
         rarity: raw.rarity.rarity ?? [],
         emblem: raw.emblem.emblems ?? [],
         spirit: raw.spirit.spirits ?? [],
+        spiritEvolutionStages:
+        raw.spirit.evolutionStages ?? [],
         spiria: raw.spiria.spiria ?? [],
         encyclopedia: raw.encyclopedia.encyclopedia ?? []
     };

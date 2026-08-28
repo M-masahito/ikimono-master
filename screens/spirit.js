@@ -415,7 +415,7 @@ showSpirit(screen);                }
 // 進化ムービー
 // =====================================
 
-function playSpiriaEvolution({
+export function playSpiriaEvolution({
     fromImage,
     toImage,
     spiriaName,

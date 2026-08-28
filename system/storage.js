@@ -24,9 +24,9 @@ const DEFAULT_SAVE = {
     exp: 0,
     form: 0,
     title: "たまご",
-    equippedSpiria: "base",
-    stage: 1
-},
+equippedSpiria: "base",
+stage: 1,
+evolutionProgress: {}},
 
     emblems: [],
     spiria: [],

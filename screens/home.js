@@ -3,10 +3,21 @@
 // 精霊と過ごす庭
 // =====================================
 
-import { getSave } from "../system/storage.js";
-import { openScreen } from "../app.js";
+import {
+    getSave,
+    update
+} from "../system/storage.js";
 
+import {
+    getSpiritEvolutionStage
+} from "../system/spiritEvolution.js";
+import {
+    playSpiriaEvolution
+} from "./spirit.js";
 
+import {
+    openScreen
+} from "../app.js";
 // =====================================
 // ホーム画面
 // =====================================
@@ -61,18 +72,65 @@ const equippedStageNumber =
                 equippedSpiriaId
         );
 
-    const equippedStageData =
-        equippedSpiriaData?.stages?.find(
+const evolutionAttribute =
+    equippedSpiriaId === "base"
+        ? "all"
+        : (
+            equippedSpiriaData
+                ?.attribute ??
+            equippedSpiriaId
+        );
+
+const automaticEvolution =
+    getSpiritEvolutionStage(
+        save,
+        evolutionAttribute
+    );
+
+const homeEvolutionStage =
+    testMode
+        ? equippedStageNumber
+        : Number(
+            automaticEvolution.stage
+        );
+
+const imageStageNumber =
+    testMode
+        ? equippedStageNumber
+        : Math.max(
+            1,
+            Math.min(
+                homeEvolutionStage - 1,
+                3
+            )
+        );
+
+const equippedStageData =
+    equippedSpiriaData
+        ?.stages
+        ?.find(
             stage =>
                 Number(stage.stage) ===
-                equippedStageNumber
+                imageStageNumber
         ) ??
-        equippedSpiriaData?.stages?.[0];
+    equippedSpiriaData
+        ?.stages?.[0];
 
-    const homeSpiriaImage =
-        equippedStageData?.image ??
-        "./assets/spiria/spiria_base.png";
+const homeSpiriaImage =
+    !testMode &&
+    homeEvolutionStage === 0
 
+        ? "./assets/spiria/spiria_egg.png"
+
+        : !testMode &&
+          homeEvolutionStage === 1
+
+            ? "./assets/spiria/spiria_base.png"
+
+            : (
+                equippedStageData?.image ??
+                "./assets/spiria/spiria_base.png"
+              );
     const homeSpiriaName =
         equippedSpiriaData?.name ??
         "ふしぎなスピリア";
@@ -107,7 +165,7 @@ const equippedStageNumber =
 
 <div
     class="forest-spirit"
-    data-stage="${equippedStageNumber}"
+    data-stage="${imageStageNumber}"
 >                        <img
                             class="forest-spirit-character forest-spirit-image"
                             src="${escapeHtml(
@@ -126,7 +184,100 @@ const equippedStageNumber =
 
         </section>
     `;
+    // =================================
+    // 通常モードの初回進化ムービー
+    // =================================
 
+    const movieEvolutionStage =
+        Math.min(
+            homeEvolutionStage,
+            4
+        );
+
+    const savedEvolutionStage =
+        Number(
+            save.spirit
+                ?.evolutionProgress
+                ?.[evolutionAttribute] ??
+            0
+        );
+
+    if (
+        !testMode &&
+        movieEvolutionStage >
+            savedEvolutionStage
+    ) {
+
+        const previousEvolutionStage =
+            Math.max(
+                movieEvolutionStage - 1,
+                0
+            );
+
+        const previousImageStage =
+            Math.max(
+                1,
+                Math.min(
+                    previousEvolutionStage - 1,
+                    3
+                )
+            );
+
+        const previousStageData =
+            equippedSpiriaData
+                ?.stages
+                ?.find(
+                    stage =>
+                        Number(
+                            stage.stage
+                        ) ===
+                        previousImageStage
+                );
+
+        const previousImage =
+            previousEvolutionStage === 0
+
+                ? "./assets/spiria/spiria_egg.png"
+
+                : previousEvolutionStage === 1
+
+                    ? "./assets/spiria/spiria_base.png"
+
+                    : (
+                        previousStageData?.image ??
+                        "./assets/spiria/spiria_base.png"
+                      );
+
+        playSpiriaEvolution({
+
+            fromImage:
+                previousImage,
+
+            toImage:
+                homeSpiriaImage,
+
+            spiriaName:
+                automaticEvolution.name ??
+                homeSpiriaName,
+
+            onComplete: () => {
+
+                update(currentSave => {
+
+                    currentSave.spirit ??= {};
+
+                    currentSave.spirit
+                        .evolutionProgress ??= {};
+
+                    currentSave.spirit
+                        .evolutionProgress[
+                            evolutionAttribute
+                        ] =
+                            movieEvolutionStage;
+                });
+            }
+        });
+    }
 
     // =================================
     // 設定ボタン

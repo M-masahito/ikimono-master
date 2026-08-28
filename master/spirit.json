@@ -1,56 +1,105 @@
 {
-  "version": 1,
+  "version": 2,
+
+  "evolutionStages": [
+    {
+      "stage": 0,
+      "id": "egg",
+      "name": "卵",
+      "requiredDiscoveries": 0
+    },
+    {
+      "stage": 1,
+      "id": "base",
+      "name": "ベースの子",
+      "requiredDiscoveries": 3
+    },
+    {
+      "stage": 2,
+      "id": "noko",
+      "name": "のこ",
+      "requiredDiscoveries": 10
+    },
+    {
+      "stage": 3,
+      "id": "nushi",
+      "name": "ぬし",
+      "requiredDiscoveries": 20
+    },
+    {
+      "stage": 4,
+      "id": "king",
+      "name": "王",
+      "requiredDiscoveries": 35
+    },
+    {
+      "stage": 5,
+      "id": "young_spirit",
+      "name": "幼精霊",
+      "requiredDiscoveries": 50
+    },
+    {
+      "stage": 6,
+      "id": "great_spirit",
+      "name": "大精霊",
+      "requiredDiscoveries": 65
+    },
+    {
+      "stage": 7,
+      "id": "spirit_king",
+      "name": "精霊王",
+      "requiredDiscoveries": 85
+    },
+    {
+      "stage": 8,
+      "id": "divine_beast",
+      "name": "神獣",
+      "requiredDiscoveries": 100
+    }
+  ],
 
   "spirits": [
-
     {
       "id": "mushi",
       "attribute": "むし",
       "name": "グランベル",
       "title": "神甲虫"
     },
-
     {
       "id": "mizu",
       "attribute": "みず",
       "name": "リュウガ",
       "title": "青龍神"
     },
-
     {
       "id": "sora",
       "attribute": "そら",
       "name": "ホムラ",
       "title": "朱雀神"
     },
-
     {
       "id": "daichi",
       "attribute": "だいち",
       "name": "ガイアス",
       "title": "玄武神"
     },
-
     {
       "id": "kemono",
       "attribute": "けもの",
       "name": "ライガ",
       "title": "白虎神"
     },
-
     {
       "id": "mori",
       "attribute": "もり",
       "name": "ユグドラ",
       "title": "神世界樹"
     },
-
     {
       "id": "kodama",
       "attribute": "こだま",
       "name": "フィリア",
       "title": "響命樹神"
     }
-
   ]
 }
