@@ -14,6 +14,55 @@ import {
 const DEFAULT_IMAGE = "./icon-192.png";
 
 // =====================================
+// エンブレム画面 テスト用データ
+// =====================================
+
+const EMBLEM_TEST_ITEMS = [
+    {
+        id: "shark",
+        name: "サメ",
+        attribute: "mizu",
+        attributeName: "みず",
+        stoneRanks: ["bronze", "silver", "gold"]
+    },
+    {
+        id: "kuwagata",
+        name: "クワガタ",
+        attribute: "mushi",
+        attributeName: "むし",
+        stoneRanks: ["bronze", "silver", "gold"]
+    },
+    {
+        id: "kabutomushi",
+        name: "カブトムシ",
+        attribute: "mushi",
+        attributeName: "むし",
+        stoneRanks: ["bronze", "gold"]
+    },
+    {
+        id: "hebi",
+        name: "ヘビ",
+        attribute: "daichi",
+        attributeName: "だいち",
+        stoneRanks: []
+    },
+    {
+        id: "karasu",
+        name: "カラス",
+        attribute: "sora",
+        attributeName: "そら",
+        stoneRanks: []
+    },
+    {
+        id: "ookami",
+        name: "オオカミ",
+        attribute: "kemono",
+        attributeName: "けもの",
+        stoneRanks: ["bronze", "silver", "gold"]
+    }
+];
+
+// =====================================
 // 図鑑画面を表示
 // =====================================
 
@@ -55,6 +104,24 @@ const catalog =
     screen.innerHTML = `
 
         <section class="encyclopedia-page">
+
+            <nav class="catalog-mode-tabs" aria-label="図鑑の表示切替">
+                <button
+                    type="button"
+                    class="catalog-mode-tab active"
+                    data-catalog-mode="catalog"
+                >
+                    いきもの図鑑
+                </button>
+
+                <button
+                    type="button"
+                    class="catalog-mode-tab"
+                    data-catalog-mode="emblems"
+                >
+                    エンブレム
+                </button>
+            </nav>
 
             <header class="encyclopedia-header">
 
@@ -210,6 +277,13 @@ const catalog =
 
     `;
 
+    screen
+        .querySelector('[data-catalog-mode="emblems"]')
+        ?.addEventListener(
+            "click",
+            () => showEmblemCollection(screen)
+        );
+
     const searchBox =
         screen.querySelector("#catalogSearchBox");
 
@@ -301,6 +375,146 @@ const catalog =
 
         }
     );
+
+}
+
+// =====================================
+// エンブレムコレクション（テスト版）
+// =====================================
+
+function showEmblemCollection(screen) {
+
+    let selectedRank = "bronze";
+
+    screen.innerHTML = `
+
+        <section class="encyclopedia-page emblem-collection-page">
+
+            <nav class="catalog-mode-tabs" aria-label="図鑑の表示切替">
+                <button
+                    type="button"
+                    class="catalog-mode-tab"
+                    data-catalog-mode="catalog"
+                >
+                    いきもの図鑑
+                </button>
+
+                <button
+                    type="button"
+                    class="catalog-mode-tab active"
+                    data-catalog-mode="emblems"
+                >
+                    エンブレム
+                </button>
+            </nav>
+
+            <header class="encyclopedia-header emblem-header">
+                <div class="encyclopedia-title-area">
+                    <div class="encyclopedia-title-icon emblem-title-icon">
+                        🛡️
+                    </div>
+
+                    <div>
+                        <h2>エンブレム</h2>
+                        <p>集めた証をかっこよく飾ろう！</p>
+                    </div>
+                </div>
+
+                <div class="encyclopedia-count emblem-count">
+                    <strong>${EMBLEM_TEST_ITEMS.length}</strong>
+                    <span>種類</span>
+                </div>
+            </header>
+
+            <div class="emblem-test-notice">
+                テスト表示：金・銀・銅を切り替えて重なりを確認できます
+            </div>
+
+            <div class="emblem-rank-tabs" role="group" aria-label="エンブレムランク">
+                <button type="button" class="emblem-rank-button active" data-emblem-rank="bronze">
+                    銅
+                </button>
+                <button type="button" class="emblem-rank-button" data-emblem-rank="silver">
+                    銀
+                </button>
+                <button type="button" class="emblem-rank-button" data-emblem-rank="gold">
+                    金
+                </button>
+            </div>
+
+            <div id="emblemGrid" class="emblem-grid"></div>
+
+        </section>
+
+    `;
+
+    const emblemGrid =
+        screen.querySelector("#emblemGrid");
+
+    const drawEmblems = () => {
+
+        if (!emblemGrid) {
+            return;
+        }
+
+        emblemGrid.innerHTML = EMBLEM_TEST_ITEMS
+            .map(item => `
+
+                <article class="emblem-card">
+
+                    <div class="emblem-stage">
+                        <img
+                            class="emblem-type-art"
+                            src="./assets/emblems/badges/${escapeAttribute(item.id)}_${escapeAttribute(selectedRank)}.png"                            alt="${escapeAttribute(item.name)}"
+                        >
+
+
+                    </div>
+
+                    <div class="emblem-card-info">
+                        <strong>${escapeHtml(item.name)}</strong>
+                        <span>${escapeHtml(item.attributeName)}属性</span>
+                    </div>
+
+                </article>
+
+            `)
+            .join("");
+
+    };
+
+    drawEmblems();
+
+    screen
+        .querySelector('[data-catalog-mode="catalog"]')
+        ?.addEventListener(
+            "click",
+            () => showCatalog(screen)
+        );
+
+    screen
+        .querySelectorAll("[data-emblem-rank]")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                selectedRank =
+                    String(button.dataset.emblemRank ?? "bronze");
+
+                screen
+                    .querySelectorAll("[data-emblem-rank]")
+                    .forEach(rankButton => {
+                        rankButton.classList.toggle(
+                            "active",
+                            rankButton === button
+                        );
+                    });
+
+                drawEmblems();
+
+            });
+
+        });
 
 }
 
@@ -693,7 +907,7 @@ export function createCatalogCard({
 
 const image = found
     ? `./assets/cards/creatures/${creatureNo}.png`
-    : `./assets/catalog/creatures/${creatureNo}.png`;
+    : `../assets/cards/creatures/${creatureNo}.png`;
 
 card.innerHTML = `
 
@@ -1320,6 +1534,177 @@ function addCatalogStyles(){
                     env(safe-area-inset-bottom)
                 );
             box-sizing:border-box;
+        }
+
+        .catalog-mode-tabs{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+            padding:6px;
+            margin-bottom:18px;
+            border:1px solid rgba(96,76,44,.18);
+            border-radius:18px;
+            background:rgba(255,255,255,.76);
+            box-shadow:0 8px 24px rgba(65,46,24,.08);
+        }
+
+        .catalog-mode-tab{
+            min-height:46px;
+            border:0;
+            border-radius:13px;
+            background:transparent;
+            color:#655943;
+            font:inherit;
+            font-weight:800;
+            cursor:pointer;
+        }
+
+        .catalog-mode-tab.active{
+            color:#ffffff;
+            background:linear-gradient(145deg,#315a43,#173c2b);
+            box-shadow:0 6px 14px rgba(24,62,44,.24);
+        }
+
+        .emblem-collection-page{
+            min-height:100%;
+        }
+
+        .emblem-title-icon{
+            background:linear-gradient(145deg,#fff4cb,#d7a743);
+        }
+
+        .emblem-count{
+            gap:5px;
+        }
+
+        .emblem-test-notice{
+            margin:0 0 14px;
+            padding:10px 14px;
+            border:1px solid rgba(185,139,58,.32);
+            border-radius:14px;
+            color:#715323;
+            background:linear-gradient(145deg,#fffaf0,#fff1c9);
+            font-size:13px;
+            font-weight:700;
+            text-align:center;
+        }
+
+        .emblem-rank-tabs{
+            display:flex;
+            justify-content:center;
+            gap:10px;
+            margin-bottom:18px;
+        }
+
+        .emblem-rank-button{
+            min-width:78px;
+            min-height:42px;
+            border:1px solid rgba(86,67,40,.22);
+            border-radius:999px;
+            color:#5e513e;
+            background:#ffffff;
+            font:inherit;
+            font-weight:900;
+            cursor:pointer;
+            box-shadow:0 5px 13px rgba(46,35,20,.08);
+        }
+
+        .emblem-rank-button.active{
+            color:#ffffff;
+            border-color:transparent;
+            background:linear-gradient(145deg,#9b6a32,#5b381c);
+            box-shadow:0 7px 16px rgba(94,57,27,.24);
+        }
+
+        .emblem-grid{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .emblem-card{
+            overflow:hidden;
+            border:1px solid rgba(89,69,40,.18);
+            border-radius:20px;
+            background:
+                radial-gradient(circle at 50% 35%,rgba(63,88,73,.20),transparent 54%),
+                linear-gradient(155deg,#18221d,#0c120f);
+            box-shadow:0 10px 24px rgba(26,23,17,.18);
+        }
+
+        .emblem-stage{
+            position:relative;
+            width:100%;
+            aspect-ratio:1/1;
+            overflow:hidden;
+        }
+
+        .emblem-type-art,
+        .emblem-frame-art{
+            position:absolute;
+            object-fit:contain;
+            pointer-events:none;
+            user-select:none;
+        }
+
+        .emblem-type-art{
+            z-index:1;
+            width:74%;
+            height:74%;
+            left:13%;
+            top:10%;
+            filter:drop-shadow(0 10px 8px rgba(0,0,0,.45));
+        }
+
+        .emblem-frame-art{
+            z-index:2;
+            inset:0;
+            width:100%;
+            height:100%;
+        }
+
+        .emblem-stone-art{
+            position:absolute;
+            z-index:3;
+            width:18%;
+            height:23%;
+            left:41%;
+            bottom:7%;
+            object-fit:contain;
+            pointer-events:none;
+            user-select:none;
+            filter:drop-shadow(0 4px 5px rgba(0,0,0,.55));
+        }
+
+        .emblem-card-info{
+            position:relative;
+            z-index:4;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:8px;
+            margin-top:-8px;
+            padding:10px 13px 13px;
+            color:#ffffff;
+        }
+
+        .emblem-card-info strong{
+            font-size:15px;
+        }
+
+        .emblem-card-info span{
+            padding:4px 8px;
+            border-radius:999px;
+            color:#f8e8b9;
+            background:rgba(255,255,255,.10);
+            font-size:11px;
+            font-weight:800;
+        }
+
+        @media(min-width:760px){
+            .emblem-grid{
+                grid-template-columns:repeat(3,minmax(0,1fr));
+            }
         }
 
         .encyclopedia-header{

@@ -11,6 +11,7 @@ import {
     createDebugBackup
 } from "../system/storage.js";
 import { createCatalogCard } from "./catalog.js?v=card-test-1";
+import { playSpiriaEvolution } from "./spirit.js";
 
 // 図鑑に保存できるカードの最大表示枚数
 const MAX_CARD_COUNT = 10;
@@ -2741,6 +2742,37 @@ ownedCount: 1
 
         await wait(350);
 
+        const emblemReward =
+            prepareSharkEmblemReward({
+                candidate
+            });
+
+        if (emblemReward) {
+
+            await showSharkEmblemGet({
+                reward: emblemReward,
+                judgeResult
+            });
+
+            playSpiriaEvolution({
+
+                fromImage:
+                    emblemReward.fromImage,
+
+                toImage:
+                    emblemReward.toImage,
+
+                spiriaName:
+                    emblemReward.spiriaName,
+
+                onDismiss: () => {
+                    openHomeScreen(screen);
+                }
+            });
+
+            return;
+        }
+
         showRegisterComplete({
 
             candidate,
@@ -2768,6 +2800,292 @@ ownedCount: 1
 
     }
 
+}
+
+
+// =====================================
+// サメエンブレム・スピリア解放判定
+// =====================================
+
+function prepareSharkEmblemReward({
+    candidate
+}) {
+
+    const encyclopedia =
+        Array.isArray(
+            window.MASTER?.encyclopedia
+        )
+            ? window.MASTER.encyclopedia
+            : [];
+
+    const discoveredItem =
+        encyclopedia.find(
+            item =>
+                Number(item?.no) ===
+                Number(candidate?.no)
+        );
+
+    if (
+        discoveredItem?.typeId !==
+        "shark"
+    ) {
+        return null;
+    }
+
+    const currentSave = getSave();
+
+    const discoveredNumbers =
+        new Set([
+            ...(Array.isArray(
+                currentSave.discovered
+            )
+                ? currentSave.discovered
+                : []),
+            ...(Array.isArray(
+                currentSave.discoveredCards
+            )
+                ? currentSave.discoveredCards
+                    .map(card => card?.no)
+                : [])
+        ]
+            .map(Number)
+            .filter(Number.isFinite));
+
+    const sharkCount =
+        encyclopedia.filter(
+            item =>
+                item?.typeId === "shark" &&
+                discoveredNumbers.has(
+                    Number(item?.no)
+                )
+        ).length;
+
+    const targetStage =
+        sharkCount >= 5
+            ? 3
+            : sharkCount >= 3
+                ? 2
+                : sharkCount >= 1
+                    ? 1
+                    : 0;
+
+    if (targetStage === 0) {
+        return null;
+    }
+
+    const savedEmblems =
+        Array.isArray(currentSave.emblems)
+            ? currentSave.emblems
+            : [];
+
+    const savedSharkEmblem =
+        savedEmblems.find(
+            emblem =>
+                typeof emblem === "object" &&
+                (
+                    emblem?.id === "shark" ||
+                    emblem?.typeId === "shark"
+                )
+        );
+
+    const previousStage =
+        Number(
+            savedSharkEmblem?.stage
+        ) || 0;
+
+    if (targetStage <= previousStage) {
+        return null;
+    }
+
+    const rankIds = [
+        "",
+        "bronze",
+        "silver",
+        "gold"
+    ];
+
+    const rankNames = [
+        "",
+        "銅",
+        "銀",
+        "金"
+    ];
+
+    const sharkSpiria =
+        Array.isArray(window.MASTER?.spiria)
+            ? window.MASTER.spiria.find(
+                item => item?.id === "shark"
+              )
+            : null;
+
+    const targetSpiriaStage =
+        sharkSpiria?.stages?.find(
+            stage =>
+                Number(stage?.stage) ===
+                targetStage
+        );
+
+    const previousSpiriaStage =
+        sharkSpiria?.stages?.find(
+            stage =>
+                Number(stage?.stage) ===
+                previousStage
+        );
+
+    if (!targetSpiriaStage?.image) {
+        console.warn(
+            "サメスピリア画像が見つかりません。"
+        );
+        return null;
+    }
+
+    const rankId =
+        rankIds[targetStage];
+
+    const rankName =
+        rankNames[targetStage];
+
+    update(save => {
+
+        save.emblems =
+            Array.isArray(save.emblems)
+                ? save.emblems.filter(
+                    emblem =>
+                        !(
+                            typeof emblem ===
+                                "object" &&
+                            (
+                                emblem?.id ===
+                                    "shark" ||
+                                emblem?.typeId ===
+                                    "shark"
+                            )
+                        )
+                  )
+                : [];
+
+        save.emblems.push({
+            id: "shark",
+            typeId: "shark",
+            name: "サメのエンブレム",
+            rank: rankId,
+            stage: targetStage,
+            discoveredCount: sharkCount,
+            unlockedAt:
+                new Date().toISOString()
+        });
+
+        save.spiria =
+            Array.isArray(save.spiria)
+                ? save.spiria.filter(
+                    item =>
+                        !(
+                            item === "shark" ||
+                            item?.id === "shark" ||
+                            item?.spiriaId ===
+                                "shark"
+                        )
+                  )
+                : [];
+
+        save.spiria.push({
+            id: "shark",
+            stage: targetStage,
+            unlockedAt:
+                new Date().toISOString()
+        });
+
+        save.spirit ??= {};
+        save.spirit.equippedSpiria =
+            "shark";
+        save.spirit.stage =
+            targetStage;
+        save.spirit.evolutionProgress ??= {};
+        save.spirit.evolutionProgress.shark =
+            targetStage;
+    });
+
+    return {
+        stage: targetStage,
+        rankId,
+        rankName,
+        sharkCount,
+        emblemImage:
+            `./assets/emblems/badges/shark_${rankId}.png`,
+        fromImage:
+            previousSpiriaStage?.image ??
+            "./assets/spiria/spiria_base.png",
+        toImage:
+            targetSpiriaStage.image,
+        spiriaName:
+            targetSpiriaStage.title ??
+            sharkSpiria?.name ??
+            "サメスピリア"
+    };
+}
+
+
+// =====================================
+// サメエンブレムGET演出
+// =====================================
+
+function showSharkEmblemGet({
+    reward,
+    judgeResult
+}) {
+
+    return new Promise(resolve => {
+
+        judgeResult.innerHTML = `
+            <section style="min-height:72vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 18px;background:radial-gradient(circle at center,#54231f 0%,#240d14 58%,#10070b 100%);color:#fff;border-radius:24px;overflow:hidden;">
+                <div style="font-size:13px;letter-spacing:.2em;color:#f1cf88;">NEW EMBLEM</div>
+                <h2 style="margin:10px 0 4px;font-size:28px;">サメのエンブレム GET！</h2>
+                <p style="margin:0;color:#eadccf;">${escapeHtml(reward.rankName)}ランク</p>
+                <img src="${escapeHtml(reward.emblemImage)}" alt="サメのエンブレム" style="display:block;width:min(82vw,360px);height:min(82vw,360px);object-fit:contain;margin:10px auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.55));animation:emblemGetPop .65s ease-out both;">
+                <strong style="font-size:21px;color:#9fe8ff;">水の石が輝きだした！</strong>
+                <span style="margin-top:8px;font-size:14px;opacity:.85;">スピリア解放へ</span>
+                <style>
+                    @keyframes emblemGetPop {
+                        0% { opacity:0; transform:scale(.35) rotate(-12deg); }
+                        70% { opacity:1; transform:scale(1.08) rotate(2deg); }
+                        100% { opacity:1; transform:scale(1) rotate(0); }
+                    }
+                </style>
+            </section>
+        `;
+
+judgeResult.addEventListener(
+    "click",
+    resolve,
+    { once: true }
+);
+});
+}
+
+
+// =====================================
+// ホーム画面を開く
+// =====================================
+
+function openHomeScreen(screen) {
+
+    const homeButton =
+        document.querySelector(
+            '[data-screen="home"]'
+        ) ||
+        document.querySelector(
+            '[data-page="home"]'
+        ) ||
+        document.querySelector(
+            "#homeButton"
+        );
+
+    if (homeButton) {
+        homeButton.click();
+        return;
+    }
+
+    showCamera(screen);
 }
 
 

@@ -1,5 +1,5 @@
 // =====================================
-// screens/home.js Ver7
+// screens/home.js Ver8
 // 精霊と過ごす庭
 // =====================================
 
@@ -11,6 +11,7 @@ import {
 import {
     getSpiritEvolutionStage
 } from "../system/spiritEvolution.js";
+
 import {
     playSpiriaEvolution
 } from "./spirit.js";
@@ -18,6 +19,8 @@ import {
 import {
     openScreen
 } from "../app.js";
+
+
 // =====================================
 // ホーム画面
 // =====================================
@@ -26,122 +29,107 @@ export function showHome(screen) {
 
     const save = getSave();
 
-const testMode =
-    sessionStorage.getItem(
-        "spiriaTestUnlocked"
-    ) === "true" &&
-    sessionStorage.getItem(
-        "spiriaTestMode"
-    ) === "true";
+    const testMode =
+        sessionStorage.getItem(
+            "spiriaTestUnlocked"
+        ) === "true" &&
+        sessionStorage.getItem(
+            "spiriaTestMode"
+        ) === "true";
 
-const equippedSpiriaId =
-    testMode
+    const equippedSpiriaId =
+        testMode
+            ? sessionStorage.getItem(
+                "spiriaTestEquipped"
+              ) ??
+              save.spirit?.equippedSpiria ??
+              "base"
+            : save.spirit?.equippedSpiria ??
+              "base";
 
-        ? sessionStorage.getItem(
-            "spiriaTestEquipped"
-        ) ??
-        save.spirit?.equippedSpiria ??
-        "base"
+    const savedStageNumber =
+        testMode
+            ? Number(
+                sessionStorage.getItem(
+                    "spiriaTestStage"
+                )
+              ) || 1
+            : Number(save.spirit?.stage) || 1;
 
-        : save.spirit?.equippedSpiria ??
-        "base";
-
-const equippedStageNumber =
-    testMode
-
-        ? Number(
-            sessionStorage.getItem(
-                "spiriaTestStage"
-            )
-        ) || 1
-
-        : Number(
-            save.spirit?.stage
-        ) || 1;
     const spiriaMaster =
-        Array.isArray(
-            window.MASTER?.spiria
-        )
+        Array.isArray(window.MASTER?.spiria)
             ? window.MASTER.spiria
             : [];
 
     const equippedSpiriaData =
         spiriaMaster.find(
             item =>
-                item.id ===
-                equippedSpiriaId
-        );
-
-const evolutionAttribute =
-    equippedSpiriaId === "base"
-        ? "all"
-        : (
-            equippedSpiriaData
-                ?.attribute ??
-            equippedSpiriaId
-        );
-
-const automaticEvolution =
-    getSpiritEvolutionStage(
-        save,
-        evolutionAttribute
-    );
-
-const homeEvolutionStage =
-    testMode
-        ? equippedStageNumber
-        : Number(
-            automaticEvolution.stage
-        );
-
-const imageStageNumber =
-    testMode
-        ? equippedStageNumber
-        : Math.max(
-            1,
-            Math.min(
-                homeEvolutionStage - 1,
-                3
-            )
-        );
-
-const equippedStageData =
-    equippedSpiriaData
-        ?.stages
-        ?.find(
-            stage =>
-                Number(stage.stage) ===
-                imageStageNumber
+                item.id === equippedSpiriaId
         ) ??
-    equippedSpiriaData
-        ?.stages?.[0];
+        spiriaMaster.find(
+            item => item.id === "base"
+        );
 
-const homeSpiriaImage =
-    !testMode &&
-    homeEvolutionStage === 0
+    const isBaseSpiria =
+        equippedSpiriaId === "base";
 
-        ? "./assets/spiria/spiria_egg.png"
+    // ベース精霊だけは、従来どおり全発見数で成長する。
+    // タイプ別スピリアはセーブされた段階をそのまま表示する。
+    const automaticBaseEvolution =
+        isBaseSpiria && !testMode
+            ? getSpiritEvolutionStage(
+                save,
+                "all"
+              )
+            : null;
 
-        : !testMode &&
-          homeEvolutionStage === 1
+    const baseEvolutionStage =
+        Number(
+            automaticBaseEvolution?.stage
+        ) || 0;
 
-            ? "./assets/spiria/spiria_base.png"
-
-            : (
-                equippedStageData?.image ??
-                "./assets/spiria/spiria_base.png"
+    const imageStageNumber =
+        testMode || !isBaseSpiria
+            ? savedStageNumber
+            : Math.max(
+                1,
+                Math.min(
+                    baseEvolutionStage - 1,
+                    3
+                )
               );
+
+    const equippedStageData =
+        equippedSpiriaData
+            ?.stages
+            ?.find(
+                stage =>
+                    Number(stage.stage) ===
+                    imageStageNumber
+            ) ??
+        equippedSpiriaData?.stages?.[0];
+
+    const homeSpiriaImage =
+        !testMode &&
+        isBaseSpiria &&
+        baseEvolutionStage === 0
+            ? "./assets/spiria/spiria_egg.png"
+            : !testMode &&
+              isBaseSpiria &&
+              baseEvolutionStage === 1
+                ? "./assets/spiria/spiria_base.png"
+                : equippedStageData?.image ??
+                  "./assets/spiria/spiria_base.png";
+
     const homeSpiriaName =
+        equippedStageData?.title ??
         equippedSpiriaData?.name ??
         "ふしぎなスピリア";
 
-
     screen.innerHTML = `
-
         <section
             class="forest-home forest-garden-home"
         >
-
             <button
                 id="settingsButton"
                 class="forest-settings-button"
@@ -154,7 +142,6 @@ const homeSpiriaImage =
             <div
                 class="forest-world forest-garden-world"
             >
-
                 <div
                     class="forest-sunlight"
                 ></div>
@@ -162,121 +149,94 @@ const homeSpiriaImage =
                 <div
                     class="forest-spirit-zone"
                 >
-
-<div
-    class="forest-spirit"
-    data-stage="${imageStageNumber}"
->                        <img
+                    <div
+                        class="forest-spirit"
+                        data-stage="${imageStageNumber}"
+                    >
+                        <img
                             class="forest-spirit-character forest-spirit-image"
-                            src="${escapeHtml(
-                                homeSpiriaImage
-                            )}"
-                            alt="${escapeHtml(
-                                homeSpiriaName
-                            )}"
+                            src="${escapeHtml(homeSpiriaImage)}"
+                            alt="${escapeHtml(homeSpiriaName)}"
                         >
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
     `;
+
     // =================================
-    // 通常モードの初回進化ムービー
+    // ベース精霊の初回進化ムービー
+    // タイプ別スピリアのムービーは
+    // エンブレムGET直後に再生する。
     // =================================
 
-    const movieEvolutionStage =
-        Math.min(
-            homeEvolutionStage,
-            4
-        );
+    if (isBaseSpiria && !testMode) {
 
-    const savedEvolutionStage =
-        Number(
-            save.spirit
-                ?.evolutionProgress
-                ?.[evolutionAttribute] ??
-            0
-        );
+        const movieEvolutionStage =
+            Math.min(baseEvolutionStage, 4);
 
-    if (
-        !testMode &&
-        movieEvolutionStage >
+        const savedEvolutionStage =
+            Number(
+                save.spirit
+                    ?.evolutionProgress
+                    ?.all ?? 0
+            );
+
+        if (
+            movieEvolutionStage >
             savedEvolutionStage
-    ) {
+        ) {
 
-        const previousEvolutionStage =
-            Math.max(
-                movieEvolutionStage - 1,
-                0
-            );
-
-        const previousImageStage =
-            Math.max(
-                1,
-                Math.min(
-                    previousEvolutionStage - 1,
-                    3
-                )
-            );
-
-        const previousStageData =
-            equippedSpiriaData
-                ?.stages
-                ?.find(
-                    stage =>
-                        Number(
-                            stage.stage
-                        ) ===
-                        previousImageStage
+            const previousEvolutionStage =
+                Math.max(
+                    movieEvolutionStage - 1,
+                    0
                 );
 
-        const previousImage =
-            previousEvolutionStage === 0
+            const previousImageStage =
+                Math.max(
+                    1,
+                    Math.min(
+                        previousEvolutionStage - 1,
+                        3
+                    )
+                );
 
-                ? "./assets/spiria/spiria_egg.png"
+            const previousStageData =
+                equippedSpiriaData
+                    ?.stages
+                    ?.find(
+                        stage =>
+                            Number(stage.stage) ===
+                            previousImageStage
+                    );
 
-                : previousEvolutionStage === 1
+            const previousImage =
+                previousEvolutionStage === 0
+                    ? "./assets/spiria/spiria_egg.png"
+                    : previousEvolutionStage === 1
+                        ? "./assets/spiria/spiria_base.png"
+                        : previousStageData?.image ??
+                          "./assets/spiria/spiria_base.png";
 
-                    ? "./assets/spiria/spiria_base.png"
-
-                    : (
-                        previousStageData?.image ??
-                        "./assets/spiria/spiria_base.png"
-                      );
-
-        playSpiriaEvolution({
-
-            fromImage:
-                previousImage,
-
-            toImage:
-                homeSpiriaImage,
-
-            spiriaName:
-                automaticEvolution.name ??
-                homeSpiriaName,
-
-            onComplete: () => {
-
-                update(currentSave => {
-
-                    currentSave.spirit ??= {};
-
-                    currentSave.spirit
-                        .evolutionProgress ??= {};
-
-                    currentSave.spirit
-                        .evolutionProgress[
-                            evolutionAttribute
-                        ] =
-                            movieEvolutionStage;
-                });
-            }
-        });
+            playSpiriaEvolution({
+                fromImage: previousImage,
+                toImage: homeSpiriaImage,
+                spiriaName:
+                    automaticBaseEvolution?.name ??
+                    homeSpiriaName,
+                onComplete: () => {
+                    update(currentSave => {
+                        currentSave.spirit ??= {};
+                        currentSave.spirit
+                            .evolutionProgress ??= {};
+                        currentSave.spirit
+                            .evolutionProgress.all =
+                                movieEvolutionStage;
+                    });
+                }
+            });
+        }
     }
 
     // =================================
@@ -307,16 +267,14 @@ const homeSpiriaImage =
                         String(tapCount);
 
                 clearTimeout(
-                    settingsButton
-                        .testTapTimer
+                    settingsButton.testTapTimer
                 );
 
                 if (tapCount >= 5) {
 
                     settingsButton
                         .dataset
-                        .testTapCount =
-                            "0";
+                        .testTapCount = "0";
 
                     sessionStorage.setItem(
                         "spiriaTestUnlocked",
@@ -333,22 +291,16 @@ const homeSpiriaImage =
                     );
 
                     openScreen("spirit");
-
                     return;
                 }
 
                 settingsButton.testTapTimer =
                     setTimeout(
                         () => {
-
                             settingsButton
                                 .dataset
-                                .testTapCount =
-                                    "0";
-
-                            openScreen(
-                                "settings"
-                            );
+                                .testTapCount = "0";
+                            openScreen("settings");
                         },
                         900
                     );

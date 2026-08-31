@@ -357,6 +357,9 @@ playSpiriaEvolution({
             String(stage)
         );
 
+    },
+
+    onDismiss: () => {
         showSpirit(screen);
     }
 });            }
@@ -419,7 +422,8 @@ export function playSpiriaEvolution({
     fromImage,
     toImage,
     spiriaName,
-    onComplete
+    onComplete,
+    onDismiss
 }) {
 
     const movie =
@@ -484,6 +488,10 @@ export function playSpiriaEvolution({
                     )}
                 </span>
 
+                <small style="display:block;margin-top:14px;opacity:.86;">
+                    タップしてつぎへ
+                </small>
+
             </div>
 
         </div>
@@ -507,26 +515,48 @@ export function playSpiriaEvolution({
                 onComplete();
             }
 
+            movie.classList.add(
+                "result-ready"
+            );
+
         },
         4700
     );
 
-    window.setTimeout(
+    movie.addEventListener(
+        "click",
         () => {
+
+            if (
+                !movie.classList.contains(
+                    "result-ready"
+                )
+            ) {
+                return;
+            }
+
+            movie.classList.remove(
+                "result-ready"
+            );
 
             movie.classList.add("finish");
 
-        },
-        6500
-    );
+            window.setTimeout(
+                () => {
 
-    window.setTimeout(
-        () => {
+                    movie.remove();
 
-            movie.remove();
+                    if (
+                        typeof onDismiss ===
+                        "function"
+                    ) {
+                        onDismiss();
+                    }
 
-        },
-        7000
+                },
+                500
+            );
+        }
     );
 }
 
