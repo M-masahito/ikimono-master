@@ -17,6 +17,9 @@ const DEFAULT_IMAGE = "./icon-192.png";
 // エンブレム画面 テスト用データ
 // =====================================
 
+function isEmblemTestMode() {
+    return localStorage.getItem("emblemTestMode") === "true";
+}
 const EMBLEM_TEST_ITEMS = [
     {
         id: "shark",
@@ -383,8 +386,15 @@ const catalog =
 // =====================================
 
 function showEmblemCollection(screen) {
-
-    let selectedRank = "bronze";
+const save = getSave();
+const unlockedEmblems =
+    Array.isArray(save.emblems)
+        ? save.emblems.filter(
+              emblem =>
+                  emblem &&
+                  typeof emblem === "object"
+          )
+        : [];
 
     screen.innerHTML = `
 
@@ -421,32 +431,32 @@ function showEmblemCollection(screen) {
                 </div>
 
                 <div class="encyclopedia-count emblem-count">
-                    <strong>${EMBLEM_TEST_ITEMS.length}</strong>
+                    <strong>${isEmblemTestMode() ? EMBLEM_TEST_ITEMS.length : unlockedEmblems.length}</strong>
                     <span>種類</span>
                 </div>
             </header>
 
-            <div class="emblem-test-notice">
-                テスト表示：金・銀・銅を切り替えて重なりを確認できます
-            </div>
-
-            <div class="emblem-rank-tabs" role="group" aria-label="エンブレムランク">
-                <button type="button" class="emblem-rank-button active" data-emblem-rank="bronze">
-                    銅
-                </button>
-                <button type="button" class="emblem-rank-button" data-emblem-rank="silver">
-                    銀
-                </button>
-                <button type="button" class="emblem-rank-button" data-emblem-rank="gold">
-                    金
-                </button>
-            </div>
-
-            <div id="emblemGrid" class="emblem-grid"></div>
+<div class="emblem-rank-tabs">
+    <button type="button" class="emblem-rank-button active" data-emblem-rank="bronze">
+        銅
+    </button>
+    <button type="button" class="emblem-rank-button" data-emblem-rank="silver">
+        銀
+    </button>
+    <button type="button" class="emblem-rank-button" data-emblem-rank="gold">
+        金
+    </button>
+</div>
+            <div class="emblem-display-board">
+    <div class="emblem-display-board-inner">
+        <div id="emblemGrid" class="emblem-grid"></div>
+    </div>
+</div>
 
         </section>
 
     `;
+    let selectedRank = "bronze";
 
     const emblemGrid =
         screen.querySelector("#emblemGrid");
@@ -457,15 +467,36 @@ function showEmblemCollection(screen) {
             return;
         }
 
-        emblemGrid.innerHTML = EMBLEM_TEST_ITEMS
-            .map(item => `
+        emblemGrid.innerHTML = (
+    isEmblemTestMode()
+        ? EMBLEM_TEST_ITEMS
+        : EMBLEM_TEST_ITEMS.filter(item =>
+            unlockedEmblems.some(emblem =>
+                emblem.id === item.id ||
+                emblem.typeId === item.id
+            )
+        )
+)
+            .map(item => {
+    const savedEmblem = unlockedEmblems.find(
+        emblem =>
+            emblem.id === item.id ||
+            emblem.typeId === item.id
+    );
+
+const currentRank = selectedRank;        const badgeId =
+    item.id === "kuwagata"
+        ? "stagbeetle"
+        : item.id;
+
+    return `
 
                 <article class="emblem-card">
 
                     <div class="emblem-stage">
                         <img
                             class="emblem-type-art"
-                            src="./assets/emblems/badges/${escapeAttribute(item.id)}_${escapeAttribute(selectedRank)}.png"                            alt="${escapeAttribute(item.name)}"
+                          src="./assets/emblems/badges/${escapeAttribute(badgeId)}_${escapeAttribute(currentRank)}.png"
                         >
 
 
@@ -478,12 +509,33 @@ function showEmblemCollection(screen) {
 
                 </article>
 
-            `)
+            `;
+            })
             .join("");
 
     };
 
     drawEmblems();
+
+    screen
+    .querySelectorAll("[data-emblem-rank]")
+    .forEach(button => {
+        button.addEventListener("click", () => {
+            selectedRank =
+                String(button.dataset.emblemRank ?? "bronze");
+
+            screen
+                .querySelectorAll("[data-emblem-rank]")
+                .forEach(rankButton => {
+                    rankButton.classList.toggle(
+                        "active",
+                        rankButton === button
+                    );
+                });
+
+            drawEmblems();
+        });
+    });
 
     screen
         .querySelector('[data-catalog-mode="catalog"]')
@@ -492,29 +544,6 @@ function showEmblemCollection(screen) {
             () => showCatalog(screen)
         );
 
-    screen
-        .querySelectorAll("[data-emblem-rank]")
-        .forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                selectedRank =
-                    String(button.dataset.emblemRank ?? "bronze");
-
-                screen
-                    .querySelectorAll("[data-emblem-rank]")
-                    .forEach(rankButton => {
-                        rankButton.classList.toggle(
-                            "active",
-                            rankButton === button
-                        );
-                    });
-
-                drawEmblems();
-
-            });
-
-        });
 
 }
 

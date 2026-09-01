@@ -2073,6 +2073,13 @@ function openDeveloperTestPanel({
             >
                 この生き物を発見
             </button>
+            <button
+    id="developerEmblemTestButton"
+    class="subButton"
+    type="button"
+>
+    🏅 エンブレム確認テスト
+</button>
 
                         <button
                 id="developerIllustrationListButton"
@@ -2153,6 +2160,37 @@ function openDeveloperTestPanel({
 
         }
     );
+
+    const emblemTestButton =
+    judgeResult.querySelector(
+        "#developerEmblemTestButton"
+    );
+
+if (emblemTestButton) {
+    const updateEmblemTestButton = () => {
+        const isOn =
+            localStorage.getItem("emblemTestMode") === "true";
+
+        emblemTestButton.textContent =
+            isOn
+                ? "🏅 エンブレム全種確認：ON"
+                : "🏅 エンブレム全種確認：OFF";
+    };
+
+    updateEmblemTestButton();
+
+    emblemTestButton.addEventListener("click", () => {
+        const isOn =
+            localStorage.getItem("emblemTestMode") === "true";
+
+        localStorage.setItem(
+            "emblemTestMode",
+            String(!isOn)
+        );
+
+        updateEmblemTestButton();
+    });
+}
 
         const illustrationList =
         judgeResult.querySelector(
