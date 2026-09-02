@@ -263,3 +263,57 @@ export function createDebugBackup() {
 
     return backupAt;
 }
+// =======================================
+// デバッグテスト前のセーブへ復元
+// =======================================
+
+export function restoreDebugBackup() {
+
+    const backupJson =
+        localStorage.getItem(
+            DEBUG_BACKUP_KEY
+        );
+
+    if (!backupJson) {
+        return false;
+    }
+
+    try {
+
+        const backupSave =
+            JSON.parse(backupJson);
+
+        localStorage.setItem(
+            SAVE_KEY,
+            JSON.stringify(backupSave)
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "デバッグバックアップの復元に失敗しました。",
+            error
+        );
+
+        return false;
+    }
+}
+// =======================================
+// デバッグテスト用セーブだけ初期化
+// バックアップは残す
+// =======================================
+
+export function resetDebugTestSave() {
+
+    const initialSave =
+        createDefaultSave();
+
+    localStorage.setItem(
+        SAVE_KEY,
+        JSON.stringify(initialSave)
+    );
+
+    return initialSave;
+}

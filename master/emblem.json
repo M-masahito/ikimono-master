@@ -1,4 +1,158 @@
 {
-  "version": 1,
-  "emblems": []
+  "version": 2,
+  "emblems": [
+    {
+      "id": "beetle",
+      "typeId": "beetle",
+      "name": "カブトムシ",
+      "attribute": "mushi",
+      "spiriaValue": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 1,
+          "spiria": true,
+          "image": "./assets/emblems/badges/beetle_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 4,
+          "spiria": true,
+          "image": "./assets/emblems/badges/beetle_gold.png"
+        }
+      ]
+    },
+
+    {
+      "id": "stagbeetle",
+      "typeId": "stag_beetle",
+      "name": "クワガタ",
+      "attribute": "mushi",
+      "spiriaValue": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 1,
+          "spiria": true,
+          "image": "./assets/emblems/badges/stagbeetle_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "silver",
+          "rankName": "銀",
+          "requiredCount": 3,
+          "spiria": true,
+          "image": "./assets/emblems/badges/stagbeetle_silver.png"
+        },
+        {
+          "stage": 3,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 5,
+          "spiria": true,
+          "image": "./assets/emblems/badges/stagbeetle_gold.png"
+        }
+      ]
+    },
+
+    {
+      "id": "shark",
+      "typeId": "shark",
+      "name": "サメ",
+      "attribute": "mizu",
+      "spiriaValue": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 1,
+          "spiria": true,
+          "image": "./assets/emblems/badges/shark_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "silver",
+          "rankName": "銀",
+          "requiredCount": 3,
+          "spiria": true,
+          "image": "./assets/emblems/badges/shark_silver.png"
+        },
+        {
+          "stage": 3,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 5,
+          "spiria": true,
+          "image": "./assets/emblems/badges/shark_gold.png"
+        }
+      ]
+    },
+
+    {
+      "id": "dragonfly",
+      "typeId": "dragonfly",
+      "name": "トンボ",
+      "attribute": "mushi",
+      "spiriaValue": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 2,
+          "spiria": true,
+          "image": "./assets/emblems/badges/dragonfly_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 6,
+          "spiria": true,
+          "image": "./assets/emblems/badges/dragonfly_gold.png"
+        }
+      ]
+    },
+
+    {
+      "id": "flower",
+      "typeId": "flower",
+      "name": "花",
+      "attribute": "mori",
+      "spiriaValue": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 10,
+          "spiria": true,
+          "image": "./assets/emblems/badges/flower_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "silver",
+          "rankName": "銀",
+          "requiredCount": 30,
+          "spiria": false,
+          "image": "./assets/emblems/badges/flower_silver.png"
+        },
+        {
+          "stage": 3,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 50,
+          "spiria": true,
+          "image": "./assets/emblems/badges/flower_gold.png"
+        }
+      ]
+    }
+  ]
 }

@@ -48,7 +48,7 @@ export async function loadMaster() {
         category: raw.category.categories ?? [],
         type: raw.type.types ?? [],
         rarity: raw.rarity.rarity ?? [],
-        emblem: raw.emblem.emblems ?? [],
+        emblems: raw.emblem.emblems ?? [],
         spirit: raw.spirit.spirits ?? [],
         spiritEvolutionStages:
         raw.spirit.evolutionStages ?? [],
