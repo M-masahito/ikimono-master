@@ -682,3 +682,534 @@
         inset 0 0 22px rgba(0, 0, 0, 0.55),
         inset 0 0 0 2px rgba(218, 164, 88, 0.35);
 }
+/* ========================================
+   新エンブレムコレクション
+======================================== */
+
+.emblem-collection-page {
+    padding-bottom: 120px;
+}
+
+/* 上部の獲得状況 */
+.emblem-progress-card {
+    margin-bottom: 14px;
+}
+
+.emblem-progress-card .catalog-progress-icon {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff1a8, #c89127);
+    color: #6c4300;
+    font-size: 17px;
+}
+
+/* 銅・銀・金 */
+.emblem-rank-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 12px 0 20px;
+}
+
+.emblem-rank-tab {
+    min-width: 68px;
+    padding: 8px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 999px;
+    background: #fff;
+    color: #555;
+    font-size: 13px;
+    font-weight: 900;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.emblem-rank-tab.active {
+    transform: translateY(-1px);
+    background: linear-gradient(145deg, #9c5a21, #d28a3c);
+    color: #fff;
+    border-color: #7a4015;
+    box-shadow:
+        0 5px 10px rgba(82, 44, 13, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* 展示エリア
+   古い赤い展示箱を使わない */
+.emblem-showcase {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 2px 20px;
+}
+
+.emblem-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 14px;
+}
+
+/* 1つのエンブレム */
+.emblem-display-item {
+    min-width: 0;
+    padding: 8px 4px 12px;
+    text-align: center;
+}
+
+/* エンブレムを飾る場所 */
+.emblem-display-medal {
+    position: relative;
+    display: flex;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+}
+
+/* 取得済み画像 */
+.emblem-display-image {
+    display: block;
+    width: 94%;
+    height: 94%;
+    object-fit: contain;
+    filter:
+        drop-shadow(0 7px 6px rgba(0, 0, 0, 0.28))
+        drop-shadow(0 1px 1px rgba(255, 255, 255, 0.35));
+}
+
+/* 未取得 */
+.emblem-locked-mark {
+    display: grid;
+    width: 76%;
+    height: 76%;
+    place-items: center;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle at 45% 38%,
+            #53635b 0%,
+            #26342d 52%,
+            #142019 100%
+        );
+    box-shadow:
+        inset 0 0 0 3px rgba(255, 255, 255, 0.08),
+        0 6px 12px rgba(0, 0, 0, 0.22);
+}
+
+.emblem-locked-mark span {
+    color: rgba(255, 255, 255, 0.32);
+    font-size: 48px;
+    font-weight: 1000;
+    line-height: 1;
+}
+
+/* 名前 */
+.emblem-display-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.emblem-display-info strong {
+    color: #17261d;
+    font-size: 14px;
+    font-weight: 1000;
+    line-height: 1.25;
+}
+
+.emblem-display-info span {
+    color: #7a7a72;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* 未取得は少し暗く */
+.emblem-display-item.is-locked {
+    opacity: 0.72;
+}
+
+/* 広い画面 */
+@media (min-width: 620px) {
+    .emblem-showcase-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 26px 18px;
+    }
+}
+/* ========================================
+   エンブレムギャラリー 正式版
+   GETしたエンブレムだけ展示
+======================================== */
+
+.emblem-gallery {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 14px;
+    padding: 24px 10px 28px;
+    min-height: 390px;
+}
+
+/* うっすら神殿・展示空間の雰囲気 */
+.emblem-gallery::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            ellipse at 50% 15%,
+            rgba(255, 224, 135, 0.18) 0%,
+            rgba(255, 255, 255, 0) 48%
+        );
+}
+
+/* 1ページ6個 */
+.emblem-gallery-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 18px;
+    width: 100%;
+}
+
+/* 1つの展示物 */
+.emblem-gallery-item {
+    position: relative;
+    min-width: 0;
+    text-align: center;
+}
+
+/* エンブレム展示場所 */
+.emblem-gallery-medal {
+    position: relative;
+    display: flex;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 7px;
+}
+
+/* 背後の光 */
+.emblem-gallery-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 78%;
+    height: 78%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 224, 137, 0.24) 0%,
+            rgba(255, 227, 151, 0.10) 38%,
+            rgba(255, 255, 255, 0) 72%
+        );
+    filter: blur(5px);
+}
+
+/* 正式エンブレム */
+.emblem-gallery-image {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 94%;
+    height: 94%;
+    object-fit: contain;
+    filter:
+        drop-shadow(0 9px 7px rgba(30, 20, 8, 0.28))
+        drop-shadow(0 2px 2px rgba(255, 238, 181, 0.45));
+}
+
+/* エンブレムの下に小さな光の台座 */
+.emblem-gallery-medal::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: 5%;
+    width: 62%;
+    height: 8%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(116, 79, 24, 0.25) 0%,
+            rgba(116, 79, 24, 0) 72%
+        );
+    filter: blur(3px);
+}
+
+/* 名前・ランク */
+.emblem-gallery-info {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.emblem-gallery-info strong {
+    color: #17261d;
+    font-size: 15px;
+    font-weight: 1000;
+    line-height: 1.2;
+}
+
+.emblem-gallery-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+/* 銅 */
+.emblem-gallery-rank.rank-bronze {
+    color: #fff7e8;
+    background:
+        linear-gradient(
+            145deg,
+            #6f3518,
+            #c87932 55%,
+            #7b3c1c
+        );
+    box-shadow: 0 2px 5px rgba(82, 40, 14, 0.22);
+}
+
+/* 銀 */
+.emblem-gallery-rank.rank-silver {
+    color: #344047;
+    background:
+        linear-gradient(
+            145deg,
+            #d9dfe2,
+            #ffffff 50%,
+            #aeb9bf
+        );
+    box-shadow: 0 2px 5px rgba(56, 69, 75, 0.2);
+}
+
+/* 金 */
+.emblem-gallery-rank.rank-gold {
+    color: #5b3a00;
+    background:
+        linear-gradient(
+            145deg,
+            #d59b22,
+            #fff1a2 48%,
+            #c48212
+        );
+    box-shadow:
+        0 2px 6px rgba(123, 79, 4, 0.25),
+        0 0 8px rgba(255, 213, 81, 0.18);
+}
+
+/* まだ1個もない時 */
+.emblem-gallery-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    min-height: 280px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    color: #647168;
+}
+
+.emblem-gallery-empty-symbol {
+    margin-bottom: 6px;
+    color: #c69b42;
+    font-size: 48px;
+    line-height: 1;
+    filter: drop-shadow(0 3px 4px rgba(83, 58, 14, 0.2));
+}
+
+.emblem-gallery-empty strong {
+    color: #314139;
+    font-size: 15px;
+    font-weight: 1000;
+}
+
+.emblem-gallery-empty span {
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* ページ送り */
+.emblem-page-controls {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 38px;
+    margin-top: 28px;
+}
+
+.emblem-page-button {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid rgba(83, 61, 22, 0.18);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #75541b;
+    font-size: 13px;
+    font-weight: 1000;
+    box-shadow: 0 3px 8px rgba(45, 39, 25, 0.12);
+}
+
+.emblem-page-button:disabled {
+    opacity: 0.25;
+}
+
+.emblem-page-number {
+    min-width: 55px;
+    color: #6b6559;
+    font-size: 12px;
+    font-weight: 900;
+    text-align: center;
+}
+
+/* PCなど横幅がある時も1ページ6個 */
+@media (min-width: 620px) {
+    .emblem-gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 34px 22px;
+    }
+}
+/* ========================================
+   エンブレム展示 最終サイズ調整
+======================================== */
+
+/* 展示スペースを広く使う */
+.emblem-gallery {
+    padding: 12px 2px 30px;
+}
+
+/* 2列 × 最大3段 */
+.emblem-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 6px;
+}
+
+/* 1個あたりを大きく */
+.emblem-gallery-item {
+    padding: 0;
+}
+
+/* エンブレム本体の展示スペース */
+.emblem-gallery-medal {
+    width: 100%;
+    aspect-ratio: 1 / 0.9;
+    margin-bottom: 2px;
+}
+
+/* 背景にうっすら紋章の輪 */
+.emblem-gallery-medal::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 88%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 235, 174, 0.24) 0%,
+            rgba(255, 229, 147, 0.10) 43%,
+            transparent 70%
+        );
+
+    border:
+        1px solid rgba(184, 145, 67, 0.10);
+
+    box-shadow:
+        inset 0 0 18px rgba(255, 225, 139, 0.08);
+
+    pointer-events: none;
+}
+
+/* エンブレムをかなり大きく */
+.emblem-gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 10px 7px rgba(35, 23, 7, 0.30))
+        drop-shadow(0 0 6px rgba(255, 221, 125, 0.20));
+}
+
+/* 光もエンブレムに合わせて拡大 */
+.emblem-gallery-glow {
+    width: 96%;
+    height: 96%;
+}
+
+/* 下の影 */
+.emblem-gallery-medal::after {
+    bottom: 1%;
+    width: 72%;
+}
+
+/* 名前 */
+.emblem-gallery-info {
+    gap: 5px;
+    margin-top: -2px;
+}
+
+.emblem-gallery-info strong {
+    font-size: 16px;
+    letter-spacing: 0.02em;
+}
+
+/* 銅・銀・金ラベル */
+.emblem-gallery-rank {
+    min-width: 74px;
+    padding: 3px 10px;
+    font-size: 10px;
+}
+
+/*
+   アプリ幅では常に2列。
+   6個 = 2列 × 3段
+*/
+@media (min-width: 620px) {
+    .emblem-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 8px;
+    }
+}
+/* エンブレム背後の円枠を消して、光だけ残す */
+.emblem-gallery-medal::before {
+    border: none;
+    box-shadow: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 224, 125, 0.18) 0%,
+            rgba(255, 230, 155, 0.07) 42%,
+            rgba(255, 255, 255, 0) 70%
+        );
+}

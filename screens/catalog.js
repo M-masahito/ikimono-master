@@ -385,22 +385,100 @@ const catalog =
 // エンブレムコレクション（テスト版）
 // =====================================
 
+// =====================================
+// エンブレムコレクション
+// =====================================
+
+// =====================================
+// エンブレムコレクション
+// 取得済みのみ・1ページ6個
+// =====================================
+
 function showEmblemCollection(screen) {
-const save = getSave();
-const unlockedEmblems =
-    Array.isArray(save.emblems)
-        ? save.emblems.filter(
-              emblem =>
-                  emblem &&
-                  typeof emblem === "object"
-          )
-        : [];
+
+    const save = getSave();
+
+    const savedEmblems =
+        Array.isArray(save.emblems)
+            ? save.emblems.filter(
+                emblem =>
+                    emblem &&
+                    typeof emblem === "object"
+            )
+            : [];
+
+    const emblemMasters =
+        Array.isArray(window.MASTER?.emblems)
+            ? window.MASTER.emblems
+            : [];
+
+    const collection = savedEmblems
+        .map(saved => {
+
+            const master =
+                emblemMasters.find(
+                    item =>
+                        item.id === saved.id ||
+                        item.typeId === saved.typeId ||
+                        item.id === saved.typeId ||
+                        item.typeId === saved.id
+                );
+
+            if (!master) {
+                return null;
+            }
+
+            const savedStage =
+                Number(saved.stage) || 0;
+
+            const stages =
+                Array.isArray(master.stages)
+                    ? [...master.stages].sort(
+                        (a, b) =>
+                            Number(a.stage) -
+                            Number(b.stage)
+                    )
+                    : [];
+
+            const currentStage =
+                [...stages]
+                    .reverse()
+                    .find(
+                        stage =>
+                            Number(stage.stage) <= savedStage
+                    );
+
+            if (!currentStage) {
+                return null;
+            }
+
+            return {
+                id: master.id,
+                name: master.name,
+                stage: savedStage,
+                rank: currentStage.rank ?? "",
+                rankName: currentStage.rankName ?? "",
+                image: currentStage.image ?? ""
+            };
+        })
+        .filter(Boolean);
+
+    const PAGE_SIZE = 6;
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(collection.length / PAGE_SIZE)
+        );
+
+    let currentPage = 1;
 
     screen.innerHTML = `
-
         <section class="encyclopedia-page emblem-collection-page">
 
-            <nav class="catalog-mode-tabs" aria-label="図鑑の表示切替">
+            <nav
+                class="catalog-mode-tabs"
+                aria-label="図鑑の表示切替"
+            >
                 <button
                     type="button"
                     class="catalog-mode-tab"
@@ -412,142 +490,191 @@ const unlockedEmblems =
                 <button
                     type="button"
                     class="catalog-mode-tab active"
-                    data-catalog-mode="emblems"
+                    data-catalog-mode="emblem"
                 >
                     エンブレム
                 </button>
             </nav>
 
-            <header class="encyclopedia-header emblem-header">
-                <div class="encyclopedia-title-area">
-                    <div class="encyclopedia-title-icon emblem-title-icon">
-                        🛡️
-                    </div>
+            <section class="catalog-progress-card emblem-progress-card">
+                <div class="catalog-progress-title">
+
+                    <span class="catalog-progress-icon">
+                        ◆
+                    </span>
 
                     <div>
-                        <h2>エンブレム</h2>
-                        <p>集めた証をかっこよく飾ろう！</p>
+                        <strong>
+                            エンブレムコレクション
+                        </strong>
+
+                        <small>
+                            集めた証をここに飾ろう！
+                        </small>
                     </div>
-                </div>
 
-                <div class="encyclopedia-count emblem-count">
-                    <strong>${isEmblemTestMode() ? EMBLEM_TEST_ITEMS.length : unlockedEmblems.length}</strong>
-                    <span>種類</span>
-                </div>
-            </header>
+                    <span class="catalog-progress-count">
+                        ${collection.length}
+                        <small>獲得</small>
+                    </span>
 
-<div class="emblem-rank-tabs">
-    <button type="button" class="emblem-rank-button active" data-emblem-rank="bronze">
-        銅
-    </button>
-    <button type="button" class="emblem-rank-button" data-emblem-rank="silver">
-        銀
-    </button>
-    <button type="button" class="emblem-rank-button" data-emblem-rank="gold">
-        金
-    </button>
-</div>
-            <div class="emblem-display-board">
-    <div class="emblem-display-board-inner">
-        <div id="emblemGrid" class="emblem-grid"></div>
-    </div>
-</div>
+                </div>
+            </section>
+
+            <section class="emblem-gallery">
+
+                <div
+                    class="emblem-gallery-grid"
+                    id="emblemGalleryGrid"
+                ></div>
+
+                <div
+                    class="emblem-page-controls"
+                    id="emblemPageControls"
+                ></div>
+
+            </section>
 
         </section>
-
     `;
-    let selectedRank = "bronze";
 
-    const emblemGrid =
-        screen.querySelector("#emblemGrid");
+    const grid =
+        screen.querySelector("#emblemGalleryGrid");
 
-    const drawEmblems = () => {
+    const pageControls =
+        screen.querySelector("#emblemPageControls");
 
-        if (!emblemGrid) {
+    function drawPage() {
+
+        if (!grid || !pageControls) {
             return;
         }
 
-        emblemGrid.innerHTML = (
-    isEmblemTestMode()
-        ? EMBLEM_TEST_ITEMS
-        : EMBLEM_TEST_ITEMS.filter(item =>
-            unlockedEmblems.some(emblem =>
-                emblem.id === item.id ||
-                emblem.typeId === item.id
-            )
-        )
-)
-            .map(item => {
-    const savedEmblem = unlockedEmblems.find(
-        emblem =>
-            emblem.id === item.id ||
-            emblem.typeId === item.id
-    );
+        const start =
+            (currentPage - 1) * PAGE_SIZE;
 
-const currentRank = selectedRank;        const badgeId =
-    item.id === "kuwagata"
-        ? "stagbeetle"
-        : item.id;
+        const pageItems =
+            collection.slice(
+                start,
+                start + PAGE_SIZE
+            );
 
-    return `
+        if (pageItems.length === 0) {
 
-                <article class="emblem-card">
-
-                    <div class="emblem-stage">
-                        <img
-                            class="emblem-type-art"
-                          src="./assets/emblems/badges/${escapeAttribute(badgeId)}_${escapeAttribute(currentRank)}.png"
-                        >
-
-
+            grid.innerHTML = `
+                <div class="emblem-gallery-empty">
+                    <div class="emblem-gallery-empty-symbol">
+                        ✦
                     </div>
 
-                    <div class="emblem-card-info">
-                        <strong>${escapeHtml(item.name)}</strong>
-                        <span>${escapeHtml(item.attributeName)}属性</span>
-                    </div>
+                    <strong>
+                        まだエンブレムはありません
+                    </strong>
 
-                </article>
-
+                    <span>
+                        生き物を発見して証を集めよう！
+                    </span>
+                </div>
             `;
-            })
-            .join("");
 
-    };
+        } else {
 
-    drawEmblems();
+            grid.innerHTML =
+                pageItems
+                    .map(item => `
+                        <article class="emblem-gallery-item">
 
-    screen
-    .querySelectorAll("[data-emblem-rank]")
-    .forEach(button => {
-        button.addEventListener("click", () => {
-            selectedRank =
-                String(button.dataset.emblemRank ?? "bronze");
+                            <div class="emblem-gallery-medal">
 
-            screen
-                .querySelectorAll("[data-emblem-rank]")
-                .forEach(rankButton => {
-                    rankButton.classList.toggle(
-                        "active",
-                        rankButton === button
-                    );
-                });
+                                <div class="emblem-gallery-glow"></div>
 
-            drawEmblems();
-        });
-    });
+                                <img
+                                    src="${item.image}"
+                                    alt="${item.name}のエンブレム"
+                                    class="emblem-gallery-image"
+                                >
+
+                            </div>
+
+                            <div class="emblem-gallery-info">
+
+                                <strong>
+                                    ${item.name}
+                                </strong>
+
+                                <span class="emblem-gallery-rank rank-${item.rank}">
+                                    ${item.rankName}エンブレム
+                                </span>
+
+                            </div>
+
+                        </article>
+                    `)
+                    .join("");
+        }
+
+        if (totalPages <= 1) {
+            pageControls.innerHTML = "";
+            return;
+        }
+
+        pageControls.innerHTML = `
+            <button
+                type="button"
+                class="emblem-page-button"
+                data-emblem-page="prev"
+                ${currentPage === 1 ? "disabled" : ""}
+            >
+                ◀
+            </button>
+
+            <span class="emblem-page-number">
+                ${currentPage} / ${totalPages}
+            </span>
+
+            <button
+                type="button"
+                class="emblem-page-button"
+                data-emblem-page="next"
+                ${currentPage === totalPages ? "disabled" : ""}
+            >
+                ▶
+            </button>
+        `;
+
+        pageControls
+            .querySelector('[data-emblem-page="prev"]')
+            ?.addEventListener("click", () => {
+
+                if (currentPage <= 1) {
+                    return;
+                }
+
+                currentPage -= 1;
+                drawPage();
+            });
+
+        pageControls
+            .querySelector('[data-emblem-page="next"]')
+            ?.addEventListener("click", () => {
+
+                if (currentPage >= totalPages) {
+                    return;
+                }
+
+                currentPage += 1;
+                drawPage();
+            });
+    }
 
     screen
         .querySelector('[data-catalog-mode="catalog"]')
-        ?.addEventListener(
-            "click",
-            () => showCatalog(screen)
-        );
+        ?.addEventListener("click", () => {
+            showCatalog(screen);
+        });
 
-
-}
-
-// =====================================
+    drawPage();
+}// =====================================
 // 図鑑カード一覧を描画
 // =====================================
 
