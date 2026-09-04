@@ -1623,3 +1623,47 @@
     font-size: 11px;
     font-weight: 900;
 }
+/* =========================================
+   エンブレム聖域 3列×2段 テスト
+   ========================================= */
+
+.emblem-sanctuary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px 4px;
+}
+
+.emblem-sanctuary-pedestal {
+    width: 100%;
+    height: 125px;
+}
+
+.emblem-sanctuary-aura {
+    top: 8px;
+    width: 105px;
+    height: 105px;
+}
+
+.emblem-sanctuary-rune {
+    width: 100px;
+    height: 100px;
+}
+
+.emblem-sanctuary-image {
+    width: 105px;
+    height: 105px;
+}
+
+.emblem-sanctuary-pedestal::after {
+    width: 82px;
+    height: 16px;
+}
+
+.emblem-sanctuary-info strong {
+    font-size: 11px;
+}
+
+.emblem-sanctuary-info span {
+    margin-top: 4px;
+    padding: 2px 8px;
+    font-size: 9px;
+}
