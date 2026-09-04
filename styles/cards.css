@@ -1213,3 +1213,413 @@
             rgba(255, 255, 255, 0) 70%
         );
 }
+/* =========================================
+   エンブレムの聖域
+   ========================================= */
+
+.emblem-sanctuary {
+    position: relative;
+    overflow: hidden;
+    min-height: 610px;
+    margin-top: 12px;
+    padding: 18px 14px 30px;
+
+    border-radius: 22px;
+
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            rgba(255, 247, 184, 0.75) 0%,
+            rgba(255, 247, 184, 0.18) 25%,
+            transparent 48%
+        ),
+        linear-gradient(
+            180deg,
+            #edf4df 0%,
+            #d8ead1 30%,
+            #b7d2bd 67%,
+            #799b82 100%
+        );
+
+    box-shadow:
+        inset 0 0 45px rgba(33, 73, 52, 0.22),
+        0 8px 24px rgba(36, 65, 44, 0.16);
+}
+
+
+/* 上から差し込む光 */
+
+.emblem-sanctuary-light {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+
+    width: 320px;
+    height: 390px;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse at top,
+            rgba(255, 255, 220, 0.85),
+            rgba(255, 244, 178, 0.18) 45%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+}
+
+
+/* タイトル */
+
+.emblem-sanctuary-header {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+    padding: 8px 5px 13px;
+
+    border-bottom:
+        1px solid rgba(107, 94, 46, 0.25);
+}
+
+.emblem-sanctuary-header > div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.emblem-sanctuary-mark {
+    color: #b88927;
+    font-size: 13px;
+
+    text-shadow:
+        0 0 8px rgba(255, 214, 90, 0.75);
+}
+
+.emblem-sanctuary-header strong {
+    color: #244b35;
+    font-size: 15px;
+    font-weight: 1000;
+    letter-spacing: 0.05em;
+}
+
+.emblem-sanctuary-count {
+    color: #6e5b2b;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+
+/* 6個の配置 */
+
+.emblem-sanctuary-grid {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 28px 14px;
+
+    align-items: start;
+}
+
+
+/* 取得済み1個 */
+
+.emblem-sanctuary-item {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 0;
+}
+
+
+/* エンブレム周囲の神秘的な光 */
+
+.emblem-sanctuary-aura {
+    position: absolute;
+
+    top: 10px;
+    left: 50%;
+
+    width: 145px;
+    height: 145px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 245, 176, 0.42) 0%,
+            rgba(255, 227, 122, 0.16) 38%,
+            rgba(255, 255, 255, 0) 72%
+        );
+
+    filter: blur(3px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   古代祭壇
+   ========================================= */
+
+.emblem-sanctuary-pedestal {
+    position: relative;
+
+    width: 150px;
+    height: 164px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    isolation: isolate;
+}
+
+
+/* エンブレム後ろの古代紋 */
+
+.emblem-sanctuary-rune {
+    position: absolute;
+
+    width: 126px;
+    height: 126px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(189, 151, 59, 0.28);
+
+    box-shadow:
+        inset 0 0 18px rgba(255, 225, 126, 0.17),
+        0 0 20px rgba(255, 231, 150, 0.16);
+}
+
+.emblem-sanctuary-rune::before,
+.emblem-sanctuary-rune::after {
+    content: "";
+
+    position: absolute;
+    inset: 9px;
+
+    border:
+        1px solid rgba(99, 117, 72, 0.24);
+
+    transform: rotate(45deg);
+}
+
+.emblem-sanctuary-rune::after {
+    inset: 22px;
+    transform: rotate(22.5deg);
+}
+
+
+/* エンブレム本体 */
+
+.emblem-sanctuary-image {
+    position: relative;
+    z-index: 4;
+
+    display: block;
+
+    width: 132px;
+    height: 132px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 7px 5px rgba(16, 28, 18, 0.34))
+        drop-shadow(0 0 8px rgba(255, 228, 137, 0.22));
+}
+
+
+/* エンブレムの下に浮かぶ祭壇 */
+
+.emblem-sanctuary-pedestal::after {
+    content: "";
+
+    position: absolute;
+    z-index: 1;
+
+    left: 50%;
+    bottom: 4px;
+
+    width: 112px;
+    height: 22px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(72, 91, 61, 0.52) 0%,
+            rgba(76, 101, 68, 0.24) 45%,
+            transparent 72%
+        );
+
+    box-shadow:
+        0 4px 10px rgba(31, 49, 36, 0.18);
+}
+
+
+/* 名前・銅銀金 */
+
+.emblem-sanctuary-info {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: -2px;
+}
+
+.emblem-sanctuary-info strong {
+    color: #173c2b;
+
+    font-size: 13px;
+    font-weight: 1000;
+
+    line-height: 1.2;
+}
+
+.emblem-sanctuary-info span {
+    margin-top: 5px;
+    padding: 2px 9px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.72);
+
+    color: #745421;
+
+    font-size: 10px;
+    font-weight: 1000;
+
+    box-shadow:
+        0 2px 7px rgba(35, 56, 40, 0.12);
+}
+
+
+/* 銅 */
+
+.emblem-rank-bronze .emblem-sanctuary-info span {
+    color: #934710;
+}
+
+
+/* 銀 */
+
+.emblem-rank-silver .emblem-sanctuary-info span {
+    color: #5c6870;
+}
+
+
+/* 金 */
+
+.emblem-rank-gold .emblem-sanctuary-info span {
+    color: #9b6b00;
+}
+
+
+/* 何も持っていない場合 */
+
+.emblem-sanctuary-empty {
+    grid-column: 1 / -1;
+
+    min-height: 330px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #496553;
+}
+
+.emblem-sanctuary-empty-light {
+    margin-bottom: 10px;
+
+    color: #c69a32;
+    font-size: 28px;
+
+    text-shadow:
+        0 0 14px rgba(255, 221, 112, 0.8);
+}
+
+.emblem-sanctuary-empty strong {
+    font-size: 15px;
+    font-weight: 1000;
+}
+
+.emblem-sanctuary-empty small {
+    margin-top: 7px;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* ページ送り */
+
+.emblem-page-controls {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 28px;
+}
+
+.emblem-page-button {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid rgba(111, 91, 39, 0.24);
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.72);
+
+    color: #345c43;
+
+    font-weight: 1000;
+
+    box-shadow:
+        0 3px 8px rgba(29, 51, 36, 0.14);
+}
+
+.emblem-page-button:disabled {
+    opacity: 0.25;
+}
+
+.emblem-page-number {
+    color: #385844;
+
+    font-size: 11px;
+    font-weight: 900;
+}

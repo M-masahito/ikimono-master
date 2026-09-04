@@ -412,7 +412,36 @@ function showEmblemCollection(screen) {
             ? window.MASTER.emblems
             : [];
 
-    const collection = savedEmblems
+const collection = isEmblemTestMode()
+    ? emblemMasters.map(master => {
+
+        const stages =
+            Array.isArray(master.stages)
+                ? [...master.stages].sort(
+                    (a, b) =>
+                        Number(a.stage) -
+                        Number(b.stage)
+                )
+                : [];
+
+        const currentStage =
+            stages[stages.length - 1];
+
+        if (!currentStage) {
+            return null;
+        }
+
+        return {
+            id: master.id,
+            name: master.name,
+            rank: currentStage.rank ?? "",
+            rankName: currentStage.rankName ?? "",
+            image: currentStage.image ?? ""
+        };
+
+    }).filter(Boolean)
+
+    : savedEmblems
         .map(saved => {
 
             const master =
@@ -455,15 +484,15 @@ function showEmblemCollection(screen) {
             return {
                 id: master.id,
                 name: master.name,
-                stage: savedStage,
                 rank: currentStage.rank ?? "",
                 rankName: currentStage.rankName ?? "",
                 image: currentStage.image ?? ""
             };
+
         })
         .filter(Boolean);
-
     const PAGE_SIZE = 6;
+
     const totalPages =
         Math.max(
             1,
@@ -496,36 +525,31 @@ function showEmblemCollection(screen) {
                 </button>
             </nav>
 
-            <section class="catalog-progress-card emblem-progress-card">
-                <div class="catalog-progress-title">
+            <section class="emblem-sanctuary">
 
-                    <span class="catalog-progress-icon">
-                        ◆
-                    </span>
+                <div class="emblem-sanctuary-light"></div>
+
+                <header class="emblem-sanctuary-header">
 
                     <div>
-                        <strong>
-                            エンブレムコレクション
-                        </strong>
+                        <span class="emblem-sanctuary-mark">
+                            ◆
+                        </span>
 
-                        <small>
-                            集めた証をここに飾ろう！
-                        </small>
+                        <strong>
+                            エンブレムの聖域
+                        </strong>
                     </div>
 
-                    <span class="catalog-progress-count">
-                        ${collection.length}
-                        <small>獲得</small>
+                    <span class="emblem-sanctuary-count">
+                        獲得数 ${collection.length}
                     </span>
 
-                </div>
-            </section>
-
-            <section class="emblem-gallery">
+                </header>
 
                 <div
-                    class="emblem-gallery-grid"
-                    id="emblemGalleryGrid"
+                    class="emblem-sanctuary-grid"
+                    id="emblemSanctuaryGrid"
                 ></div>
 
                 <div
@@ -539,7 +563,7 @@ function showEmblemCollection(screen) {
     `;
 
     const grid =
-        screen.querySelector("#emblemGalleryGrid");
+        screen.querySelector("#emblemSanctuaryGrid");
 
     const pageControls =
         screen.querySelector("#emblemPageControls");
@@ -562,18 +586,21 @@ function showEmblemCollection(screen) {
         if (pageItems.length === 0) {
 
             grid.innerHTML = `
-                <div class="emblem-gallery-empty">
-                    <div class="emblem-gallery-empty-symbol">
+                <div class="emblem-sanctuary-empty">
+
+                    <span class="emblem-sanctuary-empty-light">
                         ✦
-                    </div>
+                    </span>
 
                     <strong>
-                        まだエンブレムはありません
+                        まだ聖域は静かです
                     </strong>
 
-                    <span>
-                        生き物を発見して証を集めよう！
-                    </span>
+                    <small>
+                        エンブレムを手に入れると
+                        この場所に現れるよ
+                    </small>
+
                 </div>
             `;
 
@@ -582,28 +609,35 @@ function showEmblemCollection(screen) {
             grid.innerHTML =
                 pageItems
                     .map(item => `
-                        <article class="emblem-gallery-item">
+                        <article
+                            class="
+                                emblem-sanctuary-item
+                                emblem-rank-${item.rank}
+                            "
+                        >
 
-                            <div class="emblem-gallery-medal">
+                            <div class="emblem-sanctuary-aura"></div>
 
-                                <div class="emblem-gallery-glow"></div>
+                            <div class="emblem-sanctuary-pedestal">
+
+                                <div class="emblem-sanctuary-rune"></div>
 
                                 <img
                                     src="${item.image}"
                                     alt="${item.name}のエンブレム"
-                                    class="emblem-gallery-image"
+                                    class="emblem-sanctuary-image"
                                 >
 
                             </div>
 
-                            <div class="emblem-gallery-info">
+                            <div class="emblem-sanctuary-info">
 
                                 <strong>
                                     ${item.name}
                                 </strong>
 
-                                <span class="emblem-gallery-rank rank-${item.rank}">
-                                    ${item.rankName}エンブレム
+                                <span>
+                                    ${item.rankName}
                                 </span>
 
                             </div>
@@ -614,6 +648,7 @@ function showEmblemCollection(screen) {
         }
 
         if (totalPages <= 1) {
+
             pageControls.innerHTML = "";
             return;
         }
@@ -674,8 +709,7 @@ function showEmblemCollection(screen) {
         });
 
     drawPage();
-}// =====================================
-// 図鑑カード一覧を描画
+}// 図鑑カード一覧を描画
 // =====================================
 
 function drawCatalog({

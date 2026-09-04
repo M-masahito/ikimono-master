@@ -110,8 +110,16 @@
           "spiria": true,
           "image": "./assets/emblems/badges/dragonfly_bronze.png"
         },
-        {
+                {
           "stage": 2,
+          "rank": "silver",
+          "rankName": "銀",
+          "requiredCount": 4,
+          "spiria": false,
+          "image": "./assets/emblems/badges/dragonfly_silver.png"
+        },
+        {
+          "stage": 3,
           "rank": "gold",
           "rankName": "金",
           "requiredCount": 6,
@@ -151,6 +159,39 @@
           "requiredCount": 50,
           "spiria": true,
           "image": "./assets/emblems/badges/flower_gold.png"
+        }
+      ]
+    },
+        {
+      "id": "butterfly",
+      "typeId": "butterfly",
+      "name": "チョウ",
+      "attribute": "mushi",
+      "spiriaValue": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "rank": "bronze",
+          "rankName": "銅",
+          "requiredCount": 2,
+          "spiria": true,
+          "image": "./assets/emblems/badges/butterfly_bronze.png"
+        },
+        {
+          "stage": 2,
+          "rank": "silver",
+          "rankName": "銀",
+          "requiredCount": 6,
+          "spiria": true,
+          "image": "./assets/emblems/badges/butterfly_silver.png"
+        },
+        {
+          "stage": 3,
+          "rank": "gold",
+          "rankName": "金",
+          "requiredCount": 10,
+          "spiria": true,
+          "image": "./assets/emblems/badges/butterfly_gold.png"
         }
       ]
     }

@@ -158,6 +158,39 @@
         { "stage": 1, "title": "ヘビスピリア", "image": "./assets/spiria/spiria_snake_stage1.png" },
         { "stage": 2, "title": "サーペントナイト", "image": "./assets/spiria/spiria_snake_stage2.png" },
         { "stage": 3, "title": "蛇王ナーガ", "image": "./assets/spiria/spiria_snake_stage3.png" }
+  ]
+},
+    {
+      "id": "butterfly",
+      "name": "チョウスピリア",
+      "attribute": "mushi",
+      "typeId": "butterfly",
+      "unlockCounts": [2, 6, 10],
+      "emblemCounts": [2, 6, 10],
+      "stages": [
+        { "stage": 1, "title": "青虫", "image": "./assets/spiria/spiria_butterfly_stage1.png" },
+        { "stage": 2, "title": "さなぎ", "image": "./assets/spiria/spiria_butterfly_stage2.png" },
+        { "stage": 3, "title": "チョウ", "image": "./assets/spiria/spiria_butterfly_stage3.png" }
+      ]
+    },
+        {
+      "id": "dragonfly",
+      "name": "トンボスピリア",
+      "attribute": "mushi",
+      "typeId": "dragonfly",
+      "unlockCounts": [2, 6],
+      "emblemCounts": [2, 6],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "トンボスピリア",
+          "image": "./assets/spiria/spiria_dragonfly_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "トンボ王",
+          "image": "./assets/spiria/spiria_dragonfly_stage2.png"
+        }
       ]
     }
   ]

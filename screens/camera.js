@@ -3063,9 +3063,8 @@ emblem?.typeId === emblemTypeId                            )
                         )
                   )
                 : [];
-                const emblemName =
-    discoveredItem?.name ?? emblemTypeId;
-
+const emblemName =
+    emblemMaster?.name ?? emblemTypeId;
         save.emblems.push({
 id: emblemTypeId,
 typeId: emblemTypeId,
@@ -3119,9 +3118,8 @@ return {
 
     shouldUnlockSpiria,
 
-    emblemName:
-        `${discoveredItem?.name ?? emblemTypeId}のエンブレム`,
-
+emblemName:
+    `${emblemMaster?.name ?? emblemTypeId}のエンブレム`,
     emblemImage:
         targetEmblemStage.image,
 
