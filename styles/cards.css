@@ -1226,22 +1226,17 @@
 
     border-radius: 22px;
 
-    background:
-        radial-gradient(
-            circle at 50% 10%,
-            rgba(255, 247, 184, 0.75) 0%,
-            rgba(255, 247, 184, 0.18) 25%,
-            transparent 48%
-        ),
-        linear-gradient(
-            180deg,
-            #edf4df 0%,
-            #d8ead1 30%,
-            #b7d2bd 67%,
-            #799b82 100%
-        );
+background:
+linear-gradient(
+    rgba(238, 246, 225, 0.48),
+    rgba(91, 128, 99, 0.52)
+), 
+    url("../assets/emblems/sanctuary_bg.png");
 
-    box-shadow:
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;   
+ box-shadow:
         inset 0 0 45px rgba(33, 73, 52, 0.22),
         0 8px 24px rgba(36, 65, 44, 0.16);
 }
@@ -1254,8 +1249,8 @@
     top: -100px;
     left: 50%;
 
-    width: 320px;
-    height: 390px;
+    width: 460px;
+    height: 430px;
 
     transform: translateX(-50%);
 
@@ -1325,7 +1320,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    gap: 28px 14px;
+   gap: 110px 14px;
 
     align-items: start;
 }
@@ -1341,6 +1336,7 @@
     align-items: center;
 
     min-width: 0;
+    min-height: 220px;   
 }
 
 
@@ -1436,8 +1432,8 @@
 
     display: block;
 
-    width: 132px;
-    height: 132px;
+    width: 260px;
+    height: 260px;
 
     object-fit: contain;
 
@@ -1666,4 +1662,321 @@
     margin-top: 4px;
     padding: 2px 8px;
     font-size: 9px;
+}
+/* =========================================
+   エンブレムの聖域
+   古代祭壇 台座デザイン
+   ========================================= */
+
+/* エンブレムの足元に浮く祭壇 */
+.emblem-sanctuary-pedestal::after {
+    content: "";
+    position: absolute;
+
+    left: 50%;
+    bottom: 2px;
+    transform: translateX(-50%);
+
+    width: 82px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 232, 150, 0.70) 0%,
+            rgba(190, 151, 65, 0.45) 32%,
+            rgba(74, 91, 67, 0.50) 58%,
+            rgba(34, 57, 45, 0.12) 76%,
+            transparent 78%
+        );
+
+    border-top: 1px solid rgba(222, 187, 96, 0.65);
+
+    box-shadow:
+        0 3px 5px rgba(31, 51, 39, 0.22),
+        0 0 8px rgba(255, 221, 125, 0.28),
+        inset 0 2px 2px rgba(255, 245, 205, 0.35);
+
+    z-index: 1;
+}
+
+/* 台座中央の古代紋の光 */
+.emblem-sanctuary-pedestal::before {
+    content: "◇";
+    position: absolute;
+
+    left: 50%;
+    bottom: 4px;
+    transform: translateX(-50%);
+
+    color: rgba(255, 222, 128, 0.82);
+
+    font-size: 13px;
+    line-height: 1;
+
+    text-shadow:
+        0 0 4px rgba(255, 230, 150, 0.8),
+        0 0 9px rgba(255, 210, 90, 0.45);
+
+    z-index: 2;
+}
+/* =========================================
+   エンブレムの聖域
+   古代祭壇 台座 Ver.2
+   ========================================= */
+
+/* 石造りの祭壇本体 */
+.emblem-sanctuary-pedestal::after {
+    content: "";
+    position: absolute;
+
+    left: 50%;
+    bottom: -2px;
+    transform: translateX(-50%);
+
+    width: 92px;
+    height: 24px;
+
+    border-radius: 50% 50% 42% 42%;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 15%,
+            rgba(255, 239, 177, 0.95) 0%,
+            rgba(191, 161, 89, 0.88) 22%,
+            rgba(91, 105, 82, 0.90) 48%,
+            rgba(54, 72, 59, 0.96) 72%,
+            rgba(35, 54, 45, 0.98) 100%
+        );
+
+    border:
+        1px solid rgba(205, 176, 98, 0.72);
+
+    box-shadow:
+        0 5px 5px rgba(22, 43, 33, 0.30),
+        0 8px 12px rgba(22, 43, 33, 0.18),
+        0 0 10px rgba(245, 211, 116, 0.25),
+        inset 0 3px 2px rgba(255, 244, 195, 0.45),
+        inset 0 -5px 5px rgba(23, 44, 34, 0.45);
+
+    z-index: 1;
+}
+
+/* 祭壇中央の金の古代紋 */
+.emblem-sanctuary-pedestal::before {
+    content: "◆";
+    position: absolute;
+
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+
+    font-size: 11px;
+    line-height: 1;
+
+    color: rgba(255, 224, 126, 0.95);
+
+    text-shadow:
+        0 0 3px rgba(255, 246, 200, 0.95),
+        0 0 7px rgba(255, 208, 75, 0.75),
+        0 0 12px rgba(255, 197, 42, 0.35);
+
+    z-index: 2;
+}
+/* =========================================
+   エンブレムの聖域
+   古代神殿 奉納台 Ver.3
+   ========================================= */
+
+/* 奉納台本体 */
+.emblem-sanctuary-pedestal::after {
+    content: "";
+    position: absolute;
+
+    left: 50%;
+    bottom: -1px;
+    transform: translateX(-50%);
+
+    width: 88px;
+    height: 18px;
+
+    /* 石板っぽい形 */
+    border-radius: 4px 4px 9px 9px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(238, 226, 181, 0.98) 0%,
+            rgba(164, 159, 121, 0.96) 25%,
+            rgba(91, 105, 82, 0.98) 55%,
+            rgba(55, 73, 59, 0.98) 100%
+        );
+
+    border-top: 2px solid rgba(226, 188, 84, 0.95);
+    border-left: 1px solid rgba(193, 166, 94, 0.65);
+    border-right: 1px solid rgba(193, 166, 94, 0.65);
+
+    box-shadow:
+        0 4px 5px rgba(31, 48, 38, 0.28),
+        0 7px 10px rgba(31, 48, 38, 0.14),
+        0 0 8px rgba(240, 205, 102, 0.18),
+        inset 0 2px 2px rgba(255, 248, 213, 0.55);
+
+    /* 台形っぽくする */
+    clip-path: polygon(
+        8% 0,
+        92% 0,
+        100% 72%,
+        88% 100%,
+        12% 100%,
+        0 72%
+    );
+
+    z-index: 1;
+}
+
+/* 奉納台中央の古代紋 */
+.emblem-sanctuary-pedestal::before {
+    content: "◇";
+    position: absolute;
+
+    left: 50%;
+    bottom: 3px;
+    transform: translateX(-50%);
+
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 900;
+
+    color: rgba(255, 224, 117, 0.98);
+
+    text-shadow:
+        0 0 3px rgba(255, 250, 218, 1),
+        0 0 7px rgba(255, 211, 76, 0.85),
+        0 0 12px rgba(255, 193, 35, 0.40);
+
+    z-index: 2;
+}
+/* =========================================
+   エンブレムの聖域
+   2段古代祭壇 Ver.4
+   ========================================= */
+
+/* 上段：エンブレムを祀る石板 */
+.emblem-sanctuary-pedestal::after {
+    content: "";
+    position: absolute;
+
+    left: 50%;
+    bottom: 3px;
+    transform: translateX(-50%);
+
+    width: 78px;
+    height: 14px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(250, 237, 190, 0.98) 0%,
+            rgba(174, 164, 118, 0.98) 28%,
+            rgba(91, 105, 82, 0.98) 62%,
+            rgba(48, 68, 54, 1) 100%
+        );
+
+    border-top: 2px solid rgba(225, 187, 76, 0.95);
+
+    clip-path: polygon(
+        8% 0,
+        92% 0,
+        100% 100%,
+        0 100%
+    );
+
+    box-shadow:
+        0 3px 3px rgba(27, 48, 36, 0.28),
+        0 0 7px rgba(241, 207, 104, 0.25);
+
+    z-index: 2;
+}
+
+/* 下段：祭壇基礎＋中央紋章 */
+.emblem-sanctuary-pedestal::before {
+    content: "◇";
+    position: absolute;
+
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%);
+
+    width: 92px;
+    height: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(103, 116, 91, 0.98),
+            rgba(48, 69, 54, 1)
+        );
+
+    border-top: 1px solid rgba(210, 177, 91, 0.8);
+    border-bottom: 2px solid rgba(35, 55, 43, 0.85);
+
+    border-radius: 2px 2px 7px 7px;
+
+    color: rgba(255, 222, 113, 1);
+    font-size: 9px;
+    font-weight: 900;
+
+    text-shadow:
+        0 0 3px rgba(255, 246, 205, 1),
+        0 0 7px rgba(255, 203, 58, 0.75);
+
+    box-shadow:
+        0 5px 6px rgba(25, 45, 34, 0.25),
+        0 0 7px rgba(239, 204, 96, 0.16);
+
+    z-index: 1;
+}
+/* エンブレム聖域：正式台座PNG */
+.emblem-sanctuary-pedestal-image {
+    position: absolute;
+    left: 50%;
+    bottom: -90px;
+    transform: translateX(-50%);
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+}
+/* 古いCSS台座を非表示 */
+.emblem-sanctuary-pedestal::before,
+.emblem-sanctuary-pedestal::after {
+    display: none;
+}
+.emblem-sanctuary-info {
+    position: absolute;
+    left: 50%;
+    bottom: -43px;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: 105px;
+    text-align: center;
+}/* カブトムシだけ少し大きく */
+.emblem-sanctuary-image-beetle {
+    transform: scale(1.1);
+}
+.emblem-sanctuary-info span {
+    display: none;
+}
+.emblem-sanctuary-info strong {
+    color: #fff4c7;
+    font-weight: 900;
+    font-size: 11px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }

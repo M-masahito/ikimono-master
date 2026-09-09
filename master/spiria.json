@@ -192,6 +192,107 @@
           "image": "./assets/spiria/spiria_dragonfly_stage2.png"
         }
       ]
+  
+    },
+    {
+      "id": "ant",
+      "name": "アリスピリア",
+      "attribute": "mushi",
+      "typeId": "ant",
+      "unlockCounts": [3],
+      "emblemCounts": [1, 2, 3],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "アリスピリア",
+          "image": "./assets/spiria/spiria_ant_stage1.png"
+        }
+      ]
+    },
+    {
+      "id": "bee",
+      "name": "ハチスピリア",
+      "attribute": "mushi",
+      "typeId": "bee",
+      "unlockCounts": [2],
+      "emblemCounts": [1, 2, 3],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "ハチスピリア",
+          "image": "./assets/spiria/spiria_bee_stage1.png"
+        }
+      ]
+    },
+    {
+      "id": "ladybug",
+      "name": "テントウムシスピリア",
+      "attribute": "mushi",
+      "typeId": "ladybug",
+      "unlockCounts": [3],
+      "emblemCounts": [1, 2, 3],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "テントウムシスピリア",
+          "image": "./assets/spiria/spiria_ladybug_stage1.png"
+        }
+      ]
+    },
+    {
+      "id": "firefly",
+      "name": "ホタルスピリア",
+      "attribute": "mushi",
+      "typeId": "firefly",
+      "unlockCounts": [3],
+      "emblemCounts": [1, 2, 3],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "ホタルスピリア",
+          "image": "./assets/spiria/spiria_firefly_stage1.png"
+        }
+      ]
+    },
+    {
+      "id": "mantis",
+      "name": "カマキリスピリア",
+      "attribute": "mushi",
+      "typeId": "mantis",
+      "unlockCounts": [2],
+      "emblemCounts": [1, 2, 3],
+      "stages": [
+        {
+          "stage": 1,
+          "title": "カマキリスピリア",
+          "image": "./assets/spiria/spiria_mantis_stage1.png"
+        }
+      ]
+    },
+    {
+      "id": "seawater_fish",
+      "name": "海水魚スピリア",
+      "attribute": "mizu",
+      "typeId": "seawater_fish",
+      "unlockCounts": [10, 20],
+      "specialEvolution": "leviathan",
+      "stages": [
+        {
+          "stage": 1,
+          "title": "海水魚スピリア",
+          "image": "./assets/spiria/spiria_seafish_stage1.png"
+        },
+        {
+          "stage": 2,
+          "title": "海水魚スピリア Stage2",
+          "image": "./assets/spiria/spiria_seafish_stage2.png"
+        },
+        {
+          "stage": 3,
+          "title": "リバイアサン",
+          "image": "./assets/spiria/spiria_seafish_stage3.png"
+        }
+      ]
     }
   ]
 }

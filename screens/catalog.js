@@ -393,6 +393,42 @@ const catalog =
 // エンブレムコレクション
 // 取得済みのみ・1ページ6個
 // =====================================
+function showEmblemRanks(emblem, acquiredStages) {
+const overlay = document.createElement("div");
+ overlay.className = "emblem-rank-overlay";
+
+    overlay.innerHTML = `
+        <div class="emblem-rank-panel">
+            <button
+                type="button"
+                class="emblem-rank-close"
+            >
+                ×
+            </button>
+
+            <h2>${emblem.name}</h2>
+
+            <div class="emblem-rank-list">
+                ${acquiredStages.map(stage => `
+                    <div class="emblem-rank-card">
+                        <img
+                            src="${stage.image}"
+                            alt="${emblem.name} ${stage.rankName}"
+                        >
+                        <strong>${stage.rankName}</strong>
+                    </div>
+                `).join("")}
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+    overlay
+    .querySelector(".emblem-rank-close")
+    ?.addEventListener("click", () => {
+        overlay.remove();
+    });
+}
 
 function showEmblemCollection(screen) {
 
@@ -614,6 +650,7 @@ const collection = isEmblemTestMode()
                                 emblem-sanctuary-item
                                 emblem-rank-${item.rank}
                             "
+                 data-emblem-id="${item.id}"           
                         >
 
                             <div class="emblem-sanctuary-aura"></div>
@@ -621,13 +658,12 @@ const collection = isEmblemTestMode()
                             <div class="emblem-sanctuary-pedestal">
 
                                 <div class="emblem-sanctuary-rune"></div>
-
+<img src="./assets/emblems/pedestal/pedestal.png" class="emblem-sanctuary-pedestal-image">
                                 <img
                                     src="${item.image}"
                                     alt="${item.name}のエンブレム"
-                                    class="emblem-sanctuary-image"
-                                >
-
+                                    class="emblem-sanctuary-image ${item.id === 'beetle' ? 'emblem-sanctuary-image-beetle' : ''}"
+>
                             </div>
 
                             <div class="emblem-sanctuary-info">
@@ -645,8 +681,57 @@ const collection = isEmblemTestMode()
                         </article>
                     `)
                     .join("");
-        }
+             }       
+grid
+    .querySelectorAll("[data-emblem-id]")
+    .forEach(el => {
 
+        el.addEventListener("click", () => {
+
+            const emblemId =
+                el.dataset.emblemId;
+
+                const emblem =
+    emblemMasters.find(
+        e => e.id === emblemId
+    );
+
+console.log(
+    "選択エンブレム:",
+    emblem
+);
+const savedEmblem =
+    savedEmblems.find(
+        e => e.id === emblemId
+    );
+
+console.log(
+    "取得済みエンブレム:",
+    savedEmblem
+);
+const acquiredStages =
+    isEmblemTestMode()
+        ? (emblem?.stages ?? [])
+        : emblem && savedEmblem
+            ? emblem.stages.filter(
+                stage =>
+                    Number(stage.stage) <=
+                    Number(savedEmblem.stage)
+            )
+            : [];
+console.log(
+    "取得済みランク:",
+    acquiredStages
+);
+showEmblemRanks(emblem, acquiredStages);
+            console.log(
+                "エンブレムタップ:",
+                emblemId
+            );
+
+        });
+
+    });
         if (totalPages <= 1) {
 
             pageControls.innerHTML = "";

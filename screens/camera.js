@@ -3019,24 +3019,34 @@ const emblemSpiria =
         )
         : null;
 
+const spiriaStages =
+    shouldUnlockSpiria &&
+    Array.isArray(emblemSpiria?.stages)
+        ? emblemSpiria.stages
+        : [];
+
+const unlockedSpiriaStages =
+    spiriaStages.filter(
+        stage =>
+            Number(stage?.stage) <=
+            Number(targetEmblemStage.spiriaValue ?? targetStage)
+    );
+
 const targetSpiriaStage =
     shouldUnlockSpiria
-        ? emblemSpiria?.stages?.find(
-            stage =>
-                Number(stage?.stage) ===
-                targetStage
-        )
+        ? unlockedSpiriaStages[
+              unlockedSpiriaStages.length - 1
+          ] ?? spiriaStages[0] ?? null
         : null;
 
 const previousSpiriaStage =
     shouldUnlockSpiria
-        ? emblemSpiria?.stages?.find(
-            stage =>
-                Number(stage?.stage) ===
-                previousStage
-        )
+        ? spiriaStages.find(
+              stage =>
+                  Number(stage?.stage) ===
+                  Number(targetSpiriaStage?.stage) - 1
+          ) ?? null
         : null;
-
 if (
     shouldUnlockSpiria &&
     !targetSpiriaStage?.image

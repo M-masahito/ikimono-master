@@ -4553,3 +4553,108 @@ body:has(.spiria-evolution-movie) {
             rgba(255, 226, 94, 0.42)
         );
 }
+/* =====================================
+   エンブレム ランク確認
+   ===================================== */
+
+.emblem-rank-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.emblem-rank-panel {
+    position: relative;
+    width: min(90vw, 520px);
+    padding: 24px 18px 28px;
+    border-radius: 22px;
+    background: #fffdf4;
+    text-align: center;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.emblem-rank-panel h2 {
+    margin: 0 40px 20px;
+    font-size: 22px;
+}
+
+.emblem-rank-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.emblem-rank-list {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.emblem-rank-card {
+    flex: 1;
+    max-width: 145px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.emblem-rank-card img {
+    display: block;
+    width: 100%;
+    max-width: 135px;
+    height: auto;
+    object-fit: contain;
+}
+
+.emblem-rank-card strong {
+    font-size: 16px;
+}
+/* =====================================
+   エンブレム聖域 名前位置
+===================================== */
+
+.emblem-sanctuary-item {
+    position: relative;
+}
+
+.emblem-sanctuary-info {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    bottom: auto !important;
+    top: 183px !important;
+
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+.emblem-sanctuary-info strong {
+    display: block;
+}
+
+.emblem-sanctuary-info span {
+    display: none;
+}
+/* エンブレム聖域 台座サイズ */
+.emblem-sanctuary-pedestal {
+    transform: scale(1.25);
+}
+/* タツノオトシゴの名前だけ小さく */
+.emblem-sanctuary-item[data-emblem-id="seahorse"] .emblem-sanctuary-info strong {
+    font-size: 9px !important;
+}
