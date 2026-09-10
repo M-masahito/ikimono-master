@@ -1947,9 +1947,9 @@ background-repeat: no-repeat;
 .emblem-sanctuary-pedestal-image {
     position: absolute;
     left: 50%;
-    bottom: -90px;
+    bottom: -60px;
     transform: translateX(-50%);
-    width: 150px;
+    width: 100px;
     height: auto;
     object-fit: contain;
     z-index: 1;

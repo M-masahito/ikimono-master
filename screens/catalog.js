@@ -2915,50 +2915,46 @@ width:32%;
     background:#8a8a8a;
 }
 
+/* エンブレム本体を少し小さくする */
+.emblem-sanctuary-image{
+    width:85% !important;
+    height:85% !important;
+    object-fit:contain !important;
 
-        @media(prefers-color-scheme:dark){
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%, -50%) !important;
+}
+    
+/* iPhone表示・長押し対策 */
 
-            .encyclopedia-title-icon,
-            .encyclopedia-count,
-            .encyclopedia-progress-area,
-            .encyclopedia-search-box,
-            .encyclopedia-filter,
-            .catalog-card{
-                background:#222722;
-            }
+.encyclopedia-title-icon,
+.encyclopedia-count,
+.encyclopedia-progress-area,
+.encyclopedia-search-box,
+.encyclopedia-filter{
+    background:#ffffff !important;
+    color:#222222 !important;
+}
 
-            .catalog-detail-panel{
-                background:#252525;
-                color:#f4f4f4;
-            }
+.encyclopedia-search{
+    color:#222222 !important;
+    background:#ffffff !important;
+}
 
-            .catalog-detail-close{
-                background:#414141;
-                color:#ffffff;
-            }
+.encyclopedia-search::placeholder{
+    color:#777777 !important;
+}
 
-            .catalog-detail-description{
-                background:#343434;
-            }
+.catalog-card img,
+.catalog-detail-panel img,
 
-            .catalog-detail-info{
-                border-color:#444444;
-            }
-
-            .catalog-detail-row{
-                border-color:#444444;
-            }
-
-            .catalog-detail-tag{
-                background:#35513c;
-            }
-
-            .unknown-detail-hint{
-                background:#3b3b3b;
-            }
-
-        }
-
+.emblem-sanctuary img{
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    user-select:none;
+}
     `;
 
     document.head.appendChild(style);
