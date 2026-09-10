@@ -1240,7 +1240,7 @@ ${
 }
 
             <img
-                src="${image}"
+                src="${found ? image : './assets/spiria/spirit_egg.png'}"
                 alt="${found ? item.name : '未発見の生き物'}"
                 loading="lazy"
                 class="${
@@ -2230,11 +2230,17 @@ function addCatalogStyles(){
 }
 
 .catalog-real-image-unknown{
-    filter:brightness(0.55) saturate(0.65);
-    opacity:0.85;
+    width: 90% !important;
+    height: 90% !important;
+    object-fit: contain !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    filter: brightness(0.55) saturate(0.65);
+    opacity: 0.85;
 }
-
-        .catalog-card-back{
+            .catalog-card-back{
             display:flex;
             align-items:center;
             justify-content:center;
