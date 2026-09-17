@@ -125,8 +125,49 @@ export function showHome(screen) {
         equippedStageData?.title ??
         equippedSpiriaData?.name ??
         "ふしぎなスピリア";
+// =====================================
+// 羽化後：保留エンブレムを選択可能にする
+// =====================================
 
-    screen.innerHTML = `
+const pendingSpiriaEmblems =
+    Array.isArray(
+        save.spirit?.pendingSpiriaEmblems
+    )
+        ? save.spirit.pendingSpiriaEmblems
+        : [];
+
+const discoveryCount =
+    new Set(
+        [
+            ...(Array.isArray(save.discovered)
+                ? save.discovered
+                : []),
+
+            ...(Array.isArray(save.discoveredCards)
+                ? save.discoveredCards.map(
+                    card => card?.no
+                )
+                : [])
+        ]
+            .map(Number)
+            .filter(Number.isFinite)
+    ).size;
+// 保留エンブレムは4種類目から聖域で光る
+const canUsePendingSpiria =
+    discoveryCount >= 4;
+
+if (
+    !testMode &&
+    canUsePendingSpiria &&
+    pendingSpiriaEmblems.length > 0 &&
+    save.spirit?.pendingSpiriaReady !== true
+) {
+    update(currentSave => {
+        currentSave.spirit ??= {};
+        currentSave.spirit.pendingSpiriaReady = true;
+    });
+} 
+   screen.innerHTML = `
         <section
             class="forest-home forest-garden-home"
         >
@@ -222,20 +263,43 @@ export function showHome(screen) {
             playSpiriaEvolution({
                 fromImage: previousImage,
                 toImage: homeSpiriaImage,
-                spiriaName:
-                    automaticBaseEvolution?.name ??
-                    homeSpiriaName,
-                onComplete: () => {
-                    update(currentSave => {
-                        currentSave.spirit ??= {};
-                        currentSave.spirit
-                            .evolutionProgress ??= {};
-                        currentSave.spirit
-                            .evolutionProgress.all =
-                                movieEvolutionStage;
-                    });
-                }
-            });
+spiriaName:
+    equippedStageData?.title ??
+    homeSpiriaName,onComplete: () => {
+    update(currentSave => {
+        currentSave.spirit ??= {};
+        currentSave.spirit
+            .evolutionProgress ??= {};
+
+        currentSave.spirit
+            .evolutionProgress.all =
+                movieEvolutionStage;
+
+        // 3種類目で羽化したベースの子を精霊一覧へ登録
+        if (movieEvolutionStage === 1) {
+            currentSave.spiria =
+                Array.isArray(currentSave.spiria)
+                    ? currentSave.spiria
+                    : [];
+
+            const baseRegistered =
+                currentSave.spiria.some(
+                    item =>
+                        item === "base" ||
+                        item?.id === "base"
+                );
+
+            if (!baseRegistered) {
+                currentSave.spiria.push({
+                    id: "base",
+                    stage: 1,
+                    unlockedAt:
+                        new Date().toISOString()
+                });
+            }
+        }
+    });
+}            });
         }
     }
 

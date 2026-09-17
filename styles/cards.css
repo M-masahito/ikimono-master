@@ -1947,7 +1947,7 @@ background-repeat: no-repeat;
 .emblem-sanctuary-pedestal-image {
     position: absolute;
     left: 50%;
-    bottom: -57px;
+    bottom: -56px;
     transform: translateX(-50%);
     width: 88px;
     height: auto;

@@ -4658,3 +4658,26 @@ body:has(.spiria-evolution-movie) {
 .emblem-sanctuary-item[data-emblem-id="seahorse"] .emblem-sanctuary-info strong {
     font-size: 9px !important;
 }
+/* =====================================
+   孵化待ち解除後 スピリア選択可能エンブレム
+===================================== */
+
+.emblem-spiria-pending {
+    cursor: pointer;
+    animation: emblemSpiriaPendingGlow 1.4s ease-in-out infinite;
+}
+
+@keyframes emblemSpiriaPendingGlow {
+    0%,
+    100% {
+        filter:
+            drop-shadow(0 0 6px rgba(255, 230, 120, 0.55))
+            drop-shadow(0 0 12px rgba(255, 215, 80, 0.35));
+    }
+
+    50% {
+        filter:
+            drop-shadow(0 0 12px rgba(255, 245, 170, 1))
+            drop-shadow(0 0 24px rgba(255, 215, 80, 0.85));
+    }
+}

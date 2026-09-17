@@ -5,12 +5,24 @@
 // PART1
 // =====================================
 
-import { getSave } from "../system/storage.js";
+import {
+    getSave,
+    update
+} from "../system/storage.js";
+
+import {
+    getSpiritEvolutionStage
+} from "../system/spiritEvolution.js";
 import {
     getCatalogLevel,
     getUnlockedMaxNo
 } from "../system/catalogLevel.js";
-
+import {
+    playSpiriaEvolution
+} from "./spirit.js";
+import {
+    openScreen
+} from "../app.js";
 const DEFAULT_IMAGE = "./icon-192.png";
 
 // =====================================
@@ -433,6 +445,22 @@ const overlay = document.createElement("div");
 function showEmblemCollection(screen) {
 
     const save = getSave();
+    const baseEvolution =
+    getSpiritEvolutionStage(
+        save,
+        "all"
+    );
+
+const isBaseSpiriaHatched =
+    Number(baseEvolution?.stage) >= 1;
+    console.log(
+    "★ベース羽化確認",
+    baseEvolution,
+    "stage=",
+    baseEvolution?.stage,
+    "isBaseSpiriaHatched=",
+    isBaseSpiriaHatched
+);
 
     const savedEmblems =
         Array.isArray(save.emblems)
@@ -619,7 +647,29 @@ const collection = isEmblemTestMode()
                 start + PAGE_SIZE
             );
 
-        if (pageItems.length === 0) {
+            // 羽化前に取得したエンブレムの保留判定
+const pendingSpiriaEmblems =
+    Array.isArray(save.spirit?.pendingSpiriaEmblems)
+        ? save.spirit.pendingSpiriaEmblems
+        : [];
+
+const pendingEmblemIds =
+    new Set(
+        pendingSpiriaEmblems
+            .map(
+                item =>
+                    typeof item === "string"
+                        ? item
+                        : item?.id
+            )
+            .filter(Boolean)
+    );
+    // ベースの子が羽化した後だけ保留エンブレムを光らせる
+const glowingPendingEmblemIds =
+    isBaseSpiriaHatched
+        ? pendingEmblemIds
+        : new Set();
+            if (pageItems.length === 0) {
 
             grid.innerHTML = `
                 <div class="emblem-sanctuary-empty">
@@ -645,14 +695,16 @@ const collection = isEmblemTestMode()
             grid.innerHTML =
                 pageItems
                     .map(item => `
-                        <article
-                            class="
-                                emblem-sanctuary-item
-                                emblem-rank-${item.rank}
-                            "
-                 data-emblem-id="${item.id}"           
-                        >
-
+<article
+    class="
+        emblem-sanctuary-item
+        emblem-rank-${item.rank}
+       ${glowingPendingEmblemIds.has(item.id)
+            ? "emblem-spiria-pending"
+            : ""}
+    "
+    data-emblem-id="${item.id}"
+>
                             <div class="emblem-sanctuary-aura"></div>
 
                             <div class="emblem-sanctuary-pedestal">
@@ -686,12 +738,119 @@ grid
     .querySelectorAll("[data-emblem-id]")
     .forEach(el => {
 
-        el.addEventListener("click", () => {
+el.addEventListener("click", () => {
 
-            const emblemId =
-                el.dataset.emblemId;
+    const emblemId =
+        el.dataset.emblemId;
 
-                const emblem =
+    const isPendingSpiria =
+        pendingEmblemIds.has(
+            emblemId
+        );
+
+if (isPendingSpiria) {
+
+    const spiriaMaster =
+        Array.isArray(window.MASTER?.spiria)
+            ? window.MASTER.spiria
+            : [];
+
+    const spiriaData =
+        spiriaMaster.find(
+            item => item.id === emblemId
+        );
+
+    const pendingData =
+        pendingSpiriaEmblems.find(
+            item =>
+                (
+                    typeof item === "string"
+                        ? item
+                        : item?.id
+                ) === emblemId
+        );
+
+    const targetStage =
+        Number(
+            typeof pendingData === "object"
+                ? pendingData?.stage
+                : 1
+        ) || 1;
+
+    update(save => {
+
+        save.spiria =
+            Array.isArray(save.spiria)
+                ? save.spiria.filter(
+                    item =>
+                        !(
+                            item === emblemId ||
+                            item?.id === emblemId ||
+                            item?.spiriaId === emblemId
+                        )
+                )
+                : [];
+
+        save.spiria.push({
+            id: emblemId,
+            stage: targetStage,
+            unlockedAt: new Date().toISOString()
+        });
+
+        save.spirit ??= {};
+
+        save.spirit.pendingSpiriaEmblems =
+            Array.isArray(
+                save.spirit.pendingSpiriaEmblems
+            )
+                ? save.spirit.pendingSpiriaEmblems.filter(
+                    item =>
+                        (
+                            typeof item === "string"
+                                ? item
+                                : item?.id
+                        ) !== emblemId
+                )
+                : [];
+if (
+    save.spirit.pendingSpiriaEmblems.length === 0
+) {
+    save.spirit.pendingSpiriaReady = false;
+}
+        save.spirit.equippedSpiria =
+            emblemId;
+
+        save.spirit.stage =
+            targetStage;
+
+        save.spirit.evolutionProgress ??= {};
+
+        save.spirit.evolutionProgress[emblemId] =
+            targetStage;
+    });
+
+   const targetImage =
+    spiriaData?.stages?.find(
+        stage =>
+            Number(stage.stage) === targetStage
+    )?.image;
+
+playSpiriaEvolution({
+    fromImage:
+        "./assets/spiria/spiria_base.png",
+    toImage:
+        targetImage ??
+        "./assets/spiria/spiria_base.png",
+    spiriaName:
+        spiriaData?.name ??
+        "スピリア",
+onComplete: () => {
+    openScreen("spirit");
+}
+});
+
+    return;
+}                const emblem =
     emblemMasters.find(
         e => e.id === emblemId
     );

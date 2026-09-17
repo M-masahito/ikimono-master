@@ -15,6 +15,7 @@
         "rankName": "銅",
         "requiredCount": 1,
         "spiria": true,
+        "spiriaStage": 1,
         "image": "./assets/emblems/badges/beetle_bronze.png"
     },
     {
@@ -31,42 +32,45 @@
         "rankName": "金",
         "requiredCount": 4,
         "spiria": true,
+        "spiriaStage": 2,
         "image": "./assets/emblems/badges/beetle_gold.png"
     }
 ]    },
 
     {
-      "id": "stagbeetle",
+      "id": "stag_beetle",
       "typeId": "stag_beetle",
       "name": "クワガタ",
       "attribute": "mushi",
       "spiriaValue": 3,
       "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": true,
-          "image": "./assets/emblems/badges/stagbeetle_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 3,
-          "spiria": true,
-          "image": "./assets/emblems/badges/stagbeetle_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 5,
-          "spiria": true,
-          "image": "./assets/emblems/badges/stagbeetle_gold.png"
-        }
-      ]
+{
+    "stage": 1,
+    "rank": "bronze",
+    "rankName": "銅",
+    "requiredCount": 1,
+    "spiria": true,
+    "spiriaStage": 1,
+    "image": "./assets/emblems/badges/stagbeetle_bronze.png"
+},
+{
+    "stage": 2,
+    "rank": "silver",
+    "rankName": "銀",
+    "requiredCount": 3,
+    "spiria": true,
+    "spiriaStage": 2,
+    "image": "./assets/emblems/badges/stagbeetle_silver.png"
+},
+{
+    "stage": 3,
+    "rank": "gold",
+    "rankName": "金",
+    "requiredCount": 5,
+    "spiria": true,
+    "spiriaStage": 3,
+    "image": "./assets/emblems/badges/stagbeetle_gold.png"
+}      ]
     },
 
     {

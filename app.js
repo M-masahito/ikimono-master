@@ -96,7 +96,76 @@ function createNavigation() {
     });
 
 }
+// =======================================
+// 下メニュー 精霊アイコン更新
+// =======================================
 
+function updateSpiritNavIcon() {
+
+    const icon =
+        document.getElementById(
+            "navSpiritIcon"
+        );
+
+    if (!icon) {
+        return;
+    }
+
+    const save = getSave();
+
+    const spiriaMaster =
+        Array.isArray(window.MASTER?.spiria)
+            ? window.MASTER.spiria
+            : [];
+
+    const equippedSpiriaId =
+        save.spirit?.equippedSpiria ??
+        "base";
+
+    const spiriaData =
+        spiriaMaster.find(
+            item =>
+                item.id === equippedSpiriaId
+        );
+
+    // まず発見0なら必ず卵
+    const discoveredCount =
+        Array.isArray(save.discovered)
+            ? save.discovered.length
+            : 0;
+
+    if (discoveredCount === 0) {
+
+        icon.src =
+            "./assets/spiria/spiria_egg.png";
+
+        return;
+    }
+
+    // タイプ別スピリア
+    if (equippedSpiriaId !== "base") {
+
+        const stageNumber =
+            Number(save.spirit?.stage) || 1;
+
+        const stageData =
+            spiriaData?.stages?.find(
+                stage =>
+                    Number(stage.stage) ===
+                    stageNumber
+            );
+
+        icon.src =
+            stageData?.image ??
+            "./assets/spiria/spiria_base.png";
+
+        return;
+    }
+
+    // ベース精霊
+    icon.src =
+        "./assets/spiria/spiria_base.png";
+}
 // =======================================
 // 画面切り替え
 // =======================================
@@ -104,8 +173,10 @@ function createNavigation() {
 export function openScreen(name) {
 
     updateDiscoverCount();
+            updateSpiritNavIcon();
 
     document
+
         .querySelectorAll(
             "#bottomNav button"
         )

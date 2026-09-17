@@ -41,12 +41,11 @@ const equippedId =
         savedEquippedId
 
         : savedEquippedId;    // 入手済みスピリアのID
-    // ベース精霊は最初から使用可能
+   // 入手済みスピリアのみ使用可能
     const ownedSpiriaIds =
         new Set([
-            "base",
 
-            ...(Array.isArray(save.spiria)
+    ...(Array.isArray(save.spiria)
                 ? save.spiria
                     .map(item => {
 
@@ -79,6 +78,12 @@ const availableSpiria =
                 )
         );
 
+        // 卵段階かどうか
+const isEgg =
+    !testMode &&
+    equippedId === "base" &&
+    !ownedSpiriaIds.has("base");
+
         const currentSpiria =
     spiriaMaster.find(
         spiria =>
@@ -110,12 +115,16 @@ const currentStage =
     currentSpiria?.stages?.[0];
 
 const currentSpiriaImage =
-    currentStage?.image ??
-    "./assets/spiria/spiria_base.png";
+    isEgg
+        ? "./assets/spiria/spiria_egg.png"
+        : currentStage?.image ??
+          "./assets/spiria/spiria_base.png";
 
 const currentSpiriaName =
-    currentSpiria?.name ??
-    "ふしぎなスピリア";
+    isEgg
+        ? "ふしぎなたまご"
+        : currentSpiria?.name ??
+          "ふしぎなスピリア";
     screen.innerHTML = `
 
         <section class="spiria-screen">
@@ -347,9 +356,9 @@ playSpiriaEvolution({
     toImage:
         targetStage.image,
 
-    spiriaName:
-        currentSpiriaName,
-
+spiriaName:
+    targetStage.title ??
+    currentSpiriaName,
     onComplete: () => {
 
         sessionStorage.setItem(

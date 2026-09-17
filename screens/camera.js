@@ -13,6 +13,11 @@ import {
     resetDebugTestSave
 } from "../system/storage.js";
 import { playSpiriaEvolution } from "./spirit.js";
+
+import {
+    getSpiritEvolutionStage
+} from "../system/spiritEvolution.js";
+
 import { createCatalogCard } from "./catalog.js";
 // 図鑑に保存できるカードの最大表示枚数
 const MAX_CARD_COUNT = 10;
@@ -2824,12 +2829,29 @@ await showEmblemGet({
     reward: emblemReward,
     judgeResult
 });
-if (emblemReward.shouldUnlockSpiria) {
+const currentSave = getSave();
 
-    await wait(1000);
+const discoveredTotal =
+    new Set(
+        (Array.isArray(currentSave.discovered)
+            ? currentSave.discovered
+            : []
+        )
+        .map(Number)
+        .filter(Number.isFinite)
+    ).size;
+
+// スピリア進化は4種類目以降
+const canUnlockSpiriaNow =
+    discoveredTotal >= 4;
+
+if (
+    emblemReward.shouldUnlockSpiria &&
+    canUnlockSpiriaNow
+) {
+            await wait(1000);
 
     playSpiriaEvolution({
-
         fromImage:
             emblemReward.fromImage,
 
@@ -2848,7 +2870,7 @@ if (emblemReward.shouldUnlockSpiria) {
 
     openHomeScreen(screen);
 }
-            return;
+    return;
         }
         
         showRegisterComplete({
@@ -3025,21 +3047,21 @@ const spiriaStages =
         ? emblemSpiria.stages
         : [];
 
-const unlockedSpiriaStages =
-    spiriaStages.filter(
-        stage =>
-            Number(stage?.stage) <=
-            Number(targetEmblemStage.spiriaValue ?? targetStage)
-    );
-
-const targetSpiriaStage =
-    shouldUnlockSpiria
-        ? unlockedSpiriaStages[
-              unlockedSpiriaStages.length - 1
-          ] ?? spiriaStages[0] ?? null
+// 今回GETしたエンブレム自身の spiriaValue で
+// 解放するスピリアStageを決める
+const spiriaValue =
+    targetEmblemStage.spiria === true
+        ? Number(targetEmblemStage.spiriaStage) || 0
+        : 0;
+                const targetSpiriaStage =
+    shouldUnlockSpiria && spiriaValue > 0
+        ? spiriaStages.find(
+            stage =>
+                Number(stage?.stage) ===
+                spiriaValue
+        ) ?? null
         : null;
-
-const previousSpiriaStage =
+        const previousSpiriaStage =
     shouldUnlockSpiria
         ? spiriaStages.find(
               stage =>
@@ -3052,12 +3074,14 @@ if (
     !targetSpiriaStage?.image
 ) {
     console.warn(
-        "エンブレム用スピリア画像が見つかりません。"
+        "スピリア画像が見つからないため、エンブレムのみGETします。",
+        {
+            emblemTypeId,
+            spiriaValue,
+            targetSpiriaStage
+        }
     );
-
-    return null;
 }
-
     update(save => {
 
         save.emblems =
@@ -3085,8 +3109,32 @@ name: `${emblemName}のエンブレム`,            rank: rankId,
                 new Date().toISOString()
         });
 
-if (shouldUnlockSpiria) {
+const discoveredTotal =
+    new Set([
+        ...(Array.isArray(save.discovered)
+            ? save.discovered
+            : []),
+        ...(Array.isArray(save.discoveredCards)
+            ? save.discoveredCards.map(
+                card => card?.no
+            )
+            : [])
+    ]
+        .map(Number)
+        .filter(Number.isFinite)
+    ).size;
 
+// 3種類目でメイン精霊が羽化
+const hasHatched =
+    discoveredTotal >= 3;
+
+// スピリアの即時解放は4種類目から
+const canUnlockSpiriaNow =
+    discoveredTotal >= 4;
+    if (
+    shouldUnlockSpiria &&
+    canUnlockSpiriaNow
+) {
     save.spiria =
         Array.isArray(save.spiria)
             ? save.spiria.filter(
@@ -3101,7 +3149,7 @@ if (shouldUnlockSpiria) {
 
     save.spiria.push({
         id: emblemTypeId,
-        stage: targetStage,
+       stage: Number(targetSpiriaStage?.stage) || 1,
         unlockedAt:
             new Date().toISOString()
     });
@@ -3111,13 +3159,54 @@ if (shouldUnlockSpiria) {
     save.spirit.equippedSpiria =
         emblemTypeId;
 
-    save.spirit.stage =
-        targetStage;
-
+save.spirit.stage =
+    Number(targetSpiriaStage?.stage) || 1;
     save.spirit.evolutionProgress ??= {};
 
-    save.spirit.evolutionProgress[emblemTypeId] =
-        targetStage;
+save.spirit.evolutionProgress[emblemTypeId] =
+    Number(targetSpiriaStage?.stage) || 1;
+}
+if (
+    shouldUnlockSpiria &&
+    !canUnlockSpiriaNow
+) {
+    save.spirit ??= {};
+
+    save.spirit.pendingSpiriaEmblems =
+        Array.isArray(
+            save.spirit.pendingSpiriaEmblems
+        )
+            ? save.spirit.pendingSpiriaEmblems
+            : [];
+
+    const alreadyPending =
+        save.spirit.pendingSpiriaEmblems.some(
+            item =>
+                (
+                    typeof item === "string"
+                        ? item
+                        : item?.id
+                ) === emblemTypeId
+        );
+
+    if (!alreadyPending) {
+        save.spirit.pendingSpiriaEmblems.push({
+            id: emblemTypeId,
+            stage: Number(targetSpiriaStage?.stage) || 1,
+            pendingAt:
+                new Date().toISOString()
+        });
+    }
+    // 4種類目以降になったら
+// 過去の保留エンブレムを聖域で光らせる
+}
+// 4種類目以降は、過去の保留エンブレムを聖域で光らせる
+if (
+    discoveredTotal >= 4 &&
+    Array.isArray(save.spirit?.pendingSpiriaEmblems) &&
+    save.spirit.pendingSpiriaEmblems.length > 0
+) {
+    save.spirit.pendingSpiriaReady = true;
 }
 });
 return {
@@ -3133,14 +3222,13 @@ emblemName:
     emblemImage:
         targetEmblemStage.image,
 
-    fromImage:
-        shouldUnlockSpiria
-            ? (
-                previousSpiriaStage?.image ??
-                "./assets/spiria/spiria_base.png"
-            )
-            : null,
-
+fromImage:
+    shouldUnlockSpiria
+        ? (
+            previousSpiriaStage?.image ??
+            targetSpiriaStage?.image
+        )
+        : null,
     toImage:
         shouldUnlockSpiria
             ? targetSpiriaStage?.image
