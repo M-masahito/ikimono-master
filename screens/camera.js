@@ -19,7 +19,10 @@ import {
 } from "../system/spiritEvolution.js";
 
 import { createCatalogCard } from "./catalog.js";
-// 図鑑に保存できるカードの最大表示枚数
+import {
+    showDiscoveryPouch,
+    saveToDiscoveryPouch
+} from "./discoveryPouch.js";
 const MAX_CARD_COUNT = 10;
 
 // AIが表示する候補数
@@ -55,6 +58,21 @@ export function showCamera(screen) {
                 </div>
 
             </header>
+
+            <div class="discovery-pouch-button" id="discoveryPouchButton">
+    <span class="discovery-pouch-icon">🎒</span>
+
+    <span class="discovery-pouch-text">
+        <strong>発見ポーチ</strong>
+        <small>見つけた仲間を確認</small>
+    </span>
+
+    <span
+        class="discovery-pouch-badge"
+        id="discoveryPouchBadge"
+        hidden
+    >0</span>
+</div>
 
             <div class="camera-card">
 
@@ -189,6 +207,16 @@ export function showCamera(screen) {
 
         </section>
     `;
+
+        const discoveryPouchButton =
+        screen.querySelector("#discoveryPouchButton");
+
+    discoveryPouchButton?.addEventListener(
+        "click",
+        () => {
+            showDiscoveryPouch(screen);
+        }
+    );
 
     // -----------------------------
     // 画面内の要素
@@ -1941,6 +1969,9 @@ function selectCandidate({
     button.classList.add(
         "candidate-selected"
     );
+    if (selectedImageUrl) {
+    saveToDiscoveryPouch(selectedImageUrl);
+}
 
     button.innerHTML += `
 
@@ -2851,6 +2882,7 @@ if (
 ) {
             await wait(1000);
 
+  
     playSpiriaEvolution({
         fromImage:
             emblemReward.fromImage,
@@ -2931,6 +2963,37 @@ if (!emblemTypeId) {
 }
     const currentSave = getSave();
 
+    const currentEquippedSpiriaId =
+    currentSave?.spirit?.equippedSpiria ?? "base";
+
+const currentEquippedSpiriaStage =
+    Number(currentSave?.spirit?.stage) || 1;
+
+const currentEquippedSpiria =
+    Array.isArray(window.MASTER?.spiria)
+        ? window.MASTER.spiria.find(
+            item => item?.id === currentEquippedSpiriaId
+        )
+        : null;
+
+const currentEquippedStageData =
+    Array.isArray(currentEquippedSpiria?.stages)
+        ? (
+            currentEquippedSpiria.stages.find(
+                stage =>
+                    Number(stage?.stage) ===
+                    currentEquippedSpiriaStage
+            ) ??
+            currentEquippedSpiria.stages[
+                currentEquippedSpiria.stages.length - 1
+            ] ??
+            null
+        )
+        : null;
+
+const currentSpiriaImage =
+    currentEquippedStageData?.image ?? null;
+
     const discoveredNumbers =
         new Set([
             ...(Array.isArray(
@@ -2948,7 +3011,7 @@ if (!emblemTypeId) {
             .map(Number)
             .filter(Number.isFinite));
 
-const emblemCount =
+let emblemCount =
     encyclopedia.filter(
         item =>
             item?.typeId === emblemTypeId &&
@@ -2956,6 +3019,52 @@ const emblemCount =
                 Number(item?.no)
             )
     ).length;
+
+    // ======================================
+// 狼エンブレム特殊条件用
+// 銅取得後、けもの属性10匹で銀
+// ======================================
+
+let wolfKemonoCount = 0;
+
+if (emblemTypeId === "wolf") {
+    wolfKemonoCount =
+        encyclopedia.filter(
+            item =>
+                item?.attribute === "kemono" &&
+                discoveredNumbers.has(
+                    Number(item?.no)
+                )
+        ).length;
+}
+
+    // =======================================
+// 海水魚 特殊進化用
+// 金エンブレムGET時にリバイアサンへ進化
+// =======================================
+
+let seawaterFishSpecialEvolution = false;
+
+// =======================================
+// シャチ特殊進化用
+// 銅：シャチ1種
+// 銀：海水魚10種
+// 金：イルカ銀＋クジラ銀
+// =======================================
+
+let orcaSeawaterFishCount = 0;
+
+if (emblemTypeId === "orca") {
+
+    orcaSeawaterFishCount =
+        encyclopedia.filter(
+            item =>
+                item?.typeId === "seawater_fish" &&
+                discoveredNumbers.has(
+                    Number(item?.no)
+                )
+        ).length;
+}
     console.log(
     "🏅 エンブレム判定",
     {
@@ -2982,32 +3091,165 @@ const emblemStages =
         ? emblemMaster.stages
         : [];
 
-const targetEmblemStage =
-    [...emblemStages]
-        .sort(
-            (a, b) =>
-                Number(b.requiredCount) -
-                Number(a.requiredCount)
-        )
-        .find(
-            stage =>
-                emblemCount >=
-                Number(stage.requiredCount)
+const savedEmblems =
+    Array.isArray(currentSave.emblems)
+        ? currentSave.emblems
+        : [];
+
+const wolfSavedEmblem =
+    savedEmblems.find(
+        emblem =>
+            typeof emblem === "object" &&
+            (
+                emblem?.id === "wolf" ||
+                emblem?.typeId === "wolf"
+            )
+    );
+
+const wolfPreviousStage =
+    Number(wolfSavedEmblem?.stage) || 0;
+
+let targetEmblemStage = null;
+
+if (emblemTypeId === "wolf") {
+
+    // 狼・銅：オオカミ発見
+    // 狼・銀：銅取得後 ＋ けもの属性10匹
+    // 狼・金：銀取得後 ＋ 月エンブレム（後で実装）
+
+    if (
+        wolfPreviousStage >= 1 &&
+        wolfKemonoCount >= 10
+    ) {
+        targetEmblemStage =
+            emblemStages.find(
+                stage => Number(stage.stage) === 2
+            );
+
+    } else if (
+        wolfPreviousStage === 0 &&
+        emblemCount >= 1
+    ) {
+        targetEmblemStage =
+            emblemStages.find(
+                stage => Number(stage.stage) === 1
+            );
+    }
+} else if (emblemTypeId === "seawater_fish") {
+
+    // 海水魚は通常通りエンブレム段階を判定
+    targetEmblemStage =
+        [...emblemStages]
+            .sort(
+                (a, b) =>
+                    Number(b.requiredCount) -
+                    Number(a.requiredCount)
+            )
+            .find(
+                stage =>
+                    emblemCount >=
+                    Number(stage.requiredCount)
+            );
+
+    // 金エンブレムならリバイアサン進化対象
+    if (Number(targetEmblemStage?.stage) === 3) {
+        seawaterFishSpecialEvolution = true;
+    }
+
+} else if (emblemTypeId === "orca") {
+    // シャチ金
+    // ※金の「イルカ銀＋クジラ銀」は次で専用判定を入れる
+
+    // シャチ銀：海水魚10種
+    if (orcaSeawaterFishCount >= 10) {
+        targetEmblemStage =
+            emblemStages.find(
+                stage => Number(stage.stage) === 2
+            );
+    }
+
+    // シャチ銅：シャチ1種
+    else if (emblemCount >= 1) {
+        targetEmblemStage =
+            emblemStages.find(
+                stage => Number(stage.stage) === 1
+            );
+    }
+
+} else {
+
+    // 通常エンブレムは今まで通り
+    targetEmblemStage =
+        [...emblemStages]
+            .sort(
+                (a, b) =>
+                    Number(b.requiredCount) -
+                    Number(a.requiredCount)
+            )
+            .find(
+                stage =>
+                    emblemCount >=
+                    Number(stage.requiredCount)
+            );
+}
+
+
+// =======================================
+// シャチ金 特殊判定
+// イルカ銀 + クジラ銀 → シャチ金
+// =======================================
+
+if (emblemTypeId === "orca") {
+
+    const dolphinEmblem =
+        savedEmblems.find(
+            emblem =>
+                typeof emblem === "object" &&
+                (
+                    emblem?.id === "dolphin" ||
+                    emblem?.typeId === "dolphin"
+                )
         );
+
+    const whaleEmblem =
+        savedEmblems.find(
+            emblem =>
+                typeof emblem === "object" &&
+                (
+                    emblem?.id === "whale" ||
+                    emblem?.typeId === "whale"
+                )
+        );
+
+    const dolphinStage =
+        Number(dolphinEmblem?.stage) || 0;
+
+    const whaleStage =
+        Number(whaleEmblem?.stage) || 0;
+
+    // イルカ銀以上 ＋ クジラ銀以上
+    if (
+        dolphinStage >= 2 &&
+        whaleStage >= 2
+    ) {
+        targetEmblemStage =
+            emblemStages.find(
+                stage =>
+                    Number(stage.stage) === 3
+            );
+    }
+}
 
 if (!targetEmblemStage) {
     return null;
 }
 
 const targetStage =
-    Number(targetEmblemStage.stage) || 0;    if (targetStage === 0) {
-        return null;
-    }
+    Number(targetEmblemStage.stage) || 0;
 
-    const savedEmblems =
-        Array.isArray(currentSave.emblems)
-            ? currentSave.emblems
-            : [];
+if (targetStage === 0) {
+    return null;
+}
 
 const savedEmblem =
     savedEmblems.find(
@@ -3018,14 +3260,15 @@ const savedEmblem =
                 emblem?.typeId === emblemTypeId
             )
     );
+
 const previousStage =
     Number(
         savedEmblem?.stage
     ) || 0;
-    if (targetStage <= previousStage) {
-        return null;
-    }
 
+if (targetStage <= previousStage) {
+    return null;
+}
 const rankId =
     targetEmblemStage.rank ?? "";
 
@@ -3053,7 +3296,7 @@ const spiriaValue =
     targetEmblemStage.spiria === true
         ? Number(targetEmblemStage.spiriaStage) || 0
         : 0;
-                const targetSpiriaStage =
+let targetSpiriaStage =
     shouldUnlockSpiria && spiriaValue > 0
         ? spiriaStages.find(
             stage =>
@@ -3061,6 +3304,38 @@ const spiriaValue =
                 spiriaValue
         ) ?? null
         : null;
+
+// =======================================
+// 海水魚・金エンブレム特殊進化
+// リバイアサンへ進化
+// =======================================
+
+if (
+    emblemTypeId === "seawater_fish" &&
+    seawaterFishSpecialEvolution
+) {
+    targetSpiriaStage =
+        spiriaStages.find(
+            stage =>
+                Number(stage?.stage) === 3
+        ) ?? null;
+}
+// =======================================
+// 狼・月覚醒特殊進化
+// 月狼フェンリルへ進化
+// =======================================
+
+if (
+    emblemTypeId === "wolf" &&
+    emblemSpiria?.specialEvolution === "moon" &&
+    shouldUnlockSpiria
+) {
+    targetSpiriaStage =
+        spiriaStages.find(
+            stage =>
+                Number(stage?.stage) === 3
+        ) ?? null;
+}
         const previousSpiriaStage =
     shouldUnlockSpiria
         ? spiriaStages.find(
@@ -3225,11 +3500,12 @@ emblemName:
 fromImage:
     shouldUnlockSpiria
         ? (
+            currentSpiriaImage ??
             previousSpiriaStage?.image ??
             targetSpiriaStage?.image
         )
         : null,
-    toImage:
+            toImage:
         shouldUnlockSpiria
             ? targetSpiriaStage?.image
             : null,

@@ -1902,3 +1902,82 @@
     }
 
 }
+/* ========================================
+   発見ポーチ
+======================================== */
+
+.discovery-pouch-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin: 0 0 22px;
+    padding: 16px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #fff8dc,
+        #f4ffe9
+    );
+
+    border: 2px solid #d9c56d;
+    border-radius: 22px;
+
+    box-shadow:
+        0 8px 20px rgba(40, 80, 40, 0.12);
+
+    cursor: pointer;
+}
+
+.discovery-pouch-icon {
+    font-size: 38px;
+    line-height: 1;
+}
+
+.discovery-pouch-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: #174d2c;
+}
+
+.discovery-pouch-text strong {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.discovery-pouch-text small {
+    margin-top: 3px;
+    font-size: 13px;
+    color: #66756b;
+}
+
+/* LINEみたいな未読件数 */
+.discovery-pouch-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    min-width: 26px;
+    height: 26px;
+    padding: 0 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e53935;
+    color: white;
+
+    border: 3px solid white;
+    border-radius: 999px;
+
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.discovery-pouch-badge[hidden] {
+    display: none;
+}
