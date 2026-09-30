@@ -5,7 +5,11 @@
 
 import { showCamera } from "./camera.js";
 
+const POUCH_KEY = "ikimonoDiscoveryPouch";
+
 export function showDiscoveryPouch(screen) {
+
+    const pouch = getDiscoveryPouch();
 
     screen.innerHTML = `
         <section class="discovery-pouch-screen">
@@ -31,46 +35,69 @@ export function showDiscoveryPouch(screen) {
                 class="discovery-pouch-list"
                 id="discoveryPouchList"
             >
-                <div class="discovery-pouch-empty">
-                    <div class="discovery-pouch-empty-icon">
-                        🎒
-                    </div>
+                ${
+                    pouch.length === 0
+                        ? `
+                            <div class="discovery-pouch-empty">
 
-                    <strong>
-                        ポーチはまだ空っぽだよ
-                    </strong>
+                                <div class="discovery-pouch-empty-icon">
+                                    🎒
+                                </div>
 
-                    <p>
-                        新しい仲間を見つけると<br>
-                        ここに入るよ！
-                    </p>
-                </div>
+                                <strong>
+                                    ポーチはまだ空っぽだよ
+                                </strong>
+
+                                <p>
+                                    オフラインで見つけた仲間が<br>
+                                    ここに入るよ！
+                                </p>
+
+                            </div>
+                        `
+                        : pouch.map(item => `
+                            <button
+                                class="discovery-pouch-item"
+                                type="button"
+                                data-pouch-id="${item.id}"
+                            >
+
+                                <img
+                                    src="${item.image}"
+                                    alt="発見した生き物の写真"
+                                    class="discovery-pouch-image"
+                                >
+
+                                <div class="discovery-pouch-item-info">
+
+                                    <strong>
+                                        🔍 この仲間を調べる
+                                    </strong>
+
+                                    <small>
+                                        ${
+                                            navigator.onLine
+                                                ? "タップしてAI判定"
+                                                : "オンラインになったら判定できるよ"
+                                        }
+                                    </small>
+
+                                </div>
+
+                            </button>
+                        `).join("")
+                }
             </div>
 
         </section>
     `;
 
-    const pouch =
-        getDiscoveryPouch();
 
-    const pouchList =
-        screen.querySelector("#discoveryPouchList");
+    // =====================================
+    // 戻る
+    // =====================================
 
-    if (pouchList && pouch.length > 0) {
-
-        pouchList.innerHTML =
-            pouch.map(item => `
-                <div class="discovery-pouch-item">
-                    <img
-                        src="${item.image}"
-                        alt="発見した生き物の写真"
-                        class="discovery-pouch-image"
-                    >
-                </div>
-            `).join("");
-    }
-
-        const backButton =
+    const backButton =
         screen.querySelector("#discoveryPouchBack");
 
     backButton?.addEventListener(
@@ -80,14 +107,76 @@ export function showDiscoveryPouch(screen) {
         }
     );
 
+
+    // =====================================
+    // ポーチ写真を選ぶ
+    // =====================================
+
+    const pouchItems =
+        screen.querySelectorAll(
+            ".discovery-pouch-item"
+        );
+
+    pouchItems.forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                const pouchId =
+                    Number(item.dataset.pouchId);
+
+                const selectedItem =
+                    pouch.find(
+                        pouchItem =>
+                            Number(pouchItem.id) ===
+                            pouchId
+                    );
+
+                if (!selectedItem) {
+                    return;
+                }
+
+                if (!navigator.onLine) {
+
+                    window.alert(
+                        "今はオフラインみたい！\nオンラインになったら判定できるよ。"
+                    );
+
+                    return;
+                }
+
+
+                // camera.jsへ渡すため一時保存
+                sessionStorage.setItem(
+                    "ikimonoPouchJudgeImage",
+                    selectedItem.image
+                );
+
+                sessionStorage.setItem(
+                    "ikimonoPouchJudgeId",
+                    String(selectedItem.id)
+                );
+
+
+                // 仲間さがし画面へ
+                showCamera(screen);
+            }
+        );
+
+    });
+
 }
+
+
+// =======================================
+// 発見ポーチへ保存
+// =======================================
 
 export function saveToDiscoveryPouch(imageData) {
 
     const pouch =
-        JSON.parse(
-            localStorage.getItem("ikimonoDiscoveryPouch") || "[]"
-        );
+        getDiscoveryPouch();
 
     pouch.unshift({
         id: Date.now(),
@@ -97,17 +186,25 @@ export function saveToDiscoveryPouch(imageData) {
     });
 
     localStorage.setItem(
-        "ikimonoDiscoveryPouch",
+        POUCH_KEY,
         JSON.stringify(pouch)
     );
 }
 
-function getDiscoveryPouch() {
+
+// =======================================
+// 発見ポーチを取得
+// =======================================
+
+export function getDiscoveryPouch() {
 
     try {
+
         const pouch =
             JSON.parse(
-                localStorage.getItem("ikimonoDiscoveryPouch") || "[]"
+                localStorage.getItem(
+                    POUCH_KEY
+                ) || "[]"
             );
 
         return Array.isArray(pouch)
@@ -123,4 +220,25 @@ function getDiscoveryPouch() {
 
         return [];
     }
+}
+
+
+// =======================================
+// 判定済み写真をポーチから削除
+// =======================================
+
+export function removeFromDiscoveryPouch(id) {
+
+    const pouch =
+        getDiscoveryPouch()
+            .filter(
+                item =>
+                    Number(item.id) !==
+                    Number(id)
+            );
+
+    localStorage.setItem(
+        POUCH_KEY,
+        JSON.stringify(pouch)
+    );
 }

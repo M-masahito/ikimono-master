@@ -21,7 +21,8 @@ import {
 import { createCatalogCard } from "./catalog.js";
 import {
     showDiscoveryPouch,
-    saveToDiscoveryPouch
+    saveToDiscoveryPouch,
+    removeFromDiscoveryPouch
 } from "./discoveryPouch.js";
 const MAX_CARD_COUNT = 10;
 
@@ -31,6 +32,7 @@ const CANDIDATE_LIMIT = 3;
 // 選択中の写真を管理する
 let selectedImageFile = null;
 let selectedImageUrl = "";
+let selectedPouchJudgeId = null;
 
 // =====================================
 // 仲間をさがす画面
@@ -40,6 +42,15 @@ export function showCamera(screen) {
 
     // 前回選択した写真を解除
     resetSelectedImage();
+
+    // 発見ポーチから判定する写真を受け取る
+const pouchJudgeImage =
+    sessionStorage.getItem("ikimonoPouchJudgeImage");
+
+const pouchJudgeId =
+    sessionStorage.getItem("ikimonoPouchJudgeId");
+
+    selectedPouchJudgeId = pouchJudgeId;
 
     screen.innerHTML = `
         <section class="camera-page">
@@ -254,6 +265,37 @@ export function showCamera(screen) {
     const judgeResult =
         screen.querySelector("#judgeResult");
 
+       // =====================================
+// 発見ポーチから来た写真を表示
+// =====================================
+
+if (pouchJudgeImage) {
+
+    selectedImageUrl = pouchJudgeImage;
+
+    previewArea.classList.remove("preview-empty");
+
+    previewArea.innerHTML = `
+        <div class="preview-image-area">
+            <img
+                src="${pouchJudgeImage}"
+                class="cameraPreview"
+                alt="発見ポーチの写真"
+            >
+        </div>
+    `;
+
+    photoInfo.hidden = false;
+    searchFriendButton.disabled = false;
+clearPhotoButton.hidden = false;
+
+    judgeResult.innerHTML = `
+        <div class="photo-ready-box">
+            🎒 発見ポーチの写真だよ！
+        </div>
+    `;
+} 
+
      let developerTapCount = 0;
     let developerTapTimer = null;
 
@@ -386,10 +428,9 @@ export function showCamera(screen) {
 
     searchFriendButton?.addEventListener("click", async () => {
 
-        if (!selectedImageFile) {
-            return;
-        }
-
+if (!selectedImageFile && !pouchJudgeImage) {
+    return;
+}
         await startFriendSearch({
             screen,
             judgeResult,
@@ -566,9 +607,6 @@ async function startFriendSearch({
         return;
     }
 
-    if (!selectedImageFile) {
-    return;
-}
 
 if (!navigator.onLine) {
 
@@ -710,9 +748,8 @@ searchFriendButton.disabled = true;
 
     try {
 
-        const candidates =
-            await judgeImage(selectedImageFile);
-
+const candidates =
+    await judgeImage(selectedImageFile, pouchJudgeImage);
         window.clearInterval(messageTimer);
         window.clearInterval(progressTimer);
 
@@ -836,7 +873,7 @@ function wait(milliseconds) {
 // Cloudflare Worker経由のAI判定
 // =====================================
 
-async function judgeImage(file) {
+async function judgeImage(file, directImageData = null) {
 
     if (!file) {
         throw new Error(
@@ -868,7 +905,8 @@ async function judgeImage(file) {
     }
 
     const imageData =
-        await fileToDataUrl(file);
+    directImageData ??
+    await fileToDataUrl(file);
 
     const catalogNames =
         catalog
@@ -2004,10 +2042,16 @@ function selectCandidate({
     button.classList.add(
         "candidate-selected"
     );
-    if (selectedImageUrl) {
-    saveToDiscoveryPouch(selectedImageUrl);
-}
 
+    // 発見ポーチから判定した写真なら削除
+if (selectedPouchJudgeId) {
+    removeFromDiscoveryPouch(selectedPouchJudgeId);
+
+    sessionStorage.removeItem("ikimonoPouchJudgeImage");
+    sessionStorage.removeItem("ikimonoPouchJudgeId");
+
+    selectedPouchJudgeId = null;
+}
     button.innerHTML += `
 
         <div class="candidate-selected-mark">
