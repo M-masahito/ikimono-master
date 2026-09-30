@@ -566,6 +566,41 @@ async function startFriendSearch({
         return;
     }
 
+    if (!selectedImageFile) {
+    return;
+}
+
+if (!navigator.onLine) {
+
+    if (selectedImageUrl) {
+        saveToDiscoveryPouch(selectedImageUrl);
+    }
+
+    judgeResult.innerHTML = `
+        <div class="search-error-box">
+            <div class="search-error-spirit">
+                🎒
+            </div>
+
+            <h3>
+                発見ポーチに入れたよ！
+            </h3>
+
+            <p>
+                今はオフラインみたい。<br>
+                オンラインになったら、この写真を判定できるよ！
+            </p>
+        </div>
+    `;
+
+    searchFriendButton.disabled = false;
+    clearPhotoButton.hidden = false;
+
+    return;
+}
+
+searchFriendButton.disabled = true;
+
     searchFriendButton.disabled = true;
     clearPhotoButton.hidden = true;
 
