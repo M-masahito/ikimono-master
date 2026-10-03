@@ -24,7 +24,7 @@ export function showDiscoveryPouch(screen) {
                 </button>
 
                 <div>
-                    <h2>🎒 発見ポーチ</h2>
+                    <h2>🎒 発見ポーチ（${pouch.length}枚）</h2>
                     <p>
                         見つけた仲間をここで確認できるよ！
                     </p>
@@ -173,24 +173,111 @@ export function showDiscoveryPouch(screen) {
 // 発見ポーチへ保存
 // =======================================
 
-export function saveToDiscoveryPouch(imageData) {
+export async function saveToDiscoveryPouch(imageData) {
 
-    const pouch =
-        getDiscoveryPouch();
+    // 保存前に写真を縮小
+    const compressedImage =
+        await compressPouchImage(imageData);
+
+    const pouch = getDiscoveryPouch();
 
     pouch.unshift({
         id: Date.now(),
-        image: imageData,
+        image: compressedImage,
         savedAt: new Date().toISOString(),
         unread: true
     });
 
-    localStorage.setItem(
-        POUCH_KEY,
-        JSON.stringify(pouch)
-    );
+    try {
+        localStorage.setItem(
+            POUCH_KEY,
+            JSON.stringify(pouch)
+        );
+    } catch (error) {
+        if (error?.name === "QuotaExceededError") {
+            throw new Error(
+                "ポーチの保存容量がいっぱいだよ。オンラインでポーチの写真を判定してから、もう一度試してね。"
+            );
+        }
+
+        throw error;
+    }
 }
 
+
+// =======================================
+// ポーチ保存用に写真を縮小
+// =======================================
+
+function compressPouchImage(imageData) {
+
+    return new Promise((resolve, reject) => {
+
+        const image = new Image();
+
+        image.onload = () => {
+            try {
+                // 縦横の比率を保ち、長い辺を1280px以内にする
+                const scale = Math.min(
+                    1,
+                    1280 / Math.max(
+                        image.naturalWidth,
+                        image.naturalHeight
+                    )
+                );
+
+                const canvas =
+                    document.createElement("canvas");
+
+                canvas.width = Math.max(
+                    1,
+                    Math.round(image.naturalWidth * scale)
+                );
+
+                canvas.height = Math.max(
+                    1,
+                    Math.round(image.naturalHeight * scale)
+                );
+
+                const context = canvas.getContext("2d");
+
+                if (!context) {
+                    throw new Error(
+                        "写真を小さくする準備ができませんでした。"
+                    );
+                }
+
+                context.fillStyle = "#ffffff";
+                context.fillRect(
+                    0, 0, canvas.width, canvas.height
+                );
+
+                context.drawImage(
+                    image,
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                resolve(
+                    canvas.toDataURL("image/jpeg", 0.8)
+                );
+
+            } catch (error) {
+                reject(error);
+            }
+        };
+
+        image.onerror = () => {
+            reject(
+                new Error("写真を読み込めませんでした。")
+            );
+        };
+
+        image.src = imageData;
+    });
+}
 
 // =======================================
 // 発見ポーチを取得

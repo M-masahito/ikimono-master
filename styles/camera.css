@@ -2002,3 +2002,77 @@
 
     box-shadow: 0 4px 12px rgba(40, 80, 40, 0.12);
 }
+
+/* 発見ポーチの写真サイズ */
+.discovery-pouch-list {
+    display: grid;
+    gap: 12px;
+}
+
+.discovery-pouch-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.discovery-pouch-image {
+    display: block;
+    width: 96px;
+    height: 96px;
+    flex: 0 0 96px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.discovery-pouch-item-info {
+    min-width: 0;
+    text-align: left;
+}
+
+.discovery-pouch-item-info strong,
+.discovery-pouch-item-info small {
+    display: block;
+}
+/* 発見ポーチの画面と上部の余白 */
+.discovery-pouch-screen {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: calc(18px + env(safe-area-inset-top, 0px))
+             14px
+             calc(150px + env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+}
+
+.discovery-pouch-header {
+    margin-bottom: 20px;
+}
+
+.discovery-pouch-header h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #24552c;
+}
+
+.discovery-pouch-header p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.discovery-pouch-empty {
+    padding: 28px 16px;
+    border-radius: 20px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.discovery-pouch-empty-icon {
+    margin-bottom: 12px;
+    font-size: 42px;
+}

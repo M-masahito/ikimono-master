@@ -73,40 +73,42 @@
 }      ]
     },
 
+{
+  "id": "shark",
+  "typeId": "shark",
+  "name": "サメ",
+  "attribute": "mizu",
+  "spiriaValue": 3,
+  "stages": [
     {
-      "id": "shark",
-      "typeId": "shark",
-      "name": "サメ",
-      "attribute": "mizu",
-      "spiriaValue": 3,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": true,
-          "image": "./assets/emblems/badges/shark_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 3,
-          "spiria": true,
-          "image": "./assets/emblems/badges/shark_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 5,
-          "spiria": true,
-          "image": "./assets/emblems/badges/shark_gold.png"
-        }
-      ]
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/shark_bronze.png"
     },
-
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/shark_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 5,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/shark_gold.png"
+    }
+  ]
+},
     {
       "id": "dragonfly",
       "typeId": "dragonfly",
@@ -120,6 +122,7 @@
           "rankName": "銅",
           "requiredCount": 2,
           "spiria": true,
+          "spiriaStage": 1,
           "image": "./assets/emblems/badges/dragonfly_bronze.png"
         },
                 {
@@ -136,78 +139,83 @@
           "rankName": "金",
           "requiredCount": 6,
           "spiria": true,
+          "spiriaStage": 2,
           "image": "./assets/emblems/badges/dragonfly_gold.png"
         }
       ]
     },
 
+{
+  "id": "flower",
+  "typeId": "flower",
+  "name": "花",
+  "attribute": "mori",
+  "spiriaValue": 2,
+  "stages": [
     {
-      "id": "flower",
-      "typeId": "flower",
-      "name": "花",
-      "attribute": "mori",
-      "spiriaValue": 2,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 10,
-          "spiria": true,
-          "image": "./assets/emblems/badges/flower_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 30,
-          "spiria": false,
-          "image": "./assets/emblems/badges/flower_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 50,
-          "spiria": true,
-          "image": "./assets/emblems/badges/flower_gold.png"
-        }
-      ]
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 10,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/flower_bronze.png"
     },
-        {
-      "id": "butterfly",
-      "typeId": "butterfly",
-      "name": "チョウ",
-      "attribute": "mushi",
-      "spiriaValue": 3,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 2,
-          "spiria": true,
-          "image": "./assets/emblems/badges/butterfly_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 6,
-          "spiria": true,
-          "image": "./assets/emblems/badges/butterfly_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 10,
-          "spiria": true,
-          "image": "./assets/emblems/badges/butterfly_gold.png"
-        }
-      ]
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 30,
+      "spiria": false,
+      "image": "./assets/emblems/badges/flower_silver.png"
     },
-
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 50,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/flower_gold.png"
+    }
+  ]
+},
+{
+  "id": "butterfly",
+  "typeId": "butterfly",
+  "name": "チョウ",
+  "attribute": "mushi",
+  "spiriaValue": 3,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 2,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/butterfly_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 6,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/butterfly_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 10,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/butterfly_gold.png"
+    }
+  ]
+},
     {
       "id": "ant",
       "typeId": "ant",
@@ -220,7 +228,8 @@
           "rank": "bronze",
           "rankName": "銅",
           "requiredCount": 1,
-          "spiria": false,
+           "spiria": true,
+          "spiriaStage": 1,
           "image": "./assets/emblems/badges/ant_bronze.png"
         },
         {
@@ -236,7 +245,7 @@
           "rank": "gold",
           "rankName": "金",
           "requiredCount": 3,
-          "spiria": true,
+          "spiria": false,
           "image": "./assets/emblems/badges/ant_gold.png"
         }
       ]
@@ -262,6 +271,7 @@
           "rankName": "銀",
           "requiredCount": 2,
           "spiria": true,
+          "spiriaStage": 1,
           "image": "./assets/emblems/badges/bee_silver.png"
         },
         {
@@ -274,105 +284,108 @@
         }
       ]
     },
+{
+  "id": "ladybug",
+  "typeId": "ladybug",
+  "name": "テントウムシ",
+  "attribute": "mushi",
+  "spiriaValue": 1,
+  "stages": [
     {
-      "id": "ladybug",
-      "typeId": "ladybug",
-      "name": "テントウムシ",
-      "attribute": "mushi",
-      "spiriaValue": 1,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": false,
-          "image": "./assets/emblems/badges/ladybug_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 2,
-          "spiria": false,
-          "image": "./assets/emblems/badges/ladybug_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 3,
-          "spiria": true,
-          "image": "./assets/emblems/badges/ladybug_gold.png"
-        }
-      ]
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": false,
+      "image": "./assets/emblems/badges/ladybug_bronze.png"
     },
     {
-      "id": "firefly",
-      "typeId": "firefly",
-      "name": "ホタル",
-      "attribute": "mushi",
-      "spiriaValue": 1,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": false,
-          "image": "./assets/emblems/badges/firefly_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 2,
-          "spiria": false,
-          "image": "./assets/emblems/badges/firefly_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 3,
-          "spiria": true,
-          "image": "./assets/emblems/badges/firefly_gold.png"
-        }
-      ]
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": false,
+      "image": "./assets/emblems/badges/ladybug_silver.png"
     },
     {
-      "id": "mantis",
-      "typeId": "mantis",
-      "name": "カマキリ",
-      "attribute": "mushi",
-      "spiriaValue": 1,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": false,
-          "image": "./assets/emblems/badges/mantis_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 2,
-          "spiria": true,
-          "image": "./assets/emblems/badges/mantis_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 3,
-          "spiria": false,
-          "image": "./assets/emblems/badges/mantis_gold.png"
-        }
-      ]
-          },
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/ladybug_gold.png"
+    }
+  ]
+},
+{
+  "id": "firefly",
+  "typeId": "firefly",
+  "name": "ホタル",
+  "attribute": "mushi",
+  "spiriaValue": 1,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": false,
+      "image": "./assets/emblems/badges/firefly_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": false,
+      "image": "./assets/emblems/badges/firefly_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/firefly_gold.png"
+    }
+  ]
+},
+{
+  "id": "mantis",
+  "typeId": "mantis",
+  "name": "カマキリ",
+  "attribute": "mushi",
+  "spiriaValue": 1,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 2,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/mantis_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": false,
+      "image": "./assets/emblems/badges/mantis_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": false,
+      "image": "./assets/emblems/badges/mantis_gold.png"
+    }
+  ]
+},         
     {
       "id": "cicada",
       "typeId": "cicada",
@@ -567,6 +580,7 @@
           "rankName": "金",
           "requiredCount": 3,
           "spiria": true,
+          "spiriaStage": 3,
           "image": "./assets/emblems/badges/seawater_fish_gold.png"
         }
       ]
@@ -637,38 +651,184 @@
         }
       ]
     },
+{
+  "id": "wolf",
+  "typeId": "wolf",
+  "name": "オオカミ",
+  "attribute": "kemono",
+  "spiriaValue": 3,
+  "specialCondition": "wolf_moon",
+  "stages": [
     {
-      "id": "wolf",
-      "typeId": "wolf",
-      "name": "オオカミ",
-      "attribute": "kemono",
-      "spiriaValue": 3,
-      "stages": [
-        {
-          "stage": 1,
-          "rank": "bronze",
-          "rankName": "銅",
-          "requiredCount": 1,
-          "spiria": true,
-          "image": "./assets/emblems/badges/wolf_bronze.png"
-        },
-        {
-          "stage": 2,
-          "rank": "silver",
-          "rankName": "銀",
-          "requiredCount": 2,
-          "spiria": true,
-          "image": "./assets/emblems/badges/wolf_silver.png"
-        },
-        {
-          "stage": 3,
-          "rank": "gold",
-          "rankName": "金",
-          "requiredCount": 3,
-          "spiria": true,
-          "image": "./assets/emblems/badges/wolf_gold.png"
-        }
-      ]
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "condition": "wolf_discovered",
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/wolf_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 10,
+      "condition": "wolf_bronze_and_kemono_10",
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/wolf_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "condition": "wolf_silver_and_moon",
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/wolf_gold.png"
     }
+  ]
+},
+    {
+  "id": "karasu",
+  "typeId": "karasu",
+  "name": "カラス",
+  "attribute": "sora",
+  "spiriaValue": 2,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/karasu_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/karasu_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": false,
+      "image": "./assets/emblems/badges/karasu_gold.png"
+    }
+  ]
+},
+{
+  "id": "dolphin",
+  "typeId": "dolphin",
+  "name": "イルカ",
+  "attribute": "mizu",
+  "spiriaValue": 2,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/dolphin_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": false,
+      "image": "./assets/emblems/badges/dolphin_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/dolphin_gold.png"
+    }
+  ]
+},
+{
+  "id": "orca",
+  "typeId": "orca",
+  "name": "シャチ",
+  "attribute": "mizu",
+  "spiriaValue": 3,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/orca_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 10,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/orca_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/orca_gold.png"
+    }
+  ]
+},
+{
+  "id": "shell",
+  "typeId": "shell",
+  "name": "貝",
+  "attribute": "mizu",
+  "spiriaValue": 1,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/shell_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": false,
+      "image": "./assets/emblems/badges/shell_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": false,
+      "image": "./assets/emblems/badges/shell_gold.png"
+    }
+  ]
+}
   ]
 }

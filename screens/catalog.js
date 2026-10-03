@@ -3114,6 +3114,57 @@ width:32%;
     -webkit-user-select:none;
     user-select:none;
 }
+
+/* 解放・進化待ちのエンブレムを目立たせる */
+.emblem-sanctuary-item.emblem-spiria-pending{
+    position:relative;
+    overflow:visible;
+}
+
+.emblem-spiria-pending .emblem-sanctuary-image{
+    animation:emblemReadyGlow 2s ease-in-out infinite !important;
+}
+
+@keyframes emblemReadyGlow{
+    0%, 100%{
+        filter:
+            drop-shadow(0 0 3px #ffffff)
+            drop-shadow(0 0 8px #00eaff);
+    }
+    50%{
+        filter:
+            drop-shadow(0 0 6px #ffffff)
+            drop-shadow(0 0 18px #00eaff)
+            drop-shadow(0 0 28px #00b8ff);
+    }
+}
+
+.emblem-sanctuary-item.emblem-spiria-pending::after{
+    content:"✨ 輝いている…";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    padding:6px 10px;
+    border:2px solid #ffffff;
+    border-radius:20px;
+    background:#075563;
+    color:#ffffff;
+    font-size:12px;
+    font-weight:bold;
+    white-space:nowrap;
+    box-shadow:0 2px 10px #00cfff;
+    pointer-events:none;
+}
+
+@media (prefers-reduced-motion:reduce){
+    .emblem-spiria-pending .emblem-sanctuary-image{
+        animation:none !important;
+        filter:drop-shadow(0 0 10px #00eaff);
+    }
+}
+
     `;
 
     document.head.appendChild(style);

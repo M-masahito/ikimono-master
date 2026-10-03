@@ -80,15 +80,17 @@
         { "stage": 3, "title": "王", "image": "./assets/spiria/spiria_kodama_stage3.png" }
       ]
     },
-    {
-      "id": "karasu",
-      "name": "カラススピリア",
-      "attribute": "sora",
-      "stages": [
-        { "stage": 1, "title": "幼体", "image": "./assets/spiria/spiria_karasu_stage1.png" },
-        { "stage": 2, "title": "成長体", "image": "./assets/spiria/spiria_karasu_stage2.png" }
-      ]
-    },
+{
+  "id": "karasu",
+  "name": "カラススピリア",
+  "attribute": "sora",
+  "typeId": "karasu",
+  "unlockCounts": [1, 2],
+  "stages": [
+    { "stage": 1, "title": "幼体", "image": "./assets/spiria/spiria_karasu_stage1.png" },
+    { "stage": 2, "title": "成長体", "image": "./assets/spiria/spiria_karasu_stage2.png" }
+  ]
+},
     {
       "id": "beetle",
       "name": "カブトムシスピリア",
@@ -293,6 +295,64 @@
           "image": "./assets/spiria/spiria_seafish_stage3.png"
         }
       ]
+    },
+    {
+  "id": "dolphin",
+  "name": "イルカスピリア",
+  "attribute": "mizu",
+  "typeId": "dolphin",
+  "unlockCounts": [1, 3],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "イルカスピリア",
+      "image": "./assets/spiria/spiria_dolphin_stage1.png"
+    },
+    {
+      "stage": 2,
+      "title": "ポセイドンの使い",
+      "image": "./assets/spiria/spiria_dolphin_stage2.png"
     }
+  ]
+},
+{
+  "id": "orca",
+  "name": "シャチスピリア",
+  "attribute": "mizu",
+  "typeId": "orca",
+  "unlockCounts": [1, 2, 3],
+  "specialEvolution": "orca",
+  "stages": [
+    {
+      "stage": 1,
+      "title": "シャチスピリア",
+      "image": "./assets/spiria/spiria_orca_stage1.png"
+    },
+    {
+      "stage": 2,
+      "title": "シャチスピリア Stage2",
+      "image": "./assets/spiria/spiria_orca_stage2.png"
+    },
+    {
+      "stage": 3,
+      "title": "シャチスピリア Stage3",
+      "image": "./assets/spiria/spiria_orca_stage3.png"
+    }
+  ]
+},
+{
+  "id": "shell",
+  "name": "貝スピリア",
+  "attribute": "mizu",
+  "typeId": "shell",
+  "unlockCounts": [1],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "貝スピリア",
+      "image": "./assets/spiria/spiria_shell_stage1.png"
+    }
+  ]
+}
   ]
 }

@@ -5,11 +5,14 @@
 
 import { loadMaster } from "./master/loadMaster.js";
 import { getSave } from "./system/storage.js";
-
+import { showSettings } from "./screens/settings.js";
 import { showHome } from "./screens/home.js";
 import { showCamera } from "./screens/camera.js";
 import { showCatalog } from "./screens/catalog.js";
 import { showSpirit } from "./screens/spirit.js";
+
+import { showOpening } from "./screens/opening.js";
+import { showInstallGuide } from "./screens/installGuide.js";
 
 const screen = document.getElementById("screen");
 
@@ -17,7 +20,8 @@ const screens = {
     home: showHome,
     camera: showCamera,
     catalog: showCatalog,
-    spirit: showSpirit
+    spirit: showSpirit,
+    settings: showSettings
 };
 
 startApp();
@@ -37,6 +41,10 @@ async function startApp() {
         createNavigation();
 
         openScreen("home");
+
+                await showInstallGuide();
+
+        await showOpening();
 
     } catch (error) {
 
@@ -203,10 +211,10 @@ export function openScreen(name) {
 
         showScreen(screen);
 
+
         return;
 
     }
-
     screen.innerHTML = `
         <div class="card">
             <h2>準備中</h2>

@@ -52,6 +52,9 @@ const pouchJudgeId =
 
     selectedPouchJudgeId = pouchJudgeId;
 
+        sessionStorage.removeItem("ikimonoPouchJudgeImage");
+    sessionStorage.removeItem("ikimonoPouchJudgeId");
+
     screen.innerHTML = `
         <section class="camera-page">
 
@@ -228,6 +231,25 @@ const pouchJudgeId =
             showDiscoveryPouch(screen);
         }
     );
+
+    // 発見ポーチの保存枚数を表示
+const pouchBadge =
+    screen.querySelector("#discoveryPouchBadge");
+
+try {
+    const pouch = JSON.parse(
+        localStorage.getItem("ikimonoDiscoveryPouch") || "[]"
+    );
+
+    const count = Array.isArray(pouch) ? pouch.length : 0;
+
+    if (pouchBadge) {
+        pouchBadge.textContent = String(count);
+        pouchBadge.hidden = count === 0;
+    }
+} catch (error) {
+    console.error("ポーチの枚数を読み込めませんでした。", error);
+}
 
     // -----------------------------
     // 画面内の要素
@@ -431,13 +453,12 @@ clearPhotoButton.hidden = false;
 if (!selectedImageFile && !pouchJudgeImage) {
     return;
 }
-        await startFriendSearch({
-            screen,
-            judgeResult,
-            searchFriendButton,
-            clearPhotoButton
-        });
-
+await startFriendSearch({
+    screen,
+    judgeResult,
+    searchFriendButton,
+    clearPhotoButton,
+    pouchJudgeImage: selectedImageFile ? null : selectedImageUrl});
     });
 
 }
@@ -462,6 +483,8 @@ function handleSelectedImage({
     }
 
     selectedImageFile = file;
+
+    selectedPouchJudgeId = null;
 
     const reader = new FileReader();
 
@@ -594,49 +617,55 @@ function resetSelectedImage(){
 // =====================================
 
 async function startFriendSearch({
-
-
     screen,
     judgeResult,
     searchFriendButton,
-    clearPhotoButton
-
+    clearPhotoButton,
+    pouchJudgeImage
 }) {
 
-    if (!selectedImageFile) {
-        return;
-    }
+if (!selectedImageFile && !pouchJudgeImage) {
+    return;
+} 
 
 
 if (!navigator.onLine) {
+    try {
+        if (!selectedImageUrl) {
+            throw new Error("保存する写真がありません。");
+        }
 
-    if (selectedImageUrl) {
-        saveToDiscoveryPouch(selectedImageUrl);
-    }
+        // ポーチから開いた写真は重複保存しない
+        if (!selectedPouchJudgeId) {
+            await saveToDiscoveryPouch(selectedImageUrl);
+        }
 
-    judgeResult.innerHTML = `
-        <div class="search-error-box">
-            <div class="search-error-spirit">
-                🎒
+        showDiscoveryPouch(screen);
+
+    } catch (error) {
+        console.error("発見ポーチへの保存失敗", error);
+
+        judgeResult.innerHTML = `
+            <div class="search-error-box">
+                <h3>写真を保存できなかったよ</h3>
+                <p>
+                    エラー詳細：
+                    ${escapeHtml(String(error?.message ?? error))}
+                </p>
             </div>
+        `;
 
-            <h3>
-                発見ポーチに入れたよ！
-            </h3>
+        judgeResult.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
 
-            <p>
-                今はオフラインみたい。<br>
-                オンラインになったら、この写真を判定できるよ！
-            </p>
-        </div>
-    `;
-
-    searchFriendButton.disabled = false;
-    clearPhotoButton.hidden = false;
+        searchFriendButton.disabled = false;
+        clearPhotoButton.hidden = false;
+    }
 
     return;
 }
-
 searchFriendButton.disabled = true;
 
     searchFriendButton.disabled = true;
@@ -875,11 +904,13 @@ function wait(milliseconds) {
 
 async function judgeImage(file, directImageData = null) {
 
-    if (!file) {
+    if (!file && !directImageData) {
         throw new Error(
             "写真が選ばれていません。"
         );
     }
+
+if (file) {
 
     const imageCheck =
         validateImageFile(file);
@@ -890,6 +921,7 @@ async function judgeImage(file, directImageData = null) {
         );
     }
 
+}
     const catalog =
         getAiCatalog();
         console.log(

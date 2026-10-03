@@ -12,6 +12,7 @@ const DEBUG_BACKUP_AT_KEY =
     "ikimonoSaveDebugBackupAt";
 
 const DEFAULT_SAVE = {
+    playerName: "",
     discovered: [],
     discoveredCards: [],
     cards: [],
