@@ -475,3 +475,32 @@
         font-size: 16px;
     }
 }
+/* =======================================
+   フレンド画面 最終レイアウト修正
+======================================= */
+
+/* お気に入りとフレンドは必ず縦並び */
+.profile-favorites,
+.profile-friends {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    box-sizing: border-box;
+}
+
+/* お気に入り */
+.profile-favorites {
+    margin-top: 18px !important;
+}
+
+/* フレンド */
+.profile-friends {
+    margin-top: 14px !important;
+}
+
+/* 名前編集ボタンの残骸を消す */
+.profile-edit-button {
+    display: none !important;
+}
