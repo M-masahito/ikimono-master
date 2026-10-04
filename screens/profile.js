@@ -1,13 +1,24 @@
 // =======================================
 // screens/profile.js
-// フレンド
+// フレンド・プロフィール
 // =======================================
 
 import { getSave } from "../system/storage.js";
 
+const PROFILE_NAME_KEY = "ikimonoProfileName";
+
 export function showProfile(screen) {
 
     const save = getSave();
+
+    // =======================================
+    // プレイヤー名
+    // =======================================
+
+    const playerName =
+        localStorage.getItem(PROFILE_NAME_KEY) ||
+        "いきものマスター";
+
 
     // =======================================
     // 発見数
@@ -53,7 +64,7 @@ export function showProfile(screen) {
 
 
     // =======================================
-    // 現在の段階
+    // 現在のスピリア段階
     // =======================================
 
     const stageNumber =
@@ -69,13 +80,19 @@ export function showProfile(screen) {
         equippedSpiriaData?.stages?.[0];
 
 
+    // =======================================
+    // スピリア画像・名前
+    // =======================================
+
     const spiriaImage =
         stageData?.image ??
         "./assets/spiria/spiria_base.png";
 
+    // 「幼体」などの段階名より
+    // スピリア本体の名前を優先
     const spiriaName =
-        stageData?.title ??
         equippedSpiriaData?.name ??
+        stageData?.title ??
         "ふしぎなスピリア";
 
 
@@ -101,57 +118,136 @@ export function showProfile(screen) {
             </header>
 
 
-            <!-- 現在のスピリア -->
-            <div class="profile-spiria">
+            <!-- =========================
+                 上段
+            ========================== -->
 
-                <h3>✨ 現在のスピリア ✨</h3>
+            <div class="profile-top">
 
-                <img
-                    class="profile-spiria-image"
-                    src="${spiriaImage}"
-                    alt="${spiriaName}"
-                >
 
-                <strong class="profile-spiria-name">
-                    ${spiriaName}
-                </strong>
+                <!-- 現在のスピリア -->
+
+                <div class="profile-spiria">
+
+                    <h3 class="profile-spiria-title">
+                        ✨ 現在のスピリア ✨
+                    </h3>
+
+                    <img
+                        class="profile-spiria-image"
+                        src="${spiriaImage}"
+                        alt="${spiriaName}"
+                    >
+
+                    <strong class="profile-spiria-name">
+                        ${spiriaName}
+                    </strong>
+
+                </div>
+
+
+                <!-- 自分のプロフィール -->
+
+                <div class="profile-content">
+
+                    <h3>
+                        自分のプロフィール
+                    </h3>
+
+
+                    <div class="profile-name">
+
+                        <span>
+                            なまえ
+                        </span>
+
+                        <strong id="profilePlayerName">
+                            ${playerName}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <span>
+                                発見したいきもの
+                            </span>
+
+                            <strong>
+                                ${discoveryCount}
+                            </strong>
+                        </div>
+
+
+                        <div>
+                            <span>
+                                フレンド
+                            </span>
+
+                            <strong>
+                                0
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="profileEditButton"
+                        class="profile-edit-button"
+                        type="button"
+                    >
+                        ✏️ 名前を編集
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <!-- 自分のプロフィール -->
-            <div class="profile-content">
+            <!-- =========================
+                 お気に入りカード
+                 次に実装
+            ========================== -->
 
-                <h3>自分のプロフィール</h3>
+            <section class="profile-favorites">
 
-                <div class="profile-name">
-                    <span>なまえ</span>
-                    <strong>いきものマスター</strong>
+                <h3>
+                    ⭐ お気に入りカード
+                </h3>
+
+                <div class="profile-favorites-empty">
+                    まだ登録されていません
                 </div>
 
-                <div class="profile-stats">
-
-                    <div>
-                        <span>発見したいきもの</span>
-                        <strong>${discoveryCount}</strong>
-                    </div>
-
-                    <div>
-                        <span>フレンド</span>
-                        <strong>0</strong>
-                    </div>
-
-                </div>
+            </section>
 
 
-                <div class="profile-friend-buttons">
+            <!-- =========================
+                 フレンド
+            ========================== -->
+
+            <section class="profile-friends">
+
+                <div class="profile-friends-header">
+
+                    <h3>
+                        👥 フレンド
+                    </h3>
 
                     <button
                         id="friendListButton"
                         type="button"
                     >
-                        👥 フレンド一覧
+                        すべて見る
                     </button>
+
+                </div>
+
+
+                <div class="profile-friend-buttons">
 
                     <button
                         id="friendAddButton"
@@ -162,7 +258,7 @@ export function showProfile(screen) {
 
                 </div>
 
-            </div>
+            </section>
 
         </section>
     `;
@@ -179,6 +275,48 @@ export function showProfile(screen) {
         "click",
         () => {
             history.back();
+        }
+    );
+
+
+    // =======================================
+    // 名前編集
+    // =======================================
+
+    const editButton =
+        screen.querySelector("#profileEditButton");
+
+    editButton?.addEventListener(
+        "click",
+        () => {
+
+            const currentName =
+                localStorage.getItem(PROFILE_NAME_KEY) ||
+                "いきものマスター";
+
+            const newName =
+                window.prompt(
+                    "なまえを入力してください",
+                    currentName
+                );
+
+            if (newName === null) {
+                return;
+            }
+
+            const trimmedName =
+                newName.trim();
+
+            if (!trimmedName) {
+                return;
+            }
+
+            localStorage.setItem(
+                PROFILE_NAME_KEY,
+                trimmedName
+            );
+
+            showProfile(screen);
         }
     );
 }
