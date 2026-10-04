@@ -53,3 +53,59 @@ right: 16px;
     display: block;
     text-align: center;
 }
+/* =======================================
+   フレンド画面 上段
+======================================= */
+
+.profile-screen {
+    padding: 12px 14px 110px;
+}
+
+/* スピリアとプロフィールを横並び */
+.profile-spiria,
+.profile-content {
+    box-sizing: border-box;
+}
+
+/* スピリア：左側 */
+.profile-spiria {
+    width: 44%;
+    float: left;
+    text-align: center;
+    padding: 8px;
+}
+
+/* プロフィール：右側 */
+.profile-content {
+    width: 56%;
+    float: right;
+    padding: 12px;
+    margin-top: 35px;
+
+    background: rgba(255, 248, 225, 0.92);
+    border: 2px solid #d5b36a;
+    border-radius: 18px;
+}
+
+/* スピリア画像 */
+.profile-screen .profile-spiria-image {
+    width: 150px !important;
+    height: 150px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin: 5px auto;
+}
+
+/* 名前 */
+.profile-spiria-name {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 横並びの後を解除 */
+.profile-screen::after {
+    content: "";
+    display: block;
+    clear: both;
+}
