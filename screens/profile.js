@@ -5,7 +5,7 @@
 
 import { getSave } from "../system/storage.js";
 
-const PROFILE_NAME_KEY = "ikimonoProfileName";
+
 
 export function showProfile(screen) {
 
@@ -16,8 +16,8 @@ export function showProfile(screen) {
     // =======================================
 
     const playerName =
-        localStorage.getItem(PROFILE_NAME_KEY) ||
-        "いきものマスター";
+    String(save.playerName ?? "").trim() ||
+    "なまえ未設定";
 
 
     // =======================================
@@ -195,12 +195,6 @@ export function showProfile(screen) {
 
 
                     <button
-                        id="profileEditButton"
-                        class="profile-edit-button"
-                        type="button"
-                    >
-                        ✏️ 名前を編集
-                    </button>
 
                 </div>
 
@@ -278,45 +272,4 @@ export function showProfile(screen) {
         }
     );
 
-
-    // =======================================
-    // 名前編集
-    // =======================================
-
-    const editButton =
-        screen.querySelector("#profileEditButton");
-
-    editButton?.addEventListener(
-        "click",
-        () => {
-
-            const currentName =
-                localStorage.getItem(PROFILE_NAME_KEY) ||
-                "いきものマスター";
-
-            const newName =
-                window.prompt(
-                    "なまえを入力してください",
-                    currentName
-                );
-
-            if (newName === null) {
-                return;
-            }
-
-            const trimmedName =
-                newName.trim();
-
-            if (!trimmedName) {
-                return;
-            }
-
-            localStorage.setItem(
-                PROFILE_NAME_KEY,
-                trimmedName
-            );
-
-            showProfile(screen);
-        }
-    );
 }
