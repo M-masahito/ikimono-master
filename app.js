@@ -13,6 +13,7 @@ import { showSpirit } from "./screens/spirit.js";
 
 import { showOpening } from "./screens/opening.js";
 import { showInstallGuide } from "./screens/installGuide.js";
+import { showProfile } from "./screens/profile.js";
 
 const screen = document.getElementById("screen");
 
@@ -21,7 +22,8 @@ const screens = {
     camera: showCamera,
     catalog: showCatalog,
     spirit: showSpirit,
-    settings: showSettings
+    settings: showSettings,
+        friend: showProfile,
 };
 
 startApp();

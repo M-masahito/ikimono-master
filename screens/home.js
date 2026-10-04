@@ -180,6 +180,18 @@ if (
                 <span>⚙️</span>
             </button>
 
+                        <button
+                id="friendButton"
+                class="forest-friend-button"
+                type="button"
+                aria-label="フレンド"
+            >
+                <img
+    src="./assets/ui/nav/friend.png"
+    alt="フレンド"
+>
+            </button>
+
             <div
                 class="forest-world forest-garden-world"
             >
@@ -302,6 +314,20 @@ spiriaName:
 }            });
         }
     }
+
+        // =================================
+    // フレンドボタン
+    // =================================
+
+    const friendButton =
+        screen.querySelector("#friendButton");
+
+    friendButton?.addEventListener(
+        "click",
+        () => {
+            openScreen("friend");
+        }
+    );
 
     // =================================
     // 設定ボタン
