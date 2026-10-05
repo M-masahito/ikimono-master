@@ -504,3 +504,24 @@
 .profile-edit-button {
     display: none !important;
 }
+/* =======================================
+   フレンド画面：下段を縦並び
+======================================= */
+
+.profile-screen .profile-content {
+    width: 56%;
+}
+
+/* お気に入りカード */
+.profile-favorite {
+    width: 100%;
+    box-sizing: border-box;
+    clear: both;
+}
+
+/* フレンド */
+.profile-friends {
+    width: 100%;
+    box-sizing: border-box;
+    clear: both;
+}
