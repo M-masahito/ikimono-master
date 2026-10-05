@@ -476,52 +476,29 @@
     }
 }
 /* =======================================
-   フレンド画面 最終レイアウト修正
+   フレンド画面 下段レイアウト修正
 ======================================= */
 
-/* お気に入りとフレンドは必ず縦並び */
-.profile-favorites,
-.profile-friends {
-    display: block !important;
+/* お気に入りカード・フレンドを
+   画面いっぱいの1列にする */
+.profile-screen > .profile-favorites,
+.profile-screen > .profile-friends {
+    grid-column: 1 / -1 !important;
     width: 100% !important;
-    max-width: 100% !important;
-    float: none !important;
-    clear: both !important;
     box-sizing: border-box;
 }
 
-/* お気に入り */
-.profile-favorites {
+/* お気に入りカード */
+.profile-screen > .profile-favorites {
     margin-top: 18px !important;
 }
 
 /* フレンド */
-.profile-friends {
+.profile-screen > .profile-friends {
     margin-top: 14px !important;
 }
 
-/* 名前編集ボタンの残骸を消す */
+/* 名前編集ボタンは表示しない */
 .profile-edit-button {
     display: none !important;
-}
-/* =======================================
-   フレンド画面：下段を縦並び
-======================================= */
-
-.profile-screen .profile-content {
-    width: 56%;
-}
-
-/* お気に入りカード */
-.profile-favorite {
-    width: 100%;
-    box-sizing: border-box;
-    clear: both;
-}
-
-/* フレンド */
-.profile-friends {
-    width: 100%;
-    box-sizing: border-box;
-    clear: both;
 }
