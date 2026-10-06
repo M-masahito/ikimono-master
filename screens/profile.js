@@ -5,8 +5,6 @@
 
 import { getSave } from "../system/storage.js";
 
-
-
 export function showProfile(screen) {
 
     const save = getSave();
@@ -16,8 +14,8 @@ export function showProfile(screen) {
     // =======================================
 
     const playerName =
-    String(save.playerName ?? "").trim() ||
-    "なまえ未設定";
+        String(save.playerName ?? "").trim() ||
+        "なまえ未設定";
 
 
     // =======================================
@@ -81,15 +79,19 @@ export function showProfile(screen) {
 
 
     // =======================================
-    // スピリア画像・名前
+    // スピリア画像
     // =======================================
 
     const spiriaImage =
         stageData?.image ??
         "./assets/spiria/spiria_base.png";
 
-    // 「幼体」などの段階名より
-    // スピリア本体の名前を優先
+
+    // =======================================
+    // スピリア名
+    // 「幼体」などではなく本体名を表示
+    // =======================================
+
     const spiriaName =
         equippedSpiriaData?.name ??
         stageData?.title ??
@@ -102,6 +104,10 @@ export function showProfile(screen) {
 
     screen.innerHTML = `
         <section class="profile-screen">
+
+            <!-- =========================
+                 ヘッダー
+            ========================== -->
 
             <header class="profile-header">
 
@@ -120,6 +126,8 @@ export function showProfile(screen) {
 
             <!-- =========================
                  上段
+                 左：スピリア
+                 右：プロフィール
             ========================== -->
 
             <div class="profile-top">
@@ -193,9 +201,6 @@ export function showProfile(screen) {
 
                     </div>
 
-
-                    <button
-
                 </div>
 
             </div>
@@ -203,7 +208,6 @@ export function showProfile(screen) {
 
             <!-- =========================
                  お気に入りカード
-                 次に実装
             ========================== -->
 
             <section class="profile-favorites">
