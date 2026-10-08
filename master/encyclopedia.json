@@ -1,7 +1,7 @@
 {
   "version": 1,
   "encyclopedia": [
-        {
+    {
       "no": 1,
       "name": "カブトムシ",
       "categoryId": "insect",
@@ -181,7 +181,7 @@
       "rarity": "C",
       "discovered": false
     },
-        {
+    {
       "no": 21,
       "name": "モンシロチョウ",
       "categoryId": "insect",
@@ -361,7 +361,7 @@
       "rarity": "C",
       "discovered": false
     },
-        {
+    {
       "no": 41,
       "name": "クロダイ",
       "categoryId": "fish",
@@ -541,7 +541,7 @@
       "rarity": "B",
       "discovered": false
     },
-        {
+    {
       "no": 61,
       "name": "シラサギ",
       "categoryId": "bird",
@@ -721,7 +721,7 @@
       "rarity": "S",
       "discovered": false
     },
-        {
+    {
       "no": 81,
       "name": "イヌ",
       "categoryId": "mammal",
@@ -900,6 +900,906 @@
       "attribute": "mori",
       "rarity": "B",
       "discovered": false
+    },
+    {
+      "no": 101,
+      "name": "ヒラタクワガタ",
+      "categoryId": "insect",
+      "typeId": "stag_beetle",
+      "attribute": "mushi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 102,
+      "name": "ヒグラシ",
+      "categoryId": "insect",
+      "typeId": "cicada",
+      "attribute": "mushi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 103,
+      "name": "ツクツクボウシ",
+      "categoryId": "insect",
+      "typeId": "cicada",
+      "attribute": "mushi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 104,
+      "name": "ハグロトンボ",
+      "categoryId": "insect",
+      "typeId": "dragonfly",
+      "attribute": "mushi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 105,
+      "name": "モンキチョウ",
+      "categoryId": "insect",
+      "typeId": "butterfly",
+      "attribute": "mushi",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 106,
+      "name": "クロアゲハ",
+      "categoryId": "insect",
+      "typeId": "butterfly",
+      "attribute": "mushi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 107,
+      "name": "アシナガバチ",
+      "categoryId": "insect",
+      "typeId": "bee",
+      "attribute": "mushi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 108,
+      "name": "オオスズメバチ",
+      "categoryId": "insect",
+      "typeId": "bee",
+      "attribute": "mushi",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 109,
+      "name": "カナブン",
+      "categoryId": "insect",
+      "typeId": "beetle",
+      "attribute": "mushi",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 110,
+      "name": "タマムシ",
+      "categoryId": "insect",
+      "typeId": "beetle",
+      "attribute": "mushi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 111,
+      "name": "キンギョ",
+      "categoryId": "fish",
+      "typeId": "freshwater",
+      "attribute": "mizu",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 112,
+      "name": "アユ",
+      "categoryId": "fish",
+      "typeId": "freshwater",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 113,
+      "name": "ウナギ",
+      "categoryId": "fish",
+      "typeId": "freshwater",
+      "attribute": "mizu",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 114,
+      "name": "ニジマス",
+      "categoryId": "fish",
+      "typeId": "freshwater",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 115,
+      "name": "サケ",
+      "categoryId": "fish",
+      "typeId": "fish",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 116,
+      "name": "マダイ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 117,
+      "name": "サバ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 118,
+      "name": "ブリ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 119,
+      "name": "ヒラメ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 120,
+      "name": "フグ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 121,
+      "name": "クマノミ",
+      "categoryId": "fish",
+      "typeId": "seawater_fish",
+      "attribute": "mizu",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 122,
+      "name": "タツノオトシゴ",
+      "categoryId": "fish",
+      "typeId": "seahorse",
+      "attribute": "mizu",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 123,
+      "name": "ホホジロザメ",
+      "categoryId": "fish",
+      "typeId": "shark",
+      "attribute": "mizu",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 124,
+      "name": "シュモクザメ",
+      "categoryId": "fish",
+      "typeId": "shark",
+      "attribute": "mizu",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 125,
+      "name": "ジンベエザメ",
+      "categoryId": "fish",
+      "typeId": "shark",
+      "attribute": "mizu",
+      "rarity": "SS",
+      "discovered": false
+    },
+    {
+      "no": 126,
+      "name": "シジュウカラ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 127,
+      "name": "ヤマガラ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 128,
+      "name": "エナガ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 129,
+      "name": "モズ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 130,
+      "name": "ヒヨコ",
+      "categoryId": "bird",
+      "typeId": "chicken",
+      "attribute": "sora",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 131,
+      "name": "ニワトリ",
+      "categoryId": "bird",
+      "typeId": "chicken",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 132,
+      "name": "ルリビタキ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 133,
+      "name": "オオルリ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 134,
+      "name": "キビタキ",
+      "categoryId": "bird",
+      "typeId": "small_bird",
+      "attribute": "sora",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 135,
+      "name": "フクロウ",
+      "categoryId": "bird",
+      "typeId": "night_bird",
+      "attribute": "sora",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 136,
+      "name": "ハヤブサ",
+      "categoryId": "bird",
+      "typeId": "raptor",
+      "attribute": "sora",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 137,
+      "name": "トビ",
+      "categoryId": "bird",
+      "typeId": "raptor",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 138,
+      "name": "キジ",
+      "categoryId": "bird",
+      "typeId": "pheasant",
+      "attribute": "sora",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 139,
+      "name": "マガモ",
+      "categoryId": "bird",
+      "typeId": "duck",
+      "attribute": "sora",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 140,
+      "name": "オシドリ",
+      "categoryId": "bird",
+      "typeId": "duck",
+      "attribute": "sora",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 141,
+      "name": "モリアオガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 142,
+      "name": "ニホンヒキガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 143,
+      "name": "シュレーゲルアオガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 144,
+      "name": "ヌマガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 145,
+      "name": "ツチガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 146,
+      "name": "ニホンアカガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 147,
+      "name": "カジカガエル",
+      "categoryId": "amphibian",
+      "typeId": "frog",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 148,
+      "name": "ウーパールーパー",
+      "categoryId": "amphibian",
+      "typeId": "salamander",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 149,
+      "name": "オオサンショウウオ",
+      "categoryId": "amphibian",
+      "typeId": "salamander",
+      "attribute": "daichi",
+      "rarity": "SS",
+      "discovered": false
+    },
+    {
+      "no": 150,
+      "name": "トウキョウサンショウウオ",
+      "categoryId": "amphibian",
+      "typeId": "salamander",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 151,
+      "name": "カミツキガメ",
+      "categoryId": "reptile",
+      "typeId": "turtle",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 152,
+      "name": "ミミズ",
+      "categoryId": "insect",
+      "typeId": "earthworm",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 153,
+      "name": "アカウミガメ",
+      "categoryId": "reptile",
+      "typeId": "turtle",
+      "attribute": "daichi",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 154,
+      "name": "グリーンイグアナ",
+      "categoryId": "reptile",
+      "typeId": "lizard",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 155,
+      "name": "カメレオン",
+      "categoryId": "reptile",
+      "typeId": "lizard",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 156,
+      "name": "フトアゴヒゲトカゲ",
+      "categoryId": "reptile",
+      "typeId": "lizard",
+      "attribute": "daichi",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 157,
+      "name": "コモドオオトカゲ",
+      "categoryId": "reptile",
+      "typeId": "lizard",
+      "attribute": "daichi",
+      "rarity": "SS",
+      "discovered": false
+    },
+    {
+      "no": 158,
+      "name": "キングコブラ",
+      "categoryId": "reptile",
+      "typeId": "snake",
+      "attribute": "daichi",
+      "rarity": "SS",
+      "discovered": false
+    },
+    {
+      "no": 159,
+      "name": "ワニ",
+      "categoryId": "reptile",
+      "typeId": "crocodile",
+      "attribute": "daichi",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 160,
+      "name": "ハシビロコウ",
+      "categoryId": "bird",
+      "typeId": "shoebill",
+      "attribute": "sora",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 161,
+      "name": "ニホンザル",
+      "categoryId": "mammal",
+      "typeId": "monkey",
+      "attribute": "kemono",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 162,
+      "name": "ニホンジカ",
+      "categoryId": "mammal",
+      "typeId": "deer",
+      "attribute": "kemono",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 163,
+      "name": "カモシカ",
+      "categoryId": "mammal",
+      "typeId": "bovine",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 164,
+      "name": "ツキノワグマ",
+      "categoryId": "mammal",
+      "typeId": "bear",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 165,
+      "name": "オオカミ",
+      "categoryId": "mammal",
+      "typeId": "wolf",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 166,
+      "name": "ライオン",
+      "categoryId": "mammal",
+      "typeId": "cat_family",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 167,
+      "name": "トラ",
+      "categoryId": "mammal",
+      "typeId": "cat_family",
+      "attribute": "kemono",
+      "rarity": "SS",
+      "discovered": false
+    },
+    {
+      "no": 168,
+      "name": "チーター",
+      "categoryId": "mammal",
+      "typeId": "cat_family",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 169,
+      "name": "ゾウ",
+      "categoryId": "mammal",
+      "typeId": "elephant",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 170,
+      "name": "キリン",
+      "categoryId": "mammal",
+      "typeId": "giraffe",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 171,
+      "name": "カバ",
+      "categoryId": "mammal",
+      "typeId": "hippo",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 172,
+      "name": "サイ",
+      "categoryId": "mammal",
+      "typeId": "rhino",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 173,
+      "name": "パンダ",
+      "categoryId": "mammal",
+      "typeId": "bear",
+      "attribute": "kemono",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 174,
+      "name": "コアラ",
+      "categoryId": "mammal",
+      "typeId": "marsupial",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 175,
+      "name": "カンガルー",
+      "categoryId": "mammal",
+      "typeId": "marsupial",
+      "attribute": "kemono",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 176,
+      "name": "バラ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 177,
+      "name": "チューリップ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 178,
+      "name": "アジサイ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 179,
+      "name": "コスモス",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 180,
+      "name": "スイセン",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 181,
+      "name": "ユリ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 182,
+      "name": "スミレ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 183,
+      "name": "ツバキ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 184,
+      "name": "フジ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 185,
+      "name": "キンモクセイ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "A",
+      "discovered": false
+    },
+    {
+      "no": 186,
+      "name": "モミジ",
+      "categoryId": "plant",
+      "typeId": "tree",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 187,
+      "name": "イチョウ",
+      "categoryId": "plant",
+      "typeId": "tree",
+      "attribute": "mori",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 188,
+      "name": "タケ",
+      "categoryId": "plant",
+      "typeId": "grass",
+      "attribute": "mori",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 189,
+      "name": "ススキ",
+      "categoryId": "plant",
+      "typeId": "grass",
+      "attribute": "mori",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 190,
+      "name": "ナノハナ",
+      "categoryId": "plant",
+      "typeId": "flower",
+      "attribute": "mori",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 191,
+      "name": "マツタケ",
+      "categoryId": "plant",
+      "typeId": "mushroom",
+      "attribute": "kodama",
+      "rarity": "S",
+      "discovered": false
+    },
+    {
+      "no": 192,
+      "name": "シメジ",
+      "categoryId": "plant",
+      "typeId": "mushroom",
+      "attribute": "kodama",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 193,
+      "name": "エノキタケ",
+      "categoryId": "plant",
+      "typeId": "mushroom",
+      "attribute": "kodama",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 194,
+      "name": "マイタケ",
+      "categoryId": "plant",
+      "typeId": "mushroom",
+      "attribute": "kodama",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 195,
+      "name": "ナメコ",
+      "categoryId": "plant",
+      "typeId": "mushroom",
+      "attribute": "kodama",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 196,
+      "name": "クリ",
+      "categoryId": "plant",
+      "typeId": "nut",
+      "attribute": "kodama",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 197,
+      "name": "クルミ",
+      "categoryId": "plant",
+      "typeId": "nut",
+      "attribute": "kodama",
+      "rarity": "B",
+      "discovered": false
+    },
+    {
+      "no": 198,
+      "name": "リンゴ",
+      "categoryId": "plant",
+      "typeId": "fruit",
+      "attribute": "kodama",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 199,
+      "name": "イチゴ",
+      "categoryId": "plant",
+      "typeId": "fruit",
+      "attribute": "kodama",
+      "rarity": "C",
+      "discovered": false
+    },
+    {
+      "no": 200,
+      "name": "四つ葉のクローバー",
+      "categoryId": "plant",
+      "typeId": "grass",
+      "attribute": "mori",
+      "rarity": "SS",
+      "discovered": false
     }
-      ]
+  ]
 }
