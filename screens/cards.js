@@ -3,7 +3,7 @@
 // カード一覧画面
 // =====================================
 
-import { getSave, update } from "../system/storage.js";
+import { getSave } from "../system/storage.js";
 
 export function showCards(screen) {
     const save = getSave();
@@ -210,13 +210,6 @@ const photos = card.photos || [];
     <p>${description}</p>
 </div>
 
-<button
-    type="button"
-    class="favorite-card-button"
-    id="favoriteCardButton"
->
-    ⭐ お気に入りに登録
-</button>
 
             <div class="large-card-owner">
                 発見者：${owner}
@@ -224,23 +217,6 @@ const photos = card.photos || [];
         </article>
     `;
 
-    const favoriteButton =
-    content.querySelector("#favoriteCardButton");
-
-favoriteButton?.addEventListener(
-    "click",
-    () => {
-        update(saveData => {
-            saveData.favoriteCardNo =
-                Number(card.no);
-        });
-
-        favoriteButton.textContent =
-            "⭐ お気に入り登録済み";
-
-        favoriteButton.disabled = true;
-    }
-);
 
     modal.hidden = false;
     document.body.classList.add("card-modal-open");
