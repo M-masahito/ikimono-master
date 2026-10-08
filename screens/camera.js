@@ -1622,6 +1622,45 @@ function createCreatureImageHtml(
 // 候補データを整える
 // =====================================
 
+// =======================================
+// AI候補表示用・本物写真
+// =======================================
+
+function createCandidatePhotoHtml(candidate) {
+
+    const creatureNo =
+        String(candidate?.no ?? "")
+            .padStart(3, "0");
+
+    const creatureName =
+        escapeHtml(
+            candidate?.name ?? "生き物"
+        );
+
+    const photoPath =
+        `/assets/photos/${creatureNo}.jpg`;
+
+    const illustrationPath =
+        candidate?.illustration ?? "";
+
+    return `
+        <img
+            src="${photoPath}"
+            alt="${creatureName}"
+            style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            "
+            onerror="
+                this.onerror=null;
+                this.src='${illustrationPath}';
+                this.style.objectFit='contain';
+            "
+        />
+    `;
+}
+
 function normalizeCandidates(candidates) {
 
     if (!Array.isArray(candidates)) {
@@ -1873,8 +1912,7 @@ function showCandidates({
                         <div class="candidate-illustration-area">
 
                             <span class="candidate-illustration">
-                              ${createCreatureImageHtml(candidate)}                            </span>
-
+${createCandidatePhotoHtml(candidate)}
                         </div>
 
                         <div class="candidate-name-area">

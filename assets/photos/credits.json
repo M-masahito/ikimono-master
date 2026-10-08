@@ -1,0 +1,92 @@
+[
+  {
+    "no": "001",
+    "name": "カブトムシ",
+    "scientific": "Trypoxylus dichotomus",
+    "file": "001.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Gombe at Japanese Wikipedia",
+    "source": "https://commons.wikimedia.org/wiki/File:Kabutomushi-JapaneseBeetle-July2004.jpg"
+  },
+  {
+    "no": "002",
+    "name": "ノコギリクワガタ",
+    "scientific": "Prosopocoilus inclinatus",
+    "file": "002.jpg",
+    "license": "Public domain",
+    "artist": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Beetle.jpeg"
+  },
+  {
+    "no": "003",
+    "name": "コクワガタ",
+    "scientific": "Dorcus rectus",
+    "file": "003.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Σ64",
+    "source": "https://commons.wikimedia.org/wiki/File:Dorcus_rectus_01.JPG"
+  },
+  {
+    "no": "004",
+    "name": "ミヤマクワガタ",
+    "scientific": "Lucanus maculifemoratus",
+    "file": "004.jpg",
+    "license": "CC BY-SA 2.5",
+    "artist": "Shawn Hanrahan",
+    "source": "https://commons.wikimedia.org/wiki/File:Lucanus_maculifemoratus_maculifemoratus_sjh.jpg"
+  },
+  {
+    "no": "005",
+    "name": "オオクワガタ",
+    "scientific": "Dorcus hopei binodulosus",
+    "file": "005.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "keusju",
+    "source": "https://commons.wikimedia.org/wiki/File:Dorcushopeibinodulosus.JPG"
+  },
+  {
+    "no": "006",
+    "name": "アブラゼミ",
+    "scientific": "Graptopsaltria nigrofuscata",
+    "file": "006.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "池田正樹",
+    "source": "https://commons.wikimedia.org/wiki/File:Large_Brown_Cicada_23aug12.jpg"
+  },
+  {
+    "no": "007",
+    "name": "クマゼミ",
+    "scientific": "Cryptotympana facialis",
+    "file": "007.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Alpsdake",
+    "source": "https://commons.wikimedia.org/wiki/File:Cryptotympana_facialis_02s.JPG"
+  },
+  {
+    "no": "008",
+    "name": "ニイニイゼミ",
+    "scientific": "Platypleura kaempferi",
+    "file": "008.png",
+    "license": "CC BY-SA 3.0",
+    "artist": "Namazu-tron",
+    "source": "https://commons.wikimedia.org/wiki/File:Platypleura_kaempferi_(NiiNii_cicada).png"
+  },
+  {
+    "no": "009",
+    "name": "オニヤンマ",
+    "scientific": "Anotogaster sieboldii",
+    "file": "009.jpg",
+    "license": "Public domain",
+    "artist": "Brian Adler 13:30, 28 June 2007 (UTC)",
+    "source": "https://commons.wikimedia.org/wiki/File:Anotogaster_sieboldii_in_hand.jpg"
+  },
+  {
+    "no": "010",
+    "name": "シオカラトンボ",
+    "scientific": "Orthetrum albistylum",
+    "file": "010.jpg",
+    "license": "CC BY 2.0",
+    "artist": "Thomas Bresson",
+    "source": "https://commons.wikimedia.org/wiki/File:Orthetrum_albistylum_(1).jpg"
+  }
+]
