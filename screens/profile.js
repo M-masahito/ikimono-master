@@ -79,23 +79,108 @@ export function showProfile(screen) {
 
 
     // =======================================
-    // スピリア画像
+    // スピリア画像・名前
     // =======================================
 
     const spiriaImage =
         stageData?.image ??
         "./assets/spiria/spiria_base.png";
 
-
-    // =======================================
-    // スピリア名
-    // 「幼体」などではなく本体名を表示
-    // =======================================
-
     const spiriaName =
         equippedSpiriaData?.name ??
         stageData?.title ??
         "ふしぎなスピリア";
+
+
+    // =======================================
+    // お気に入りカード
+    // =======================================
+
+    const favoriteCardNo =
+        Number(save.favoriteCardNo);
+
+    const cards =
+        Array.isArray(save.cards)
+            ? save.cards
+            : [];
+
+    const favoriteCard =
+        Number.isFinite(favoriteCardNo)
+            ? cards.find(
+                card =>
+                    Number(card?.no) ===
+                    favoriteCardNo
+            )
+            : null;
+
+
+    // =======================================
+    // お気に入りカード表示
+    // =======================================
+
+    let favoriteCardHtml = `
+        <div class="profile-favorites-empty">
+            まだ登録されていません
+        </div>
+    `;
+
+    if (favoriteCard) {
+
+        const favoriteNo =
+            String(
+                favoriteCard.no
+            ).padStart(3, "0");
+
+        const favoriteName =
+            favoriteCard.name ||
+            "なまえ不明";
+
+        const favoriteRarity =
+            favoriteCard.rarity ||
+            "C";
+
+        const favoriteImage =
+            `assets/cards/creatures/${favoriteNo}.png`;
+
+        favoriteCardHtml = `
+            <div class="profile-favorite-card">
+
+                <div class="profile-favorite-card-image">
+                    <img
+                        src="${favoriteImage}"
+                        alt="${favoriteName}"
+                        onerror="
+                            this.style.display='none';
+                            this.nextElementSibling.style.display='flex';
+                        "
+                    >
+
+                    <div
+                        class="profile-favorite-card-placeholder"
+                    >
+                        🌱
+                    </div>
+                </div>
+
+                <div class="profile-favorite-card-info">
+
+                    <span>
+                        No.${favoriteNo}
+                    </span>
+
+                    <strong>
+                        ${favoriteName}
+                    </strong>
+
+                    <small>
+                        ${favoriteRarity}
+                    </small>
+
+                </div>
+
+            </div>
+        `;
+    }
 
 
     // =======================================
@@ -132,7 +217,6 @@ export function showProfile(screen) {
 
             <div class="profile-top">
 
-
                 <!-- 現在のスピリア -->
 
                 <div class="profile-spiria">
@@ -162,7 +246,6 @@ export function showProfile(screen) {
                         自分のプロフィール
                     </h3>
 
-
                     <div class="profile-name">
 
                         <span>
@@ -175,7 +258,6 @@ export function showProfile(screen) {
 
                     </div>
 
-
                     <div class="profile-stats">
 
                         <div>
@@ -187,7 +269,6 @@ export function showProfile(screen) {
                                 ${discoveryCount}
                             </strong>
                         </div>
-
 
                         <div>
                             <span>
@@ -216,9 +297,7 @@ export function showProfile(screen) {
                     ⭐ お気に入りカード
                 </h3>
 
-                <div class="profile-favorites-empty">
-                    まだ登録されていません
-                </div>
+                ${favoriteCardHtml}
 
             </section>
 
@@ -244,7 +323,6 @@ export function showProfile(screen) {
 
                 </div>
 
-
                 <div class="profile-friend-buttons">
 
                     <button
@@ -267,7 +345,9 @@ export function showProfile(screen) {
     // =======================================
 
     const backButton =
-        screen.querySelector("#profileBackButton");
+        screen.querySelector(
+            "#profileBackButton"
+        );
 
     backButton?.addEventListener(
         "click",
