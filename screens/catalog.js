@@ -88,16 +88,7 @@ export function showCatalog(screen) {
 const discoveredNumbers =
     getDiscoveredNumbers(save);
 
-const catalogLevel =
-    getCatalogLevel(
-        discoveredNumbers.length
-    );
-
-const unlockedMaxNo =
-    getUnlockedMaxNo(
-        catalogLevel
-    );
-
+const unlockedMaxNo = 200;
 const allCatalog =
     Array.isArray(window.MASTER?.encyclopedia)
         ? window.MASTER.encyclopedia
@@ -861,9 +852,12 @@ console.log(
 );
 const savedEmblem =
     savedEmblems.find(
-        e => e.id === emblemId
+        e =>
+            e.id === emblemId ||
+            e.typeId === emblemId ||
+            e.id === emblem?.typeId ||
+            e.typeId === emblem?.typeId
     );
-
 console.log(
     "取得済みエンブレム:",
     savedEmblem
@@ -1069,8 +1063,10 @@ function drawCatalog({
             ...item,
             ...savedCard,
             description:
-                savedCard.description ||
-                `${savedCard.name}の特徴や見つかる場所、季節などを表示します。`
+                                savedCard.description ||
+                item.description ||
+                item.text ||
+                ""
         }
         : item;
 
@@ -1341,7 +1337,7 @@ export function createCatalogCard({
 
 const image = found
     ? `./assets/cards/creatures/${creatureNo}.png`
-    : `../assets/cards/creatures/${creatureNo}.png`;
+    : `./assets/photos/${creatureNo}.jpg`;
 
 card.innerHTML = `
 
@@ -1399,7 +1395,7 @@ ${
 }
 
             <img
-                src="${found ? image : './assets/spiria/spirit_egg.png'}"
+src="${image}"
                 alt="${found ? item.name : '未発見の生き物'}"
                 loading="lazy"
                 class="${
@@ -1432,7 +1428,7 @@ ${found ? `
 
     <div class="catalog-info-text">
         <span class="catalog-info-label">発見者</span>
-        <strong>いきものマスター</strong>
+        <strong>${escapeHtml(save?.playerName || "いきものマスター")}</strong>
     </div>
 
 </div>
@@ -1586,199 +1582,128 @@ function showUnknownDetail(item){
 // 発見済みカードの詳細
 // =====================================
 
-function showDetail(item){
+function showDetail(item) {
 
-    const overlay =
-        document.createElement("div");
+    const save = getSave();
 
-    overlay.className =
-        "catalog-detail-overlay";
-
-   const realImage =
-    getSafeImage(
-        item?.photo,
-        item?.realImage,
-        item?.image
+    const savedCard = save.discoveredCards.find(
+        card => Number(card?.no) === Number(item?.no)
     );
 
-   const illustrationImage =
-    getSafeImage(
-        item?.cardImage,
-        item?.illustration,
-        item?.image
-    );
+    const recordedCount = Number(savedCard?.ownedCount);
+
+    const ownedCount = Number.isFinite(recordedCount)
+        ? Math.min(10, Math.max(1, Math.floor(recordedCount)))
+        : 1;
+
+    const overlay = document.createElement("div");
+
+    overlay.className = "catalog-detail-overlay";
 
     overlay.innerHTML = `
-
-        <div class="catalog-detail-panel">
-
+        <div
+            class="catalog-detail-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="${escapeAttribute(item?.name ?? "カード詳細")}"
+        >
             <button
                 type="button"
                 class="catalog-detail-close"
                 aria-label="閉じる"
-            >
-                ×
-            </button>
-
-            <div class="catalog-detail-header">
-
-                <div class="catalog-detail-number">
-
-                    No.${String(item?.no ?? "")
-                        .padStart(3,"0")}
-
-                </div>
-
-                <div
-                    class="
-                        catalog-detail-rarity
-                        rarity-${String(
-                            item?.rarity ?? "C"
-                        ).toLowerCase()}
-                    "
-                >
-
-                    ${rarityText(item?.rarity)}
-
-                </div>
-
-            </div>
+            >×</button>
 
             <h2 class="catalog-detail-name">
-
-                ${escapeHtml(
-                    item?.name ?? "名前なし"
-                )}
-
+                ${escapeHtml(item?.name ?? "名前なし")}
             </h2>
 
-            <div class="catalog-detail-images">
+            <div
+                class="catalog-detail-full-card"
+                style="width:min(100%,320px);margin:20px auto;"
+            ></div>
 
-                <div class="catalog-detail-image-box">
-
-                    <span class="catalog-detail-image-label">
-
-                        ほんもの
-
-                    </span>
-
-                    <img
-                        src="${escapeAttribute(realImage)}"
-                        alt="${escapeAttribute(
-                            item?.name ?? "生き物"
-                        )}の写真"
-                        onerror="
-                            this.onerror=null;
-                            this.src='${DEFAULT_IMAGE}';
-                        "
-                    >
-
-                </div>
-
-                <div class="catalog-detail-image-box">
-
-                    <span class="catalog-detail-image-label">
-
-                        カード
-
-                    </span>
-
-                    <img
-                        src="${escapeAttribute(
-                            illustrationImage
-                        )}"
-                        alt="${escapeAttribute(
-                            item?.name ?? "生き物"
-                        )}のイラスト"
-                        onerror="
-                            this.onerror=null;
-                            this.src='${DEFAULT_IMAGE}';
-                        "
-                    >
-
-                </div>
-
-            </div>
-
-            <div class="catalog-detail-tags">
-
-                <span class="catalog-detail-tag">
-
-                    ${escapeHtml(
-                        item?.category ?? "その他"
-                    )}
-
-                </span>
-
-                ${
-                    item?.type
-
-                    ?`
-
-                        <span class="catalog-detail-tag">
-
-                            ${escapeHtml(item.type)}
-
-                        </span>
-
-                    `
-
-                    :""
-                }
-
-            </div>
+            <p style="
+                text-align:center;
+                font-size:20px;
+                font-weight:bold;
+                color:#28513b;
+            ">
+                🎴 所持カード ${ownedCount} / 10枚
+            </p>
 
             <div class="catalog-detail-description">
-
-                <h3>
-                    どんないきもの？
-                </h3>
-
-                <p>
-
-                    ${escapeHtml(
-                        item?.description ??
-                        item?.text ??
-                        "まだ説明は登録されていません。"
-                    )}
-
-                </p>
-
+                <h3>どんないきもの？</h3>
+                <p style="white-space:pre-line;">${escapeHtml(
+                    item?.description ||
+                    item?.text ||
+                    "この生き物の説明は、まだ登録されていません。"
+                )}</p>
             </div>
 
-            ${createDetailInformation(item)}
-
+            <div class="catalog-detail-info">
+                ${detailRow(
+                    "図鑑番号",
+                    String(item?.no ?? "").padStart(3, "0")
+                )}
+                ${detailRow("タイプ", getTypeName(item))}
+                ${detailRow("レア度", rarityText(item?.rarity))}
+                ${detailRow(
+                    "発見者",
+                    save.playerName || "いきものマスター"
+                )}
+            </div>
         </div>
-
     `;
 
+    // 図鑑と同じカード全体を大きく表示
+    const originalCard = createCatalogCard({
+        item,
+        found: true,
+        save
+    });
+
+    const largeCard = document.createElement("div");
+
+    largeCard.className = originalCard.className;
+    largeCard.innerHTML = originalCard.innerHTML;
+    largeCard.style.width = "100%";
+    largeCard.style.cursor = "default";
+
+    overlay.querySelector(
+        ".catalog-detail-full-card"
+    ).appendChild(largeCard);
+
+    const previousFocus = document.activeElement;
+
+    function close() {
+        document.removeEventListener("keydown", onKeydown);
+        overlay.remove();
+        previousFocus?.focus?.();
+    }
+
+    function onKeydown(event) {
+        if (event.key === "Escape") {
+            close();
+        }
+    }
+
+    overlay.querySelector(
+        ".catalog-detail-close"
+    ).addEventListener("click", close);
+
+    overlay.addEventListener("click", event => {
+        if (event.target === overlay) {
+            close();
+        }
+    });
+
+    document.addEventListener("keydown", onKeydown);
     document.body.appendChild(overlay);
 
-    const closeButton =
-        overlay.querySelector(
-            ".catalog-detail-close"
-        );
-
-    closeButton?.addEventListener(
-        "click",
-        ()=>{
-            overlay.remove();
-        }
-    );
-
-    overlay.addEventListener(
-        "click",
-        event=>{
-
-            if(event.target===overlay){
-                overlay.remove();
-            }
-
-        }
-    );
-
-}
-// =====================================
+    overlay.querySelector(
+        ".catalog-detail-close"
+    ).focus();
+}// =====================================
 // PART4
 // 詳細情報・共通関数
 // =====================================
@@ -2396,8 +2321,8 @@ function addCatalogStyles(){
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) !important;
-    filter: brightness(0.55) saturate(0.65);
-    opacity: 0.85;
+filter: brightness(1) grayscale(1) !important;
+opacity: 1;
 }
             .catalog-card-back{
             display:flex;
