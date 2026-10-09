@@ -829,6 +829,120 @@
       "image": "./assets/emblems/badges/shell_gold.png"
     }
   ]
+},
+
+{
+  "id": "raptor",
+  "typeId": "raptor",
+  "name": "猛禽類",
+  "attribute": "sora",
+  "spiriaValue": 3,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/raptor_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "requiredAttribute": "sora",
+      "requiredAttributeCount": 10,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/raptor_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "requiredAttribute": "sora",
+      "requiredAttributeCount": 20,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/raptor_gold.png"
+    }
+  ]
+},
+{
+  "id": "swallow",
+  "typeId": "swallow",
+  "name": "ツバメ",
+  "attribute": "sora",
+  "spiriaValue": 3,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/swallow_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 2,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/swallow_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/swallow_gold.png"
+    }
+  ]
+},
+{
+  "id": "whale",
+  "typeId": "whale",
+  "name": "クジラ",
+  "attribute": "mizu",
+  "spiriaValue": 3,
+  "stages": [
+    {
+      "stage": 1,
+      "rank": "bronze",
+      "rankName": "銅",
+      "requiredCount": 1,
+      "spiria": true,
+      "spiriaStage": 1,
+      "image": "./assets/emblems/badges/whale_bronze.png"
+    },
+    {
+      "stage": 2,
+      "rank": "silver",
+      "rankName": "銀",
+      "requiredCount": 3,
+      "spiria": true,
+      "spiriaStage": 2,
+      "image": "./assets/emblems/badges/whale_silver.png"
+    },
+    {
+      "stage": 3,
+      "rank": "gold",
+      "rankName": "金",
+      "requiredCount": 5,
+      "spiria": true,
+      "spiriaStage": 3,
+      "image": "./assets/emblems/badges/whale_gold.png"
+    }
+  ]
 }
+
   ]
 }
