@@ -5503,8 +5503,8 @@ window.IKIMONO_DATA = [
 
 (function () {
   const catalogData = Array.isArray(window.IKIMONO_DATA) ? window.IIKIMONO_DATA : [];
-  const catalogEntries = catalogData.slice(0, 100).sort((a, b) => Number(a.no) - Number(b.no));
-  window.IKIMONO_DATA = catalogEntries;
+const catalogEntries = catalogData.slice(0, 700).sort((a, b) =>
+    window.IKIMONO_DATA = catalogEntries;
 
   function getDiscoveries() {
     try {

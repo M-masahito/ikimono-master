@@ -2433,7 +2433,7 @@ if (resetTestSaveButton) {
                         return (
                             Number.isFinite(no) &&
                             no >= 1 &&
-                            no <= 100
+                            no <= 700
                         );
                     })
                     .sort(
