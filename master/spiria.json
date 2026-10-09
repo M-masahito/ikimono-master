@@ -353,6 +353,70 @@
       "image": "./assets/spiria/spiria_shell_stage1.png"
     }
   ]
+},
+
+{
+  "id": "raptor",
+  "name": "猛禽類スピリア",
+  "attribute": "sora",
+  "typeId": "raptor",
+  "unlockCounts": [1, 2, 3],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "猛禽類スピリア",
+      "image": "./assets/spiria/spiria_raptor_stage1.png"
+    },
+    {
+      "stage": 2,
+      "title": "猛禽類スピリア Stage2",
+      "image": "./assets/spiria/spiria_raptor_stage2.png"
+    },
+    {
+      "stage": 3,
+      "title": "猛禽類スピリア Stage3",
+      "image": "./assets/spiria/spiria_raptor_stage3.png"
+    }
+  ]
+},
+{
+  "id": "swallow",
+  "name": "ツバメスピリア",
+  "attribute": "sora",
+  "typeId": "swallow",
+  "unlockCounts": [1],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "ツバメスピリア",
+      "image": "./assets/spiria/spiria_swallow_stage1_official.png"
+    }
+  ]
+},
+{
+  "id": "whale",
+  "name": "クジラスピリア",
+  "attribute": "mizu",
+  "typeId": "whale",
+  "unlockCounts": [1, 3, 5],
+  "stages": [
+    {
+      "stage": 1,
+      "title": "クジラスピリア",
+      "image": "./assets/spiria/spiria_whale_stage1.png"
+    },
+    {
+      "stage": 2,
+      "title": "クジラスピリア Stage2",
+      "image": "./assets/spiria/spiria_whale_stage2.png"
+    },
+    {
+      "stage": 3,
+      "title": "クジラスピリア Stage3",
+      "image": "./assets/spiria/spiria_whale_stage3.png"
+    }
+  ]
 }
+
   ]
 }
