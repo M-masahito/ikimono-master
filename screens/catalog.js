@@ -62,12 +62,37 @@ const EMBLEM_TEST_ITEMS = [
         stoneRanks: []
     },
     {
-        id: "karasu",
-        name: "カラス",
-        attribute: "sora",
-        attributeName: "そら",
-        stoneRanks: []
-    },
+    id: "karasu",
+    name: "カラス",
+    attribute: "sora",
+    attributeName: "そら",
+    stoneRanks: ["bronze", "silver"]
+},,
+
+{
+    id: "raptor",
+    name: "猛禽類",
+    attribute: "sora",
+    attributeName: "そら",
+    stoneRanks: ["bronze", "silver", "gold"]
+},
+
+{
+    id: "swallow",
+    name: "ツバメ",
+    attribute: "sora",
+    attributeName: "そら",
+    stoneRanks: ["bronze", "silver", "gold"]
+},
+
+{
+    id: "whale",
+    name: "クジラ",
+    attribute: "mizu",
+    attributeName: "みず",
+    stoneRanks: ["bronze", "silver", "gold"]
+},
+
     {
         id: "ookami",
         name: "オオカミ",

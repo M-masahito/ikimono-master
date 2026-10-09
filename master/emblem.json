@@ -704,7 +704,7 @@
       "requiredCount": 1,
       "spiria": true,
       "spiriaStage": 1,
-      "image": "./assets/emblems/badges/karasu_bronze.png"
+      "image": "./assets/emblems/badges/crow_bronze.png"
     },
     {
       "stage": 2,
@@ -713,7 +713,7 @@
       "requiredCount": 2,
       "spiria": true,
       "spiriaStage": 2,
-      "image": "./assets/emblems/badges/karasu_silver.png"
+      "image": "./assets/emblems/badges/crow_silver.png"
     },
     {
       "stage": 3,
@@ -721,7 +721,7 @@
       "rankName": "金",
       "requiredCount": 3,
       "spiria": false,
-      "image": "./assets/emblems/badges/karasu_gold.png"
+      "image": "./assets/emblems/badges/crow_gold.png"
     }
   ]
 },
