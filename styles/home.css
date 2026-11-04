@@ -783,3 +783,23 @@ max-height: none !important;
     pointer-events: auto !important;
     cursor: pointer;
 }
+
+/* ホーム画面のバランス調整 */
+.forest-garden-home .forest-friend-button,
+.forest-garden-home .forest-quest-button,
+.forest-garden-home .forest-treasure-button,
+.forest-garden-home .forest-settings-button {
+    top: 48px !important;
+}
+
+#gardenChestDecoration,
+#gardenChestDecoration img {
+    width: 110px !important;
+    height: 110px !important;
+}
+
+#gardenBoardDecoration,
+#gardenBoardDecoration img {
+    width: 130px !important;
+    height: 190px !important;
+}
