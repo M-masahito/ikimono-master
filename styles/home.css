@@ -502,3 +502,284 @@
 .profile-edit-button {
     display: none !important;
 }
+
+/* ホーム上部の4つのアイコン */
+.forest-garden-home .forest-friend-button,
+.forest-garden-home .forest-quest-button,
+.forest-garden-home .forest-treasure-button,
+.forest-garden-home .forest-settings-button {
+    position: absolute !important;
+    top: 16px !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 30;
+
+    width: 70px;
+    height: 70px;
+    padding: 0;
+
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 左から、なかま・クエスト・宝箱・設定 */
+.forest-garden-home .forest-friend-button {
+    left: calc(50% - 112px) !important;
+}
+
+.forest-garden-home .forest-quest-button {
+    left: calc(50% - 52px) !important;
+    font-size: 32px;
+}
+
+.forest-garden-home .forest-treasure-button {
+    left: calc(50% + 8px) !important;
+}
+
+.forest-garden-home .forest-settings-button {
+    left: calc(50% + 68px) !important;
+}
+
+.forest-garden-home .forest-friend-button img,
+.forest-garden-home .forest-treasure-button img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+}
+
+.forest-garden-home .forest-settings-button span {
+    font-size: 27px;
+}
+
+/* 上のアイコンを下メニューみたいに大きくする */
+.forest-garden-home .forest-friend-button,
+.forest-garden-home .forest-quest-button,
+.forest-garden-home .forest-treasure-button,
+.forest-garden-home .forest-settings-button {
+    width: 76px !important;
+    height: 76px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* フレンド・宝箱の絵を大きく */
+.forest-garden-home .forest-friend-button img,
+.forest-garden-home .forest-treasure-button img {
+    width: 72px !important;
+    height: 72px !important;
+}
+
+/* クエストの巻物 */
+.forest-garden-home .forest-quest-button {
+    font-size: 58px !important;
+}
+
+/* 4つを横並びにする */
+.forest-garden-home .forest-friend-button {
+    left: calc(50% - 152px) !important;
+}
+.forest-garden-home .forest-quest-button {
+    left: calc(50% - 76px) !important;
+}
+.forest-garden-home .forest-treasure-button {
+    left: 50% !important;
+}
+.forest-garden-home .forest-settings-button {
+    left: calc(50% + 76px) !important;
+}
+
+.forest-garden-home .forest-quest-button img {
+    width: 72px !important;
+    height: 72px !important;
+    object-fit: contain !important;
+    display: block;
+}
+
+/* 上の4つのアイコンの大きさと間隔を調整 */
+.forest-garden-home .forest-friend-button,
+.forest-garden-home .forest-quest-button,
+.forest-garden-home .forest-treasure-button,
+.forest-garden-home .forest-settings-button {
+    width: 92px !important;
+    height: 92px !important;
+}
+
+.forest-garden-home .forest-friend-button img,
+.forest-garden-home .forest-quest-button img,
+.forest-garden-home .forest-treasure-button img {
+    width: 90px !important;
+    height: 90px !important;
+    object-fit: contain !important;
+}
+
+.forest-garden-home .forest-settings-button span {
+    font-size: 42px !important;
+}
+
+.forest-garden-home .forest-friend-button {
+    left: calc(50% - 176px) !important;
+}
+
+.forest-garden-home .forest-quest-button {
+    left: calc(50% - 88px) !important;
+}
+
+.forest-garden-home .forest-treasure-button {
+    left: 50% !important;
+}
+
+.forest-garden-home .forest-settings-button {
+    left: calc(50% + 88px) !important;
+}
+
+/* 上の4アイコンをホーム画面の幅に合わせて均等配置 */
+.forest-garden-home .forest-friend-button {
+    left: 12.5% !important;
+    transform: translateX(-50%);
+}
+
+.forest-garden-home .forest-quest-button {
+    left: 37.5% !important;
+    transform: translateX(-50%);
+}
+
+.forest-garden-home .forest-treasure-button {
+    left: 62.5% !important;
+    transform: translateX(-50%);
+}
+
+.forest-garden-home .forest-settings-button {
+    left: 87.5% !important;
+    transform: translateX(-50%);
+}
+
+.forest-garden-home .forest-treasure-button img {
+    width: 104px !important;
+    height: 104px !important;
+}
+
+.forest-garden-home .forest-settings-button span {
+    font-size: 52px !important;
+}
+
+/* 庭に置いた宝箱と掲示物のサイズ調整 */
+.forest-garden-home .forest-garden-world .garden-decoration {
+    position: absolute !important;
+    z-index: 5 !important;
+    width: 76px !important;
+    height: 76px !important;
+    pointer-events: none;
+}
+
+.forest-garden-home .forest-garden-world .garden-decoration img {
+    display: block !important;
+    width: 76px !important;
+    height: 76px !important;
+    max-width: 76px !important;
+    max-height: 76px !important;
+    object-fit: contain !important;
+}
+
+.forest-garden-home .forest-garden-world .garden-chest-decoration {
+    left: 3% !important;
+    top: 57% !important;
+}
+
+.forest-garden-home .forest-garden-world .garden-board-decoration {
+    left: 68% !important;
+    top: 43% !important;
+}
+
+/* 庭の宝箱と掲示板 */
+.forest-garden-home .forest-garden-world .garden-chest-decoration {
+    left: 3% !important;
+    top: 61% !important;
+    width: 120px !important;
+    height: 120px !important;
+    z-index: 1 !important;
+}
+
+.forest-garden-home .forest-garden-world .garden-chest-decoration img {
+    width: 120px !important;
+    height: 120px !important;
+}
+
+.forest-garden-home .forest-garden-world .garden-board-decoration {
+    left: 64% !important;
+    top: 38% !important;
+    width: 160px !important;
+    height: 240px !important;
+    z-index: 1 !important;
+}
+
+.forest-garden-home .forest-garden-world .garden-board-decoration img {
+    width: 160px !important;
+    height: 240px !important;
+}
+
+/* スピリアを飾りより手前に表示 */
+.forest-garden-home .forest-garden-world .forest-spirit-zone {
+    z-index: 2 !important;
+}
+
+#gardenChestDecoration {
+    width: 140px !important;
+    height: 140px !important;
+    z-index: 1 !important;
+}
+
+#gardenChestDecoration img {
+    width: 140px !important;
+    height: 140px !important;
+}
+
+#gardenBoardDecoration {
+    width: 150px !important;
+    height: 225px !important;
+    z-index: 1 !important;
+}
+
+#gardenBoardDecoration img {
+    width: 150px !important;
+    height: 225px !important;
+}
+
+#gardenChestDecoration {
+    width: 180px !important;
+    height: 180px !important;
+    z-index: 1 !important;
+}
+
+#gardenChestDecoration img {
+    width: 120% !important;
+    height: 200% !important;
+    object-fit: contain;
+    max-width: none !important;
+max-height: none !important;
+}
+
+#gardenBoardDecoration {
+    width: 200px !important;
+    height: 270px !important;
+    z-index: 1 !important;
+}
+
+#gardenBoardDecoration img {
+    width: 130% !important;
+    height: 130% !important;
+    object-fit: contain;
+    max-width: none !important;
+max-height: none !important;
+}
+
+#gardenChestDecoration,
+#gardenBoardDecoration {
+    pointer-events: auto !important;
+    cursor: pointer;
+}

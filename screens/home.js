@@ -192,12 +192,45 @@ if (
 >
             </button>
 
+           <button
+    id="questButton"
+    class="forest-quest-button"
+    type="button"
+    aria-label="クエスト"
+>
+<img
+    src="./assets/ui/nav/quest-scroll.png"
+    alt="クエスト"
+>
+</button> 
+
+            <button
+    id="treasureButton"
+    class="forest-treasure-button"
+    type="button"
+    aria-label="宝箱"
+>
+    <img
+        src="./assets/ui/nav/treasure-chest.png"
+        alt="宝箱"
+
+    >
+</button>
+
             <div
                 class="forest-world forest-garden-world"
             >
                 <div
                     class="forest-sunlight"
                 ></div>
+
+<div id="gardenChestDecoration" class="garden-decoration garden-chest-decoration">
+    <img src="./assets/ui/nav/treasure-chest.png" alt="">
+</div>
+
+<div id="gardenBoardDecoration" class="garden-decoration garden-board-decoration">
+<img src="./assets/ui/nav/exec-4217ae71-7282-4ab0-8f77-c97eba2fb739.png" alt="">
+</div>
 
                 <div
                     class="forest-spirit-zone"
@@ -328,6 +361,26 @@ spiriaName:
             openScreen("friend");
         }
     );
+
+    const treasureButton =
+    screen.querySelector("#treasureButton");
+
+treasureButton?.addEventListener("click", () => {
+    openScreen("treasure");
+});
+
+const questButton =
+    screen.querySelector("#questButton");
+
+questButton?.addEventListener("click", () => {
+    openScreen("quest");
+});
+
+screen.querySelector("#gardenChestDecoration")
+    ?.addEventListener("click", () => openScreen("treasure"));
+
+screen.querySelector("#gardenBoardDecoration")
+    ?.addEventListener("click", () => openScreen("quest"));
 
     // =================================
     // 設定ボタン
